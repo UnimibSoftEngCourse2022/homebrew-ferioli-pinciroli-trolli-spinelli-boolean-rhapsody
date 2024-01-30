@@ -1,4 +1,4 @@
-name: SonarCloud
+name: AndroidWithSonar
 on:
   push:
     branches: [ "main", "development" ]
@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: 17
-          distribution: 'zulu' # Alternative distribution options are available
+          distribution: 'temurin'
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
@@ -30,7 +30,7 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
-      - name: Change wrapper permissions
+      - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
       - name: Build and analyze
         env:
