@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/fragmentListaRicette"
+        android:enabled="true"
+        android:title="@string/lista_ricette" />
+    <item
+        android:id="@+id/fragmentBirre"
+        android:enabled="true"
+        android:title="@string/birre"/>
+    <item
+        android:id="@+id/fragmentCreaRicetta"
+        android:enabled="true"
+        android:title="@string/crea_ricetta"/>
+    <item
+        android:id="@+id/fragmentIngredienti"
+        android:enabled="true"
+        android:title="@string/ingredienti"/>
+    <item
+        android:id="@+id/fragmentAttrezzi"
+        android:enabled="true"
+        android:title="@string/attrezzi"/>
+</menu>
