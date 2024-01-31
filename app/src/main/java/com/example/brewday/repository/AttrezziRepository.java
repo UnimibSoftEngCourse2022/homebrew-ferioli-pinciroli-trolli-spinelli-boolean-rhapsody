@@ -21,10 +21,10 @@ public class AttrezziRepository {
             List<Attrezzo> allAttrezzi = attrezziDao.getAll();
 
             if(allAttrezzi != null) {
-                callback.onSuccess(new Result.AttrezziSuccess(allAttrezzi));
+                callback.onComplete(new Result.AttrezziSuccess(allAttrezzi));
             }
             else {
-                callback.onFailure(new Exception("Impossibile leggere gli attrezzi dal DB"));
+                callback.onComplete(new Result.Errore(new Exception("Errore nel caricamento degli attrezzi")));
             }
         });
     }
