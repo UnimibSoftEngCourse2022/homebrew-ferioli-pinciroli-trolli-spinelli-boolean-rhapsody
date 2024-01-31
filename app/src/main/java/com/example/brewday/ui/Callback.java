@@ -5,5 +5,5 @@ import com.example.brewday.model.Result;
 public interface Callback {
 
     void onSuccess(Result result);
-    void onFailure(Exception e);
+    void onFailure(Result.Errore e);
 }
