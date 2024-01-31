@@ -11,7 +11,7 @@ import com.example.brewday.model.Attrezzo;
 import java.util.List;
 
 @Dao
-public interface AttrezziDao {
+public interface AttrezzoDao {
 
     @Query("SELECT * FROM attrezzo")
     List<Attrezzo> getAll();

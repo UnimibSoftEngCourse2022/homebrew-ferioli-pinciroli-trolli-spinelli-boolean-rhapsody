@@ -5,7 +5,7 @@ public enum TipoAttrezzo {
 
     private final String nome;
 
-    private TipoAttrezzo(String nome) {
+    TipoAttrezzo(String nome) {
         this.nome = nome;
     }
 
