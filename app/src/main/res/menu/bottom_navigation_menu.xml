@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/fragmentListaRicette"
+        android:id="@+id/listaRicetteFragment"
         android:enabled="true"
         android:title="@string/lista_ricette" />
     <item
-        android:id="@+id/fragmentBirre"
+        android:id="@+id/birreFragment"
         android:enabled="true"
         android:title="@string/birre"/>
     <item
-        android:id="@+id/fragmentCreaRicetta"
+        android:id="@+id/creaRicettaFragment"
         android:enabled="true"
         android:title="@string/crea_ricetta"/>
     <item
-        android:id="@+id/fragmentIngredienti"
+        android:id="@+id/attrezziFragment"
         android:enabled="true"
-        android:title="@string/ingredienti"/>
+        android:title="@string/attrezzi"
+        />
     <item
-        android:id="@+id/fragmentAttrezzi"
+        android:id="@+id/ingredientiFragment"
         android:enabled="true"
-        android:title="@string/attrezzi"/>
+        android:title="@string/ingredienti"
+        />
 </menu>
