@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.brewday"
+    namespace = "it.unimib.brewday"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.brewday"
+        applicationId = "it.unimib.brewday"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
