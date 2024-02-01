@@ -14,7 +14,7 @@ public interface IngredienteDao {
     @Query("SELECT * FROM Ingrediente ")
     List<Ingrediente> getAll();
 
-    @Update void updateAllIngredienti(List<Ingrediente> Ingredienti);
+    @Update int updateAllIngredienti(List<Ingrediente> Ingredienti);
 
     @Update int updateIngrediente(Ingrediente ingrediente);
 
