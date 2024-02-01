@@ -1,18 +1,19 @@
 plugins {
     id("com.android.application")
+
 }
 
+
 android {
-    namespace = "com.example.brewday"
+    namespace = "it.unimib.brewday"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.brewday"
+        applicationId = "it.unimib.brewday"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -38,4 +39,14 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation("org.mockito:mockito-core:5.10.0")
+    implementation ("androidx.test:core:1.5.0")
+    implementation ("androidx.test:runner:1.5.2")
+    implementation ("androidx.test:rules:1.5.0")
+    implementation ("androidx.test.espresso:espresso-core:3.5.1")
+    implementation ("androidx.test.espresso:espresso-contrib:3.5.1")
+    implementation ("org.mockito:mockito-core: 5.10.0")
+    implementation ("com.google.dexmaker:dexmaker:1.2")
+    implementation ("com.google.dexmaker:dexmaker-mockito:1.2")
+
 }
