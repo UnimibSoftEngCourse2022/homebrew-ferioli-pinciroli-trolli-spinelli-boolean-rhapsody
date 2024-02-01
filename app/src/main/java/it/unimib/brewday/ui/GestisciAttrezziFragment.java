@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.unimib.brewday.R;
+import it.unimib.brewday.R;
 
 public class GestisciAttrezziFragment extends Fragment {
 
