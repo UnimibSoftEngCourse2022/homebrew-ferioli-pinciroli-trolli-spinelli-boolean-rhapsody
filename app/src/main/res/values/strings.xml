@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">BrewDay</string>
-    <string name="aggiungi">Aggiungi</string>
+    <string name="conferma">Conferma</string>
     <string name="aggiungiAttrezzatura_descrizione">Serve per aggiungere un attrezzo</string>
+    <string name="nome_attrezzo">Nome attrezzo</string>
+    <string name="tipologia">Tipologia</string>
+    <string name="capacit">Capacità</string>
+    <string name="inserisci_capacita">Inserisci capacità</string>
+    <string name="inserisci_nome">Inserisci nome</string>
 </resources>

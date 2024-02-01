@@ -18,6 +18,8 @@ public class GestisciAttrezziViewModel extends ViewModel {
     public MutableLiveData<Risultato> updateAttrezzoResult;
     public MutableLiveData<Risultato> deleteAttrezzoResult;
 
+    public MutableLiveData<Boolean> isAddCardVisible;
+
     private final AttrezziRepository attrezziRepository;
 
     public GestisciAttrezziViewModel(Context context) {
@@ -26,6 +28,8 @@ public class GestisciAttrezziViewModel extends ViewModel {
         createAttrezzoResult = new MutableLiveData<>();
         updateAttrezzoResult = new MutableLiveData<>();
         deleteAttrezzoResult = new MutableLiveData<>();
+
+        isAddCardVisible = new MutableLiveData<>(false);
 
         attrezziRepository = ServiceLocator.getInstance().getAttrezziRepository(context);
     }
