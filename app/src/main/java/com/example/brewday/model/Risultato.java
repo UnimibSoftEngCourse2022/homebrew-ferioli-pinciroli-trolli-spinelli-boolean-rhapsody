@@ -2,18 +2,18 @@ package com.example.brewday.model;
 
 import java.util.List;
 
-public abstract class Result {
+public abstract class Risultato {
 
-    private Result() {}
+    private Risultato() {}
 
     public boolean isSuccessful() {
         return this instanceof AttrezziSuccess ||
                 this instanceof Success;
     }
 
-    public static final class Success extends Result{}
+    public static final class Success extends Risultato {}
 
-    public static final class AttrezziSuccess extends Result{
+    public static final class AttrezziSuccess extends Risultato {
         private final List<Attrezzo> attrezzi;
 
         public AttrezziSuccess(List<Attrezzo> attrezzo) {
@@ -25,7 +25,7 @@ public abstract class Result {
         }
     }
 
-    public static final class Errore extends Result {
+    public static final class Errore extends Risultato {
         private final Exception exception;
 
         public Errore(Exception e) {

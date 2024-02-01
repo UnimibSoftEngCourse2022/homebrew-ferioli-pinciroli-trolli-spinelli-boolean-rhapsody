@@ -3,14 +3,14 @@ package com.example.brewday.repository;
 import com.example.brewday.database.AttrezzoDao;
 import com.example.brewday.database.LocalDatabase;
 import com.example.brewday.model.Attrezzo;
-import com.example.brewday.model.Result;
+import com.example.brewday.model.Risultato;
 import com.example.brewday.ui.Callback;
 
 import java.util.List;
 
 public class AttrezziRepository {
 
-    private AttrezzoDao attrezziDao;
+    private final AttrezzoDao attrezziDao;
 
     public AttrezziRepository(LocalDatabase localDatabase) {
         attrezziDao = localDatabase.attrezzoDao();
@@ -21,10 +21,10 @@ public class AttrezziRepository {
             List<Attrezzo> allAttrezzi = attrezziDao.getAll();
 
             if(allAttrezzi != null) {
-                callback.onComplete(new Result.AttrezziSuccess(allAttrezzi));
+                callback.onComplete(new Risultato.AttrezziSuccess(allAttrezzi));
             }
             else {
-                callback.onComplete(new Result.Errore(new Exception("Errore nella lettura degli attrezzi")));
+                callback.onComplete(new Risultato.Errore(new Exception("Errore nella lettura degli attrezzi")));
             }
         });
     }
@@ -34,10 +34,10 @@ public class AttrezziRepository {
             long id = attrezziDao.insertAttrezzo(attrezzo);
 
             if(id != -1) {
-                callback.onComplete(new Result.Errore(new Exception("Errore nell'inserimento degli attrezzi")));
+                callback.onComplete(new Risultato.Errore(new Exception("Errore nell'inserimento degli attrezzi")));
             }
             else{
-                callback.onComplete(new Result.Success());
+                callback.onComplete(new Risultato.Success());
             }
         });
     }
@@ -47,10 +47,10 @@ public class AttrezziRepository {
 
             int rowsUpdated = attrezziDao.updateAttrezzo(attrezzo);
             if (rowsUpdated == 0) {
-                callback.onComplete(new Result.Errore(new Exception("Errore nell'aggiornamento dei dati")));
+                callback.onComplete(new Risultato.Errore(new Exception("Errore nell'aggiornamento dei dati")));
             }
             else{
-                callback.onComplete(new Result.Success());
+                callback.onComplete(new Risultato.Success());
             }
         });
     }
@@ -60,10 +60,10 @@ public class AttrezziRepository {
 
             int rowsDeleted = attrezziDao.deleteAttrezzo(attrezzo);
             if (rowsDeleted == 0) {
-                callback.onComplete(new Result.Errore(new Exception("Errore nella cancellazione dei dati")));
+                callback.onComplete(new Risultato.Errore(new Exception("Errore nella cancellazione dei dati")));
             }
             else{
-                callback.onComplete(new Result.Success());
+                callback.onComplete(new Risultato.Success());
             }
         });
     }
