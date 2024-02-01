@@ -29,7 +29,7 @@ public class AttrezziRepository {
         });
     }
 
-    public void createAttrezzi(Callback callback, Attrezzo attrezzo){
+    public void createAttrezzo(Attrezzo attrezzo, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             long id = attrezziDao.insertAttrezzo(attrezzo);
 
@@ -42,7 +42,7 @@ public class AttrezziRepository {
         });
     }
 
-    public void updateAttrezzi(Callback callback, Attrezzo attrezzo) {
+    public void updateAttrezzo(Attrezzo attrezzo, Callback callback) {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
 
             int rowsUpdated = attrezziDao.updateAttrezzo(attrezzo);
@@ -55,7 +55,7 @@ public class AttrezziRepository {
         });
     }
 
-    public void deleteAttrezzi(Callback callback, Attrezzo attrezzo) {
+    public void deleteAttrezzo(Attrezzo attrezzo, Callback callback) {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
 
             int rowsDeleted = attrezziDao.deleteAttrezzo(attrezzo);
