@@ -9,9 +9,12 @@ import androidx.room.RoomDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import it.unimib.brewday.model.Attrezzo;
+import it.unimib.brewday.model.Ingrediente;
+import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.util.Constants;
 
-@Database(version = 1)
+@Database(entities = {Attrezzo.class, Ingrediente.class, Ricetta.class}, version = 1)
 public abstract class LocalDatabase extends RoomDatabase {
 
     //Lista dei DAO
