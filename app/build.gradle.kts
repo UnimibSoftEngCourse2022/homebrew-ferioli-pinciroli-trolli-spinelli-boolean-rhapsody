@@ -45,4 +45,10 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
 
+    //Dipendenze per fragment
+    val  fragment_version = "1.6.2"
+    implementation("androidx.fragment:fragment:$fragment_version")
+    implementation("androidx.fragment:fragment-ktx:$fragment_version")
+
+
 }

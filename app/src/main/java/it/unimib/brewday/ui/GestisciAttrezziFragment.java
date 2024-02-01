@@ -18,6 +18,10 @@ public class GestisciAttrezziFragment extends Fragment {
 
     private GestisciAttrezziViewModel mViewModel;
 
+    public GestisciAttrezziFragment() {
+        super(R.layout.fragment_gestisci_attrezzi);
+    }
+
     public static GestisciAttrezziFragment newInstance() {
         return new GestisciAttrezziFragment();
     }
@@ -25,7 +29,9 @@ public class GestisciAttrezziFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(GestisciAttrezziViewModel.class);
+        mViewModel = new ViewModelProvider(this,
+                new GestisciAttrezziViewModelFactory(getContext()))
+                .get(GestisciAttrezziViewModel.class);
     }
 
     @Override
