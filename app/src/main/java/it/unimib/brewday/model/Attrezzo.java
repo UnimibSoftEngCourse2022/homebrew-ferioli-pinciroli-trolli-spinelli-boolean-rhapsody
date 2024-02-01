@@ -8,6 +8,6 @@ public class Attrezzo {
     @PrimaryKey public long id;
 
     public Attrezzo() {
-
+        //placeholder
     }
 }

@@ -8,6 +8,6 @@ public class Ingrediente {
     @PrimaryKey public long id;
 
     public Ingrediente() {
-
+        //placeholder
     }
 }

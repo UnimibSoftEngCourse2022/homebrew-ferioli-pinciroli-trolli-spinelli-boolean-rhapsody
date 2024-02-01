@@ -8,6 +8,6 @@ public class Ricetta {
     @PrimaryKey public long id;
 
     public Ricetta() {
-
+        //placeholder
     }
 }
