@@ -1,10 +1,10 @@
-package com.example.brewday.repository;
+package it.unimib.brewday.repository;
 
-import com.example.brewday.database.AttrezzoDao;
-import com.example.brewday.database.LocalDatabase;
-import com.example.brewday.model.Attrezzo;
-import com.example.brewday.model.Risultato;
-import com.example.brewday.ui.Callback;
+import it.unimib.brewday.database.AttrezzoDao;
+import it.unimib.brewday.database.LocalDatabase;
+import it.unimib.brewday.model.Attrezzo;
+import it.unimib.brewday.model.Risultato;
+import it.unimib.brewday.ui.Callback;
 
 import java.util.List;
 

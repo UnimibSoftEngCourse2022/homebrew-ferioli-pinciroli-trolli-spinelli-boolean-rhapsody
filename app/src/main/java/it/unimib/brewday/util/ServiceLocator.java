@@ -1,9 +1,9 @@
-package com.example.brewday.util;
+package it.unimib.brewday.util;
 
 import android.content.Context;
 
-import com.example.brewday.database.LocalDatabase;
-import com.example.brewday.repository.AttrezziRepository;
+import it.unimib.brewday.database.LocalDatabase;
+import it.unimib.brewday.repository.AttrezziRepository;
 
 public class ServiceLocator {
 

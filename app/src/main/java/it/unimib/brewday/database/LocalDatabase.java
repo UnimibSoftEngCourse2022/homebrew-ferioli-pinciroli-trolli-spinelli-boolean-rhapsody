@@ -1,4 +1,4 @@
-package com.example.brewday.database;
+package it.unimib.brewday.database;
 
 import android.content.Context;
 
@@ -7,9 +7,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.example.brewday.model.Attrezzo;
-import com.example.brewday.util.Constants;
-import com.example.brewday.util.Converters;
+import it.unimib.brewday.model.Attrezzo;
+import it.unimib.brewday.util.Constants;
+import it.unimib.brewday.util.Converters;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

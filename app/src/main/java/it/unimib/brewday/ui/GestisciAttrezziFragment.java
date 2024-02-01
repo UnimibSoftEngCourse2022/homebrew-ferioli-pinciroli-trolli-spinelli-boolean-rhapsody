@@ -1,4 +1,4 @@
-package com.example.brewday.ui;
+package it.unimib.brewday.ui;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.brewday.R;
+import com.unimib.brewday.R;
 
 public class GestisciAttrezziFragment extends Fragment {
 

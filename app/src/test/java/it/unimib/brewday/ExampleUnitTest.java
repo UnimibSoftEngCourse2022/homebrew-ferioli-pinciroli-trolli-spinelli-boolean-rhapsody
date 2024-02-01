@@ -1,4 +1,4 @@
-package com.example.brewday;
+package it.unimib.brewday;
 
 import org.junit.Test;
 

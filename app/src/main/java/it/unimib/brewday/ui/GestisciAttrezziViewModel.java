@@ -1,15 +1,15 @@
-package com.example.brewday.ui;
+package it.unimib.brewday.ui;
 
 import android.content.Context;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.brewday.model.Attrezzo;
-import com.example.brewday.model.Risultato;
-import com.example.brewday.model.TipoAttrezzo;
-import com.example.brewday.repository.AttrezziRepository;
-import com.example.brewday.util.ServiceLocator;
+import it.unimib.brewday.model.Attrezzo;
+import it.unimib.brewday.model.Risultato;
+import it.unimib.brewday.model.TipoAttrezzo;
+import it.unimib.brewday.repository.AttrezziRepository;
+import it.unimib.brewday.util.ServiceLocator;
 
 public class GestisciAttrezziViewModel extends ViewModel {
 

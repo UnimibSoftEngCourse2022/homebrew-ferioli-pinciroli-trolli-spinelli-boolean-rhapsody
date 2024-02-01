@@ -1,4 +1,4 @@
-package com.example.brewday.model;
+package it.unimib.brewday.model;
 
 public enum TipoAttrezzo {
     FERMENTATORE("Fermentatore"), DISTILLATORE("Distillatore"), BOLLITORE("Bollitore");

@@ -1,4 +1,4 @@
-package com.example.brewday.database;
+package it.unimib.brewday.database;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.brewday.model.Attrezzo;
+import it.unimib.brewday.model.Attrezzo;
 
 import java.util.List;
 

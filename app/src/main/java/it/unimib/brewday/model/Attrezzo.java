@@ -1,4 +1,4 @@
-package com.example.brewday.model;
+package it.unimib.brewday.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

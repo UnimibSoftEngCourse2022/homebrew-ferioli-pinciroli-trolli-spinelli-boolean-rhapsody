@@ -1,4 +1,4 @@
-package com.example.brewday.model;
+package it.unimib.brewday.model;
 
 import java.util.List;
 

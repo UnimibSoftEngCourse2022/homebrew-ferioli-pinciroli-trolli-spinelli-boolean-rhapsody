@@ -1,7 +1,7 @@
-package com.example.brewday.util;
+package it.unimib.brewday.util;
 
 import androidx.room.TypeConverter;
-import com.example.brewday.model.TipoAttrezzo;
+import it.unimib.brewday.model.TipoAttrezzo;
 
 public class Converters {
 

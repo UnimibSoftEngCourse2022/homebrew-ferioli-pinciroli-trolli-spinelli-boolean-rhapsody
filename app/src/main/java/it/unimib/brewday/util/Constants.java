@@ -1,4 +1,4 @@
-package com.example.brewday.util;
+package it.unimib.brewday.util;
 
 public class Constants {
 
