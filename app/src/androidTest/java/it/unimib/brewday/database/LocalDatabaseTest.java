@@ -1,8 +1,7 @@
-package it.unimib.brewday;
+package it.unimib.brewday.database;
 
 import android.content.Context;
 
-import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -12,9 +11,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import it.unimib.brewday.database.LocalDatabase;
-
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 @RunWith(AndroidJUnit4.class)
 public class LocalDatabaseTest {
@@ -24,7 +22,7 @@ public class LocalDatabaseTest {
     @Before
     public void setUp() {
         Context context = ApplicationProvider.getApplicationContext();
-        localDatabase = Room.inMemoryDatabaseBuilder(context, LocalDatabase.class).build();
+        localDatabase = LocalDatabase.getDatabase(context);
     }
 
     @After
@@ -38,11 +36,11 @@ public class LocalDatabaseTest {
     }
 
     @Test
-    public void testPatternSingleton() {
-        LocalDatabase primaIstanza = LocalDatabase.getDatabase(ApplicationProvider.getApplicationContext());
-        LocalDatabase secondaIstanza = LocalDatabase.getDatabase(ApplicationProvider.getApplicationContext());
+    public void getDatabase() {
+        assertNotNull(localDatabase);
 
-        assertEquals(primaIstanza, secondaIstanza);
+        LocalDatabase secondaIstanza = LocalDatabase.getDatabase(ApplicationProvider.getApplicationContext());
+        assertSame(localDatabase, secondaIstanza);
     }
 
     //AGGIUNGERE I TEST SUI DAO
