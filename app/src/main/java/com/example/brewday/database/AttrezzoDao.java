@@ -17,11 +17,11 @@ public interface AttrezzoDao {
     List<Attrezzo> getAll();
 
     @Insert
-    public void insertAttrezzo(Attrezzo attrezzo);
+    long insertAttrezzo(Attrezzo attrezzo);
 
     @Update
-    public void updateAttrezzo(Attrezzo attrezzo);
+    int updateAttrezzo(Attrezzo attrezzo);
 
     @Delete
-    public void deleteAttrezzo(Attrezzo attrezzo);
+    int deleteAttrezzo(Attrezzo attrezzo);
 }
