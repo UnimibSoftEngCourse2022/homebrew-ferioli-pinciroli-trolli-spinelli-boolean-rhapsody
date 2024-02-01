@@ -13,5 +13,11 @@ public class Attrezzo {
     @ColumnInfo (name = "capacita") public Double capacita;
 
     public Attrezzo() {}
+
+    public Attrezzo(String nome, TipoAttrezzo tipoAttrezzo, Double capacita) {
+        this.nome = nome;
+        this.tipoAttrezzo = tipoAttrezzo;
+        this.capacita = capacita;
+    }
 }
 
