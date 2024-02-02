@@ -1,6 +1,5 @@
 package it.unimib.brewday.ui.gestisciAttrezzi;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -72,7 +71,7 @@ public class GestisciAttrezziFragment extends Fragment {
         //Gestione spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this.getContext(),
-                R.array.planets_array,
+                R.array.attrezzi,
                 android.R.layout.simple_spinner_item
         );
 

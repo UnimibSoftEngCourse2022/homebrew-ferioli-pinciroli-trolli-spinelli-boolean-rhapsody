@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="15dp"
                 android:contentDescription="@string/cancella_attrezzatura"
                 android:src="@drawable/trash_can_svgrepo_com"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:text="@string/nome_attrezzo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="50dp"
                 android:text="@string/tipologia"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/oneRowCard_textViewTipo" />
@@ -53,36 +53,42 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="50dp"
                 android:text="@string/capacit"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/oneRowCard_textViewNome" />
 
-            <TextView
+            <EditText
                 android:id="@+id/oneRowCard_nomeReale"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
                 android:ems="10"
+                android:inputType="none"
+                android:hint="@string/inserisci_nome"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:autofillHints="" />
 
-            <TextView
+            <EditText
                 android:id="@+id/oneRowCard_capacitaReale"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="15dp"
                 android:ems="10"
+                android:inputType="none"
+                android:hint="@string/inserisci_capacita"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/oneRowCard_nomeReale" />
+                app:layout_constraintTop_toBottomOf="@+id/oneRowCard_nomeReale"
+                android:autofillHints="" />
 
-            <TextView
+            <Spinner
                 android:id="@+id/oneRowCard_tipoReale"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/oneRowCard_capacitaReale" />
@@ -92,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="15dp"
                 android:text="@string/modifica"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/oneRowCard_imageCancella" />

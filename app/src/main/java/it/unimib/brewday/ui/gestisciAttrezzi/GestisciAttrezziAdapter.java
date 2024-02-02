@@ -1,11 +1,12 @@
 package it.unimib.brewday.ui.gestisciAttrezzi;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,14 +36,25 @@ public class GestisciAttrezziAdapter extends RecyclerView.Adapter<GestisciAttrez
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        //Gestione nome
         holder.nomeAttrezzo.setText(listaAttrezzi.get(position).nome);
+        holder.nomeAttrezzo.setEnabled(false);
+
+        //Gestione capacità
         holder.capacitaAttrezzo.setText(String.valueOf(listaAttrezzi.get(position).capacita));
-        holder.tipoAttrezzo.setText(listaAttrezzi.get(position).tipoAttrezzo.getNome());
+        holder.capacitaAttrezzo.setEnabled(false);
+
+        //Gestione spinner
+        holder.tipoAttrezzo.setAdapter(holder.adapter);
+        holder.tipoAttrezzo.setEnabled(false);
+        String tipoAttrezzoStringFormat = listaAttrezzi.get(position).tipoAttrezzo.getNome();
+        holder.tipoAttrezzo.setSelection(holder.adapter.getPosition(tipoAttrezzoStringFormat));
 
         holder.cancella.setOnClickListener(v -> {
             String nome = holder.nomeAttrezzo.getText().toString();
             double capacita = Double.parseDouble(holder.capacitaAttrezzo.getText().toString());
-            String tipo = holder.tipoAttrezzo.getText().toString();
+            String tipo = holder.tipoAttrezzo.getSelectedItem().toString();
 
             Attrezzo attrezzo = new Attrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
             attrezzo.id =listaAttrezzi.get(position).id;
@@ -57,10 +69,11 @@ public class GestisciAttrezziAdapter extends RecyclerView.Adapter<GestisciAttrez
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView nomeAttrezzo;
-        private final TextView capacitaAttrezzo;
-        private final TextView tipoAttrezzo;
+        private final EditText nomeAttrezzo;
+        private final EditText capacitaAttrezzo;
+        private final Spinner tipoAttrezzo;
         private final ImageButton cancella;
+        private final ArrayAdapter<CharSequence> adapter;
 
         public ViewHolder(View view) {
             super(view);
@@ -70,6 +83,11 @@ public class GestisciAttrezziAdapter extends RecyclerView.Adapter<GestisciAttrez
             tipoAttrezzo = view.findViewById(R.id.oneRowCard_tipoReale);
             cancella = view.findViewById(R.id.oneRowCard_imageCancella);
 
+            adapter = ArrayAdapter.createFromResource(
+                    view.getContext(),
+                    R.array.attrezzi,
+                    android.R.layout.simple_spinner_item
+            );
         }
     }
 
