@@ -21,10 +21,6 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
-        debug {
-            enableAndroidTestCoverage = true
-            enableUnitTestCoverage = true
-        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -36,57 +32,6 @@ android {
             isIncludeAndroidResources = true
         }
     }
-
-    tasks.register("runAllTests") {
-        group = "verification"
-        description = "Esegui tutti i test di unità e i test strumentati"
-
-        dependsOn("test", "connectedCheck")
-    }
-
-    tasks.register("jacocoTestReport", JacocoReport::class) {
-        group = "reporting"
-        description = "generate jacoco coverage reports"
-
-        reports {
-            reports {
-                xml.required = true
-                html.required = true
-            }
-        }
-
-        sourceDirectories.setFrom(files("${project.projectDir}/src/main"))
-
-
-        classDirectories.setFrom(
-                fileTree("$buildDir/intermediates/javac/debug/classes").matching {
-                    exclude(
-                            // Android Data Binding
-                            "android/databinding/**/*.class",
-                            "**/android/databinding/*Binding.class",
-                            "**/android/databinding/*",
-                            "**/BR.*",
-
-                            // Android Resources
-                            "**/R.class",
-                            "**/R$*.class",
-                            "**/BuildConfig.*",
-                            "**/Manifest*.*",
-                            "**/*_Impl*.class",
-
-                            // Unit Test Classes
-                            "**/*Test*.*",
-
-                            // Sealed and Data Classes
-                            "**/*$Result.*"
-                    )
-                }
-        )
-    }
-}
-
-jacoco {
-    toolVersion = "0.8.7"
 }
 
 
