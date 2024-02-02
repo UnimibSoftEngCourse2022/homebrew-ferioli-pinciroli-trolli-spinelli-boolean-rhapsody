@@ -7,4 +7,6 @@
     <string name="capacit">Capacità</string>
     <string name="inserisci_capacita">Inserisci capacità</string>
     <string name="inserisci_nome">Inserisci nome</string>
+    <string name="modifica">Modifica</string>
+    <string name="cancella_attrezzatura">Pulsante che cancella l\'attrezzatura selezionata</string>
 </resources>

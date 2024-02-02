@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +20,17 @@ import android.widget.Spinner;
 
 import com.google.android.material.card.MaterialCardView;
 
+import java.util.List;
+
 import it.unimib.brewday.R;
+import it.unimib.brewday.model.Attrezzo;
+import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.TipoAttrezzo;
 
 public class GestisciAttrezziFragment extends Fragment {
 
     private GestisciAttrezziViewModel mViewModel;
+    private GestisciAttrezziAdapter attrezziAdapter;
 
     public GestisciAttrezziFragment() {
         super(R.layout.fragment_gestisci_attrezzi);
@@ -93,7 +99,22 @@ public class GestisciAttrezziFragment extends Fragment {
             mViewModel.createAttrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
         });
 
-
+        //Gestione stampa a schermo degli attrezzi registrati
+        /*
+        RecyclerView recyclerView = view.findViewById(R.id.fragmentGestisciAttrezzi_recyclerView);
+        mViewModel.readAllAttrezzi();
+        mViewModel.allAttrezzi.observe(this.getViewLifecycleOwner(), risultato -> {
+            if (risultato.isSuccessful() && risultato instanceof Risultato.AttrezziSuccess) {
+                List<Attrezzo> nuoviAttrezzi = ((Risultato.AttrezziSuccess) risultato).getAttrezzi();
+                if (attrezziAdapter == null) {
+                    attrezziAdapter = new GestisciAttrezziAdapter(nuoviAttrezzi);
+                    recyclerView.setAdapter(attrezziAdapter);
+                } else {
+                    attrezziAdapter.setDataList(nuoviAttrezzi);
+                }
+            }
+        });
+         */
     }
 
 }
