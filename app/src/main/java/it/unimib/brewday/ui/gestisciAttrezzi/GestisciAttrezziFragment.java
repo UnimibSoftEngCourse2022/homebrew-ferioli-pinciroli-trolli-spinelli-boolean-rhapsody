@@ -67,7 +67,7 @@ public class GestisciAttrezziFragment extends Fragment {
         Spinner spinner = view.findViewById(R.id.fragmentGestisciAttrezzi_spinner);
         Button confermaInserimento = view.findViewById(R.id.fragmentGestisciAttrezzi_conferma);
 
-        //Adapter
+        //Gestione spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this.getContext(),
                 R.array.planets_array,
@@ -97,6 +97,10 @@ public class GestisciAttrezziFragment extends Fragment {
             String tipo = spinner.getSelectedItem().toString();
 
             mViewModel.createAttrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
+            mViewModel.isAddCardVisible.setValue(!mViewModel.isAddCardVisible.getValue());
+            nomeAttrezzo.setText(null);
+            capacitaAttrezzo.setText(null);
+            spinner.setAdapter(adapter);
         });
 
         //Gestione stampa a schermo degli attrezzi registrati
