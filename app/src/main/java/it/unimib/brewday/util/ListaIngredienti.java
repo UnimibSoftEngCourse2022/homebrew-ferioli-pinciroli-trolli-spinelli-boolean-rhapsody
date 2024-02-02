@@ -7,17 +7,17 @@ import it.unimib.brewday.model.Ingrediente;
 
 public class ListaIngredienti {
 
-    List<Ingrediente> listaIngredienti = new ArrayList<>();
+    List<Ingrediente> listaIngredientiDisponibili = new ArrayList<>();
  public List<Ingrediente> getListaIngredienti(){
-     listaIngredienti = new ArrayList<>();
-     listaIngredienti.add(new Ingrediente("acqua" ));
-     listaIngredienti.add(new Ingrediente("malto" ));
-     listaIngredienti.add(new Ingrediente("luppolo" ));
-     listaIngredienti.add(new Ingrediente("lieviti" ));
-     listaIngredienti.add(new Ingrediente("zucchero" ));
-     listaIngredienti.add(new Ingrediente("additivi" ));
+     listaIngredientiDisponibili = new ArrayList<>();
+     listaIngredientiDisponibili.add(new Ingrediente("acqua" ));
+     listaIngredientiDisponibili.add(new Ingrediente("malto" ));
+     listaIngredientiDisponibili.add(new Ingrediente("luppolo" ));
+     listaIngredientiDisponibili.add(new Ingrediente("lieviti" ));
+     listaIngredientiDisponibili.add(new Ingrediente("zucchero" ));
+     listaIngredientiDisponibili.add(new Ingrediente("additivi" ));
 
-     return listaIngredienti;
+     return listaIngredientiDisponibili;
 
 
  }

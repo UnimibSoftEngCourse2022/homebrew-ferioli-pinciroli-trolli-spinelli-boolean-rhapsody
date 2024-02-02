@@ -90,14 +90,11 @@ public class IngredientiFragment extends Fragment {
                         }
 
                     }
-                }, new AdapterListViewListaIngredientiDisponibili.OnFocusChangeListener() {
-                    @Override
-                    public void OnChangeIngrediente(Ingrediente ingrediente, boolean hasFocus, EditText quantitaIngrediente) {
-                        if(!hasFocus && quantitaIngrediente.getText().length() > 0){
-                            ingrediente.setQuantitaAssoluta(Double.valueOf(String.valueOf(quantitaIngrediente.getText())));
-                            ingredienteViewModel.updateIngrediente(ingrediente);
+                }, (ingrediente, hasFocus, quantitaIngrediente) -> {
+                    if(!hasFocus && quantitaIngrediente.getText().length() > 0){
+                        ingrediente.setQuantitaAssoluta(Double.valueOf(String.valueOf(quantitaIngrediente.getText())));
+                        ingredienteViewModel.updateIngrediente(ingrediente);
 
-                        }
                     }
                 });
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
