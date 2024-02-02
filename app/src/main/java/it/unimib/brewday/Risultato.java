@@ -8,6 +8,7 @@ public class Risultato {
 
 
     public Risultato() {
+        //serve per risultati senza ritorno di tipo
     }
     public boolean isSuccessful() {
         return this instanceof IngredientiSuccess ||

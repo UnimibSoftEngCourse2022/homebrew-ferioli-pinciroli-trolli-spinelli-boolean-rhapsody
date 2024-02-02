@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import it.unimib.brewday.database.IngredienteDao;
@@ -75,18 +74,18 @@ public class IngredientiFragment extends Fragment {
                 adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
                     @Override
                     public void onAddIngredienteClick(Ingrediente ingrediente, int position) {
-                        ingrediente.setQuantitàAssoluta(ingrediente.getQuantitàAssoluta()+1);
-                        ingredienteViewModel.UpdateIngrediente(ingrediente);
+                        ingrediente.setQuantitaAssoluta(ingrediente.getQuantitaAssoluta()+1);
+                        ingredienteViewModel.updateIngrediente(ingrediente);
 
                     }
 
                     @Override
                     public void onRemoveIngredienteClick(Ingrediente ingrediente, int position) {
-                        if(ingrediente.getQuantitàAssoluta()<=1){
+                        if(ingrediente.getQuantitaAssoluta() < 1){
                             //TODO snackBar erore
                         }else{
-                            ingrediente.setQuantitàAssoluta(ingrediente.getQuantitàAssoluta()-1);
-                            ingredienteViewModel.UpdateIngrediente(ingrediente);
+                            ingrediente.setQuantitaAssoluta(ingrediente.getQuantitaAssoluta()-1);
+                            ingredienteViewModel.updateIngrediente(ingrediente);
                         }
 
                     }
