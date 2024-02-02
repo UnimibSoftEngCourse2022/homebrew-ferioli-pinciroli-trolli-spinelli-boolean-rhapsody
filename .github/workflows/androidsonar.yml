@@ -33,7 +33,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
       - name: Build with Jacoco
-        run: ./gradlew clean build test jacocoTestReport
+        run: ./gradlew clean build :app:testDebugUnitTest jacocoTestReport
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
