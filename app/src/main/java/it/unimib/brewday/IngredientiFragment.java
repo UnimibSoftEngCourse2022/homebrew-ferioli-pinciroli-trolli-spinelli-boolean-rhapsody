@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.List;
@@ -74,20 +75,29 @@ public class IngredientiFragment extends Fragment {
                 adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
                     @Override
                     public void onAddIngredienteClick(Ingrediente ingrediente, int position) {
-                        ingrediente.setQuantitaAssoluta(ingrediente.getQuantitaAssoluta()+1);
+                        ingrediente.setQuantitaAssoluta(ingrediente.getQuantitaAssoluta() + 1);
                         ingredienteViewModel.updateIngrediente(ingrediente);
 
                     }
 
                     @Override
                     public void onRemoveIngredienteClick(Ingrediente ingrediente, int position) {
-                        if(ingrediente.getQuantitaAssoluta() < 1){
+                        if (ingrediente.getQuantitaAssoluta() < 1) {
                             //TODO snackBar erore
-                        }else{
-                            ingrediente.setQuantitaAssoluta(ingrediente.getQuantitaAssoluta()-1);
+                        } else {
+                            ingrediente.setQuantitaAssoluta(ingrediente.getQuantitaAssoluta() - 1);
                             ingredienteViewModel.updateIngrediente(ingrediente);
                         }
 
+                    }
+                }, new AdapterListViewListaIngredientiDisponibili.OnFocusChangeListener() {
+                    @Override
+                    public void OnChangeIngrediente(Ingrediente ingrediente, boolean hasFocus, EditText quantitaIngrediente) {
+                        if(!hasFocus && quantitaIngrediente.getText().length() > 0){
+                            ingrediente.setQuantitaAssoluta(Double.valueOf(String.valueOf(quantitaIngrediente.getText())));
+                            ingredienteViewModel.updateIngrediente(ingrediente);
+
+                        }
                     }
                 });
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);

@@ -14,10 +14,13 @@
         android:inputType="number|numberDecimal"
         android:minWidth="48dp"
         android:minHeight="48dp"
-        android:text="22 L"
+        android:text="22.0"
+        android:textAlignment="textEnd"
         app:layout_constraintBottom_toBottomOf="@+id/textView_ingrediente"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView_ingrediente" />
+
+
 
     <TextView
         android:id="@+id/textView_ingrediente"
@@ -30,11 +33,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textView_unitaMisura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kg"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextText_ingrediente"
+        app:layout_constraintStart_toEndOf="@+id/editTextText_ingrediente"
+        app:layout_constraintTop_toTopOf="@+id/editTextText_ingrediente" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
 
         android:id="@+id/button_rimuovi_ingrediente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
         android:src="@drawable/baseline_horizontal_rule_24"
         android:text="-"
         app:layout_constraintBottom_toBottomOf="@+id/editTextText_ingrediente"
@@ -46,12 +60,13 @@
         android:id="@+id/button_aggiungi_ingrediente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="4dp"
         android:src="@drawable/baseline_add_24"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="@+id/editTextText_ingrediente"
-        app:layout_constraintStart_toEndOf="@+id/editTextText_ingrediente"
-        app:layout_constraintTop_toTopOf="@+id/editTextText_ingrediente" />
+        app:layout_constraintStart_toEndOf="@+id/textView_unitaMisura"
+        app:layout_constraintTop_toTopOf="@+id/editTextText_ingrediente"
+        app:layout_constraintVertical_bias="0.375" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
