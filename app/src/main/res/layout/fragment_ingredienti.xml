@@ -7,19 +7,6 @@
     tools:context=".IngredientiFragment">
 
 
-    <EditText
-        android:id="@+id/editTextText_acqua"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:inputType="number"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        android:text="22 L"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_acqua"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView_acqua" />
-
     <TextView
         android:id="@+id/textView_titoloIngredienti"
         android:layout_width="wrap_content"
@@ -31,129 +18,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView_acqua"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="Acqua"
-        android:textSize="24sp"
+    <ListView
+        android:id="@+id/listView_ingredrientiDisponibili"
+        android:layout_width="409dp"
+        android:layout_height="657dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_titoloIngredienti" />
 
-    <TextView
-        android:id="@+id/textView_malto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Malto"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_acqua" />
 
-    <EditText
-        android:id="@+id/editTextText_malto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:inputType="number"
-        android:minHeight="48dp"
-        android:text="10.5 kg "
-        app:layout_constraintBottom_toBottomOf="@+id/textView_malto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView_malto" />
-
-    <TextView
-        android:id="@+id/textView_luppolo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Luppolo"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_malto" />
-
-    <EditText
-        android:id="@+id/editTextText_luppolo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:inputType="number"
-        android:minHeight="48dp"
-        android:text="10.5 kg "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_luppolo"
-        app:layout_constraintTop_toTopOf="@+id/textView_luppolo" />
-
-    <TextView
-        android:id="@+id/textView_lievito"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Lievito"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_luppolo" />
-
-    <EditText
-        android:id="@+id/editTextText_lievito"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:inputType="number"
-        android:minHeight="48dp"
-        android:text="10.5 kg "
-        app:layout_constraintBottom_toBottomOf="@+id/textView_lievito"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView_lievito" />
-
-    <TextView
-        android:id="@+id/textView_zucchero"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Zucchero"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_lievito" />
-
-    <EditText
-        android:id="@+id/editTextText_zucchero"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:inputType="number"
-        android:minHeight="48dp"
-        android:text="10.5 kg "
-        app:layout_constraintBottom_toBottomOf="@+id/textView_zucchero"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView_zucchero" />
-
-    <TextView
-        android:id="@+id/textView_additivi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Additivi"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_zucchero" />
-
-    <EditText
-        android:id="@+id/editTextText_additivi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:inputType="number"
-        android:minHeight="48dp"
-        android:text="10.5 kg "
-        app:layout_constraintBottom_toBottomOf="@+id/textView_additivi"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView_additivi" />
 </androidx.constraintlayout.widget.ConstraintLayout>

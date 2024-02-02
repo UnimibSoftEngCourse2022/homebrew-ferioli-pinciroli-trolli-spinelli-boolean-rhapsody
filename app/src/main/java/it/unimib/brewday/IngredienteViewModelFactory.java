@@ -1,21 +1,23 @@
 package it.unimib.brewday;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 public class IngredienteViewModelFactory implements ViewModelProvider.Factory{
 
- private final IngredienteRepository ingredienteRepository;
+ private final Context context;
 
-
-    public IngredienteViewModelFactory(IngredienteRepository ingredienteRepository) {
-        this.ingredienteRepository = ingredienteRepository;
+    public IngredienteViewModelFactory(Context context) {
+        this.context = context;
     }
+
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass){
-        return (T) new IngredienteViewModel(ingredienteRepository);
+        return (T) new IngredienteViewModel(context);
     }
 }

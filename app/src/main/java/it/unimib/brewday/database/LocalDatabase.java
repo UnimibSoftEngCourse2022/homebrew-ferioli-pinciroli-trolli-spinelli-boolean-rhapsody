@@ -1,11 +1,16 @@
 package it.unimib.brewday.database;
 
+import static android.app.WallpaperManager.getInstance;
+
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -13,9 +18,12 @@ import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.util.Constants;
+import it.unimib.brewday.util.ListaIngredienti;
 
 @Database(entities = {Attrezzo.class, Ingrediente.class, Ricetta.class}, version = 1)
 public abstract class LocalDatabase extends RoomDatabase {
+
+
 
     //Lista dei DAO
     public abstract IngredienteDao ingredienteDao();
@@ -33,11 +41,34 @@ public abstract class LocalDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (LocalDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            LocalDatabase.class, Constants.DATABASE_NAME).build();
+                    INSTANCE = buildDatabase(context);
                 }
             }
         }
         return INSTANCE;
+    }
+
+
+    private static LocalDatabase buildDatabase(Context context) {
+        return Room.databaseBuilder(
+                        context.getApplicationContext(),
+                        LocalDatabase.class, "DatabaseIngredienti"
+                )
+                // prepopulate the database after onCreate was called
+                .addCallback(new RoomDatabase.Callback() {
+                    @Override
+                    public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                        super.onCreate(db);
+                        final IngredienteDao dao = INSTANCE.ingredienteDao();
+                        // insert the data on the IO Thread
+                        Executors.newSingleThreadExecutor().execute(() ->
+                                popolaIngredienteDB(dao, new ListaIngredienti().getListaIngredienti() ));
+                    }
+
+                    private void popolaIngredienteDB(IngredienteDao dao, List<Ingrediente> listaIngredienti) {
+                        dao.insertEventList(listaIngredienti);
+                    }
+                })
+                .build();
     }
 }

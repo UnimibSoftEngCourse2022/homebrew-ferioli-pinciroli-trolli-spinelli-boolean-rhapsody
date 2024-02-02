@@ -1,6 +1,7 @@
 package it.unimib.brewday.database;
 
 import androidx.room.Dao;
+import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -17,5 +18,8 @@ public interface IngredienteDao {
     @Update int updateAllIngredienti(List<Ingrediente> Ingredienti);
 
     @Update int updateIngrediente(Ingrediente ingrediente);
+
+    @Insert
+    List<Long> insertEventList(List<Ingrediente> listaIngrediente);
 
 }

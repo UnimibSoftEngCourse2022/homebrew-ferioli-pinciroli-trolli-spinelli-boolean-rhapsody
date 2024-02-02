@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Ingrediente {
 
-    @PrimaryKey private long id;
+    @PrimaryKey(autoGenerate = true) private long id;
     private String nome;
 
     private Double quantitàAssoluta;
@@ -18,6 +18,11 @@ public class Ingrediente {
         this.id = id;
         this.nome = nome;
         this.quantitàAssoluta = quantitàAssoluta;
+    }
+
+    public Ingrediente(String nome) {
+        this.nome = nome;
+        this.quantitàAssoluta = 0.0;
     }
 
     public long getId() {
@@ -38,6 +43,9 @@ public class Ingrediente {
 
     public Double getQuantitàAssoluta() {
         return quantitàAssoluta;
+    }
+    public String getQuantitàAssolutaToString(){
+        return Double.toString(quantitàAssoluta);
     }
 
     public void setQuantitàAssoluta(Double quantitàAssoluta) {

@@ -1,12 +1,15 @@
 package it.unimib.brewday;
 
 
+import android.content.Context;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
 import it.unimib.brewday.model.Ingrediente;
+import it.unimib.brewday.util.ServiceLocator;
 
 public class IngredienteViewModel extends ViewModel {
     MutableLiveData<Risultato>  readAllIngredientiMutableLiveData;
@@ -17,12 +20,13 @@ public class IngredienteViewModel extends ViewModel {
 
     IngredienteRepository ingredienteRepository;
 
-    public IngredienteViewModel(IngredienteRepository ingredienteRepository) {
+    public IngredienteViewModel(Context context) {
         this.ingredienteRepository = ingredienteRepository;
 
         readAllIngredientiMutableLiveData = new MutableLiveData<>();
         updateIngredientiMutableLiveData = new MutableLiveData<>();
         updateIngredienteMutableLiveData = new MutableLiveData<>();
+        ingredienteRepository = ServiceLocator.getInstance().getIngredienteRepository(context);
     }
 
 
