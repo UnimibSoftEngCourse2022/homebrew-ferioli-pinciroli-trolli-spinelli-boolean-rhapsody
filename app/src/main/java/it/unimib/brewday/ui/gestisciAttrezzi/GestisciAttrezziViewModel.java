@@ -56,14 +56,12 @@ public class GestisciAttrezziViewModel extends ViewModel {
     public void updateAttrezzo(Attrezzo nuovoAttrezzo) {
         attrezziRepository.updateAttrezzo(nuovoAttrezzo, result -> {
             updateAttrezzoResult.postValue(result);
-            readAllAttrezzi();
         });
     }
 
     public void deleteAttrezzo(Attrezzo daCanellare) {
         attrezziRepository.deleteAttrezzo(daCanellare, result -> {
             deleteAttrezzoResult.postValue(result);
-            readAllAttrezzi();
         });
     }
 }

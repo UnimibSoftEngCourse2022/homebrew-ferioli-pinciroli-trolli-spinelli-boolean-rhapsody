@@ -1,5 +1,6 @@
 package it.unimib.brewday.ui.gestisciAttrezzi;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -94,7 +95,7 @@ public class GestisciAttrezziFragment extends Fragment {
         confermaInserimento.setOnClickListener(v -> {
 
             String nome = nomeAttrezzo.getText().toString();
-            int capacita = Integer.parseInt(capacitaAttrezzo.getText().toString());
+            double capacita = Integer.parseInt(capacitaAttrezzo.getText().toString());
             String tipo = spinner.getSelectedItem().toString();
 
             mViewModel.createAttrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
@@ -113,13 +114,20 @@ public class GestisciAttrezziFragment extends Fragment {
             if (risultato.isSuccessful() && risultato instanceof Risultato.AttrezziSuccess) {
                 List<Attrezzo> nuoviAttrezzi = ((Risultato.AttrezziSuccess) risultato).getAttrezzi();
                 if (attrezziAdapter == null) {
-                    attrezziAdapter = new GestisciAttrezziAdapter(nuoviAttrezzi);
+                    attrezziAdapter = new GestisciAttrezziAdapter(nuoviAttrezzi, mViewModel);
                     recyclerView.setAdapter(attrezziAdapter);
                 } else {
                     attrezziAdapter.setDataList(nuoviAttrezzi);
                 }
             }
 
+        });
+
+        //Gestione operazione cancellazione
+        mViewModel.deleteAttrezzoResult.observe(this.getViewLifecycleOwner(), risultato -> {
+            if (risultato.isSuccessful()) {
+                mViewModel.readAllAttrezzi();
+            }
         });
     }
 
