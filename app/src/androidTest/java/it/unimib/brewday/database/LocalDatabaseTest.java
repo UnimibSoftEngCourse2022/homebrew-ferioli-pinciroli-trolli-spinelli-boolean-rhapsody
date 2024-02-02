@@ -9,8 +9,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import it.unimib.brewday.database.LocalDatabase;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 

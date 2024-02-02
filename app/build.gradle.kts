@@ -44,13 +44,20 @@ android {
         dependsOn("test", "connectedCheck")
     }
 
-    tasks.withType<JacocoReport> {
-        reports {
-            xml.required = true
-        }
-    }
+    tasks.register("jacocoTestReport", JacocoReport::class) {
+        group = "reporting"
+        description = "generate jacoco coverage reports"
 
-    tasks.withType<JacocoCoverageVerification> {
+        reports {
+            reports {
+                xml.required = true
+                html.required = true
+            }
+        }
+
+        sourceDirectories.setFrom(files("${project.projectDir}/src/main"))
+
+
         classDirectories.setFrom(
                 fileTree("$buildDir/intermediates/javac/debug/classes").matching {
                     exclude(
@@ -65,6 +72,7 @@ android {
                             "**/R$*.class",
                             "**/BuildConfig.*",
                             "**/Manifest*.*",
+                            "**/*_Impl*.class",
 
                             // Unit Test Classes
                             "**/*Test*.*",

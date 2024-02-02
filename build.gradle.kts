@@ -2,7 +2,6 @@
 plugins {
     id("com.android.application") version "8.2.2" apply false
     id("org.sonarqube") version "4.4.1.3373"
-    jacoco
 }
 
 sonar {
@@ -15,9 +14,5 @@ sonar {
         property("sonar.sources", "app")
         property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml")
     }
-}
-
-jacoco {
-    toolVersion = "0.8.7"
 }
 
