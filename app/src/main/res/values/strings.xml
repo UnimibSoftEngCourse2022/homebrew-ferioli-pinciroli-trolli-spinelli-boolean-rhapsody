@@ -9,4 +9,5 @@
     <string name="inserisci_nome">Inserisci nome</string>
     <string name="modifica">Modifica</string>
     <string name="cancella_attrezzatura">Pulsante che cancella l\'attrezzatura selezionata</string>
+    <string name="cancella">Cancella</string>
 </resources>
