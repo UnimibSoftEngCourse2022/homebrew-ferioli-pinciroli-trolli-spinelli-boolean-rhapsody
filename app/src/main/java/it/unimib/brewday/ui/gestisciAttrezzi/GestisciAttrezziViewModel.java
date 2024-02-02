@@ -1,4 +1,4 @@
-package it.unimib.brewday.ui;
+package it.unimib.brewday.ui.gestisciAttrezzi;
 
 import android.content.Context;
 

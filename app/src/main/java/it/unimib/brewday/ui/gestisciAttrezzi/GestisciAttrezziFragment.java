@@ -1,4 +1,4 @@
-package it.unimib.brewday.ui;
+package it.unimib.brewday.ui.gestisciAttrezzi;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -54,12 +54,14 @@ public class GestisciAttrezziFragment extends Fragment {
 
         ImageButton addAttrezzo = view.findViewById(R.id.gestisciAttrezziFragment_imageButton_add);
 
+        //Componenti card
         MaterialCardView materialCardView = view.findViewById(R.id.gestisciAttrezziFragment_materialCardView);
         EditText nomeAttrezzo = view.findViewById(R.id.fragmentGestisciAttrezzi_inserisciNome);
         EditText capacitaAttrezzo = view.findViewById(R.id.fragmentGestisciAttrezzi_inserisciCapacita);
-        Button confermaInserimento = view.findViewById(R.id.fragmentGestisciAttrezzi_conferma);
         Spinner spinner = view.findViewById(R.id.fragmentGestisciAttrezzi_spinner);
+        Button confermaInserimento = view.findViewById(R.id.fragmentGestisciAttrezzi_conferma);
 
+        //Adapter
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this.getContext(),
                 R.array.planets_array,
@@ -69,7 +71,7 @@ public class GestisciAttrezziFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-
+        //Gestione visibilità card registrzione attrezzo
         mViewModel.isAddCardVisible.observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean)
                 materialCardView.setVisibility(View.VISIBLE);
@@ -81,6 +83,7 @@ public class GestisciAttrezziFragment extends Fragment {
             mViewModel.isAddCardVisible.setValue(!mViewModel.isAddCardVisible.getValue());
         });
 
+        //Gestione conferma inserimento dati per creazione attrezzo
         confermaInserimento.setOnClickListener(v -> {
 
             String nome = nomeAttrezzo.getText().toString();
@@ -89,6 +92,8 @@ public class GestisciAttrezziFragment extends Fragment {
 
             mViewModel.createAttrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
         });
+
+
     }
 
 }
