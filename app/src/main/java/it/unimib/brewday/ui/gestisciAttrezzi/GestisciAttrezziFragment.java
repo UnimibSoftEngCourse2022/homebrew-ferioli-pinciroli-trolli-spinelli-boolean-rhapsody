@@ -128,6 +128,12 @@ public class GestisciAttrezziFragment extends Fragment {
                 mViewModel.readAllAttrezzi();
             }
         });
+
+        mViewModel.updateAttrezzoResult.observe(this.getViewLifecycleOwner(), risultato -> {
+            if (risultato.isSuccessful()) {
+                mViewModel.readAllAttrezzi();
+            }
+        });
     }
 
 }

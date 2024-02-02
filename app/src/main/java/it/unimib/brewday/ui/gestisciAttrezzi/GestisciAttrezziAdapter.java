@@ -52,9 +52,6 @@ public class GestisciAttrezziAdapter extends RecyclerView.Adapter<GestisciAttrez
         String tipoAttrezzoStringFormat = listaAttrezzi.get(position).tipoAttrezzo.getNome();
         holder.tipoAttrezzo.setSelection(holder.adapter.getPosition(tipoAttrezzoStringFormat));
 
-
-        holder.conferma.setVisibility(View.INVISIBLE);
-
         //Gestione bottone modifica
         holder.modifica.setOnClickListener(v -> {
 
@@ -63,6 +60,7 @@ public class GestisciAttrezziAdapter extends RecyclerView.Adapter<GestisciAttrez
             holder.capacitaAttrezzo.setEnabled(!holder.capacitaAttrezzo.isEnabled());
             holder.tipoAttrezzo.setEnabled(!holder.tipoAttrezzo.isEnabled());
 
+            //Controllo sulla tipologia di bottone
             if(holder.modifica.getText().equals("Modifica")) {
                 holder.modifica.setText(R.string.cancella);
                 holder.conferma.setVisibility(View.VISIBLE);
@@ -79,13 +77,29 @@ public class GestisciAttrezziAdapter extends RecyclerView.Adapter<GestisciAttrez
             }
         });
 
+        //Gestione aggiornamento attrezzo
+        holder.conferma.setVisibility(View.INVISIBLE);
+        holder.conferma.setOnClickListener(v -> {
+
+            String nome = holder.nomeAttrezzo.getText().toString();
+            double capacita = Double.parseDouble(holder.capacitaAttrezzo.getText().toString());
+            String tipo = holder.tipoAttrezzo.getSelectedItem().toString();
+
+            Attrezzo attrezzo = new Attrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
+            attrezzo.id = listaAttrezzi.get(position).id;
+            attrezziViewModel.updateAttrezzo(attrezzo);
+
+            holder.modifica.setText(R.string.modifica);
+        });
+
+        //Gestione operazione di cancellazione
         holder.cancella.setOnClickListener(v -> {
             String nome = holder.nomeAttrezzo.getText().toString();
             double capacita = Double.parseDouble(holder.capacitaAttrezzo.getText().toString());
             String tipo = holder.tipoAttrezzo.getSelectedItem().toString();
 
             Attrezzo attrezzo = new Attrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
-            attrezzo.id =listaAttrezzi.get(position).id;
+            attrezzo.id = listaAttrezzi.get(position).id;
             attrezziViewModel.deleteAttrezzo(attrezzo);
         });
     }
