@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,14 +99,16 @@ public class IngredientiFragment extends Fragment {
                 }, (ingrediente, quantitaIngrediente, position) -> {
                     quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
                         if(event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
-
                             if(quantitaIngrediente.getText().length() == 0) {
                                 quantitaIngrediente.setText("0.0");
                             }else if(quantitaIngrediente.getText().toString().startsWith(".")){
                                 quantitaIngrediente.setText("0" + quantitaIngrediente.getText().toString());
                             }else if(quantitaIngrediente.getText().toString().endsWith(".")){
                                 quantitaIngrediente.setText( quantitaIngrediente.getText().toString() + "0");
+                            } else if (!(quantitaIngrediente.getText().toString().contains("."))) {
+                                quantitaIngrediente.setText( quantitaIngrediente.getText().toString() + ".0");
                             }
+
 
                             ingrediente.setQuantitaAssoluta(Double.valueOf(String.valueOf(quantitaIngrediente.getText())));
                             ingredienteViewModel.updateIngrediente(ingrediente);

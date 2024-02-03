@@ -1,27 +1,24 @@
 package it.unimib.brewday.model;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class Ingrediente {
 
     @PrimaryKey(autoGenerate = true) private long id;
-    private String nome;
-
+    private TipoIngrediente tipo;
     private Double quantitaAssoluta;
 
-    public Ingrediente() {
-        //placeholder
-    }
 
-    public Ingrediente(long id, String nome, Double quantitaAssoluta) {
+    public Ingrediente(long id, TipoIngrediente tipo, Double quantitaAssoluta) {
         this.id = id;
-        this.nome = nome;
+        this.tipo = tipo;
         this.quantitaAssoluta = quantitaAssoluta;
     }
-
-    public Ingrediente(String nome) {
-        this.nome = nome;
+    @Ignore
+    public Ingrediente(TipoIngrediente tipo) {
+        this.tipo = tipo;
         this.quantitaAssoluta = 0.0;
     }
 
@@ -33,12 +30,13 @@ public class Ingrediente {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public TipoIngrediente getTipo() {
+        return tipo;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+
+    public void setTipo(TipoIngrediente nome) {
+        this.tipo = nome;
     }
 
     public Double getQuantitaAssoluta() {

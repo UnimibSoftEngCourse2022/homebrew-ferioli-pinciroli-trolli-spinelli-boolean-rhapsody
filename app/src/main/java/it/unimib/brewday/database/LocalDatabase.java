@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.List;
@@ -16,9 +17,11 @@ import java.util.concurrent.Executors;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.Ricetta;
+import it.unimib.brewday.util.Converters;
 import it.unimib.brewday.util.ListaIngredienti;
 
 @Database(entities = {Attrezzo.class, Ingrediente.class, Ricetta.class}, version = 1)
+@TypeConverters({Converters.class})
 public abstract class LocalDatabase extends RoomDatabase {
 
 

@@ -58,7 +58,7 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
         }
         TextView nomeIngrediente = convertView.findViewById(R.id.textView_ingrediente);
         TextView unitaMisura = convertView.findViewById(R.id.textView_unitaMisura);
-        EditText quantitaIngrediente = convertView.findViewById(R.id.textInputEditText_ingrediente);
+        EditText quantitaIngrediente = convertView.findViewById(R.id.editTextText_ingrediente);
         FloatingActionButton aggiungiIngrediente = convertView.findViewById(R.id.button_aggiungi_ingrediente);
         FloatingActionButton rimuoviIngrediente = convertView.findViewById(R.id.button_rimuovi_ingrediente);
 
@@ -80,14 +80,14 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
 
 
-        nomeIngrediente.setText(listaIngredienti.get(position).getNome());
+        nomeIngrediente.setText(listaIngredienti.get(position).getTipo().getNome());
         aggiornaVisualizzazioneIngredienti(listaIngredienti.get(position), quantitaIngrediente, unitaMisura);
         return convertView;
     }
 
     private void aggiornaVisualizzazioneIngredienti(Ingrediente ingrediente, EditText quantitaIngrediente, TextView unitaMisura){
         quantitaIngrediente.setText(ingrediente.getQuantitaAssolutaToString());
-        if( ingrediente.getNome().equalsIgnoreCase("acqua") ) {
+        if( ingrediente.getTipo().getNome().equalsIgnoreCase("acqua") ) {
             unitaMisura.setText(" L");
         }else{
             unitaMisura.setText(" Kg");
