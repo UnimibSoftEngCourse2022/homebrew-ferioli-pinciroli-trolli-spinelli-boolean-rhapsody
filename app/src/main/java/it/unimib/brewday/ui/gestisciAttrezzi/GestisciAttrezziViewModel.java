@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Risultato;
-import it.unimib.brewday.model.TipoAttrezzo;
 import it.unimib.brewday.repository.AttrezziRepository;
 import it.unimib.brewday.util.ServiceLocator;
 
