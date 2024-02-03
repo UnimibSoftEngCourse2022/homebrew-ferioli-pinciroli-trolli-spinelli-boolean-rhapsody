@@ -12,6 +12,8 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.List;
 
 import it.unimib.brewday.R;
@@ -81,15 +83,23 @@ public class GestisciAttrezziAdapter extends RecyclerView.Adapter<GestisciAttrez
         holder.conferma.setVisibility(View.INVISIBLE);
         holder.conferma.setOnClickListener(v -> {
 
-            String nome = holder.nomeAttrezzo.getText().toString();
-            double capacita = Double.parseDouble(holder.capacitaAttrezzo.getText().toString());
-            String tipo = holder.tipoAttrezzo.getSelectedItem().toString();
+            if(holder.nomeAttrezzo.getText().toString().equals("") ||
+                    holder.capacitaAttrezzo.getText().toString().equals("")) {
+                Snackbar
+                        .make(holder.itemView,"Dati inseriti inaccettabili", Snackbar.LENGTH_SHORT)
+                        .show();
+            }
+            else{
+                String nome = holder.nomeAttrezzo.getText().toString();
+                double capacita = Double.parseDouble(holder.capacitaAttrezzo.getText().toString());
+                String tipo = holder.tipoAttrezzo.getSelectedItem().toString();
 
-            Attrezzo attrezzo = new Attrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
-            attrezzo.id = listaAttrezzi.get(position).id;
-            attrezziViewModel.updateAttrezzo(attrezzo);
+                Attrezzo attrezzo = new Attrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
+                attrezzo.id = listaAttrezzi.get(position).id;
+                attrezziViewModel.updateAttrezzo(attrezzo);
 
-            holder.modifica.setText(R.string.modifica);
+                holder.modifica.setText(R.string.modifica);
+            }
         });
 
         //Gestione operazione di cancellazione

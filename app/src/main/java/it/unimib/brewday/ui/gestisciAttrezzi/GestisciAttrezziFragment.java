@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -93,15 +94,23 @@ public class GestisciAttrezziFragment extends Fragment {
         //Gestione conferma inserimento dati per creazione attrezzo
         confermaInserimento.setOnClickListener(v -> {
 
-            String nome = nomeAttrezzo.getText().toString();
-            double capacita = Integer.parseInt(capacitaAttrezzo.getText().toString());
-            String tipo = spinner.getSelectedItem().toString();
+            if(nomeAttrezzo.getText().toString().equals("") ||
+                    capacitaAttrezzo.getText().toString().equals("")) {
+                Snackbar
+                        .make(view,"Dati inseriti inaccettabili", Snackbar.LENGTH_SHORT)
+                        .show();
+            }
+            else{
+                String nome = nomeAttrezzo.getText().toString();
+                double capacita = Integer.parseInt(capacitaAttrezzo.getText().toString());
+                String tipo = spinner.getSelectedItem().toString();
 
-            mViewModel.createAttrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
-            mViewModel.isAddCardVisible.setValue(!mViewModel.isAddCardVisible.getValue());
-            nomeAttrezzo.setText(null);
-            capacitaAttrezzo.setText(null);
-            spinner.setAdapter(adapter);
+                mViewModel.createAttrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
+                mViewModel.isAddCardVisible.setValue(!mViewModel.isAddCardVisible.getValue());
+                nomeAttrezzo.setText(null);
+                capacitaAttrezzo.setText(null);
+                spinner.setAdapter(adapter);
+            }
         });
 
         //Gestione stampa a schermo degli attrezzi registrati
