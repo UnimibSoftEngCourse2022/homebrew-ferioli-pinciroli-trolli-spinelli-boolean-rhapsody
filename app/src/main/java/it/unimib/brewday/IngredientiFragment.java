@@ -91,14 +91,15 @@ public class IngredientiFragment extends Fragment {
 
                     }
                 }, (ingrediente, hasFocus, quantitaIngrediente) -> {
-                    if(!hasFocus && quantitaIngrediente.getText().length() > 0){
+                    if(!hasFocus) {
+                        if (quantitaIngrediente.getText().length() == 0) {
+                            quantitaIngrediente.setText("0.0");
+                        }
                         ingrediente.setQuantitaAssoluta(Double.valueOf(String.valueOf(quantitaIngrediente.getText())));
                         ingredienteViewModel.updateIngrediente(ingrediente);
-
                     }
                 });
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
-
 
             }else{
                 //TODO snackbar errore
