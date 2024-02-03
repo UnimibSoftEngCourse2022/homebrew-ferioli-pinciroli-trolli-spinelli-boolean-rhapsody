@@ -104,8 +104,9 @@ public class GestisciAttrezziFragment extends Fragment {
                 String nome = nomeAttrezzo.getText().toString();
                 double capacita = Integer.parseInt(capacitaAttrezzo.getText().toString());
                 String tipo = spinner.getSelectedItem().toString();
+                Attrezzo attrezzo = new Attrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
 
-                mViewModel.createAttrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
+                mViewModel.createAttrezzo(attrezzo);
                 mViewModel.isAddCardVisible.setValue(!mViewModel.isAddCardVisible.getValue());
                 nomeAttrezzo.setText(null);
                 capacitaAttrezzo.setText(null);

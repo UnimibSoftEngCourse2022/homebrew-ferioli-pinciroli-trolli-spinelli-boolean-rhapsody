@@ -40,12 +40,7 @@ public class GestisciAttrezziViewModel extends ViewModel {
         });
     }
 
-    public void createAttrezzo(String nome, TipoAttrezzo tipoAttrezzo, double capacita) {
-
-        Attrezzo attrezzo = new Attrezzo();
-        attrezzo.nome = nome;
-        attrezzo.tipoAttrezzo = tipoAttrezzo;
-        attrezzo.capacita = capacita;
+    public void createAttrezzo(Attrezzo attrezzo) {
 
         attrezziRepository.createAttrezzo(attrezzo, result -> {
             createAttrezzoResult.postValue(result);
