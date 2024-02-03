@@ -1,8 +1,6 @@
-package it.unimib.brewday;
+package it.unimib.brewday.model;
 
 import java.util.List;
-
-import it.unimib.brewday.model.Ingrediente;
 
 public class Risultato {
 

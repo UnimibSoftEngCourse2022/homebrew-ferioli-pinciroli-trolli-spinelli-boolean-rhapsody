@@ -1,4 +1,4 @@
-package it.unimib.brewday;
+package it.unimib.brewday.ui;
 
 import android.content.Context;
 

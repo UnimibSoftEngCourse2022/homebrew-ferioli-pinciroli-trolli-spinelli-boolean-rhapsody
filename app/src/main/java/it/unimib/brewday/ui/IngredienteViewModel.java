@@ -1,4 +1,4 @@
-package it.unimib.brewday;
+package it.unimib.brewday.ui;
 
 
 import android.content.Context;
@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
+import it.unimib.brewday.repository.IngredienteRepository;
+import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.util.ServiceLocator;
 

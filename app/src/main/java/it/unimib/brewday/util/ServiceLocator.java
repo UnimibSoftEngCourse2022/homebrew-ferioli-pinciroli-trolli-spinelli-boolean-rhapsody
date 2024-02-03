@@ -2,7 +2,7 @@ package it.unimib.brewday.util;
 
 import android.content.Context;
 
-import it.unimib.brewday.IngredienteRepository;
+import it.unimib.brewday.repository.IngredienteRepository;
 import it.unimib.brewday.database.LocalDatabase;
 
 public class ServiceLocator {

@@ -1,9 +1,12 @@
-package it.unimib.brewday;
+package it.unimib.brewday.repository;
 
 import java.util.List;
+
+import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.database.IngredienteDao;
 import it.unimib.brewday.database.LocalDatabase;
 import it.unimib.brewday.model.Ingrediente;
+import it.unimib.brewday.ui.Callback;
 
 public class IngredienteRepository {
 
@@ -13,7 +16,7 @@ public class IngredienteRepository {
         this.ingredienteDao = localDatabase.ingredienteDao();
     }
 
-    public void readAllIngredienti(Callback  callback){
+    public void readAllIngredienti(Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             List<Ingrediente> listaIngredienti = ingredienteDao.getAll();
             if(listaIngredienti != null){

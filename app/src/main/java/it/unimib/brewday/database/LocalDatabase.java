@@ -1,6 +1,5 @@
 package it.unimib.brewday.database;
 
-import static android.app.WallpaperManager.getInstance;
 
 import android.content.Context;
 
@@ -17,7 +16,6 @@ import java.util.concurrent.Executors;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.Ricetta;
-import it.unimib.brewday.util.Constants;
 import it.unimib.brewday.util.ListaIngredienti;
 
 @Database(entities = {Attrezzo.class, Ingrediente.class, Ricetta.class}, version = 1)

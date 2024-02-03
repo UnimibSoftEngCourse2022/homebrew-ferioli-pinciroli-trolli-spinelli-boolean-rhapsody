@@ -3,7 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+
+
+    <EditText
+        android:id="@+id/editTextText_ingrediente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="112dp"
+        android:inputType="number|numberDecimal"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:textAlignment="textEnd"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_ingrediente"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView_ingrediente"
+        tools:text="22.0"
+        android:background="null"/>
 
 
     <TextView
@@ -11,23 +27,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:text="Acqua"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Acqua" />
 
     <TextView
         android:id="@+id/textView_unitaMisura"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Kg"
+        android:layout_marginStart="1dp"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputEditText_ingrediente"
-        app:layout_constraintStart_toEndOf="@+id/textInputEditText_ingrediente"
-        app:layout_constraintTop_toTopOf="@+id/textInputEditText_ingrediente"
-        app:layout_constraintVertical_bias="0.285" />
+        app:layout_constraintBottom_toBottomOf="@+id/editTextText_ingrediente"
+        app:layout_constraintStart_toEndOf="@+id/editTextText_ingrediente"
+        app:layout_constraintTop_toTopOf="@+id/editTextText_ingrediente"
+        tools:text="Kg" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -35,12 +52,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
-        android:contentDescription="bottone -"
         android:src="@drawable/baseline_horizontal_rule_24"
-        android:text="-"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputEditText_ingrediente"
-        app:layout_constraintEnd_toStartOf="@+id/textInputEditText_ingrediente"
-        app:layout_constraintTop_toTopOf="@+id/textInputEditText_ingrediente" />
+        app:layout_constraintBottom_toBottomOf="@+id/editTextText_ingrediente"
+        app:layout_constraintEnd_toStartOf="@+id/editTextText_ingrediente"
+        app:layout_constraintTop_toTopOf="@+id/editTextText_ingrediente"
+        tools:contentDescription="bottone -" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -48,25 +64,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:contentDescription="bottone +"
         android:src="@drawable/baseline_add_24"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_unitaMisura"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextText_ingrediente"
         app:layout_constraintStart_toEndOf="@+id/textView_unitaMisura"
-        app:layout_constraintTop_toTopOf="@+id/textView_unitaMisura"
-        app:layout_constraintVertical_bias="0.531" />
-
-    <EditText
-        android:id="@+id/textInputEditText_ingrediente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="122dp"
-        android:inputType="number|numberDecimal"
-        android:text="22.0"
-        android:textAlignment="textEnd"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_ingrediente"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView_ingrediente" />
+        app:layout_constraintTop_toTopOf="@+id/editTextText_ingrediente"
+        tools:contentDescription="bottone +" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

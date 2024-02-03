@@ -1,4 +1,4 @@
-package it.unimib.brewday;
+package it.unimib.brewday.ui;
 
 import android.os.Bundle;
 
@@ -13,14 +13,15 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
-import it.unimib.brewday.database.IngredienteDao;
+import it.unimib.brewday.AdapterListViewListaIngredientiDisponibili;
+import it.unimib.brewday.R;
+import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.Ingrediente;
 
 /**
@@ -31,8 +32,6 @@ import it.unimib.brewday.model.Ingrediente;
 public class IngredientiFragment extends Fragment {
 
     ListView listViewIngredientiDispobili;
-
-    IngredienteDao ingredienteDao;
 
     IngredienteViewModel ingredienteViewModel;
 
@@ -121,9 +120,6 @@ public class IngredientiFragment extends Fragment {
             }else{
                 Snackbar.make(view, ((Risultato.Error) risultato).getMessage(), Snackbar.LENGTH_SHORT).show();
             }
-
-
          });
-
     }
 }
