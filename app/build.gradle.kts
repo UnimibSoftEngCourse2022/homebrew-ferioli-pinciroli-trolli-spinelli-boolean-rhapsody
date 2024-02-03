@@ -1,6 +1,5 @@
 plugins {
     id("com.android.application")
-    id("jacoco")
 }
 
 android {
@@ -13,6 +12,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -43,19 +43,36 @@ val androidxJunitVersion = "1.1.5"
 val junitVersion = "4.13.2"
 val testRunnerVersion = "1.5.2"
 val testRulesVersion = "1.5.0"
+val navigationFragmentVersion = "2.7.6"
+val navigatioUiVersion = "2.7.6"
+val espressocoreVersion = "3.5.1"
+val dexmakermockitoVersion = "1.2"
 
 val roomAnnotationCompilerVersion = "2.6.1"
 
 dependencies {
 
+    // ANDROID
     implementation("androidx.appcompat:appcompat:$appcompatVersion")
     implementation("com.google.android.material:material:$materialVersion")
     implementation("androidx.constraintlayout:constraintlayout:$constraintLayoutVersion")
-    implementation("androidx.room:room-runtime:$roomRuntimeVersion")
+    implementation("androidx.navigation:navigation-fragment:$navigationFragmentVersion")
+    implementation("androidx.navigation:navigation-ui:$navigatioUiVersion")
+
+
+    // TESTING
     implementation("androidx.test.ext:junit:$androidxJunitVersion")
     testImplementation("junit:junit:$junitVersion")
     androidTestImplementation("androidx.test:runner:$testRunnerVersion")
     androidTestImplementation("androidx.test:rules:$testRulesVersion")
+    androidTestImplementation("androidx.test.espresso:espresso-core:$espressocoreVersion")
 
+    // MOCKITO
+    implementation ("org.mockito:mockito-core")
+    implementation ("com.google.dexmaker:dexmaker-mockito:$dexmakermockitoVersion")
+
+    // ROOM
+    implementation("androidx.room:room-runtime:$roomRuntimeVersion")
     annotationProcessor("androidx.room:room-compiler:$roomAnnotationCompilerVersion")
+
 }
