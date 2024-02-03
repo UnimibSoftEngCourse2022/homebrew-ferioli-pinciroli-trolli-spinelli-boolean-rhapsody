@@ -7,6 +7,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +39,8 @@ public class IngredientiFragment extends Fragment {
     AdapterListViewListaIngredientiDisponibili adapterListViewListaIngredientiDisponibili;
 
     List<Ingrediente> listaIngredienti;
+
+
 
 
     public IngredientiFragment() {
@@ -77,29 +82,40 @@ public class IngredientiFragment extends Fragment {
                 adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
                     @Override
                     public void onAddIngredienteClick(Ingrediente ingrediente, int position) {
-                        ingrediente.setQuantitaAssoluta(ingrediente.getQuantitaAssoluta() + 1);
+                        ingrediente.setQuantitaAssoluta(ingrediente.getQuantitaAssoluta() + 1.0);
                         ingredienteViewModel.updateIngrediente(ingrediente);
                     }
 
                     @Override
                     public void onRemoveIngredienteClick(Ingrediente ingrediente, int position) {
-                        if (ingrediente.getQuantitaAssoluta() < 1) {
+                        if (ingrediente.getQuantitaAssoluta() < 1.0) {
                             Snackbar.make(view, "Non si può avere ingredienti negativi", Snackbar.LENGTH_SHORT).show();
                         } else {
-                            ingrediente.setQuantitaAssoluta(ingrediente.getQuantitaAssoluta() - 1);
+                            ingrediente.setQuantitaAssoluta(ingrediente.getQuantitaAssoluta() - 1.0);
                             ingredienteViewModel.updateIngrediente(ingrediente);
                         }
 
                     }
-                }, (ingrediente, hasFocus, quantitaIngrediente) -> {
-                    if(!hasFocus) {
-                        if (quantitaIngrediente.getText().length() == 0) {
-                            quantitaIngrediente.setText("0.0");
+                }, (ingrediente, quantitaIngrediente, position) -> {
+                    quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
+                        if(event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
+
+                            if(quantitaIngrediente.getText().length() == 0) {
+                                quantitaIngrediente.setText("0.0");
+                            }else if(quantitaIngrediente.getText().toString().startsWith(".")){
+                                quantitaIngrediente.setText("0" + quantitaIngrediente.getText().toString());
+                            }else if(quantitaIngrediente.getText().toString().endsWith(".")){
+                                quantitaIngrediente.setText( quantitaIngrediente.getText().toString() + "0");
+                            }
+
+                            ingrediente.setQuantitaAssoluta(Double.valueOf(String.valueOf(quantitaIngrediente.getText())));
+                            ingredienteViewModel.updateIngrediente(ingrediente);
                         }
-                        ingrediente.setQuantitaAssoluta(Double.valueOf(String.valueOf(quantitaIngrediente.getText())));
-                        ingredienteViewModel.updateIngrediente(ingrediente);
-                    }
+                        return false;
+                    });
+
                 });
+
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
 
             }else{

@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
     public interface OnFocusChangeListener {
 
-        void OnChangeIngrediente(Ingrediente ingrediente, boolean hasFocus,EditText quantitaIngrediente);
+        void OnChangeIngrediente(Ingrediente ingrediente, EditText quantitaIngrediente, int position);
     }
     @Override
     @NonNull
@@ -57,9 +58,10 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
         }
         TextView nomeIngrediente = convertView.findViewById(R.id.textView_ingrediente);
         TextView unitaMisura = convertView.findViewById(R.id.textView_unitaMisura);
-        EditText quantitaIngrediente = convertView.findViewById(R.id.editTextText_ingrediente);
+        EditText quantitaIngrediente = convertView.findViewById(R.id.textInputEditText_ingrediente);
         FloatingActionButton aggiungiIngrediente = convertView.findViewById(R.id.button_aggiungi_ingrediente);
         FloatingActionButton rimuoviIngrediente = convertView.findViewById(R.id.button_rimuovi_ingrediente);
+
 
 
         aggiungiIngrediente.setOnClickListener(v -> {
@@ -71,8 +73,11 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
             aggiornaVisualizzazioneIngredienti(listaIngredienti.get(position), quantitaIngrediente, unitaMisura);
         });
 
-        quantitaIngrediente.setOnFocusChangeListener((v, hasFocus) ->
-            onFocusChangeListener.OnChangeIngrediente(listaIngredienti.get(position), hasFocus, quantitaIngrediente));
+        quantitaIngrediente.setOnFocusChangeListener((v, hasFocus) -> {
+            if(!hasFocus)
+               onFocusChangeListener.OnChangeIngrediente(listaIngredienti.get(position), quantitaIngrediente, position);
+        });
+
 
 
         nomeIngrediente.setText(listaIngredienti.get(position).getNome());

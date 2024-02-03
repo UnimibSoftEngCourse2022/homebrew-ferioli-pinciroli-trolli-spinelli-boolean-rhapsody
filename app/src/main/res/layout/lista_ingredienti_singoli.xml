@@ -6,22 +6,6 @@
     android:layout_height="match_parent">
 
 
-    <EditText
-        android:id="@+id/editTextText_ingrediente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="112dp"
-        android:inputType="number|numberDecimal"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        android:text="22.0"
-        android:textAlignment="textEnd"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_ingrediente"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView_ingrediente" />
-
-
-
     <TextView
         android:id="@+id/textView_ingrediente"
         android:layout_width="wrap_content"
@@ -37,11 +21,13 @@
         android:id="@+id/textView_unitaMisura"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Kg"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextText_ingrediente"
-        app:layout_constraintStart_toEndOf="@+id/editTextText_ingrediente"
-        app:layout_constraintTop_toTopOf="@+id/editTextText_ingrediente" />
+        app:layout_constraintBottom_toBottomOf="@+id/textInputEditText_ingrediente"
+        app:layout_constraintStart_toEndOf="@+id/textInputEditText_ingrediente"
+        app:layout_constraintTop_toTopOf="@+id/textInputEditText_ingrediente"
+        app:layout_constraintVertical_bias="0.285" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -49,12 +35,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
+        android:contentDescription="bottone -"
         android:src="@drawable/baseline_horizontal_rule_24"
         android:text="-"
-        android:contentDescription="bottone -"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextText_ingrediente"
-        app:layout_constraintEnd_toStartOf="@+id/editTextText_ingrediente"
-        app:layout_constraintTop_toTopOf="@+id/editTextText_ingrediente" />
+        app:layout_constraintBottom_toBottomOf="@+id/textInputEditText_ingrediente"
+        app:layout_constraintEnd_toStartOf="@+id/textInputEditText_ingrediente"
+        app:layout_constraintTop_toTopOf="@+id/textInputEditText_ingrediente" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -62,13 +48,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:contentDescription="bottone +"
         android:src="@drawable/baseline_add_24"
         android:text="Button"
-        android:contentDescription="bottone +"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextText_ingrediente"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_unitaMisura"
         app:layout_constraintStart_toEndOf="@+id/textView_unitaMisura"
-        app:layout_constraintTop_toTopOf="@+id/editTextText_ingrediente"
-        app:layout_constraintVertical_bias="0.375" />
+        app:layout_constraintTop_toTopOf="@+id/textView_unitaMisura"
+        app:layout_constraintVertical_bias="0.531" />
+
+    <EditText
+        android:id="@+id/textInputEditText_ingrediente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="122dp"
+        android:inputType="number|numberDecimal"
+        android:text="22.0"
+        android:textAlignment="textEnd"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_ingrediente"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView_ingrediente" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
