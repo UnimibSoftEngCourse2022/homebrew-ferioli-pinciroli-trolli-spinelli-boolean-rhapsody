@@ -64,11 +64,11 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
         aggiungiIngrediente.setOnClickListener(v -> {
             onItemClickListener.onAddIngredienteClick(listaIngredienti.get(position), position);
-            aggiornaVisualizzazioneIngredienti(listaIngredienti, position, quantitaIngrediente, unitaMisura);
+            aggiornaVisualizzazioneIngredienti(listaIngredienti.get(position), quantitaIngrediente, unitaMisura);
         });
         rimuoviIngrediente.setOnClickListener(v -> {
             onItemClickListener.onRemoveIngredienteClick(listaIngredienti.get(position), position);
-            aggiornaVisualizzazioneIngredienti(listaIngredienti, position, quantitaIngrediente, unitaMisura);
+            aggiornaVisualizzazioneIngredienti(listaIngredienti.get(position), quantitaIngrediente, unitaMisura);
         });
 
         quantitaIngrediente.setOnFocusChangeListener((v, hasFocus) ->
@@ -76,13 +76,13 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
 
         nomeIngrediente.setText(listaIngredienti.get(position).getNome());
-        aggiornaVisualizzazioneIngredienti(listaIngredienti, position, quantitaIngrediente, unitaMisura);
+        aggiornaVisualizzazioneIngredienti(listaIngredienti.get(position), quantitaIngrediente, unitaMisura);
         return convertView;
     }
 
-    private void aggiornaVisualizzazioneIngredienti(List<Ingrediente> listaIngredienti, int position, EditText quantitaIngrediente, TextView unitaMisura){
-        quantitaIngrediente.setText(listaIngredienti.get(position).getQuantitaAssolutaToString());
-        if( listaIngredienti.get(position).getNome().equalsIgnoreCase("acqua") ) {
+    private void aggiornaVisualizzazioneIngredienti(Ingrediente ingrediente, EditText quantitaIngrediente, TextView unitaMisura){
+        quantitaIngrediente.setText(ingrediente.getQuantitaAssolutaToString());
+        if( ingrediente.getNome().equalsIgnoreCase("acqua") ) {
             unitaMisura.setText(" L");
         }else{
             unitaMisura.setText(" Kg");

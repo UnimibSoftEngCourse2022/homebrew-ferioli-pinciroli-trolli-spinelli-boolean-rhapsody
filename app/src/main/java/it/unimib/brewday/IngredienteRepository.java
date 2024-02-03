@@ -20,7 +20,7 @@ public class IngredienteRepository {
                 callback.onComplete(new Risultato.IngredientiSuccess(listaIngredienti));
             }
             else{
-                callback.onComplete(new Risultato.Error(" "));
+                callback.onComplete(new Risultato.Error("Fallimento lettura ingredienti disponibili"));
             }
         });
 
@@ -34,7 +34,7 @@ public class IngredienteRepository {
                 callback.onComplete(new Risultato.IngredientiSuccess(listaIngredienti));
             }
             else{
-                callback.onComplete(new Risultato.Error(" "));
+                callback.onComplete(new Risultato.Error("ingredienti non aggiornati "));
             }
         });
 

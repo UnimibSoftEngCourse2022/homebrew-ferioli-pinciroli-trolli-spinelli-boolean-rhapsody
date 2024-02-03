@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.List;
 
 import it.unimib.brewday.database.IngredienteDao;
@@ -77,13 +79,12 @@ public class IngredientiFragment extends Fragment {
                     public void onAddIngredienteClick(Ingrediente ingrediente, int position) {
                         ingrediente.setQuantitaAssoluta(ingrediente.getQuantitaAssoluta() + 1);
                         ingredienteViewModel.updateIngrediente(ingrediente);
-
                     }
 
                     @Override
                     public void onRemoveIngredienteClick(Ingrediente ingrediente, int position) {
                         if (ingrediente.getQuantitaAssoluta() < 1) {
-                            //TODO snackBar erore
+                            Snackbar.make(view, "Non si può avere ingredienti negativi", Snackbar.LENGTH_SHORT).show();
                         } else {
                             ingrediente.setQuantitaAssoluta(ingrediente.getQuantitaAssoluta() - 1);
                             ingredienteViewModel.updateIngrediente(ingrediente);
@@ -102,7 +103,7 @@ public class IngredientiFragment extends Fragment {
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
 
             }else{
-                //TODO snackbar errore
+                Snackbar.make(view, ((Risultato.Error) risultato).getMessage(), Snackbar.LENGTH_SHORT).show();
             }
 
 
