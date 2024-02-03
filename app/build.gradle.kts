@@ -45,6 +45,8 @@ val testRunnerVersion = "1.5.2"
 val testRulesVersion = "1.5.0"
 val navigationFragmentVersion = "2.7.6"
 val navigatioUiVersion = "2.7.6"
+val espressocoreVersion = "3.5.1"
+val dexmakermockitoVersion = "1.2"
 
 val roomAnnotationCompilerVersion = "2.6.1"
 
@@ -63,11 +65,11 @@ dependencies {
     testImplementation("junit:junit:$junitVersion")
     androidTestImplementation("androidx.test:runner:$testRunnerVersion")
     androidTestImplementation("androidx.test:rules:$testRulesVersion")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:$espressocoreVersion")
 
     // MOCKITO
-    implementation ("org.mockito:mockito-core: 5.10.0")
-    implementation ("com.google.dexmaker:dexmaker-mockito:1.2")
+    implementation ("org.mockito:mockito-core")
+    implementation ("com.google.dexmaker:dexmaker-mockito:$dexmakermockitoVersion")
 
     // ROOM
     implementation("androidx.room:room-runtime:$roomRuntimeVersion")
