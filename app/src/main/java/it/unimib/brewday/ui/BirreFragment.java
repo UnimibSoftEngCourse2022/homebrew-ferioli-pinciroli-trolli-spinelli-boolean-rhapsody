@@ -1,4 +1,4 @@
-package it.unimib.brewday;
+package it.unimib.brewday.ui;
 
 import android.os.Bundle;
 
@@ -21,12 +21,6 @@ public class BirreFragment extends Fragment {
 
     public static BirreFragment newInstance() {
         return new BirreFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
     }
 
     @Override

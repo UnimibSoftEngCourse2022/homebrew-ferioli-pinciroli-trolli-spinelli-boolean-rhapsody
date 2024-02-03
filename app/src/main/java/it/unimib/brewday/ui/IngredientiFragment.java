@@ -1,4 +1,4 @@
-package it.unimib.brewday;
+package it.unimib.brewday.ui;
 
 import android.os.Bundle;
 
@@ -10,11 +10,6 @@ import android.view.ViewGroup;
 
 import it.unimib.brewday.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link IngredientiFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class IngredientiFragment extends Fragment {
 
 
@@ -26,12 +21,6 @@ public class IngredientiFragment extends Fragment {
     public static IngredientiFragment newInstance() {
 
         return new IngredientiFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
     }
 
     @Override
