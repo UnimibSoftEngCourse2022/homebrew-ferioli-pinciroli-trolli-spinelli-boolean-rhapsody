@@ -66,7 +66,7 @@ public abstract class LocalDatabase extends RoomDatabase {
                     }
 
                     private void popolaIngredienteDB(IngredienteDao dao, List<Ingrediente> listaIngredienti) {
-                        dao.insertEventList(listaIngredienti);
+                        dao.insertIngredientiList(listaIngredienti);
                     }
                 })
                 .build();

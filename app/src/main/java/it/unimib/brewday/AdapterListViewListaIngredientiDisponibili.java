@@ -71,9 +71,9 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
             aggiornaVisualizzazioneIngredienti(listaIngredienti, position, quantitaIngrediente, unitaMisura);
         });
 
-        quantitaIngrediente.setOnFocusChangeListener((v, hasFocus) -> {
-            onFocusChangeListener.OnChangeIngrediente(listaIngredienti.get(position), hasFocus, quantitaIngrediente);
-        });
+        quantitaIngrediente.setOnFocusChangeListener((v, hasFocus) ->
+            onFocusChangeListener.OnChangeIngrediente(listaIngredienti.get(position), hasFocus, quantitaIngrediente));
+
 
         nomeIngrediente.setText(listaIngredienti.get(position).getNome());
         aggiornaVisualizzazioneIngredienti(listaIngredienti, position, quantitaIngrediente, unitaMisura);

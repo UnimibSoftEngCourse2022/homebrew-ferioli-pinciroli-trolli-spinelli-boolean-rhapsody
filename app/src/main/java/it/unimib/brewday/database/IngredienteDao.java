@@ -20,6 +20,6 @@ public interface IngredienteDao {
     @Update int updateIngrediente(Ingrediente ingrediente);
 
     @Insert
-    List<Long> insertEventList(List<Ingrediente> listaIngrediente);
+    List<Long> insertIngredientiList(List<Ingrediente> listaIngrediente);
 
 }
