@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import it.unimib.brewday.model.Attrezzo;
-import it.unimib.brewday.util.Constants;
+import it.unimib.brewday.util.Costanti;
 import it.unimib.brewday.util.Converters;
 
 import java.util.concurrent.ExecutorService;
@@ -35,7 +35,7 @@ public abstract class LocalDatabase extends RoomDatabase {
             synchronized (LocalDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            LocalDatabase.class, Constants.DATABASE_NAME).build();
+                            LocalDatabase.class, Costanti.DATABASE_NAME).build();
                 }
             }
         }
