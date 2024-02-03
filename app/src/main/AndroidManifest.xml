@@ -13,7 +13,7 @@
         android:theme="@style/Theme.BrewDay"
         tools:targetApi="31">
         <activity
-            android:name="it.unimib.brewday.MainActivity"
+            android:name="it.unimib.brewday.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package it.unimib.brewday;
+package it.unimib.brewday.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -10,6 +10,8 @@ import android.os.Bundle;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import it.unimib.brewday.R;
 
 public class MainActivity extends AppCompatActivity {
 
