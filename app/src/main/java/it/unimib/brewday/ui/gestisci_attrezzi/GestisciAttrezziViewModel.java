@@ -1,4 +1,4 @@
-package it.unimib.brewday.ui.gestisciAttrezzi;
+package it.unimib.brewday.ui.gestisci_attrezzi;
 
 import android.content.Context;
 
@@ -16,7 +16,6 @@ public class GestisciAttrezziViewModel extends ViewModel {
     public MutableLiveData<Risultato> createAttrezzoResult;
     public MutableLiveData<Risultato> updateAttrezzoResult;
     public MutableLiveData<Risultato> deleteAttrezzoResult;
-
     public MutableLiveData<Boolean> isAddCardVisible;
 
     private final AttrezziRepository attrezziRepository;
@@ -34,9 +33,7 @@ public class GestisciAttrezziViewModel extends ViewModel {
     }
 
     public void readAllAttrezzi() {
-        attrezziRepository.readAllAttrezzi(result -> {
-            allAttrezzi.postValue(result);
-        });
+        attrezziRepository.readAllAttrezzi(result -> allAttrezzi.postValue(result));
     }
 
     public void createAttrezzo(Attrezzo attrezzo) {
@@ -48,14 +45,10 @@ public class GestisciAttrezziViewModel extends ViewModel {
     }
 
     public void updateAttrezzo(Attrezzo nuovoAttrezzo) {
-        attrezziRepository.updateAttrezzo(nuovoAttrezzo, result -> {
-            updateAttrezzoResult.postValue(result);
-        });
+        attrezziRepository.updateAttrezzo(nuovoAttrezzo, result -> updateAttrezzoResult.postValue(result));
     }
 
-    public void deleteAttrezzo(Attrezzo daCanellare) {
-        attrezziRepository.deleteAttrezzo(daCanellare, result -> {
-            deleteAttrezzoResult.postValue(result);
-        });
+    public void deleteAttrezzo(Attrezzo daCancellare) {
+        attrezziRepository.deleteAttrezzo(daCancellare, result -> deleteAttrezzoResult.postValue(result));
     }
 }

@@ -5,6 +5,8 @@ import it.unimib.brewday.model.TipoAttrezzo;
 
 public class Converters {
 
+    private Converters(){}
+
     @TypeConverter
     public static TipoAttrezzo fromString(String value) {
         for (TipoAttrezzo tipo : TipoAttrezzo.values()) {

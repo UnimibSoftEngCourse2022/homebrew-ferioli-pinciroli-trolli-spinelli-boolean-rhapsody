@@ -1,4 +1,4 @@
-package it.unimib.brewday.ui.gestisciAttrezzi;
+package it.unimib.brewday.ui.gestisci_attrezzi;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -86,7 +87,7 @@ public class GestisciAttrezziAdapter extends RecyclerView.Adapter<GestisciAttrez
             if(holder.nomeAttrezzo.getText().toString().equals("") ||
                     holder.capacitaAttrezzo.getText().toString().equals("")) {
                 Snackbar
-                        .make(holder.itemView,"Dati inseriti inaccettabili", Snackbar.LENGTH_SHORT)
+                        .make(holder.itemView,"Dati inseriti inaccettabili", BaseTransientBottomBar.LENGTH_SHORT)
                         .show();
             }
             else{

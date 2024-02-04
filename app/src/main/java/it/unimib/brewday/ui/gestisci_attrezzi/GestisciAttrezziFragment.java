@@ -1,4 +1,4 @@
-package it.unimib.brewday.ui.gestisciAttrezzi;
+package it.unimib.brewday.ui.gestisci_attrezzi;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -87,9 +88,7 @@ public class GestisciAttrezziFragment extends Fragment {
                 materialCardView.setVisibility(View.GONE);
         });
 
-        addAttrezzo.setOnClickListener(v -> {
-            mViewModel.isAddCardVisible.setValue(!mViewModel.isAddCardVisible.getValue());
-        });
+        addAttrezzo.setOnClickListener(v -> mViewModel.isAddCardVisible.setValue(!mViewModel.isAddCardVisible.getValue()));
 
         //Gestione conferma inserimento dati per creazione attrezzo
         confermaInserimento.setOnClickListener(v -> {
@@ -97,7 +96,7 @@ public class GestisciAttrezziFragment extends Fragment {
             if(nomeAttrezzo.getText().toString().equals("") ||
                     capacitaAttrezzo.getText().toString().equals("")) {
                 Snackbar
-                        .make(view,"Dati inseriti inaccettabili", Snackbar.LENGTH_SHORT)
+                        .make(view,"Dati inseriti inaccettabili", BaseTransientBottomBar.LENGTH_SHORT)
                         .show();
             }
             else{
