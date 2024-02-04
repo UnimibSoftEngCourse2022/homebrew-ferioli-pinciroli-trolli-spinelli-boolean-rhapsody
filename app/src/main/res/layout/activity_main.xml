@@ -8,7 +8,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/ActivityTest"
-        android:name="it.unimib.brewday.ui.IngredientiFragment"
+        android:name="it.unimib.brewday.ui.gestisci_ingredienti.IngredientiFragment"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         tools:layout="@layout/fragment_ingredienti" />

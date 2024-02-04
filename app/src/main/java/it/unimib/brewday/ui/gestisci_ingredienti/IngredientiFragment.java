@@ -1,4 +1,6 @@
-package it.unimib.brewday.ui;
+package it.unimib.brewday.ui.gestisci_ingredienti;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 import android.os.Bundle;
 
@@ -7,20 +9,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
-import it.unimib.brewday.AdapterListViewListaIngredientiDisponibili;
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.Ingrediente;
@@ -82,48 +81,49 @@ public class IngredientiFragment extends Fragment {
                 adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
                     @Override
                     public void onAddIngredienteClick(Ingrediente ingrediente, int position) {
-                        ingrediente.setQuantitaAssoluta(ingrediente.getQuantitaAssoluta() + 1.0);
+                        ingrediente.setQuantitàPosseduta(ingrediente.getQuantitàPosseduta() + 0.1);
                         ingredienteViewModel.updateIngrediente(ingrediente);
                     }
 
                     @Override
                     public void onRemoveIngredienteClick(Ingrediente ingrediente, int position) {
-                        if (ingrediente.getQuantitaAssoluta() < 1.0) {
-                            Snackbar.make(view, "Non si può avere ingredienti negativi", Snackbar.LENGTH_SHORT).show();
+                        if (ingrediente.getQuantitàPosseduta() < 0.1) {
+                            Snackbar.make(view, "Non si può avere ingredienti negativi", LENGTH_SHORT).show();
                         } else {
-                            ingrediente.setQuantitaAssoluta(ingrediente.getQuantitaAssoluta() - 1.0);
+                            ingrediente.setQuantitàPosseduta(ingrediente.getQuantitàPosseduta() - 0.1);
                             ingredienteViewModel.updateIngrediente(ingrediente);
                         }
 
                     }
-                }, (ingrediente, quantitaIngrediente, position) -> {
-                    quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
-                        if(event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
-                            if(quantitaIngrediente.getText().length() == 0) {
-                                quantitaIngrediente.setText("0.0");
-                            }else if(quantitaIngrediente.getText().toString().startsWith(".")){
-                                quantitaIngrediente.setText("0" + quantitaIngrediente.getText().toString());
-                            }else if(quantitaIngrediente.getText().toString().endsWith(".")){
-                                quantitaIngrediente.setText( quantitaIngrediente.getText().toString() + "0");
-                            } else if (!(quantitaIngrediente.getText().toString().contains("."))) {
-                                quantitaIngrediente.setText( quantitaIngrediente.getText().toString() + ".0");
+                }, (ingrediente, quantitaIngrediente, position) -> quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
+                            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+
+                                verificaIngrediente(quantitaIngrediente);
+                                ingrediente.setQuantitàPosseduta(Double.valueOf(String.valueOf(quantitaIngrediente.getText())));
+                                ingredienteViewModel.updateIngrediente(ingrediente);
                             }
+                            return false;
+                        }));
 
 
-                            ingrediente.setQuantitaAssoluta(Double.valueOf(String.valueOf(quantitaIngrediente.getText())));
-                            ingredienteViewModel.updateIngrediente(ingrediente);
-                        }
-                        return false;
-                    });
-
-                });
 
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
                 listViewIngredientiDispobili.setDivider(null);
-
             }else{
-                Snackbar.make(view, ((Risultato.Error) risultato).getMessage(), Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, ((Risultato.Error) risultato).getMessage(), LENGTH_SHORT).show();
             }
          });
+    }
+
+    public void verificaIngrediente(EditText quantitaIngrediente){
+        if (quantitaIngrediente.getText().length() == 0) {
+            quantitaIngrediente.setText("0.0");
+        } else if (quantitaIngrediente.getText().toString().startsWith(".")) {
+            quantitaIngrediente.setText("0" + quantitaIngrediente.getText().toString());
+        } else if (quantitaIngrediente.getText().toString().endsWith(".")) {
+            quantitaIngrediente.setText(quantitaIngrediente.getText().toString() + "0");
+        } else if (!(quantitaIngrediente.getText().toString().contains("."))) {
+            quantitaIngrediente.setText(quantitaIngrediente.getText().toString() + ".0");
+        }
     }
 }

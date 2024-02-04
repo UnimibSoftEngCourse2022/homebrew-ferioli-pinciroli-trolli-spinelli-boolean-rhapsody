@@ -1,4 +1,4 @@
-package it.unimib.brewday;
+package it.unimib.brewday.ui.gestisci_ingredienti;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,6 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 
+import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ingrediente;
 
 public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ingrediente> {
