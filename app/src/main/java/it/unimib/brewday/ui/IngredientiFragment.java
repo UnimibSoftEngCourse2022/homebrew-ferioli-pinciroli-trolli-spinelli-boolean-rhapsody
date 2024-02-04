@@ -119,6 +119,7 @@ public class IngredientiFragment extends Fragment {
                 });
 
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
+                listViewIngredientiDispobili.setDivider(null);
 
             }else{
                 Snackbar.make(view, ((Risultato.Error) risultato).getMessage(), Snackbar.LENGTH_SHORT).show();
