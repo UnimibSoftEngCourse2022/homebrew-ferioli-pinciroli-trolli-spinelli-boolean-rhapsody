@@ -8,18 +8,18 @@ public class Ingrediente {
 
     @PrimaryKey(autoGenerate = true) private long id;
     private TipoIngrediente tipo;
-    private Double quantitàPosseduta;
+    private Double quantitaPosseduta;
 
 
-    public Ingrediente(long id, TipoIngrediente tipo, Double quantitàPosseduta) {
+    public Ingrediente(long id, TipoIngrediente tipo, Double quantitaPosseduta) {
         this.id = id;
         this.tipo = tipo;
-        this.quantitàPosseduta = quantitàPosseduta;
+        this.quantitaPosseduta = quantitaPosseduta;
     }
     @Ignore
     public Ingrediente(TipoIngrediente tipo) {
         this.tipo = tipo;
-        this.quantitàPosseduta = 0.0;
+        this.quantitaPosseduta = 0.0;
     }
 
     public long getId() {
@@ -39,14 +39,14 @@ public class Ingrediente {
         this.tipo = nome;
     }
 
-    public Double getQuantitàPosseduta() {
-        return quantitàPosseduta;
+    public Double getQuantitaPosseduta() {
+        return quantitaPosseduta;
     }
     public String getQuantitaAssolutaToString(){
-        return Double.toString(quantitàPosseduta);
+        return Double.toString(quantitaPosseduta);
     }
 
-    public void setQuantitàPosseduta(Double quantitàPosseduta) {
-        this.quantitàPosseduta = quantitàPosseduta;
+    public void setQuantitaPosseduta(Double quantitaPosseduta) {
+        this.quantitaPosseduta = quantitaPosseduta;
     }
 }

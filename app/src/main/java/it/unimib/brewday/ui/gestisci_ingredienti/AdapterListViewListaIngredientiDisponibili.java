@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 
@@ -49,7 +48,7 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
     public interface OnFocusChangeListener {
 
-        void OnChangeIngrediente(Ingrediente ingrediente, EditText quantitaIngrediente, int position);
+        void onChangeIngrediente(Ingrediente ingrediente, EditText quantitaIngrediente, int position);
     }
     @Override
     @NonNull
@@ -76,7 +75,7 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
         quantitaIngrediente.setOnFocusChangeListener((v, hasFocus) -> {
             if(!hasFocus)
-               onFocusChangeListener.OnChangeIngrediente(listaIngredienti.get(position), quantitaIngrediente, position);
+               onFocusChangeListener.onChangeIngrediente(listaIngredienti.get(position), quantitaIngrediente, position);
         });
 
 

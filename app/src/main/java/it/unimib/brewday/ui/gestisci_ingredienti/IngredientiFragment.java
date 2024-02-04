@@ -81,16 +81,16 @@ public class IngredientiFragment extends Fragment {
                 adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
                     @Override
                     public void onAddIngredienteClick(Ingrediente ingrediente, int position) {
-                        ingrediente.setQuantitàPosseduta(ingrediente.getQuantitàPosseduta() + 0.1);
+                        ingrediente.setQuantitaPosseduta(ingrediente.getQuantitaPosseduta() + 0.1);
                         ingredienteViewModel.updateIngrediente(ingrediente);
                     }
 
                     @Override
                     public void onRemoveIngredienteClick(Ingrediente ingrediente, int position) {
-                        if (ingrediente.getQuantitàPosseduta() < 0.1) {
+                        if (ingrediente.getQuantitaPosseduta() < 0.1) {
                             Snackbar.make(view, "Non si può avere ingredienti negativi", LENGTH_SHORT).show();
                         } else {
-                            ingrediente.setQuantitàPosseduta(ingrediente.getQuantitàPosseduta() - 0.1);
+                            ingrediente.setQuantitaPosseduta(ingrediente.getQuantitaPosseduta() - 0.1);
                             ingredienteViewModel.updateIngrediente(ingrediente);
                         }
 
@@ -99,7 +99,7 @@ public class IngredientiFragment extends Fragment {
                             if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
 
                                 verificaIngrediente(quantitaIngrediente);
-                                ingrediente.setQuantitàPosseduta(Double.valueOf(String.valueOf(quantitaIngrediente.getText())));
+                                ingrediente.setQuantitaPosseduta(Double.valueOf(String.valueOf(quantitaIngrediente.getText())));
                                 ingredienteViewModel.updateIngrediente(ingrediente);
                             }
                             return false;
