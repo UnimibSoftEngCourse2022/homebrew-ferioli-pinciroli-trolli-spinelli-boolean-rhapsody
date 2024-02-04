@@ -2,6 +2,9 @@ package it.unimib.brewday.ui.gestisci_ingredienti;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
+import static java.lang.Math.nextUp;
+import static java.lang.Math.round;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -81,7 +84,7 @@ public class IngredientiFragment extends Fragment {
                 adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
                     @Override
                     public void onAddIngredienteClick(Ingrediente ingrediente, int position) {
-                        ingrediente.setQuantitaPosseduta(ingrediente.getQuantitaPosseduta() + 0.1);
+                        ingrediente.setQuantitaPosseduta( round(ingrediente.getQuantitaPosseduta() + 0.1, 1) );
                         ingredienteViewModel.updateIngrediente(ingrediente);
                     }
 
@@ -90,7 +93,7 @@ public class IngredientiFragment extends Fragment {
                         if (ingrediente.getQuantitaPosseduta() < 0.1) {
                             Snackbar.make(view, "Non si può avere ingredienti negativi", LENGTH_SHORT).show();
                         } else {
-                            ingrediente.setQuantitaPosseduta(ingrediente.getQuantitaPosseduta() - 0.1);
+                            ingrediente.setQuantitaPosseduta(round((ingrediente.getQuantitaPosseduta() - 0.1) , 1) );
                             ingredienteViewModel.updateIngrediente(ingrediente);
                         }
 
@@ -101,6 +104,7 @@ public class IngredientiFragment extends Fragment {
                                 verificaIngrediente(quantitaIngrediente);
                                 ingrediente.setQuantitaPosseduta(Double.valueOf(String.valueOf(quantitaIngrediente.getText())));
                                 ingredienteViewModel.updateIngrediente(ingrediente);
+
                             }
                             return false;
                         }));
@@ -125,5 +129,20 @@ public class IngredientiFragment extends Fragment {
         } else if (!(quantitaIngrediente.getText().toString().contains("."))) {
             quantitaIngrediente.setText(quantitaIngrediente.getText().toString() + ".0");
         }
+    }
+
+    public static double round(double n, int decimals) {
+      String decimalNumber =  Double.toString(n);
+      int m;
+        if(decimalNumber.length() > 3) {
+            if (decimalNumber.charAt(3) == '9') {
+                m = ((int) (n*10)) + 1;
+                n = (double) m /10;
+            }else{
+                m = (int) (n*10);
+                n = (double) m /10;
+            }
+        }
+        return Math.floor(n * Math.pow(10, decimals)) / Math.pow(10, decimals);
     }
 }
