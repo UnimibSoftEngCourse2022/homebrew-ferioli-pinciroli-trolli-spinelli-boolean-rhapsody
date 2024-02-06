@@ -21,13 +21,13 @@
         android:label="fragment_crea_ricetta"
         tools:layout="@layout/fragment_crea_ricetta" />
     <fragment
-        android:id="@+id/attrezziFragment"
-        android:name="it.unimib.brewday.ui.AttrezziFragment"
-        android:label="fragment_attrezzi"
-        tools:layout="@layout/fragment_attrezzi" />
-    <fragment
         android:id="@+id/ingredientiFragment"
         android:name="it.unimib.brewday.ui.gestisci_ingredienti.IngredientiFragment"
         android:label="fragment_ingredienti"
         tools:layout="@layout/fragment_ingredienti" />
+    <fragment
+        android:id="@+id/gestisciAttrezziFragment"
+        android:name="it.unimib.brewday.ui.gestisci_attrezzi.GestisciAttrezziFragment"
+        android:label="fragment_gestisci_attrezzi"
+        tools:layout="@layout/fragment_gestisci_attrezzi" />
 </navigation>

@@ -43,7 +43,6 @@ public class IngredientiFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     public static IngredientiFragment newInstance() {
 
         return new IngredientiFragment();
@@ -74,11 +73,11 @@ public class IngredientiFragment extends Fragment {
          ingredienteViewModel.readAllIngredienti();
          ingredienteViewModel.readAllIngredientiMutableLiveData.observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
-                listaIngredienti = ((Risultato.IngredientiSuccess) risultato).getData();
+                listaIngredienti = ((Risultato.IngredientiSuccesso) risultato).getData();
                 adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
                     @Override
                     public void onAddIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
-                        ingrediente.setQuantitaPosseduta( round(Double.valueOf(String.valueOf(quantitaIngrediente.getText())) + 0.1, 1) );
+                        ingrediente.setQuantitaPosseduta( round(Double.parseDouble(String.valueOf(quantitaIngrediente.getText())) + 0.1, 1) );
                         ingredienteViewModel.updateIngrediente(ingrediente);
                     }
 
@@ -87,7 +86,7 @@ public class IngredientiFragment extends Fragment {
                         if (ingrediente.getQuantitaPosseduta() < 0.1) {
                             Snackbar.make(view, "Non si possono avere ingredienti negativi", LENGTH_SHORT).show();
                         } else {
-                            ingrediente.setQuantitaPosseduta(round((Double.valueOf(String.valueOf(quantitaIngrediente.getText())) - 0.1) , 1) );
+                            ingrediente.setQuantitaPosseduta(round((Double.parseDouble(String.valueOf(quantitaIngrediente.getText())) - 0.1) , 1) );
                             ingredienteViewModel.updateIngrediente(ingrediente);
                         }
 
@@ -107,7 +106,7 @@ public class IngredientiFragment extends Fragment {
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
                 listViewIngredientiDispobili.setDivider(null);
             }else{
-                Snackbar.make(view, ((Risultato.Error) risultato).getMessage(), LENGTH_SHORT).show();
+                Snackbar.make(view, ((Risultato.Errore) risultato).getMessage(), LENGTH_SHORT).show();
             }
          });
     }
