@@ -6,6 +6,10 @@ import it.unimib.brewday.model.TipoIngrediente;
 
 public class Converters {
 
+    private Converters() {
+        throw new IllegalStateException("Utility class");
+    }
+
     @TypeConverter
     public static TipoIngrediente fromString(String value) {
         for (TipoIngrediente tipo : TipoIngrediente.values()) {

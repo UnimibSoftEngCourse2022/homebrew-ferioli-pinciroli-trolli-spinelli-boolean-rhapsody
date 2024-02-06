@@ -1,6 +1,10 @@
 package it.unimib.brewday.util;
 
 public class Constants {
+
+    private Constants() {
+        throw new IllegalStateException("Utility class");
+    }
     public static final String DATABASE_NAME = "brew-day-db";
 
     public static final String ACQUA = "Acqua";
