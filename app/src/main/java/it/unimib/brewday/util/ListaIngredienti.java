@@ -5,7 +5,6 @@ package it.unimib.brewday.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.TipoIngrediente;
 
