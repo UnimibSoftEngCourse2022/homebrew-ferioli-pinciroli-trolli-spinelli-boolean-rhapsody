@@ -83,17 +83,17 @@ public class IngredientiFragment extends Fragment {
                 listaIngredienti = ((Risultato.IngredientiSuccess) risultato).getData();
                 adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
                     @Override
-                    public void onAddIngredienteClick(Ingrediente ingrediente, int position) {
-                        ingrediente.setQuantitaPosseduta( round(ingrediente.getQuantitaPosseduta() + 0.1, 1) );
+                    public void onAddIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
+                        ingrediente.setQuantitaPosseduta( round(Double.valueOf(String.valueOf(quantitaIngrediente.getText())) + 0.1, 1) );
                         ingredienteViewModel.updateIngrediente(ingrediente);
                     }
 
                     @Override
-                    public void onRemoveIngredienteClick(Ingrediente ingrediente, int position) {
+                    public void onRemoveIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
                         if (ingrediente.getQuantitaPosseduta() < 0.1) {
                             Snackbar.make(view, "Non si può avere ingredienti negativi", LENGTH_SHORT).show();
                         } else {
-                            ingrediente.setQuantitaPosseduta(round((ingrediente.getQuantitaPosseduta() - 0.1) , 1) );
+                            ingrediente.setQuantitaPosseduta(round((Double.valueOf(String.valueOf(quantitaIngrediente.getText())) - 0.1) , 1) );
                             ingredienteViewModel.updateIngrediente(ingrediente);
                         }
 
@@ -133,9 +133,15 @@ public class IngredientiFragment extends Fragment {
 
     public static double round(double n, int decimals) {
       String decimalNumber =  Double.toString(n);
-      int m;
-        if(decimalNumber.length() > 3) {
-            if (decimalNumber.charAt(3) == '9') {
+      int m = 0;
+      int  s =  decimalNumber.length();
+        for (int i = 0 ;  decimalNumber.charAt(i) != '.'; i++ ){
+            m = i;
+        }
+
+
+        if(s - (m + 3) > 0) {
+            if (decimalNumber.charAt(m+3) == '9') {
                 m = ((int) (n*10)) + 1;
                 n = (double) m /10;
             }else{

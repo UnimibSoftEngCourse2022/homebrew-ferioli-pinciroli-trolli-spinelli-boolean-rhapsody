@@ -40,9 +40,9 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
     public interface OnItemClickListener {
 
-        void onAddIngredienteClick(Ingrediente ingrediente, int position);
+        void onAddIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente);
 
-        void onRemoveIngredienteClick(Ingrediente ingrediente, int position);
+        void onRemoveIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente);
 
     }
 
@@ -65,11 +65,11 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
 
         aggiungiIngrediente.setOnClickListener(v -> {
-            onItemClickListener.onAddIngredienteClick(listaIngredienti.get(position), position);
+            onItemClickListener.onAddIngredienteClick(listaIngredienti.get(position), position, quantitaIngrediente);
             aggiornaVisualizzazioneIngredienti(listaIngredienti.get(position), quantitaIngrediente, unitaMisura);
         });
         rimuoviIngrediente.setOnClickListener(v -> {
-            onItemClickListener.onRemoveIngredienteClick(listaIngredienti.get(position), position);
+            onItemClickListener.onRemoveIngredienteClick(listaIngredienti.get(position), position, quantitaIngrediente);
             aggiornaVisualizzazioneIngredienti(listaIngredienti.get(position), quantitaIngrediente, unitaMisura);
         });
 
