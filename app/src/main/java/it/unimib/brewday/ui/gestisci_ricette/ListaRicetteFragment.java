@@ -1,4 +1,4 @@
-package it.unimib.brewday.ui;
+package it.unimib.brewday.ui.gestisci_ricette;
 
 import android.os.Bundle;
 
@@ -10,23 +10,23 @@ import android.view.ViewGroup;
 
 import it.unimib.brewday.R;
 
-public class IngredientiFragment extends Fragment {
+public class ListaRicetteFragment extends Fragment {
 
 
-    public IngredientiFragment() {
+    public ListaRicetteFragment() {
         // Required empty public constructor
     }
 
+    public static ListaRicetteFragment newInstance() {
 
-    public static IngredientiFragment newInstance() {
-
-        return new IngredientiFragment();
+        return new ListaRicetteFragment();
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ingredienti, container, false);
+        return inflater.inflate(R.layout.fragment_lista_ricette, container, false);
     }
 }

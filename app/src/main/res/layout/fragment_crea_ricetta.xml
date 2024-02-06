@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="it.unimib.brewday.ui.CreaRicettaFragment">
+    tools:context="it.unimib.brewday.ui.gestisci_ricette.CreaRicettaFragment">
 
     <TextView
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package it.unimib.brewday.ui;
+package it.unimib.brewday.ui.gestisci_ricette;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
