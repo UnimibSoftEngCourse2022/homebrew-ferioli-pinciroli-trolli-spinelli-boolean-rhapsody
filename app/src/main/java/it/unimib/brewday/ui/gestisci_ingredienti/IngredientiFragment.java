@@ -27,11 +27,7 @@ import it.unimib.brewday.R;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.Ingrediente;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link IngredientiFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class IngredientiFragment extends Fragment {
 
     ListView listViewIngredientiDispobili;
@@ -66,7 +62,7 @@ public class IngredientiFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        getViewLifecycleOwner();
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_ingredienti, container, false);
@@ -91,7 +87,7 @@ public class IngredientiFragment extends Fragment {
                     @Override
                     public void onRemoveIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
                         if (ingrediente.getQuantitaPosseduta() < 0.1) {
-                            Snackbar.make(view, "Non si può avere ingredienti negativi", LENGTH_SHORT).show();
+                            Snackbar.make(view, "Non si possono avere ingredienti negativi", LENGTH_SHORT).show();
                         } else {
                             ingrediente.setQuantitaPosseduta(round((Double.valueOf(String.valueOf(quantitaIngrediente.getText())) - 0.1) , 1) );
                             ingredienteViewModel.updateIngrediente(ingrediente);
@@ -108,7 +104,6 @@ public class IngredientiFragment extends Fragment {
                             }
                             return false;
                         }));
-
 
 
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);

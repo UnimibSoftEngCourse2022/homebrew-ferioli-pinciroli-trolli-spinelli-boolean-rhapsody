@@ -59,14 +59,6 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment:$navigationFragmentVersion")
     implementation("androidx.navigation:navigation-ui:$navigatioUiVersion")
 
-
-    // TESTING
-    implementation("androidx.test.ext:junit:$androidxJunitVersion")
-    testImplementation("junit:junit:$junitVersion")
-    androidTestImplementation("androidx.test:runner:$testRunnerVersion")
-    androidTestImplementation("androidx.test:rules:$testRulesVersion")
-    androidTestImplementation("androidx.test.espresso:espresso-core:$espressocoreVersion")
-
     // MOCKITO
     implementation ("org.mockito:mockito-core")
     implementation ("com.google.dexmaker:dexmaker-mockito:$dexmakermockitoVersion")
@@ -75,12 +67,15 @@ dependencies {
     implementation("androidx.room:room-runtime:$roomRuntimeVersion")
     annotationProcessor("androidx.room:room-compiler:$roomAnnotationCompilerVersion")
 
-    implementation("androidx.appcompat:appcompat:$appcompatVersion")
-    implementation("com.google.android.material:material:$materialVersion")
-    implementation("androidx.constraintlayout:constraintlayout:$constraintLayoutVersion")
-    implementation("androidx.room:room-runtime:$roomRuntimeVersion")
+    // TESTING
+    implementation("androidx.test.ext:junit:$androidxJunitVersion")
     testImplementation("junit:junit:$junitVersion")
-    androidTestImplementation("androidx.test.ext:junit:$androidxJunitVersion")
+    androidTestImplementation("androidx.test:runner:$testRunnerVersion")
+    androidTestImplementation("androidx.test:rules:$testRulesVersion")
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressocoreVersion")
-    annotationProcessor("androidx.room:room-compiler:$roomRuntimeVersion")
+
+
+
+
+
 }

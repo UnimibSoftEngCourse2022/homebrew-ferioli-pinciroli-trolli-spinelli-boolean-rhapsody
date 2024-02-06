@@ -7,4 +7,5 @@
     <string name="crea_ricetta">Crea Ricetta</string>
     <string name="ingredienti">Ingredienti</string>
     <string name="attrezzi">Attrezzi</string>
+    <string name="tuoi_ingredienti">I tuoi Ingredienti:</string>
 </resources>

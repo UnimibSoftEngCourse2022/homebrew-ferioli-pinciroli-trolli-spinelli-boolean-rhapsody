@@ -2,6 +2,7 @@ package it.unimib.brewday.ui;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -20,6 +21,12 @@ public class ListaRicetteFragment extends Fragment {
     public static ListaRicetteFragment newInstance() {
 
         return new ListaRicetteFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
     }
 
     @Override
