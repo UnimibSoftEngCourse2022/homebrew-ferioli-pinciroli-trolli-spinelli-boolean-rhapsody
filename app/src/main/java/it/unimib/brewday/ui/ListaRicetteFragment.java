@@ -23,11 +23,6 @@ public class ListaRicetteFragment extends Fragment {
         return new ListaRicetteFragment();
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -2,8 +2,6 @@ package it.unimib.brewday.ui.gestisci_ingredienti;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-import static java.lang.Math.nextUp;
-import static java.lang.Math.round;
 
 import android.os.Bundle;
 
