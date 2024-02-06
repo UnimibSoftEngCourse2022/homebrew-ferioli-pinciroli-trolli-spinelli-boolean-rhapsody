@@ -34,6 +34,7 @@ public class GestisciAttrezziFragment extends Fragment {
 
     private GestisciAttrezziViewModel mViewModel;
     private GestisciAttrezziAdapter attrezziAdapter;
+    private RecyclerView recyclerView;
 
     public GestisciAttrezziFragment() {
         super(R.layout.fragment_gestisci_attrezzi);
@@ -114,22 +115,11 @@ public class GestisciAttrezziFragment extends Fragment {
         });
 
         //Gestione stampa a schermo degli attrezzi registrati
-        RecyclerView recyclerView = view.findViewById(R.id.fragmentGestisciAttrezzi_recyclerView);
+        recyclerView = view.findViewById(R.id.fragmentGestisciAttrezzi_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mViewModel.readAllAttrezzi();
-        mViewModel.allAttrezzi.observe(this.getViewLifecycleOwner(), risultato -> {
-
-            if (risultato.isSuccessful() && risultato instanceof Risultato.AttrezziSuccess) {
-                List<Attrezzo> nuoviAttrezzi = ((Risultato.AttrezziSuccess) risultato).getAttrezzi();
-                if (attrezziAdapter == null) {
-                    attrezziAdapter = new GestisciAttrezziAdapter(nuoviAttrezzi, mViewModel);
-                    recyclerView.setAdapter(attrezziAdapter);
-                } else {
-                    attrezziAdapter.setDataList(nuoviAttrezzi);
-                }
-            }
-
-        });
+        mViewModel.allAttrezzi.observe(this.getViewLifecycleOwner(), risultato ->
+                addNuoviAttrezzi(risultato));
 
         //Gestione operazione cancellazione
         mViewModel.deleteAttrezzoResult.observe(this.getViewLifecycleOwner(), risultato -> {
@@ -143,6 +133,18 @@ public class GestisciAttrezziFragment extends Fragment {
                 mViewModel.readAllAttrezzi();
             }
         });
+    }
+
+    public void addNuoviAttrezzi(Risultato risultato) {
+        if (risultato.isSuccessful() && risultato instanceof Risultato.AttrezziSuccess) {
+            List<Attrezzo> nuoviAttrezzi = ((Risultato.AttrezziSuccess) risultato).getAttrezzi();
+            if (attrezziAdapter == null) {
+                attrezziAdapter = new GestisciAttrezziAdapter(nuoviAttrezzi, mViewModel);
+                recyclerView.setAdapter(attrezziAdapter);
+            } else {
+                attrezziAdapter.setDataList(nuoviAttrezzi);
+            }
+        }
     }
 
 }
