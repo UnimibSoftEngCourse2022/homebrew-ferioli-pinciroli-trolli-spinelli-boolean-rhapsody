@@ -36,7 +36,8 @@ public class IngredientiFragment extends Fragment {
 
     List<Ingrediente> listaIngredienti;
 
-
+    int posizionePrecedente = -1;
+    EditText quantitaIngredientePrecedente;
 
 
     public IngredientiFragment() {
@@ -70,77 +71,111 @@ public class IngredientiFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         listViewIngredientiDispobili = view.findViewById(R.id.listView_ingredrientiDisponibili);
 
-         ingredienteViewModel.readAllIngredienti();
-         ingredienteViewModel.readAllIngredientiMutableLiveData.observe(getViewLifecycleOwner(), risultato -> {
-            if(risultato.isSuccessful()){
+        ingredienteViewModel.readAllIngredienti();
+        ingredienteViewModel.readAllIngredientiMutableLiveData.observe(getViewLifecycleOwner(), risultato -> {
+            if (risultato.isSuccessful()) {
                 listaIngredienti = ((Risultato.IngredientiSuccesso) risultato).getData();
+
                 adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
                     @Override
                     public void onAddIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
-                        ingrediente.setQuantitaPosseduta( round(Double.parseDouble(String.valueOf(quantitaIngrediente.getText())) + 0.1, 1) );
-                        ingredienteViewModel.updateIngrediente(ingrediente);
+
+                        aggiungiQuantitaIngrediente(ingrediente, position, quantitaIngrediente);
+                        aggiornaDBIngrediente(ingrediente);
                     }
 
                     @Override
                     public void onRemoveIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
-                        if (ingrediente.getQuantitaPosseduta() < 0.1) {
+                       
+                        if (ingrediente.getQuantitaPosseduta() < 1) {
                             Snackbar.make(view, "Non si possono avere ingredienti negativi", LENGTH_SHORT).show();
-                        } else {
-                            ingrediente.setQuantitaPosseduta(round((Double.parseDouble(String.valueOf(quantitaIngrediente.getText())) - 0.1) , 1) );
-                            ingredienteViewModel.updateIngrediente(ingrediente);
-                        }
+                        }else {
+                            togliQuantitaIngrediente(ingrediente, position, quantitaIngrediente);
+                            aggiornaDBIngrediente(ingrediente);                        }
 
                     }
-                }, (ingrediente, quantitaIngrediente, position) -> quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
-                            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                }, (ingrediente, quantitaIngrediente, position) -> {
+                    inizializzaPositionePrecedente(position, quantitaIngrediente);
+                    controlloCambioSelezione(position, quantitaIngrediente);
+                    quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
 
-                                verificaIngrediente(quantitaIngrediente);
-                                ingrediente.setQuantitaPosseduta(Double.valueOf(String.valueOf(quantitaIngrediente.getText())));
-                                ingredienteViewModel.updateIngrediente(ingrediente);
-
-                            }
-                            return false;
-                        }));
-
+                        if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                            ingrediente.setQuantitaPosseduta(verificaIngrediente(quantitaIngrediente));
+                            aggiornaDBIngrediente(ingrediente);
+                        }
+                        return false;
+                    });
+                });
 
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
                 listViewIngredientiDispobili.setDivider(null);
-            }else{
+                
+            } else {
                 Snackbar.make(view, ((Risultato.Errore) risultato).getMessage(), LENGTH_SHORT).show();
             }
-         });
+        });
     }
 
-    public void verificaIngrediente(EditText quantitaIngrediente){
+    public int verificaIngrediente(EditText quantitaIngrediente) {
+
         if (quantitaIngrediente.getText().length() == 0) {
-            quantitaIngrediente.setText("0.0");
-        } else if (quantitaIngrediente.getText().toString().startsWith(".")) {
-            quantitaIngrediente.setText("0" + quantitaIngrediente.getText().toString());
-        } else if (quantitaIngrediente.getText().toString().endsWith(".")) {
-            quantitaIngrediente.setText(quantitaIngrediente.getText().toString() + "0");
-        } else if (!(quantitaIngrediente.getText().toString().contains("."))) {
-            quantitaIngrediente.setText(quantitaIngrediente.getText().toString() + ".0");
+
+            quantitaIngrediente.setText("0");
+            return 0;
+
+        }else {
+
+            quantitaIngrediente.setText(String.valueOf(Integer.parseInt(quantitaIngrediente.getText().toString())));
+            return Integer.parseInt(quantitaIngrediente.getText().toString());
         }
     }
 
-    public static double round(double n, int decimals) {
-      String decimalNumber =  Double.toString(n);
-      int m = 0;
-      int  s =  decimalNumber.length();
-        for (int i = 0 ;  decimalNumber.charAt(i) != '.'; i++ ){
-            m = i;
+    public int quantitaBottone(int position) {
+        
+        if (position == 0) {
+            return 1;
+        } else {
+            return 10;
         }
 
 
-        if(s - (m + 3) > 0) {
-            if (decimalNumber.charAt(m+3) == '9') {
-                m = ((int) (n*10)) + 1;
-                n = (double) m /10;
-            }else{
-                m = (int) (n*10);
-                n = (double) m /10;
-            }
-        }
-        return Math.floor(n * Math.pow(10, decimals)) / Math.pow(10, decimals);
     }
+    public void inizializzaPositionePrecedente(int position, EditText quantitaIngrediente) {
+
+        if (posizionePrecedente == -1) {
+            posizionePrecedente = position;
+            quantitaIngredientePrecedente = quantitaIngrediente;
+        }
+
+    }
+    public void controlloCambioSelezione(int position, EditText quantitaIngrediente) {
+
+        if (posizionePrecedente != position) {
+            verificaIngrediente(quantitaIngredientePrecedente);
+            posizionePrecedente = position;
+            quantitaIngredientePrecedente = quantitaIngrediente;
+        }
+
+    }
+
+
+    public void togliQuantitaIngrediente(Ingrediente ingrediente, int position, EditText quantitaIngrediente){
+        if (ingrediente.getQuantitaPosseduta() < 10 && quantitaBottone(position) == 10) {
+            ingrediente.setQuantitaPosseduta(0);
+        } else {
+            ingrediente.setQuantitaPosseduta(verificaIngrediente(quantitaIngrediente) - quantitaBottone(position));
+        }
+
+    }
+
+    public void aggiungiQuantitaIngrediente(Ingrediente ingrediente, int position, EditText quantitaIngrediente){
+            ingrediente.setQuantitaPosseduta(verificaIngrediente(quantitaIngrediente) + quantitaBottone(position));
+    }
+
+    public void aggiornaDBIngrediente(Ingrediente ingrediente){
+        ingredienteViewModel.updateIngrediente(ingrediente);
+
+
+    }
+
 }
