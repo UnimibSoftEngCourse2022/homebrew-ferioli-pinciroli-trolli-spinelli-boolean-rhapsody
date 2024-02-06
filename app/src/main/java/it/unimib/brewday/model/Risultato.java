@@ -23,8 +23,6 @@ public class Risultato {
     public static final class IngredienteSuccesso extends Risultato {
         private final Ingrediente ingrediente;
 
-
-
         public IngredienteSuccesso(Ingrediente ingrediente) {
             this.ingrediente = ingrediente;
         }
