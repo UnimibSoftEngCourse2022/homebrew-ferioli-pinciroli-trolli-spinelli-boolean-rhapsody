@@ -50,7 +50,7 @@ public class BottomNavigationTest {
             new ActivityScenarioRule<>(MainActivity.class);
 
     private static final int[] MENU_CONTENT_ITEM_IDS = {
-            R.id.listaRicetteFragment, R.id.birreFragment, R.id.creaRicettaFragment, R.id.attrezziFragment, R.id.ingredientiFragment
+            R.id.listaRicetteFragment, R.id.birreFragment, R.id.creaRicettaFragment, R.id.gestisciAttrezziFragment, R.id.ingredientiFragment
     };
     private Map<Integer, String> menuStringContent;
 
@@ -66,7 +66,7 @@ public class BottomNavigationTest {
             menuStringContent.put(R.id.listaRicetteFragment, res.getString(R.string.lista_ricette));
             menuStringContent.put(R.id.birreFragment, res.getString(R.string.birre));
             menuStringContent.put(R.id.creaRicettaFragment, res.getString(R.string.crea_ricetta));
-            menuStringContent.put(R.id.attrezziFragment, res.getString(R.string.attrezzi));
+            menuStringContent.put(R.id.gestisciAttrezziFragment, res.getString(R.string.attrezzi));
             menuStringContent.put(R.id.ingredientiFragment, res.getString(R.string.ingredienti));
         });
 
