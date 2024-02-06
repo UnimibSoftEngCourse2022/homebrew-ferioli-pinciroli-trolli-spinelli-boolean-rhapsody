@@ -24,7 +24,7 @@ import it.unimib.brewday.model.TipoAttrezzo;
 public class GestisciAttrezziAdapter extends RecyclerView.Adapter<GestisciAttrezziAdapter.ViewHolder>{
 
     private List<Attrezzo> listaAttrezzi;
-    private GestisciAttrezziViewModel attrezziViewModel;
+    private final GestisciAttrezziViewModel attrezziViewModel;
 
     public GestisciAttrezziAdapter(List<Attrezzo> dataList, GestisciAttrezziViewModel viewModel) {
         this.listaAttrezzi = dataList;
