@@ -9,18 +9,21 @@ public class Risultato {
         //serve per risultati senza ritorno di tipo
     }
     public boolean isSuccessful() {
-        return this instanceof IngredientiSuccess ||
-                this instanceof IngredienteSuccess;
+        return this instanceof IngredientiSuccesso ||
+                this instanceof IngredienteSuccesso;
 
     }
 
-    public static final class Success extends Risultato{}
-    public static final class IngredienteSuccess extends Risultato {
+    public static final class Successo extends Risultato{
+
+    }
+
+    public static final class IngredienteSuccesso extends Risultato {
         private final Ingrediente ingrediente;
 
 
 
-        public IngredienteSuccess(Ingrediente ingrediente) {
+        public IngredienteSuccesso(Ingrediente ingrediente) {
             this.ingrediente = ingrediente;
         }
 
@@ -29,11 +32,10 @@ public class Risultato {
         }
     }
 
-    public static final class IngredientiSuccess extends Risultato {
+    public static final class IngredientiSuccesso extends Risultato {
         private final List<Ingrediente> listaIngrediente;
 
-
-        public IngredientiSuccess(List<Ingrediente> listaIngrediente) {
+        public IngredientiSuccesso(List<Ingrediente> listaIngrediente) {
             this.listaIngrediente = listaIngrediente;
         }
 
@@ -42,11 +44,23 @@ public class Risultato {
         }
     }
 
+    public static final class AttrezziSuccesso extends Risultato {
+        private final List<Attrezzo> attrezzi;
 
-    public static final class Error extends Risultato {
+        public AttrezziSuccesso(List<Attrezzo> attrezzo) {
+            this.attrezzi = attrezzo;
+        }
+
+        public List<Attrezzo> getAttrezzi() {
+            return attrezzi;
+        }
+    }
+
+
+    public static final class Errore extends Risultato {
         private final String message;
 
-        public Error(String message) {
+        public Errore(String message) {
             this.message = message;
         }
 

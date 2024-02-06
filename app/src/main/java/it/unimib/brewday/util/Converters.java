@@ -12,16 +12,17 @@ public class Converters {
     }
 
     @TypeConverter
-    public static TipoIngrediente fromString(String value) {
+    public static TipoIngrediente stringToIngrediente(String value) {
         for (TipoIngrediente tipo : TipoIngrediente.values()) {
             if (tipo.getNome().equals(value)) {
                 return tipo;
             }
         }
+        return null;
     }
 
     @TypeConverter
-    public static TipoAttrezzo fromString(String value) {
+    public static TipoAttrezzo stringToAttrezzo(String value) {
         for (TipoAttrezzo tipo : TipoAttrezzo.values()) {
             if (tipo.getNome().equals(value)) {
                 return tipo;

@@ -74,7 +74,7 @@ public class IngredientiFragment extends Fragment {
          ingredienteViewModel.readAllIngredienti();
          ingredienteViewModel.readAllIngredientiMutableLiveData.observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
-                listaIngredienti = ((Risultato.IngredientiSuccess) risultato).getData();
+                listaIngredienti = ((Risultato.IngredientiSuccesso) risultato).getData();
                 adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
                     @Override
                     public void onAddIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
@@ -107,7 +107,7 @@ public class IngredientiFragment extends Fragment {
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
                 listViewIngredientiDispobili.setDivider(null);
             }else{
-                Snackbar.make(view, ((Risultato.Error) risultato).getMessage(), LENGTH_SHORT).show();
+                Snackbar.make(view, ((Risultato.Errore) risultato).getMessage(), LENGTH_SHORT).show();
             }
          });
     }

@@ -136,8 +136,8 @@ public class GestisciAttrezziFragment extends Fragment {
     }
 
     public void addNuoviAttrezzi(Risultato risultato) {
-        if (risultato.isSuccessful() && risultato instanceof Risultato.AttrezziSuccess) {
-            List<Attrezzo> nuoviAttrezzi = ((Risultato.AttrezziSuccess) risultato).getAttrezzi();
+        if (risultato.isSuccessful() && risultato instanceof Risultato.AttrezziSuccesso) {
+            List<Attrezzo> nuoviAttrezzi = ((Risultato.AttrezziSuccesso) risultato).getAttrezzi();
             if (attrezziAdapter == null) {
                 attrezziAdapter = new GestisciAttrezziAdapter(nuoviAttrezzi, mViewModel);
                 recyclerView.setAdapter(attrezziAdapter);
