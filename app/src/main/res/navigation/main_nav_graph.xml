@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/listaRicetteFragment">
+
+    <fragment
+        android:id="@+id/listaRicetteFragment"
+        android:name="it.unimib.brewday.ui.ListaRicetteFragment"
+        android:label="fragment_lista_ricette"
+        tools:layout="@layout/fragment_lista_ricette" />
+    <fragment
+        android:id="@+id/birreFragment"
+        android:name="it.unimib.brewday.ui.BirreFragment"
+        android:label="fragment_birre"
+        tools:layout="@layout/fragment_birre" />
+    <fragment
+        android:id="@+id/creaRicettaFragment"
+        android:name="it.unimib.brewday.ui.CreaRicettaFragment"
+        android:label="fragment_crea_ricetta"
+        tools:layout="@layout/fragment_crea_ricetta" />
+    <fragment
+        android:id="@+id/attrezziFragment"
+        android:name="it.unimib.brewday.ui.AttrezziFragment"
+        android:label="fragment_attrezzi"
+        tools:layout="@layout/fragment_attrezzi" />
+    <fragment
+        android:id="@+id/ingredientiFragment"
+        android:name="it.unimib.brewday.ui.gestisci_ingredienti.IngredientiFragment"
+        android:label="fragment_ingredienti"
+        tools:layout="@layout/fragment_ingredienti" />
+</navigation>

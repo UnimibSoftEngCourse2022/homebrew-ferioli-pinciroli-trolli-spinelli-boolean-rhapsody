@@ -2,39 +2,56 @@ package it.unimib.brewday.model;
 
 import java.util.List;
 
-public abstract class Risultato {
+public class Risultato {
 
-    private Risultato() {}
 
+    public Risultato() {
+        //serve per risultati senza ritorno di tipo
+    }
     public boolean isSuccessful() {
-        return this instanceof AttrezziSuccess ||
-                this instanceof Success;
+        return this instanceof IngredientiSuccess ||
+                this instanceof IngredienteSuccess;
+
     }
 
-    public static final class Success extends Risultato {}
+    public static final class Success extends Risultato{}
+    public static final class IngredienteSuccess extends Risultato {
+        private final Ingrediente ingrediente;
 
-    public static final class AttrezziSuccess extends Risultato {
-        private final List<Attrezzo> attrezzi;
 
-        public AttrezziSuccess(List<Attrezzo> attrezzo) {
-            this.attrezzi = attrezzo;
+
+        public IngredienteSuccess(Ingrediente ingrediente) {
+            this.ingrediente = ingrediente;
         }
 
-        public List<Attrezzo> getAttrezzi() {
-            return attrezzi;
-        }
-    }
-
-    public static final class Errore extends Risultato {
-        private final Exception exception;
-
-        public Errore(Exception e) {
-            exception = e;
-        }
-
-        public String getErrorMessage() {
-            return exception.getMessage();
+        public Ingrediente getData(){
+            return ingrediente;
         }
     }
 
+    public static final class IngredientiSuccess extends Risultato {
+        private final List<Ingrediente> listaIngrediente;
+
+
+        public IngredientiSuccess(List<Ingrediente> listaIngrediente) {
+            this.listaIngrediente = listaIngrediente;
+        }
+
+        public List<Ingrediente> getData(){
+            return listaIngrediente;
+        }
+    }
+
+
+    public static final class Error extends Risultato {
+        private final String message;
+
+        public Error(String message) {
+            this.message = message;
+        }
+
+        public String getMessage(){
+            return message;
+        }
+    }
 }
