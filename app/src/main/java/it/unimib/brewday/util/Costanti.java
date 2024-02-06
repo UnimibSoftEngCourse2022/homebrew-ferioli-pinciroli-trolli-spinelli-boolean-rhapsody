@@ -3,5 +3,5 @@ package it.unimib.brewday.util;
 public class Costanti {
 
     private Costanti(){}
-    public static final String DATABASE_NAME = "brew-day-db";
+    public static final String NOME_DATABASE = "brew-day-db";
 }

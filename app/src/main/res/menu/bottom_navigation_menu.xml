@@ -13,7 +13,7 @@
         android:enabled="true"
         android:title="@string/crea_ricetta"/>
     <item
-        android:id="@+id/attrezziFragment"
+        android:id="@+id/gestisciAttrezziFragment"
         android:enabled="true"
         android:title="@string/attrezzi"
         />

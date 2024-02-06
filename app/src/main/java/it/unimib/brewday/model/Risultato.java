@@ -9,8 +9,10 @@ public class Risultato {
         //serve per risultati senza ritorno di tipo
     }
     public boolean isSuccessful() {
-        return this instanceof IngredientiSuccesso ||
-                this instanceof IngredienteSuccesso;
+        return this instanceof Successo
+                || this instanceof IngredientiSuccesso
+                || this instanceof IngredienteSuccesso
+                || this instanceof AttrezziSuccesso;
 
     }
 

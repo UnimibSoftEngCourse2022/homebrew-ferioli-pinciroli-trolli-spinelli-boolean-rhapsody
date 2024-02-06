@@ -18,6 +18,7 @@ import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.util.Converters;
+import it.unimib.brewday.util.Costanti;
 import it.unimib.brewday.util.ListaIngredienti;
 
 @Database(entities = {Attrezzo.class, Ingrediente.class, Ricetta.class}, version = 1)
@@ -54,15 +55,14 @@ public abstract class LocalDatabase extends RoomDatabase {
     private static LocalDatabase buildDatabase(Context context) {
         return Room.databaseBuilder(
                         context.getApplicationContext(),
-                        LocalDatabase.class, "DatabaseIngredienti"
+                        LocalDatabase.class, Costanti.NOME_DATABASE
                 )
-                // prepopulate the database after onCreate was called
+
                 .addCallback(new RoomDatabase.Callback() {
                     @Override
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {
                         super.onCreate(db);
                         final IngredienteDao dao = INSTANCE.ingredienteDao();
-                        // insert the data on the IO Thread
                         Executors.newSingleThreadExecutor().execute(() ->
                                 popolaIngredienteDB(dao, new ListaIngredienti().getListaIngredienti() ));
                     }

@@ -81,7 +81,7 @@ public class GestisciAttrezziFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        //Gestione visibilità card registrzione attrezzo
+        //Gestione visibilità card registrazione attrezzo
         mViewModel.isAddCardVisible.observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean)
                 materialCardView.setVisibility(View.VISIBLE);
@@ -118,8 +118,7 @@ public class GestisciAttrezziFragment extends Fragment {
         recyclerView = view.findViewById(R.id.fragmentGestisciAttrezzi_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mViewModel.readAllAttrezzi();
-        mViewModel.allAttrezzi.observe(this.getViewLifecycleOwner(), risultato ->
-                addNuoviAttrezzi(risultato));
+        mViewModel.allAttrezzi.observe(this.getViewLifecycleOwner(), this::addNuoviAttrezzi);
 
         //Gestione operazione cancellazione
         mViewModel.deleteAttrezzoResult.observe(this.getViewLifecycleOwner(), risultato -> {
