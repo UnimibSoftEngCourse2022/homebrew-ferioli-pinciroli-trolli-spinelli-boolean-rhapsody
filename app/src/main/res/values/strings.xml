@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">BrewDay</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lista_ricette">Lista Ricette</string>
+    <string name="birre">Birre</string>
+    <string name="crea_ricetta">Crea Ricetta</string>
+    <string name="ingredienti">Ingredienti</string>
+    <string name="attrezzi">Attrezzi</string>
 </resources>

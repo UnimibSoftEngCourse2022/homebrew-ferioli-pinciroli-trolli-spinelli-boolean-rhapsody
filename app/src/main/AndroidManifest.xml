@@ -13,7 +13,7 @@
         android:theme="@style/Theme.BrewDay"
         tools:targetApi="31">
         <activity
-            android:name=".ui.MainActivity"
+            android:name="it.unimib.brewday.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,5 +22,13 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-sdk
+        tools:overrideLibrary="androidx.test, android.app, androidx.test.rule,
+        androidx.test.espresso, androidx.test.espresso.idling"/>
+
+
+
+
 
 </manifest>
