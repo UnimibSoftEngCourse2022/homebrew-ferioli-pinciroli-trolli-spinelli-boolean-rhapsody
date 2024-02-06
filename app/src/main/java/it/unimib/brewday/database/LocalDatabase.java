@@ -30,6 +30,7 @@ public abstract class LocalDatabase extends RoomDatabase {
     //Lista dei DAO
     public abstract IngredienteDao ingredienteDao();
     public abstract AttrezzoDao attrezzoDao();
+    public abstract RicettaDao ricettaDao();
 
     //Istanza del DB
     private static volatile LocalDatabase INSTANCE;

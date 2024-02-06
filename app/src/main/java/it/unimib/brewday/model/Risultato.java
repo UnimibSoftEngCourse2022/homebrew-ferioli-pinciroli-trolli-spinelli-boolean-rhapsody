@@ -5,14 +5,16 @@ import java.util.List;
 public class Risultato {
 
 
-    public Risultato() {
-        //serve per risultati senza ritorno di tipo
+    private Risultato() {
+        //costruttore privato
     }
+
     public boolean isSuccessful() {
         return this instanceof Successo
                 || this instanceof IngredientiSuccesso
                 || this instanceof IngredienteSuccesso
-                || this instanceof AttrezziSuccesso;
+                || this instanceof AttrezziSuccesso
+                || this instanceof ListaRicetteSuccesso;
 
     }
 
@@ -56,6 +58,30 @@ public class Risultato {
         }
     }
 
+    public static final class ListaRicetteSuccesso extends Risultato {
+        private final List<Ricetta> ricette;
+
+        public ListaRicetteSuccesso(List<Ricetta> listaRicette){
+            ricette = listaRicette;
+        }
+
+        public List<Ricetta> getRicette(){
+            return ricette;
+        }
+
+    }
+
+    public static final class SingolaRicettaSuccesso extends Risultato {
+        private final Ricetta ricetta;
+
+        public SingolaRicettaSuccesso(Ricetta ricetta){
+            this.ricetta = ricetta;
+        }
+
+        public Ricetta getRicetta(){
+            return ricetta;
+        }
+    }
 
     public static final class Errore extends Risultato {
         private final String message;

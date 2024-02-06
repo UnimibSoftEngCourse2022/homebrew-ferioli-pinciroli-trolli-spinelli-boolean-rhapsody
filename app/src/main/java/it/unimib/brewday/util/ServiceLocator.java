@@ -5,6 +5,7 @@ import android.content.Context;
 import it.unimib.brewday.repository.IngredienteRepository;
 import it.unimib.brewday.repository.AttrezziRepository;
 import it.unimib.brewday.database.LocalDatabase;
+import it.unimib.brewday.repository.RicetteRepository;
 
 public class ServiceLocator {
 
@@ -29,6 +30,10 @@ public class ServiceLocator {
 
     public AttrezziRepository getAttrezziRepository(Context context) {
         return new AttrezziRepository(getRoomDatabase(context));
+    }
+
+    public RicetteRepository getRicetteRepository(Context context){
+        return new RicetteRepository(getRoomDatabase(context));
     }
 
     public LocalDatabase getRoomDatabase(Context context) {
