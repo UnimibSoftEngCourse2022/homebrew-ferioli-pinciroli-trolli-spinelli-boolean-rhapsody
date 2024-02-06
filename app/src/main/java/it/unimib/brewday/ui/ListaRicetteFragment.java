@@ -22,6 +22,7 @@ public class ListaRicetteFragment extends Fragment {
         return new ListaRicetteFragment();
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
