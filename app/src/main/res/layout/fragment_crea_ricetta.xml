@@ -29,7 +29,6 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                android:ems="10"
                 android:hint="@string/nome_ricetta"
                 android:importantForAutofill="no"
                 android:inputType="text"
@@ -40,7 +39,7 @@
             <ListView
                 android:id="@+id/listView_ingredrientiRicetta"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="500dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -66,8 +65,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/ingredienti"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_numeroLitriBirra" />
 
@@ -77,7 +77,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
-                android:text="TextView"
+                android:textSize="20sp"
+                android:text="Litri birra da produrre :"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editText_nomeRicetta" />
 

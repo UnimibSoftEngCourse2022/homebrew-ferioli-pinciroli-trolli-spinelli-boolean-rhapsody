@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -122,6 +123,7 @@ public class CreaRicettaFragment extends Fragment {
                      }
                     if (zeroIngredinti){
 
+                        listaIngredientiPerLitro.size();
                     } else{
                         Snackbar.make(view, "scegli almeno un ingrediente", LENGTH_SHORT).show();
                     }
