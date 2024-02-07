@@ -106,10 +106,10 @@ public class CreaRicettaFragment extends Fragment {
         creaRicettaButton.setOnClickListener(v -> {
 
             if(nomeRicetta.getText().toString().isEmpty()){
-                //snackBar
-            } else if(numeroLitriBirra.getText().toString().isEmpty() ){
-                    //SnackBar
-                } else {
+                Snackbar.make(view, "Nome ricetta mancante", LENGTH_SHORT).show();
+            } else if(numeroLitriBirra.getText().toString().isEmpty() || Double.parseDouble(numeroLitriBirra.getText().toString()) == 0.0 ){
+                Snackbar.make(view, "Litri di birra mancanti", LENGTH_SHORT).show();
+            } else {
                     boolean zeroIngredinti = false;
                     double litriScelti = Double.parseDouble(numeroLitriBirra.getText().toString());
                     List<Double> listaIngredientiPerLitro = new ArrayList<>();
@@ -119,20 +119,13 @@ public class CreaRicettaFragment extends Fragment {
                                zeroIngredinti = true;
                             }
                             listaIngredientiPerLitro.add((ingrediente.getQuantitaPosseduta() / litriScelti));
-                }
+                     }
                     if (zeroIngredinti){
-                        // TODO chiamata Luca
+
                     } else{
-                        //SnackBar
+                        Snackbar.make(view, "scegli almeno un ingrediente", LENGTH_SHORT).show();
                     }
-
-
-
                 }
-
-
-
-
         });
     }
 
