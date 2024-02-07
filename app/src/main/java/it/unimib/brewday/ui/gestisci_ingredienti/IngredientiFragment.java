@@ -39,6 +39,8 @@ public class IngredientiFragment extends Fragment {
     int posizionePrecedente = -1;
     EditText quantitaIngredientePrecedente;
 
+    Ingrediente ingredientePrecedente;
+
 
     public IngredientiFragment() {
         // Required empty public constructor
@@ -81,7 +83,7 @@ public class IngredientiFragment extends Fragment {
                     public void onAddIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
 
                         aggiungiQuantitaIngrediente(ingrediente, position, quantitaIngrediente);
-                        aggiornaDBIngrediente(ingrediente);
+                        aggiornaDBIngrediente( verificaIngrediente(ingrediente, quantitaIngrediente));
                     }
 
                     @Override
@@ -91,17 +93,17 @@ public class IngredientiFragment extends Fragment {
                             Snackbar.make(view, "Non si possono avere ingredienti negativi", LENGTH_SHORT).show();
                         }else {
                             togliQuantitaIngrediente(ingrediente, position, quantitaIngrediente);
-                            aggiornaDBIngrediente(ingrediente);                        }
+                            aggiornaDBIngrediente( verificaIngrediente(ingrediente, quantitaIngrediente));                     }
 
                     }
                 }, (ingrediente, quantitaIngrediente, position) -> {
-                    inizializzaPositionePrecedente(position, quantitaIngrediente);
-                    controlloCambioSelezione(position, quantitaIngrediente);
+                    resetQuantitaLasciatoTestoVuoto(ingrediente, quantitaIngrediente);
+                    inizializzaPositionePrecedente(ingrediente, position, quantitaIngrediente);
+                    controlloCambioSelezione(ingrediente, position, quantitaIngrediente);
                     quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
 
                         if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                            ingrediente.setQuantitaPosseduta(verificaIngrediente(quantitaIngrediente));
-                            aggiornaDBIngrediente(ingrediente);
+                            aggiornaDBIngrediente( verificaIngrediente(ingrediente, quantitaIngrediente));
                         }
                         return false;
                     });
@@ -116,22 +118,20 @@ public class IngredientiFragment extends Fragment {
         });
     }
 
-    public int verificaIngrediente(EditText quantitaIngrediente) {
+    public Ingrediente verificaIngrediente(Ingrediente ingrediente, EditText quantitaIngrediente) {
 
         if (quantitaIngrediente.getText().length() == 0) {
-
+            ingrediente.setQuantitaPosseduta(0);
             quantitaIngrediente.setText("0");
-            return 0;
-
-        }else {
-
+        } else {
             quantitaIngrediente.setText(String.valueOf(Integer.parseInt(quantitaIngrediente.getText().toString())));
-            return Integer.parseInt(quantitaIngrediente.getText().toString());
+            ingrediente.setQuantitaPosseduta(Integer.parseInt(quantitaIngrediente.getText().toString()));
         }
+
+        return ingrediente;
     }
 
     public int quantitaBottone(int position) {
-        
         if (position == 0) {
             return 1;
         } else {
@@ -140,20 +140,22 @@ public class IngredientiFragment extends Fragment {
 
 
     }
-    public void inizializzaPositionePrecedente(int position, EditText quantitaIngrediente) {
+    public void inizializzaPositionePrecedente(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
 
         if (posizionePrecedente == -1) {
             posizionePrecedente = position;
             quantitaIngredientePrecedente = quantitaIngrediente;
+            ingredientePrecedente = ingrediente;
         }
 
     }
-    public void controlloCambioSelezione(int position, EditText quantitaIngrediente) {
+    public void controlloCambioSelezione(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
 
         if (posizionePrecedente != position) {
-            verificaIngrediente(quantitaIngredientePrecedente);
+            aggiornaDBIngrediente(verificaIngrediente(ingredientePrecedente, quantitaIngredientePrecedente));
             posizionePrecedente = position;
             quantitaIngredientePrecedente = quantitaIngrediente;
+            ingredientePrecedente = ingrediente;
         }
 
     }
@@ -163,19 +165,29 @@ public class IngredientiFragment extends Fragment {
         if (ingrediente.getQuantitaPosseduta() < 10 && quantitaBottone(position) == 10) {
             ingrediente.setQuantitaPosseduta(0);
         } else {
-            ingrediente.setQuantitaPosseduta(verificaIngrediente(quantitaIngrediente) - quantitaBottone(position));
+            ingrediente.setQuantitaPosseduta(verificaIngrediente(ingrediente ,quantitaIngrediente).getQuantitaPosseduta() - quantitaBottone(position));
         }
+        quantitaIngrediente.setText(ingrediente.getQuantitaAssolutaToString());
 
     }
 
     public void aggiungiQuantitaIngrediente(Ingrediente ingrediente, int position, EditText quantitaIngrediente){
-            ingrediente.setQuantitaPosseduta(verificaIngrediente(quantitaIngrediente) + quantitaBottone(position));
+            ingrediente.setQuantitaPosseduta(verificaIngrediente(ingrediente, quantitaIngrediente).getQuantitaPosseduta() + quantitaBottone(position));
+            quantitaIngrediente.setText(ingrediente.getQuantitaAssolutaToString());
+
     }
 
     public void aggiornaDBIngrediente(Ingrediente ingrediente){
         ingredienteViewModel.updateIngrediente(ingrediente);
 
 
+    }
+
+    public void resetQuantitaLasciatoTestoVuoto(Ingrediente ingrediente, EditText quantitaIngrediente) {
+        if (quantitaIngrediente.getText().length() == 0) {
+            ingrediente.setQuantitaPosseduta(0);
+            aggiornaDBIngrediente(ingrediente);
+        }
     }
 
 }
