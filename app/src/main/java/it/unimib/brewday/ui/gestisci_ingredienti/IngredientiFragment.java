@@ -70,8 +70,8 @@ public class IngredientiFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         listViewIngredientiDispobili = view.findViewById(R.id.listView_ingredrientiDisponibili);
 
-         ingredienteViewModel.readAllIngredienti();
-         ingredienteViewModel.readAllIngredientiMutableLiveData.observe(getViewLifecycleOwner(), risultato -> {
+        ingredienteViewModel.readAllIngredienti();
+        ingredienteViewModel.getReadAllIngredientiResult().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
                 listaIngredienti = ((Risultato.IngredientiSuccesso) risultato).getData();
                 adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
@@ -92,15 +92,15 @@ public class IngredientiFragment extends Fragment {
 
                     }
                 }, (ingrediente, quantitaIngrediente, position) -> quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
-                            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
 
-                                verificaIngrediente(quantitaIngrediente);
-                                ingrediente.setQuantitaPosseduta(Double.valueOf(String.valueOf(quantitaIngrediente.getText())));
-                                ingredienteViewModel.updateIngrediente(ingrediente);
+                        verificaIngrediente(quantitaIngrediente);
+                        ingrediente.setQuantitaPosseduta(Double.valueOf(String.valueOf(quantitaIngrediente.getText())));
+                        ingredienteViewModel.updateIngrediente(ingrediente);
 
-                            }
-                            return false;
-                        }));
+                    }
+                    return false;
+                }));
 
 
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
@@ -108,7 +108,7 @@ public class IngredientiFragment extends Fragment {
             }else{
                 Snackbar.make(view, ((Risultato.Errore) risultato).getMessage(), LENGTH_SHORT).show();
             }
-         });
+        });
     }
 
     public void verificaIngrediente(EditText quantitaIngrediente){
@@ -124,9 +124,9 @@ public class IngredientiFragment extends Fragment {
     }
 
     public static double round(double n, int decimals) {
-      String decimalNumber =  Double.toString(n);
-      int m = 0;
-      int  s =  decimalNumber.length();
+        String decimalNumber =  Double.toString(n);
+        int m = 0;
+        int  s =  decimalNumber.length();
         for (int i = 0 ;  decimalNumber.charAt(i) != '.'; i++ ){
             m = i;
         }
