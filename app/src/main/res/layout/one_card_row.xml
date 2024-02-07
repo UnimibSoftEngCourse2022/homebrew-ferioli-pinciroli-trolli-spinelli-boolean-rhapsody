@@ -20,10 +20,12 @@
 
             <ImageButton
                 android:id="@+id/oneRowCard_imageCancella"
+                style="@android:style/Widget.Material.ImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="15dp"
+                android:backgroundTint="@color/md_theme_light_secondaryContainer"
                 android:contentDescription="@string/cancella_attrezzatura"
                 android:src="@drawable/trash_can_svgrepo_com"
                 app:layout_constraintBottom_toBottomOf="parent"
