@@ -33,7 +33,7 @@ public class AttrezziRepository {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             long id = attrezziDao.insertAttrezzo(attrezzo);
 
-            if(id != -1) {
+            if(id == -1) {
                 callback.onComplete(new Risultato.Errore("Errore nell'inserimento degli attrezzi"));
             }
             else{
