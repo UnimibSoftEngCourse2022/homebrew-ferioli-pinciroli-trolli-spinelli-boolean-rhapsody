@@ -85,6 +85,7 @@ public class GestisciAttrezziFragment extends Fragment {
         mViewModel.isAddCardVisible.observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean)
                 materialCardView.setVisibility(View.VISIBLE);
+
             else
                 materialCardView.setVisibility(View.GONE);
         });
