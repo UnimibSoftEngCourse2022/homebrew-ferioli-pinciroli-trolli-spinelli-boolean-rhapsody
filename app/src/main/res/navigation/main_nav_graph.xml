@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/listaRicetteFragment"
         android:name="it.unimib.brewday.ui.gestisci_ricette.ListaRicetteFragment"
-        android:label="fragment_lista_ricette"
+        android:label="Gestisci le tue ricette"
         tools:layout="@layout/fragment_lista_ricette" >
         <action
             android:id="@+id/action_listaRicetteFragment_to_creaRicettaFragment"
@@ -17,21 +17,21 @@
     <fragment
         android:id="@+id/birreFragment"
         android:name="it.unimib.brewday.ui.BirreFragment"
-        android:label="fragment_birre"
+        android:label="Gestisci le tue birre"
         tools:layout="@layout/fragment_birre" />
     <fragment
         android:id="@+id/creaRicettaFragment"
         android:name="it.unimib.brewday.ui.gestisci_ricette.CreaRicettaFragment"
-        android:label="fragment_crea_ricetta"
+        android:label="Crea una nuova ricetta"
         tools:layout="@layout/fragment_crea_ricetta" />
     <fragment
         android:id="@+id/ingredientiFragment"
         android:name="it.unimib.brewday.ui.gestisci_ingredienti.IngredientiFragment"
-        android:label="fragment_ingredienti"
+        android:label="Gestici i tuoi ingredienti"
         tools:layout="@layout/fragment_ingredienti" />
     <fragment
         android:id="@+id/gestisciAttrezziFragment"
         android:name="it.unimib.brewday.ui.gestisci_attrezzi.GestisciAttrezziFragment"
-        android:label="fragment_gestisci_attrezzi"
+        android:label="Gestisci i tuoi attrezzi"
         tools:layout="@layout/fragment_gestisci_attrezzi" />
 </navigation>

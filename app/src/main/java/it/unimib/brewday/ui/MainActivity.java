@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         MaterialToolbar toolbar = findViewById(R.id.top_appbar);
+        toolbar.setTitleTextColor(getColor(R.color.white));
         setSupportActionBar(toolbar);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().

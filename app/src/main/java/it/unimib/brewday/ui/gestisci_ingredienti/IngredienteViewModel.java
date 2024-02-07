@@ -3,6 +3,7 @@ package it.unimib.brewday.ui.gestisci_ingredienti;
 
 import android.content.Context;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -14,11 +15,11 @@ import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.util.ServiceLocator;
 
 public class IngredienteViewModel extends ViewModel {
-    MutableLiveData<Risultato>  readAllIngredientiMutableLiveData;
+    private final MutableLiveData<Risultato>  readAllIngredientiMutableLiveData;
 
-    MutableLiveData<Risultato>  updateIngredientiMutableLiveData ;
+    private final MutableLiveData<Risultato>  updateIngredienteMutableLiveData ;
 
-    MutableLiveData<Risultato>  updateIngredienteMutableLiveData ;
+    private final MutableLiveData<Risultato>  updateIngredientiMutableLiveData ;
 
     IngredienteRepository ingredienteRepository;
 
@@ -29,24 +30,27 @@ public class IngredienteViewModel extends ViewModel {
         ingredienteRepository = ServiceLocator.getInstance().getIngredienteRepository(context);
     }
 
-
-
-
     public void readAllIngredienti(){
-    ingredienteRepository.readAllIngredienti(risultato ->
-            readAllIngredientiMutableLiveData.postValue(risultato));
+        ingredienteRepository.readAllIngredienti(readAllIngredientiMutableLiveData::postValue);
     }
 
-
     public void updateIngrediente(Ingrediente ingrediente){
-        ingredienteRepository.updateIngrediente(ingrediente, risultato ->
-                updateIngredienteMutableLiveData.postValue(risultato));
+        ingredienteRepository.updateIngrediente(ingrediente, updateIngredienteMutableLiveData::postValue);
     }
 
     public void updateIngredienti(List<Ingrediente> listaIngredienti){
-        ingredienteRepository.updateAllIngredienti(listaIngredienti, risultato ->
-                updateIngredienteMutableLiveData.postValue(risultato));
-
+        ingredienteRepository.updateAllIngredienti(listaIngredienti, updateIngredienteMutableLiveData::postValue);
     }
 
+    public LiveData<Risultato> getReadAllIngredientiResult () {
+        return readAllIngredientiMutableLiveData;
+    }
+
+    public LiveData<Risultato> getUpdateIngredienteResult () {
+        return updateIngredienteMutableLiveData;
+    }
+
+    public LiveData<Risultato> getUdateIngredientiResult () {
+        return updateIngredientiMutableLiveData;
+    }
 }

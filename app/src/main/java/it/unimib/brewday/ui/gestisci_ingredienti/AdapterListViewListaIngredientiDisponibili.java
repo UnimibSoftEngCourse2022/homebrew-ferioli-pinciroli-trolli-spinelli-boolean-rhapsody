@@ -73,10 +73,9 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
             aggiornaVisualizzazioneIngredienti(listaIngredienti.get(position), quantitaIngrediente, unitaMisura);
         });
 
-        quantitaIngrediente.setOnFocusChangeListener((v, hasFocus) -> {
-            if(!hasFocus)
-               onFocusChangeListener.onChangeIngrediente(listaIngredienti.get(position), quantitaIngrediente, position);
-        });
+        quantitaIngrediente.setOnFocusChangeListener((v, hasFocus) ->
+               onFocusChangeListener.onChangeIngrediente(listaIngredienti.get(position), quantitaIngrediente, position)
+        );
 
 
 
@@ -90,7 +89,7 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
         if( ingrediente.getTipo().getNome().equalsIgnoreCase("acqua") ) {
             unitaMisura.setText(" L");
         }else{
-            unitaMisura.setText(" Kg");
+            unitaMisura.setText(" g");
         }
 
 
