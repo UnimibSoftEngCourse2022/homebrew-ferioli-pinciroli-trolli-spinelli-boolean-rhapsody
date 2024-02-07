@@ -100,13 +100,7 @@ public class IngredientiFragment extends Fragment {
                     resetQuantitaLasciatoTestoVuoto(ingrediente, quantitaIngrediente);
                     inizializzaPositionePrecedente(ingrediente, position, quantitaIngrediente);
                     controlloCambioSelezione(ingrediente, position, quantitaIngrediente);
-                    quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
-
-                        if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                            aggiornaDBIngrediente( verificaIngrediente(ingrediente, quantitaIngrediente));
-                        }
-                        return false;
-                    });
+                    rispostaInvioTastiera(ingrediente, position, quantitaIngrediente);
                 });
 
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
@@ -188,6 +182,15 @@ public class IngredientiFragment extends Fragment {
             ingrediente.setQuantitaPosseduta(0);
             aggiornaDBIngrediente(ingrediente);
         }
+    }
+
+    public void rispostaInvioTastiera(Ingrediente ingrediente, int position, EditText quantitaIngrediente){
+        quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                aggiornaDBIngrediente( verificaIngrediente(ingrediente, quantitaIngrediente));
+            }
+            return false;
+        });
     }
 
 }

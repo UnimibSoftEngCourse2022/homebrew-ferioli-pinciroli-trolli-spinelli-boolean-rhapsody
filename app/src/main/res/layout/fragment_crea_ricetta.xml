@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:inputType="number"
-                android:text="0"
+                android:text="1"
                 app:layout_constraintBottom_toBottomOf="@+id/textView_numeroLitriBirra"
                 app:layout_constraintStart_toEndOf="@+id/textView_numeroLitriBirra"
                 app:layout_constraintTop_toTopOf="@+id/textView_numeroLitriBirra" />

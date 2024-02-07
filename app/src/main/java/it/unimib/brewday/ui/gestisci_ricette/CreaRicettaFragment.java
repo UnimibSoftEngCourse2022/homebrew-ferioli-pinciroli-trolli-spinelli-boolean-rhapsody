@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,28 +88,23 @@ public class CreaRicettaFragment extends Fragment {
                         }
                     }
                 }, (ingrediente, quantitaIngrediente, position) -> {
-            resetQuantitaLasciatoTestoVuoto(ingrediente, quantitaIngrediente, position);
+            resetQuantitaLasciatoTestoVuoto(ingrediente, position, quantitaIngrediente);
             inizializzaPositionePrecedente(ingrediente, position, quantitaIngrediente);
             controlloCambioSelezione(ingrediente, position, quantitaIngrediente);
-            quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
+            rispostaInvioTastiera(ingrediente, position, quantitaIngrediente);
 
-                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    aggiornaListaIngrediente(verificaIngrediente(ingrediente, quantitaIngrediente), position);
-                }
-                return false;
-            });
         });
 
         listViewIngredientiRicetta.setAdapter(adapterListViewListaIngredientiRicetta);
         listViewIngredientiRicetta.setDivider(null);
 
+        numeroLitriBirra.setOnFocusChangeListener((v, hasFocus) ->
+               verificaNumeroLitriBirra(numeroLitriBirra, hasFocus)
+        );
+
         creaRicettaButton.setOnClickListener(v -> {
 
-            if(nomeRicetta.getText().toString().isEmpty()){
-                Snackbar.make(view, "Nome ricetta mancante", LENGTH_SHORT).show();
-            } else if(numeroLitriBirra.getText().toString().isEmpty() || Double.parseDouble(numeroLitriBirra.getText().toString()) == 0.0 ){
-                Snackbar.make(view, "Litri di birra mancanti", LENGTH_SHORT).show();
-            } else {
+                    if( controlloCreazione(view, nomeRicetta, numeroLitriBirra)){
                     boolean zeroIngredinti = false;
                     double litriScelti = Double.parseDouble(numeroLitriBirra.getText().toString());
                     List<Double> listaIngredientiPerLitro = new ArrayList<>();
@@ -121,12 +115,7 @@ public class CreaRicettaFragment extends Fragment {
                             }
                             listaIngredientiPerLitro.add((ingrediente.getQuantitaPosseduta() / litriScelti));
                      }
-                    if (zeroIngredinti){
-
-                        listaIngredientiPerLitro.size();
-                    } else{
-                        Snackbar.make(view, "scegli almeno un ingrediente", LENGTH_SHORT).show();
-                    }
+                        salvaRicetta(view, zeroIngredinti);
                 }
         });
     }
@@ -187,19 +176,54 @@ public class CreaRicettaFragment extends Fragment {
     public void aggiungiQuantitaIngrediente(Ingrediente ingrediente, int position, EditText quantitaIngrediente){
         ingrediente.setQuantitaPosseduta(verificaIngrediente(ingrediente, quantitaIngrediente).getQuantitaPosseduta() + quantitaBottone(position));
         quantitaIngrediente.setText(ingrediente.getQuantitaAssolutaToString());
-
     }
 
     public void aggiornaListaIngrediente(Ingrediente ingrediente, int position){
-
         listaIngredientiRicetta.get(position).setQuantitaPosseduta(ingrediente.getQuantitaPosseduta());
-
     }
 
-    public void resetQuantitaLasciatoTestoVuoto(Ingrediente ingrediente, EditText quantitaIngrediente, int position) {
+    public void resetQuantitaLasciatoTestoVuoto(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
         if (quantitaIngrediente.getText().length() == 0) {
             ingrediente.setQuantitaPosseduta(0);
             aggiornaListaIngrediente(ingrediente, position);
         }
+    }
+
+    public void verificaNumeroLitriBirra(EditText numeroLitriBirra, boolean hasFocus){
+        if(!hasFocus) {
+            if (numeroLitriBirra.getText().toString().isEmpty()) {
+                numeroLitriBirra.setText("0");
+            } else {
+                numeroLitriBirra.setText(String.valueOf(Integer.parseInt(numeroLitriBirra.getText().toString())));
+            }
+        }
+    }
+
+    public boolean controlloCreazione(View view,EditText nomeRicetta, EditText numeroLitriBirra ){
+        if(nomeRicetta.getText().toString().isEmpty()){
+            Snackbar.make(view, "Nome ricetta mancante", LENGTH_SHORT).show();
+            return false;
+        } else if( Double.parseDouble(numeroLitriBirra.getText().toString()) == 0.0 ){
+            Snackbar.make(view, "Litri di birra mancanti", LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    public void salvaRicetta(View view, boolean zeroIngredinti ) {
+        if (zeroIngredinti) {
+            //TODO chiamata luca
+        } else {
+            Snackbar.make(view, "scegli almeno un ingrediente", LENGTH_SHORT).show();
+        }
+    }
+
+    public void rispostaInvioTastiera(Ingrediente ingrediente, int position, EditText quantitaIngrediente){
+        quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                aggiornaListaIngrediente(verificaIngrediente(ingrediente, quantitaIngrediente), position);
+            }
+            return false;
+        });
     }
 }
