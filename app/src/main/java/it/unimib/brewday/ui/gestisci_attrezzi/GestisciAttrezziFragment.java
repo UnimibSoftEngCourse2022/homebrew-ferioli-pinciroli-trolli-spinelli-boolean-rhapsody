@@ -118,16 +118,26 @@ public class GestisciAttrezziFragment extends Fragment {
         recyclerView = view.findViewById(R.id.fragmentGestisciAttrezzi_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mViewModel.readAllAttrezzi();
-        mViewModel.allAttrezzi.observe(this.getViewLifecycleOwner(), this::addNuoviAttrezzi);
 
-        //Gestione operazione cancellazione
-        mViewModel.deleteAttrezzoResult.observe(this.getViewLifecycleOwner(), risultato -> {
+        //Gestione risultato operazione di lettura
+        mViewModel.getAllAttrezziResult().observe(this.getViewLifecycleOwner(), this::addNuoviAttrezzi);
+
+        //Gestione risultato operazione creazione
+        mViewModel.getCreateAttrezzoResult().observe(this.getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()) {
                 mViewModel.readAllAttrezzi();
             }
         });
 
-        mViewModel.updateAttrezzoResult.observe(this.getViewLifecycleOwner(), risultato -> {
+        //Gestione risultato operazione cancellazione
+        mViewModel.getDeleteAttrezzoResult().observe(this.getViewLifecycleOwner(), risultato -> {
+            if (risultato.isSuccessful()) {
+                mViewModel.readAllAttrezzi();
+            }
+        });
+
+        //Gestione risultato operazione aggiornamento
+        mViewModel.getUpdateAttrezzoResult().observe(this.getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()) {
                 mViewModel.readAllAttrezzi();
             }

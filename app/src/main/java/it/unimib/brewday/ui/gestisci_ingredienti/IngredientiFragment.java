@@ -74,8 +74,8 @@ public class IngredientiFragment extends Fragment {
         listViewIngredientiDispobili = view.findViewById(R.id.listView_ingredrientiDisponibili);
 
         ingredienteViewModel.readAllIngredienti();
-        ingredienteViewModel.readAllIngredientiMutableLiveData.observe(getViewLifecycleOwner(), risultato -> {
-            if (risultato.isSuccessful()) {
+        ingredienteViewModel.getReadAllIngredientiResult().observe(getViewLifecycleOwner(), risultato -> {
+            if(risultato.isSuccessful()){
                 listaIngredienti = ((Risultato.IngredientiSuccesso) risultato).getData();
 
                 adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
@@ -88,7 +88,7 @@ public class IngredientiFragment extends Fragment {
 
                     @Override
                     public void onRemoveIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
-                       
+
                         if (ingrediente.getQuantitaPosseduta() < 1) {
                             Snackbar.make(view, "Non si possono avere ingredienti negativi", LENGTH_SHORT).show();
                         }else {
@@ -111,7 +111,7 @@ public class IngredientiFragment extends Fragment {
 
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
                 listViewIngredientiDispobili.setDivider(null);
-                
+
             } else {
                 Snackbar.make(view, ((Risultato.Errore) risultato).getMessage(), LENGTH_SHORT).show();
             }
