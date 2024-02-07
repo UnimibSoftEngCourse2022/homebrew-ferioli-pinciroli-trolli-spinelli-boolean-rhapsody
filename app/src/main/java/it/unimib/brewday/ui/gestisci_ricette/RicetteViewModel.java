@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel;
 
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.repository.RicetteRepository;
-import it.unimib.brewday.ui.Callback;
 
 public class RicetteViewModel extends ViewModel {
 

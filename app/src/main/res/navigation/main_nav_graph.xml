@@ -9,7 +9,11 @@
         android:id="@+id/listaRicetteFragment"
         android:name="it.unimib.brewday.ui.gestisci_ricette.ListaRicetteFragment"
         android:label="fragment_lista_ricette"
-        tools:layout="@layout/fragment_lista_ricette" />
+        tools:layout="@layout/fragment_lista_ricette" >
+        <action
+            android:id="@+id/action_listaRicetteFragment_to_creaRicettaFragment"
+            app:destination="@id/creaRicettaFragment" />
+    </fragment>
     <fragment
         android:id="@+id/birreFragment"
         android:name="it.unimib.brewday.ui.BirreFragment"
