@@ -4,21 +4,22 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.List;
 import it.unimib.brewday.model.Ricetta;
+import it.unimib.brewday.model.RicettaConIngredienti;
 
 @Dao
 public interface RicettaDao {
-    @Query("SELECT * FROM ricetta")
+    @Transaction
+    @Query("SELECT * FROM ricette")
     List<Ricetta> getAllRicette();
 
-    @Query("SELECT * FROM ricetta WHERE id = :id")
-    List<Ricetta> getRicettaById(long id);
-
-    @Query("SELECT * FROM ricetta WHERE nome = :nome")
-    List<Ricetta> getRicettaByName(String nome);
+    @Transaction
+    @Query("SELECT * FROM ricette WHERE id = :id")
+    List<RicettaConIngredienti> getRicettaById(long id);
 
     @Insert
     long insertRicetta(Ricetta ricetta);

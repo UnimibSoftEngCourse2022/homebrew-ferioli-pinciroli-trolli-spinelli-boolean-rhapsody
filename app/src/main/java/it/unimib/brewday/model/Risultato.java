@@ -72,13 +72,13 @@ public class Risultato {
     }
 
     public static final class SingolaRicettaSuccesso extends Risultato {
-        private final Ricetta ricetta;
+        private final RicettaConIngredienti ricetta;
 
-        public SingolaRicettaSuccesso(Ricetta ricetta){
+        public SingolaRicettaSuccesso(RicettaConIngredienti ricetta){
             this.ricetta = ricetta;
         }
 
-        public Ricetta getRicetta(){
+        public RicettaConIngredienti getRicetta(){
             return ricetta;
         }
     }

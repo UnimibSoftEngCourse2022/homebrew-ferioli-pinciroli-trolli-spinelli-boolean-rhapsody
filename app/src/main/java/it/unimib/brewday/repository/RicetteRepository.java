@@ -5,6 +5,7 @@ import java.util.List;
 import it.unimib.brewday.database.LocalDatabase;
 import it.unimib.brewday.database.RicettaDao;
 import it.unimib.brewday.model.Ricetta;
+import it.unimib.brewday.model.RicettaConIngredienti;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.Callback;
 import it.unimib.brewday.util.RegistroErrori;
@@ -30,22 +31,9 @@ public class RicetteRepository {
         });
     }
 
-    public void readRicettaByName(String nomeRicetta, Callback callback){
-        LocalDatabase.databaseWriteExecutor.execute(() -> {
-            List<Ricetta> ricetteTrovate = ricettaDao.getRicettaByName(nomeRicetta);
-
-            if(ricetteTrovate != null){
-                callback.onComplete(new Risultato.ListaRicetteSuccesso(ricetteTrovate));
-            }
-            else{
-                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_FETCH_ERROR));
-            }
-        });
-    }
-
     public void readRicettaById(long id, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-            List<Ricetta> ricetteTrovate = ricettaDao.getRicettaById(id);
+            List<RicettaConIngredienti> ricetteTrovate = ricettaDao.getRicettaById(id);
 
             if(ricetteTrovate != null){
                 callback.onComplete(new Risultato.SingolaRicettaSuccesso(ricetteTrovate.get(0)));

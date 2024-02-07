@@ -1,12 +1,16 @@
 package it.unimib.brewday.model;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "ricette")
 public class Ricetta {
 
-    @PrimaryKey(autoGenerate = true) private long id;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    private long id;
 
+    @ColumnInfo(name = "nome")
     private String nome;
 
     public Ricetta(long id, String nome) {

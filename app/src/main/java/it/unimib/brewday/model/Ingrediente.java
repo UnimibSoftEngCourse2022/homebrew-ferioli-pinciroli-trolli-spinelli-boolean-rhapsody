@@ -1,18 +1,21 @@
 package it.unimib.brewday.model;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "ingredienti")
 public class Ingrediente {
 
-    @PrimaryKey(autoGenerate = true) private long id;
+    @PrimaryKey
+    @ColumnInfo(name = "tipo")
     private TipoIngrediente tipo;
+
+    @ColumnInfo(name = "quantita_posseduta")
     private Double quantitaPosseduta;
 
 
-    public Ingrediente(long id, TipoIngrediente tipo, Double quantitaPosseduta) {
-        this.id = id;
+    public Ingrediente(TipoIngrediente tipo, Double quantitaPosseduta) {
         this.tipo = tipo;
         this.quantitaPosseduta = quantitaPosseduta;
     }
@@ -22,18 +25,9 @@ public class Ingrediente {
         this.quantitaPosseduta = 0.0;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public TipoIngrediente getTipo() {
         return tipo;
     }
-
 
     public void setTipo(TipoIngrediente nome) {
         this.tipo = nome;
@@ -42,6 +36,7 @@ public class Ingrediente {
     public Double getQuantitaPosseduta() {
         return quantitaPosseduta;
     }
+
     public String getQuantitaAssolutaToString(){
         return Double.toString(quantitaPosseduta);
     }
