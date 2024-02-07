@@ -36,7 +36,10 @@ public class IngredientiFragment extends Fragment {
 
     List<Ingrediente> listaIngredienti;
 
+    int posizionePrecedente = -1;
+    EditText quantitaIngredientePrecedente;
 
+    Ingrediente ingredientePrecedente;
 
 
     public IngredientiFragment() {
@@ -74,73 +77,117 @@ public class IngredientiFragment extends Fragment {
         ingredienteViewModel.getReadAllIngredientiResult().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
                 listaIngredienti = ((Risultato.IngredientiSuccesso) risultato).getData();
+
                 adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
                     @Override
                     public void onAddIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
-                        ingrediente.setQuantitaPosseduta( round(Double.parseDouble(String.valueOf(quantitaIngrediente.getText())) + 0.1, 1) );
-                        ingredienteViewModel.updateIngrediente(ingrediente);
+
+                        aggiungiQuantitaIngrediente(ingrediente, position, quantitaIngrediente);
+                        aggiornaDBIngrediente( verificaIngrediente(ingrediente, quantitaIngrediente));
                     }
 
                     @Override
                     public void onRemoveIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
-                        if (ingrediente.getQuantitaPosseduta() < 0.1) {
+
+                        if (ingrediente.getQuantitaPosseduta() < 1) {
                             Snackbar.make(view, "Non si possono avere ingredienti negativi", LENGTH_SHORT).show();
-                        } else {
-                            ingrediente.setQuantitaPosseduta(round((Double.parseDouble(String.valueOf(quantitaIngrediente.getText())) - 0.1) , 1) );
-                            ingredienteViewModel.updateIngrediente(ingrediente);
+                        }else {
+                            togliQuantitaIngrediente(ingrediente, position, quantitaIngrediente);
+                            aggiornaDBIngrediente( verificaIngrediente(ingrediente, quantitaIngrediente));                     }
+
+                    }
+                }, (ingrediente, quantitaIngrediente, position) -> {
+                    resetQuantitaLasciatoTestoVuoto(ingrediente, quantitaIngrediente);
+                    inizializzaPositionePrecedente(ingrediente, position, quantitaIngrediente);
+                    controlloCambioSelezione(ingrediente, position, quantitaIngrediente);
+                    quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
+
+                        if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                            aggiornaDBIngrediente( verificaIngrediente(ingrediente, quantitaIngrediente));
                         }
-
-                    }
-                }, (ingrediente, quantitaIngrediente, position) -> quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
-                    if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-
-                        verificaIngrediente(quantitaIngrediente);
-                        ingrediente.setQuantitaPosseduta(Double.valueOf(String.valueOf(quantitaIngrediente.getText())));
-                        ingredienteViewModel.updateIngrediente(ingrediente);
-
-                    }
-                    return false;
-                }));
-
+                        return false;
+                    });
+                });
 
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
                 listViewIngredientiDispobili.setDivider(null);
-            }else{
+
+            } else {
                 Snackbar.make(view, ((Risultato.Errore) risultato).getMessage(), LENGTH_SHORT).show();
             }
         });
     }
 
-    public void verificaIngrediente(EditText quantitaIngrediente){
+    public Ingrediente verificaIngrediente(Ingrediente ingrediente, EditText quantitaIngrediente) {
+
         if (quantitaIngrediente.getText().length() == 0) {
-            quantitaIngrediente.setText("0.0");
-        } else if (quantitaIngrediente.getText().toString().startsWith(".")) {
-            quantitaIngrediente.setText("0" + quantitaIngrediente.getText().toString());
-        } else if (quantitaIngrediente.getText().toString().endsWith(".")) {
-            quantitaIngrediente.setText(quantitaIngrediente.getText().toString() + "0");
-        } else if (!(quantitaIngrediente.getText().toString().contains("."))) {
-            quantitaIngrediente.setText(quantitaIngrediente.getText().toString() + ".0");
+            ingrediente.setQuantitaPosseduta(0);
+            quantitaIngrediente.setText("0");
+        } else {
+            quantitaIngrediente.setText(String.valueOf(Integer.parseInt(quantitaIngrediente.getText().toString())));
+            ingrediente.setQuantitaPosseduta(Integer.parseInt(quantitaIngrediente.getText().toString()));
+        }
+
+        return ingrediente;
+    }
+
+    public int quantitaBottone(int position) {
+        if (position == 0) {
+            return 1;
+        } else {
+            return 10;
+        }
+
+
+    }
+    public void inizializzaPositionePrecedente(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
+
+        if (posizionePrecedente == -1) {
+            posizionePrecedente = position;
+            quantitaIngredientePrecedente = quantitaIngrediente;
+            ingredientePrecedente = ingrediente;
+        }
+
+    }
+    public void controlloCambioSelezione(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
+
+        if (posizionePrecedente != position) {
+            aggiornaDBIngrediente(verificaIngrediente(ingredientePrecedente, quantitaIngredientePrecedente));
+            posizionePrecedente = position;
+            quantitaIngredientePrecedente = quantitaIngrediente;
+            ingredientePrecedente = ingrediente;
+        }
+
+    }
+
+
+    public void togliQuantitaIngrediente(Ingrediente ingrediente, int position, EditText quantitaIngrediente){
+        if (ingrediente.getQuantitaPosseduta() < 10 && quantitaBottone(position) == 10) {
+            ingrediente.setQuantitaPosseduta(0);
+        } else {
+            ingrediente.setQuantitaPosseduta(verificaIngrediente(ingrediente ,quantitaIngrediente).getQuantitaPosseduta() - quantitaBottone(position));
+        }
+        quantitaIngrediente.setText(ingrediente.getQuantitaAssolutaToString());
+
+    }
+
+    public void aggiungiQuantitaIngrediente(Ingrediente ingrediente, int position, EditText quantitaIngrediente){
+            ingrediente.setQuantitaPosseduta(verificaIngrediente(ingrediente, quantitaIngrediente).getQuantitaPosseduta() + quantitaBottone(position));
+            quantitaIngrediente.setText(ingrediente.getQuantitaAssolutaToString());
+
+    }
+
+    public void aggiornaDBIngrediente(Ingrediente ingrediente){
+        ingredienteViewModel.updateIngrediente(ingrediente);
+
+
+    }
+
+    public void resetQuantitaLasciatoTestoVuoto(Ingrediente ingrediente, EditText quantitaIngrediente) {
+        if (quantitaIngrediente.getText().length() == 0) {
+            ingrediente.setQuantitaPosseduta(0);
+            aggiornaDBIngrediente(ingrediente);
         }
     }
 
-    public static double round(double n, int decimals) {
-        String decimalNumber =  Double.toString(n);
-        int m = 0;
-        int  s =  decimalNumber.length();
-        for (int i = 0 ;  decimalNumber.charAt(i) != '.'; i++ ){
-            m = i;
-        }
-
-
-        if(s - (m + 3) > 0) {
-            if (decimalNumber.charAt(m+3) == '9') {
-                m = ((int) (n*10)) + 1;
-                n = (double) m /10;
-            }else{
-                m = (int) (n*10);
-                n = (double) m /10;
-            }
-        }
-        return Math.floor(n * Math.pow(10, decimals)) / Math.pow(10, decimals);
-    }
 }
