@@ -21,16 +21,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_listaIngredientiDettagliata" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <EditText
+        android:id="@+id/textView_nomeRicetta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         tools:text="Nome Ricetta"
+        android:hint="Nome Ricetta"
+        android:textColor="@color/md_theme_light_onPrimaryContainer"
         android:textSize="30sp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@android:color/transparent"/>
 
     <TextView
         android:id="@+id/textView3"
@@ -39,18 +43,23 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/ricetta_per"
+        android:textColor="@color/md_theme_light_onPrimaryContainer"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_nomeRicetta" />
 
     <EditText
         android:id="@+id/editTextNumber_litriRicettaBirra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="2"
+
+        android:layout_marginStart="4dp"
+        android:background="@android:color/transparent"
         android:hint="@string/uno"
         android:inputType="number"
+        android:text="1"
         android:textAlignment="textEnd"
+        android:textColor="@color/md_theme_light_onPrimaryContainer"
         app:layout_constraintBottom_toBottomOf="@+id/textView3"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="@+id/textView3" />
@@ -59,7 +68,9 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
         android:text="@string/litri_di_birra"
+        android:textColor="@color/md_theme_light_onPrimaryContainer"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/editTextNumber_litriRicettaBirra"
         app:layout_constraintStart_toEndOf="@+id/editTextNumber_litriRicettaBirra"
@@ -72,6 +83,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/ingredienti"
+        android:textColor="@color/md_theme_light_onPrimaryContainer"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
