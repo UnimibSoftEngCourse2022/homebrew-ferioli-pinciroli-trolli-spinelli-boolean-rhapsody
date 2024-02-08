@@ -20,13 +20,13 @@ public class RicetteViewModel extends ViewModel {
     public RicetteViewModel(RicetteRepository ricetteRepository){
         this.ricetteRepository = ricetteRepository;
     }
-
-    public void readAllRicette(){
-        ricetteRepository.readListaRicette(risultato -> readListaRicetteRisultato.postValue(risultato));
-    }
-
-    public LiveData<Risultato> readRicettaById(long id){
-        ricetteRepository.readRicettaById(id, risultato -> readRicettaByIdRisultato.postValue(risultato));
-        return readRicettaByIdRisultato;
-    }
+//
+//    public void readAllRicette(){
+//        ricetteRepository.readListaRicette(risultato -> readListaRicetteRisultato.postValue(risultato));
+//    }
+//
+//    public LiveData<Risultato> readRicettaById(long id){
+//        ricetteRepository.readRicettaById(id, risultato -> readRicettaByIdRisultato.postValue(risultato));
+//        return readRicettaByIdRisultato;
+//    }
 }

@@ -41,7 +41,6 @@ public class Ingrediente {
     }
 
     public void setQuantitaPosseduta(int quantitaPosseduta) {
-
         this.quantitaPosseduta = quantitaPosseduta;
     }
 }
