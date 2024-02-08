@@ -63,7 +63,7 @@ public class RicettaDettagliataFragment extends Fragment {
         visibile = false;
 
         setAdapterIngredienti(visibile);
-        numeroLitriRicettaBirra.setFocusableInTouchMode(visibile);
+        numeroLitriRicettaBirra.setEnabled(visibile);
 
         modificaRicettaButton.setOnClickListener(v -> {
             setVisibile(visibile);
@@ -75,7 +75,7 @@ public class RicettaDettagliataFragment extends Fragment {
     public void setVisibile(boolean invertiVisibile){
         visibile = !invertiVisibile;
         setAdapterIngredienti(visibile);
-        fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra.setFocusableInTouchMode(visibile);
+        fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra.setEnabled(visibile);
         if (visibile){
             fragmentRicettaDettagliataBinding.buttonModificaRicetta.setText("Conferma");
         } else {

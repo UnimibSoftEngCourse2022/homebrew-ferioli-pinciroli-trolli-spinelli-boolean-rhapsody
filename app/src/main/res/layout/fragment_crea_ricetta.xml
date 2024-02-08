@@ -69,6 +69,7 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/ingredienti"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_numeroLitriBirra" />
 
