@@ -125,25 +125,16 @@ public class RicettaDettagliataFragment extends Fragment {
                 getContext(), 0, listaIngredientiRicetta, R.layout.lista_ingredienti_singoli,
                 new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
                     @Override
-                    public void onAddIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
-                        aggiungiQuantitaIngrediente(ingrediente, position, quantitaIngrediente);
-
+                    public void onAddIngredienteClick(Ingrediente ingrediente) {
+                        //vuoto
                     }
 
                     @Override
-                    public void onRemoveIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
-                        if (ingrediente.getQuantitaPosseduta() < 1) {
-                            Snackbar.make(view, "Non si possono avere ingredienti negativi", LENGTH_SHORT).show();
-                        }else {
-                            togliQuantitaIngrediente(ingrediente, position, quantitaIngrediente);
-                            aggiornaListaIngrediente(verificaIngrediente(ingrediente, quantitaIngrediente), position, listaIngredientiRicetta);
-                        }
+                    public void onRemoveIngredienteClick(Ingrediente ingrediente) {
+                        //vuoto
                     }
-                }, (ingrediente, quantitaIngrediente, position) -> {
-            resetQuantitaLasciatoTestoVuoto(ingrediente, position, quantitaIngrediente, listaIngredientiRicetta);
-            inizializzaPositionePrecedente(ingrediente, position, quantitaIngrediente);
-            controlloCambioSelezione(ingrediente, position, quantitaIngrediente, listaIngredientiRicetta);
-            rispostaInvioTastiera(ingrediente, position, quantitaIngrediente, listaIngredientiRicetta);
+                }, (ingrediente) -> {
+           //vuoto
         }, visible);
 
         fragmentRicettaDettagliataBinding.listViewIngredrientiRicettaDettagliata.setAdapter(adapterListViewListaIngredientiRicetta);

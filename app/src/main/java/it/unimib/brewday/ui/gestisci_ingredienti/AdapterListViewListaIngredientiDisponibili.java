@@ -1,6 +1,9 @@
 package it.unimib.brewday.ui.gestisci_ingredienti;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 import android.content.Context;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -30,6 +34,13 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
     private final OnFocusChangeListener onFocusChangeListener;
 
+    int posizionePrecedente = -1;
+    EditText quantitaIngredientePrecedente;
+
+    Ingrediente ingredientePrecedente;
+
+
+
     public AdapterListViewListaIngredientiDisponibili(@NonNull Context context, int resource, List<Ingrediente> listaIngredienti,
                                                       int layout, OnItemClickListener onItemClickListener, OnFocusChangeListener onFocusChangeListener, boolean visibile) {
         super(context, resource, listaIngredienti);
@@ -42,15 +53,15 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
     public interface OnItemClickListener {
 
-        void onAddIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente);
+        void onAddIngredienteClick(Ingrediente ingrediente);
 
-        void onRemoveIngredienteClick(Ingrediente ingrediente, int position, EditText quantitaIngrediente);
+        void onRemoveIngredienteClick(Ingrediente ingrediente);
 
     }
 
     public interface OnFocusChangeListener {
 
-        void onChangeIngrediente(Ingrediente ingrediente, EditText quantitaIngrediente, int position);
+        void onChangeIngrediente(Ingrediente ingrediente);
     }
     @Override
     @NonNull
@@ -64,6 +75,12 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
         FloatingActionButton aggiungiIngrediente = convertView.findViewById(R.id.button_aggiungi_ingrediente);
         FloatingActionButton rimuoviIngrediente = convertView.findViewById(R.id.button_rimuovi_ingrediente);
 
+        nomeIngrediente.setText(listaIngredienti.get(position).getTipo().getNome());
+        aggiornaVisualizzazioneIngredienti(listaIngredienti.get(position), quantitaIngrediente, unitaMisura);
+
+        Ingrediente ingredienteAdapter = verificaIngrediente(listaIngredienti.get(position), quantitaIngrediente);
+        ingredienteAdapter.getQuantitaPosseduta();
+
         if (!visibile){
             aggiungiIngrediente.setVisibility(View.GONE);
             rimuoviIngrediente.setVisibility(View.GONE);
@@ -71,22 +88,36 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
         }
 
         aggiungiIngrediente.setOnClickListener(v -> {
-            onItemClickListener.onAddIngredienteClick(listaIngredienti.get(position), position, quantitaIngrediente);
-            aggiornaVisualizzazioneIngredienti(listaIngredienti.get(position), quantitaIngrediente, unitaMisura);
+            aggiungiQuantitaIngrediente(ingredienteAdapter , position, quantitaIngrediente);
+            onItemClickListener.onAddIngredienteClick(ingredienteAdapter);
+            aggiornaVisualizzazioneIngredienti(ingredienteAdapter, quantitaIngrediente, unitaMisura);
         });
+
+        View finalConvertView = convertView;
         rimuoviIngrediente.setOnClickListener(v -> {
-            onItemClickListener.onRemoveIngredienteClick(listaIngredienti.get(position), position, quantitaIngrediente);
-            aggiornaVisualizzazioneIngredienti(listaIngredienti.get(position), quantitaIngrediente, unitaMisura);
+            if (listaIngredienti.get(position).getQuantitaPosseduta() < 1) {
+                Snackbar.make(finalConvertView, "Non si possono avere ingredienti negativi", LENGTH_SHORT).show();
+            }else {
+                togliQuantitaIngrediente(verificaIngrediente(ingredienteAdapter, quantitaIngrediente), position, quantitaIngrediente);
+                onItemClickListener.onRemoveIngredienteClick(ingredienteAdapter);
+            }
+
+            aggiornaVisualizzazioneIngredienti(ingredienteAdapter, quantitaIngrediente, unitaMisura);
         });
+
+
 
         quantitaIngrediente.setOnFocusChangeListener((v, hasFocus) ->
-               onFocusChangeListener.onChangeIngrediente(listaIngredienti.get(position), quantitaIngrediente, position)
-        );
+        {
+            resetQuantitaLasciatoTestoVuoto(ingredienteAdapter, quantitaIngrediente);
+            inizializzaPositionePrecedente(ingredienteAdapter, position, quantitaIngrediente);
+            controlloCambioSelezione(ingredienteAdapter, position, quantitaIngrediente);
+            if(rispostaInvioTastiera( quantitaIngrediente)){
+            onFocusChangeListener.onChangeIngrediente(ingredienteAdapter);
+            }
 
+        });
 
-
-        nomeIngrediente.setText(listaIngredienti.get(position).getTipo().getNome());
-        aggiornaVisualizzazioneIngredienti(listaIngredienti.get(position), quantitaIngrediente, unitaMisura);
         return convertView;
     }
 
@@ -100,5 +131,79 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
 
     }
+
+    public void aggiungiQuantitaIngrediente(Ingrediente ingrediente, int position, EditText quantitaIngrediente){
+        ingrediente.setQuantitaPosseduta(verificaIngrediente(ingrediente, quantitaIngrediente).getQuantitaPosseduta() + quantitaBottone(position));
+        quantitaIngrediente.setText(ingrediente.getQuantitaAssolutaToString());
+
+    }
+    public Ingrediente verificaIngrediente(Ingrediente ingrediente, EditText quantitaIngrediente) {
+
+        if (quantitaIngrediente.getText().length() == 0) {
+            ingrediente.setQuantitaPosseduta(0);
+            quantitaIngrediente.setText("0");
+        } else {
+            quantitaIngrediente.setText(String.valueOf(Integer.parseInt(quantitaIngrediente.getText().toString())));
+            ingrediente.setQuantitaPosseduta(Integer.parseInt(quantitaIngrediente.getText().toString()));
+        }
+
+        return ingrediente;
+    }
+
+    public int quantitaBottone(int position) {
+        if (position == 0) {
+            return 1;
+        } else {
+            return 10;
+        }
+
+    }
+
+    public void togliQuantitaIngrediente(Ingrediente ingrediente, int position, EditText quantitaIngrediente){
+        if (ingrediente.getQuantitaPosseduta() < 10 && quantitaBottone(position) == 10) {
+            ingrediente.setQuantitaPosseduta(0);
+        } else {
+            ingrediente.setQuantitaPosseduta(verificaIngrediente(ingrediente ,quantitaIngrediente).getQuantitaPosseduta() - quantitaBottone(position));
+        }
+        quantitaIngrediente.setText(ingrediente.getQuantitaAssolutaToString());
+
+    }
+
+    public void resetQuantitaLasciatoTestoVuoto(Ingrediente ingrediente, EditText quantitaIngrediente) {
+        if (quantitaIngrediente.getText().length() == 0) {
+            ingrediente.setQuantitaPosseduta(0);
+        }
+    }
+
+    public void inizializzaPositionePrecedente(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
+
+        if (posizionePrecedente == -1) {
+            posizionePrecedente = position;
+            quantitaIngredientePrecedente = quantitaIngrediente;
+            ingredientePrecedente = ingrediente;
+        }
+
+    }
+
+    public void controlloCambioSelezione(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
+
+        if (posizionePrecedente != position) {
+            posizionePrecedente = position;
+            quantitaIngredientePrecedente = quantitaIngrediente;
+            ingredientePrecedente = ingrediente;
+        }
+
+    }
+
+    public boolean rispostaInvioTastiera( EditText quantitaIngrediente){
+        quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                return  true;
+            }
+            return false;
+        });
+        return false;
+    }
+
 
 }
