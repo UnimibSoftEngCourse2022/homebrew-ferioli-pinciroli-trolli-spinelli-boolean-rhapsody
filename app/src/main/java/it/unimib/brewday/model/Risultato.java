@@ -13,8 +13,8 @@ public class Risultato {
         return this instanceof Successo
                 || this instanceof IngredientiSuccesso
                 || this instanceof IngredienteSuccesso
-                || this instanceof AttrezziSuccesso
-                || this instanceof ListaRicetteSuccesso;
+                || this instanceof AttrezziSuccesso;
+//                || this instanceof ListaRicetteSuccesso;
 
     }
 
@@ -58,30 +58,30 @@ public class Risultato {
         }
     }
 
-    public static final class ListaRicetteSuccesso extends Risultato {
-        private final List<RicettaConIngredienti> ricette;
-
-        public ListaRicetteSuccesso(List<RicettaConIngredienti> listaRicette){
-            ricette = listaRicette;
-        }
-
-        public List<RicettaConIngredienti> getRicette(){
-            return ricette;
-        }
-
-    }
-
-    public static final class SingolaRicettaSuccesso extends Risultato {
-        private final RicettaConIngredienti ricetta;
-
-        public SingolaRicettaSuccesso(RicettaConIngredienti ricetta){
-            this.ricetta = ricetta;
-        }
-
-        public RicettaConIngredienti getRicetta(){
-            return ricetta;
-        }
-    }
+//    public static final class ListaRicetteSuccesso extends Risultato {
+//        private final List<RicettaConIngredienti> ricette;
+//
+//        public ListaRicetteSuccesso(List<RicettaConIngredienti> listaRicette){
+//            ricette = listaRicette;
+//        }
+//
+//        public List<RicettaConIngredienti> getRicette(){
+//            return ricette;
+//        }
+//
+//    }
+//
+//    public static final class SingolaRicettaSuccesso extends Risultato {
+//        private final RicettaConIngredienti ricetta;
+//
+//        public SingolaRicettaSuccesso(RicettaConIngredienti ricetta){
+//            this.ricetta = ricetta;
+//        }
+//
+//        public RicettaConIngredienti getRicetta(){
+//            return ricetta;
+//        }
+//    }
 
     public static final class Errore extends Risultato {
         private final String message;

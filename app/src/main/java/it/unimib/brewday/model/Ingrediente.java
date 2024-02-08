@@ -5,14 +5,12 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "ingrediente")
+@Entity
 public class Ingrediente {
 
     @PrimaryKey @NonNull
-    @ColumnInfo(name = "tipo")
     private TipoIngrediente tipo;
 
-    @ColumnInfo(name = "quantita_posseduta")
     private int quantitaPosseduta;
 
     @Ignore

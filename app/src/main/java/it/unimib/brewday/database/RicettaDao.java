@@ -9,17 +9,9 @@ import androidx.room.Update;
 
 import java.util.List;
 import it.unimib.brewday.model.Ricetta;
-import it.unimib.brewday.model.RicettaConIngredienti;
 
 @Dao
 public interface RicettaDao {
-    @Transaction
-    @Query("SELECT * FROM ricetta")
-    List<RicettaConIngredienti> getAllRicette();
-
-    @Transaction
-    @Query("SELECT * FROM ricetta WHERE id = :id")
-    List<RicettaConIngredienti> getRicettaById(long id);
 
     @Insert
     long insertRicetta(Ricetta ricetta);
