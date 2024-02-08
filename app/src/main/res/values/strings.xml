@@ -17,4 +17,7 @@
     <string name="ingredienti">Ingredienti</string>
     <string name="attrezzi">Attrezzi</string>
     <string name="tuoi_ingredienti">I tuoi Ingredienti:</string>
+    <string name="bottone_crea_ricetta">Bottone crea ricetta</string>
+    <string name="nome_ricetta">Nome Ricetta</string>
+    <string name="brewday">BrewDay!</string>
 </resources>

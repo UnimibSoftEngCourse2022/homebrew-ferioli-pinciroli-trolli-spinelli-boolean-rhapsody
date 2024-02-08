@@ -13,17 +13,17 @@ public class Ingrediente {
     private TipoIngrediente tipo;
 
     @ColumnInfo(name = "quantita_posseduta")
-    private Double quantitaPosseduta;
+    private int quantitaPosseduta;
 
-
-    public Ingrediente(TipoIngrediente tipo, Double quantitaPosseduta) {
+    @Ignore
+    public Ingrediente(TipoIngrediente tipo, int quantitaPosseduta) {
         this.tipo = tipo;
         this.quantitaPosseduta = quantitaPosseduta;
     }
-    @Ignore
+
     public Ingrediente(TipoIngrediente tipo) {
         this.tipo = tipo;
-        this.quantitaPosseduta = 0.0;
+        this.quantitaPosseduta = 0;
     }
 
     public TipoIngrediente getTipo() {
@@ -34,15 +34,16 @@ public class Ingrediente {
         this.tipo = nome;
     }
 
-    public Double getQuantitaPosseduta() {
+    public int getQuantitaPosseduta() {
         return quantitaPosseduta;
     }
 
     public String getQuantitaAssolutaToString(){
-        return Double.toString(quantitaPosseduta);
+        return Integer.toString(quantitaPosseduta);
     }
 
-    public void setQuantitaPosseduta(Double quantitaPosseduta) {
+    public void setQuantitaPosseduta(int quantitaPosseduta) {
+
         this.quantitaPosseduta = quantitaPosseduta;
     }
 }

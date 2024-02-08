@@ -11,28 +11,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="112dp"
-        android:inputType="number|numberDecimal"
+        android:background="@android:color/transparent"
+        android:inputType="number"
         android:minWidth="48dp"
         android:minHeight="48dp"
         android:textAlignment="textEnd"
         app:layout_constraintBottom_toBottomOf="@+id/textView_ingrediente"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView_ingrediente"
-        tools:text="22.0"
-        android:background="@android:color/transparent"/>
+        tools:text="22.0" />
 
 
     <TextView
         android:id="@+id/textView_ingrediente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="Acqua" />
 
     <TextView

@@ -5,12 +5,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,7 @@ public class ListaRicetteFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerViewRicette = view.findViewById(R.id.recyclerview_listaRicette);
+        FloatingActionButton creaRicettaButton = view.findViewById(R.id.button_toCreaRicetta);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(),
                 LinearLayoutManager.VERTICAL, false);
@@ -69,6 +73,8 @@ public class ListaRicetteFragment extends Fragment {
         recyclerViewRicette.setLayoutManager(layoutManager);
         recyclerViewRicette.setAdapter(ricetteRecyclerViewAdapter);
 
+        creaRicettaButton.setOnClickListener(v ->
+            Navigation.findNavController(requireView()).navigate(R.id.action_listaRicetteFragment_to_creaRicettaFragment));
 
     }
 }

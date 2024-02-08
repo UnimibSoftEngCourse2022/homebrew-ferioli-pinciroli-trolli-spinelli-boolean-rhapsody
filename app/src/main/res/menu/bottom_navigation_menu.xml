@@ -3,23 +3,26 @@
     <item
         android:id="@+id/listaRicetteFragment"
         android:enabled="true"
+        android:icon="@drawable/recipe_svgrepo_com"
         android:title="@string/lista_ricette" />
     <item
         android:id="@+id/birreFragment"
         android:enabled="true"
-        android:title="@string/birre"/>
+        android:icon="@drawable/beer_svgrepo_com"
+        android:title="@string/birre" />
     <item
         android:id="@+id/creaRicettaFragment"
         android:enabled="true"
-        android:title="@string/crea_ricetta"/>
+        android:icon="@drawable/new_svgrepo_com"
+        android:title="@string/crea_ricetta" />
     <item
         android:id="@+id/gestisciAttrezziFragment"
         android:enabled="true"
-        android:title="@string/attrezzi"
-        />
+        android:icon="@drawable/recipe_svgrepo_com_1_"
+        android:title="@string/attrezzi" />
     <item
         android:id="@+id/ingredientiFragment"
         android:enabled="true"
-        android:title="@string/ingredienti"
-        />
+        android:icon="@drawable/balance_svgrepo_com"
+        android:title="@string/ingredienti" />
 </menu>
