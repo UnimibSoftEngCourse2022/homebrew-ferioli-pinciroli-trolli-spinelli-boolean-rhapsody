@@ -105,13 +105,13 @@ public class CreaRicettaFragment extends Fragment {
         creaRicettaButton.setOnClickListener(v -> {
 
                     if( controlloCreazione(view, nomeRicetta, numeroLitriBirra)){
-                    boolean zeroIngredinti = false;
+                    int zeroIngredinti = 0;
                     double litriScelti = Double.parseDouble(numeroLitriBirra.getText().toString());
                     List<Double> listaIngredientiPerLitro = new ArrayList<>();
 
                     for (Ingrediente ingrediente: listaIngredientiRicetta) {
-                            if(ingrediente.getQuantitaPosseduta() != 0) {
-                               zeroIngredinti = true;
+                            if(ingrediente.getQuantitaPosseduta() == 0) {
+                               zeroIngredinti ++;
                             }
                             listaIngredientiPerLitro.add((ingrediente.getQuantitaPosseduta() / litriScelti));
                      }
@@ -210,11 +210,11 @@ public class CreaRicettaFragment extends Fragment {
         return true;
     }
 
-    public void salvaRicetta(View view, boolean zeroIngredinti ) {
-        if (zeroIngredinti) {
+    public void salvaRicetta(View view, int zeroIngredinti ) {
+        if (zeroIngredinti < 3) {
             //TODO chiamata luca
         } else {
-            Snackbar.make(view, "scegli almeno un ingrediente", LENGTH_SHORT).show();
+            Snackbar.make(view, "scegli più ingredienti", LENGTH_SHORT).show();
         }
     }
 
