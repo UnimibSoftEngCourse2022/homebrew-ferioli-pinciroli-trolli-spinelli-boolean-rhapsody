@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import java.util.List;
 
@@ -53,7 +52,7 @@ public class RicettaDettagliataFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ListView listViewIngredientiRicettaDettagliata = fragmentRicettaDettagliataBinding.listViewIngredrientiRicettaDettagliata;
+        //ListView listViewIngredientiRicettaDettagliata = fragmentRicettaDettagliataBinding.listViewIngredrientiRicettaDettagliata;
         Button modificaRicettaButton = fragmentRicettaDettagliataBinding.buttonModificaRicetta;
         EditText numeroLitriRicettaBirra = fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra;
 
@@ -77,9 +76,9 @@ public class RicettaDettagliataFragment extends Fragment {
         setAdapterIngredienti(visibile);
         fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra.setEnabled(visibile);
         if (visibile){
-            fragmentRicettaDettagliataBinding.buttonModificaRicetta.setText("Conferma");
+            fragmentRicettaDettagliataBinding.buttonModificaRicetta.setText(R.string.conferma);
         } else {
-            fragmentRicettaDettagliataBinding.buttonModificaRicetta.setText("Modifica");
+            fragmentRicettaDettagliataBinding.buttonModificaRicetta.setText(R.string.modifica);
         }
 
     }
