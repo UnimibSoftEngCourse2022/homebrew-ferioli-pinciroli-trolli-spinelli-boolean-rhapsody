@@ -5,20 +5,22 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
 @Entity(
-        tableName = "ricette_ingredienti",
+        tableName = "ricetta_ingrediente",
         primaryKeys = {"idRicetta", "tipoIngrediente"},
         foreignKeys = {
                 @ForeignKey(
                         entity = Ricetta.class,
                         parentColumns = "id",
                         childColumns = "idRicetta",
-                        onDelete = ForeignKey.CASCADE
+                        onDelete = ForeignKey.CASCADE,
+                        onUpdate = ForeignKey.CASCADE
                 ),
                 @ForeignKey(
                         entity = Ingrediente.class,
                         parentColumns = "tipo",
                         childColumns = "tipoIngrediente",
-                        onDelete = ForeignKey.CASCADE
+                        onDelete = ForeignKey.CASCADE,
+                        onUpdate = ForeignKey.CASCADE
                 )})
 public class RicettaIngrediente {
 
@@ -28,6 +30,6 @@ public class RicettaIngrediente {
     @ColumnInfo(name = "tipo_ingrediente")
     public TipoIngrediente tipoIngrediente;
 
-    @ColumnInfo(name = "grammi_per_litro")
-    public double grammiPerLitro;
+    @ColumnInfo(name = "quantita_per_litro")
+    public Double quantitaPerLitro;
 }

@@ -59,13 +59,13 @@ public class Risultato {
     }
 
     public static final class ListaRicetteSuccesso extends Risultato {
-        private final List<Ricetta> ricette;
+        private final List<RicettaConIngredienti> ricette;
 
-        public ListaRicetteSuccesso(List<Ricetta> listaRicette){
+        public ListaRicetteSuccesso(List<RicettaConIngredienti> listaRicette){
             ricette = listaRicette;
         }
 
-        public List<Ricetta> getRicette(){
+        public List<RicettaConIngredienti> getRicette(){
             return ricette;
         }
 

@@ -20,7 +20,7 @@ public class RicetteRepository {
 
     public void readListaRicette(Callback callback) {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-            List<Ricetta> allRicette = ricettaDao.getAllRicette();
+            List<RicettaConIngredienti> allRicette = ricettaDao.getAllRicette();
 
             if(allRicette != null) {
                 callback.onComplete(new Risultato.ListaRicetteSuccesso(allRicette));

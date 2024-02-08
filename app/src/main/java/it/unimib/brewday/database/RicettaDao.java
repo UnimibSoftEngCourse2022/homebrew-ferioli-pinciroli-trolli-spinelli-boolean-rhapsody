@@ -14,11 +14,11 @@ import it.unimib.brewday.model.RicettaConIngredienti;
 @Dao
 public interface RicettaDao {
     @Transaction
-    @Query("SELECT * FROM ricette")
-    List<Ricetta> getAllRicette();
+    @Query("SELECT * FROM ricetta")
+    List<RicettaConIngredienti> getAllRicette();
 
     @Transaction
-    @Query("SELECT * FROM ricette WHERE id = :id")
+    @Query("SELECT * FROM ricetta WHERE id = :id")
     List<RicettaConIngredienti> getRicettaById(long id);
 
     @Insert

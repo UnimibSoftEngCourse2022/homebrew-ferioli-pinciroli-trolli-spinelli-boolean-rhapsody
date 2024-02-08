@@ -3,7 +3,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "ricette")
+@Entity(tableName = "ricetta")
 public class Ricetta {
 
     @PrimaryKey(autoGenerate = true)

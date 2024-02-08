@@ -13,5 +13,5 @@ public class RicettaConIngredienti {
             entityColumn = "tipoIngrediente",
             associateBy = @Junction(RicettaIngrediente.class)
     )
-    public List<Ingrediente> ingredienti;
+    public List<IngredienteDellaRicetta> ingredienti;
 }
