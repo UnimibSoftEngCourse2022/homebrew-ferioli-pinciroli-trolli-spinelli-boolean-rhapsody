@@ -34,4 +34,9 @@
         android:name="it.unimib.brewday.ui.gestisci_attrezzi.GestisciAttrezziFragment"
         android:label="Gestisci i tuoi attrezzi"
         tools:layout="@layout/fragment_gestisci_attrezzi" />
+    <fragment
+        android:id="@+id/ricettaDettagliataFragment"
+        android:name="it.unimib.brewday.ui.gestisci_ricette.RicettaDettagliataFragment"
+        android:label="fragment_ricetta_dettagliata"
+        tools:layout="@layout/fragment_ricetta_dettagliata" />
 </navigation>

@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.listaRicetteFragment, R.id.birreFragment,
-                R.id.creaRicettaFragment, R.id.gestisciAttrezziFragment, R.id.ingredientiFragment).build();
+                R.id.ricettaDettagliataFragment, R.id.gestisciAttrezziFragment, R.id.ingredientiFragment).build();
 
         // For the Toolbar
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);

@@ -22,7 +22,7 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
 
     private final List<Ingrediente> listaIngredienti;
-
+    private final boolean visibile;
 
     private final int layout;
 
@@ -30,12 +30,14 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
     private final OnFocusChangeListener onFocusChangeListener;
 
-    public AdapterListViewListaIngredientiDisponibili(@NonNull Context context, int resource, List<Ingrediente> listaIngredienti, int layout, OnItemClickListener onItemClickListener, OnFocusChangeListener onFocusChangeListener) {
+    public AdapterListViewListaIngredientiDisponibili(@NonNull Context context, int resource, List<Ingrediente> listaIngredienti,
+                                                      int layout, OnItemClickListener onItemClickListener, OnFocusChangeListener onFocusChangeListener, boolean visibile) {
         super(context, resource, listaIngredienti);
         this.listaIngredienti = listaIngredienti;
         this.layout = layout;
         this.onItemClickListener = onItemClickListener;
         this.onFocusChangeListener = onFocusChangeListener;
+        this.visibile = visibile;
     }
 
     public interface OnItemClickListener {
@@ -62,7 +64,11 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
         FloatingActionButton aggiungiIngrediente = convertView.findViewById(R.id.button_aggiungi_ingrediente);
         FloatingActionButton rimuoviIngrediente = convertView.findViewById(R.id.button_rimuovi_ingrediente);
 
-
+        if (!visibile){
+            aggiungiIngrediente.setVisibility(View.GONE);
+            rimuoviIngrediente.setVisibility(View.GONE);
+            quantitaIngrediente.setFocusable(false);
+        }
 
         aggiungiIngrediente.setOnClickListener(v -> {
             onItemClickListener.onAddIngredienteClick(listaIngredienti.get(position), position, quantitaIngrediente);

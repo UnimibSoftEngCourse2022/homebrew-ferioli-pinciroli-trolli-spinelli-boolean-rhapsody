@@ -93,7 +93,7 @@ public class CreaRicettaFragment extends Fragment {
             controlloCambioSelezione(ingrediente, position, quantitaIngrediente);
             rispostaInvioTastiera(ingrediente, position, quantitaIngrediente);
 
-        });
+        }, true);
 
         listViewIngredientiRicetta.setAdapter(adapterListViewListaIngredientiRicetta);
         listViewIngredientiRicetta.setDivider(null);
@@ -114,8 +114,8 @@ public class CreaRicettaFragment extends Fragment {
                                zeroIngredinti = true;
                             }
                             listaIngredientiPerLitro.add((ingrediente.getQuantitaPosseduta() / litriScelti));
-                     }
-                        salvaRicetta(view, zeroIngredinti);
+                    }
+                    salvaRicetta(view, zeroIngredinti);
                 }
         });
     }

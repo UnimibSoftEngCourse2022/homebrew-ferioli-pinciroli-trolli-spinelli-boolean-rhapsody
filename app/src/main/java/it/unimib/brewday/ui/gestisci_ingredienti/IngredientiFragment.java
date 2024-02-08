@@ -101,7 +101,7 @@ public class IngredientiFragment extends Fragment {
                     inizializzaPositionePrecedente(ingrediente, position, quantitaIngrediente);
                     controlloCambioSelezione(ingrediente, position, quantitaIngrediente);
                     rispostaInvioTastiera(ingrediente, position, quantitaIngrediente);
-                });
+                }, true);
 
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
                 listViewIngredientiDispobili.setDivider(null);
