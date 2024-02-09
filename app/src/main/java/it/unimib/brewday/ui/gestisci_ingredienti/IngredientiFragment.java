@@ -84,7 +84,7 @@ public class IngredientiFragment extends Fragment {
                     public void onRemoveIngredienteClick(Ingrediente ingrediente) {
                         aggiornaDBIngrediente(ingrediente);
                     }
-                }, (ingrediente) ->
+                }, ingrediente ->
 
                     aggiornaDBIngrediente( ingrediente)
                 , true);

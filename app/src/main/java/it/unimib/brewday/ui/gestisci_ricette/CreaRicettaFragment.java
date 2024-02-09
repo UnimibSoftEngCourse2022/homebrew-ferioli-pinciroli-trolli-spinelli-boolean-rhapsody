@@ -192,10 +192,10 @@ public class CreaRicettaFragment extends Fragment {
 
     public boolean controlloCreazione(View view,EditText nomeRicetta, EditText numeroLitriBirra ){
         if(nomeRicetta.getText().toString().isEmpty()){
-            Snackbar.make(view, "Nome ricetta mancante", LENGTH_SHORT).show();
+            Snackbar.make(view, R.string.nome_ricetta_mancante, LENGTH_SHORT).show();
             return false;
         } else if( Double.parseDouble(numeroLitriBirra.getText().toString()) == 0.0 ){
-            Snackbar.make(view, "Litri di birra mancanti", LENGTH_SHORT).show();
+            Snackbar.make(view, R.string.litri_birra_ricetta_mancante, LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -205,7 +205,7 @@ public class CreaRicettaFragment extends Fragment {
         if (zeroIngredinti < 3) {
             //TODO chiamata luca
         } else {
-            Snackbar.make(view, "scegli più ingredienti", LENGTH_SHORT).show();
+            Snackbar.make(view, R.string.ingredienti_ricetta_mancanti, LENGTH_SHORT).show();
         }
     }
 

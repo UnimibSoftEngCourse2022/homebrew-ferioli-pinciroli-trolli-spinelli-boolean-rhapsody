@@ -2,6 +2,8 @@ package it.unimib.brewday.ui.gestisci_ingredienti;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
+import static it.unimib.brewday.util.Constants.ACQUA;
+
 import android.content.Context;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -96,7 +98,7 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
         View finalConvertView = convertView;
         rimuoviIngrediente.setOnClickListener(v -> {
             if (listaIngredienti.get(position).getQuantitaPosseduta() < 1) {
-                Snackbar.make(finalConvertView, "Non si possono avere ingredienti negativi", LENGTH_SHORT).show();
+                Snackbar.make(finalConvertView, R.string.no_iingredienti_negativi, LENGTH_SHORT).show();
             }else {
                 togliQuantitaIngrediente(verificaIngrediente(ingredienteAdapter, quantitaIngrediente), position, quantitaIngrediente);
                 onItemClickListener.onRemoveIngredienteClick(ingredienteAdapter);
@@ -123,7 +125,7 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
     private void aggiornaVisualizzazioneIngredienti(Ingrediente ingrediente, EditText quantitaIngrediente, TextView unitaMisura){
         quantitaIngrediente.setText(ingrediente.getQuantitaAssolutaToString());
-        if( ingrediente.getTipo().getNome().equalsIgnoreCase("acqua") ) {
+        if( ingrediente.getTipo().getNome().equalsIgnoreCase(ACQUA) ) {
             unitaMisura.setText(" L");
         }else{
             unitaMisura.setText(" g");

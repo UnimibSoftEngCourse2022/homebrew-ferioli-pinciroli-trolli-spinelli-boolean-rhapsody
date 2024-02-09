@@ -98,7 +98,7 @@ public class GestisciAttrezziFragment extends Fragment {
             if(nomeAttrezzo.getText().toString().equals("") ||
                     capacitaAttrezzo.getText().toString().equals("")) {
                 Snackbar
-                        .make(view,"Dati inseriti inaccettabili", BaseTransientBottomBar.LENGTH_SHORT)
+                        .make(view,R.string.attrezzi_dati_inaccettabili, BaseTransientBottomBar.LENGTH_SHORT)
                         .show();
             }
             else{
