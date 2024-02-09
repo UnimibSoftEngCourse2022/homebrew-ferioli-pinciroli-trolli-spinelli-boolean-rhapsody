@@ -29,6 +29,7 @@ public class MockActivity extends AppCompatActivity {
 
         TextView textView = findViewById(R.id.textView);
         TextView textView2 = findViewById(R.id.textView2);
+        TextView textView3 = findViewById(R.id.textView3);
 
         Ricetta ricetta = new Ricetta("Birra della scimmia", 1);
         List<IngredienteRicetta> listaIngredienti = new ArrayList<>();
@@ -57,6 +58,13 @@ public class MockActivity extends AppCompatActivity {
             }
             else{
                 textView.setText(((Risultato.Errore) risultato).getMessaggio());
+            }
+        });
+
+        IngredienteRicetta ingredienteRicetta = new IngredienteRicetta(3, TipoIngrediente.ACQUA, 123912938);
+        ricetteRepository.updateIngredientiRicetta(ingredienteRicetta, risultato -> {
+            if(risultato.isSuccessful()){
+                textView3.setText("dovrebbe andare");
             }
         });
 

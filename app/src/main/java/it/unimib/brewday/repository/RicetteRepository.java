@@ -36,7 +36,7 @@ public class RicetteRepository {
 
     private void insertRicettaIngrediente(List<IngredienteRicetta> ingredienteRicetta, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-            long[] id = ricettaDao.insertRicettaIngrediente(ingredienteRicetta);
+            long[] id = ricettaDao.insertIngredientiRicetta(ingredienteRicetta);
             boolean isOK = true;
 
             for (int i = 0; i < id.length; i++) {
@@ -56,7 +56,7 @@ public class RicetteRepository {
 
     public void getIngredientiDellaRicetta(long idRicetta, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-            List<IngredienteRicetta> ingredientiDellaRicetta = ricettaDao.getIngredientiDellaRicetta(idRicetta);
+            List<IngredienteRicetta> ingredientiDellaRicetta = ricettaDao.getIngredientiRicetta(idRicetta);
 
             if(ingredientiDellaRicetta != null){
                 callback.onComplete(new Risultato.ListaIngredientiDellaRicettaSuccesso(ingredientiDellaRicetta));
@@ -76,6 +76,32 @@ public class RicetteRepository {
             }
             else{
                 callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_FETCH_ERROR));
+            }
+        });
+    }
+
+    public void updateRicetta(Ricetta ricetta, Callback callback){
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
+            int righeAggiornate = ricettaDao.updateRicetta(ricetta);
+
+            if(righeAggiornate > 0){
+                callback.onComplete(new Risultato.Successo());
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_UPDATE_ERROR));
+            }
+        });
+    }
+
+    public void updateIngredientiRicetta(IngredienteRicetta ingredienteRicetta, Callback callback){
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
+            int righeAggiornate = ricettaDao.updateIngredientiRicetta(ingredienteRicetta);
+
+            if(righeAggiornate > 0){
+                callback.onComplete(new Risultato.Successo());
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.INGREDIENTI_UPDATE_ERROR));
             }
         });
     }
