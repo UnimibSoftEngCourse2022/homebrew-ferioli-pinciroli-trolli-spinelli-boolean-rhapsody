@@ -19,6 +19,7 @@ public class RicetteRepository {
         ricettaDao = localDatabase.ricettaDao();
     }
 
+    //Operazione di inserimento dati all'interno della tabella "Ricetta"
     public void upsertRicetta(Ricetta ricetta, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             long id = ricettaDao.insertRicetta(ricetta);
@@ -32,12 +33,13 @@ public class RicetteRepository {
         });
     }
 
+    //Operazione di inserimento dei collegamenti tra la ricetta e gli ingredienti nella tabella RicettaIngrediente
     public void upsertRicettaIngrediente(RicettaIngrediente ricettaIngrediente, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             long id = ricettaDao.upsertRicettaIngrediente(ricettaIngrediente);
 
             if(id >= 0){
-                callback.onComplete(new Risultato.Errore("FUNZIONA"));
+                callback.onComplete(new Risultato.Successo());
             }
             else{
                 callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_CREATION_ERROR));
