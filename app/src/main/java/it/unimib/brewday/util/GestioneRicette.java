@@ -1,7 +1,6 @@
 package it.unimib.brewday.util;
 
 import static android.widget.Toast.LENGTH_SHORT;
-import static androidx.test.InstrumentationRegistry.getContext;
 
 import android.view.View;
 import android.widget.EditText;
@@ -9,16 +8,16 @@ import android.widget.EditText;
 import com.google.android.material.snackbar.Snackbar;
 
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 import it.unimib.brewday.R;
-import it.unimib.brewday.model.Ingrediente;
+
 
 
 public class GestioneRicette {
 
     public GestioneRicette() {
+        // creazione classe
     }
 
     public void verificaNumeroLitriBirra(EditText numeroLitriBirra, boolean hasFocus){

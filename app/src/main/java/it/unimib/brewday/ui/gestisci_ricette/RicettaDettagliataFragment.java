@@ -73,7 +73,7 @@ public class RicettaDettagliataFragment extends Fragment {
 
         visibile = false;
 
-        setAdapterIngredienti(visibile, view, listaIngredientiRicetta);
+        setAdapterIngredienti(visibile, listaIngredientiRicetta);
         numeroLitriRicettaBirra.setEnabled(visibile);
         nomeRicetta.setEnabled(visibile);
 
@@ -113,11 +113,11 @@ public class RicettaDettagliataFragment extends Fragment {
 
         fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra.setEnabled(visibile);
         fragmentRicettaDettagliataBinding.textViewNomeRicetta.setEnabled(visibile);
-        setAdapterIngredienti(visibile, view, listaIngredientiRicetta);
+        setAdapterIngredienti(visibile, listaIngredientiRicetta);
 
     }
 
-    public void setAdapterIngredienti(boolean visible, View view, List<Ingrediente> listaIngredientiRicetta){
+    public void setAdapterIngredienti(boolean visible, List<Ingrediente> listaIngredientiRicetta){
         adapterListViewListaIngredientiRicetta = new AdapterListViewListaIngredientiDisponibili(
                 getContext(), 0, listaIngredientiRicetta, R.layout.lista_ingredienti_singoli,
                 new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
@@ -141,7 +141,7 @@ public class RicettaDettagliataFragment extends Fragment {
     public void salvaRicetta(View view, int zeroIngredinti , List<Ingrediente> listaIngredientiRicetta, List<Double> listaIngredientiPerLitro) {
         if (zeroIngredinti < 3) {
             //TODO chiamata luca con listaIngredientiPerLitro
-            setAdapterIngredienti(false, view, listaIngredientiRicetta);
+            setAdapterIngredienti(false,  listaIngredientiRicetta);
 
         } else {
             Snackbar.make(view, R.string.ingredienti_ricetta_mancanti, LENGTH_SHORT).show();
