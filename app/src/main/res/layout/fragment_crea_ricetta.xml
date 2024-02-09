@@ -33,7 +33,7 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:textAlignment="center"
-                android:textColorHint="@color/seed"
+                android:textColorHint = "?android:colorPrimary"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -70,9 +70,9 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/ingredienti"
-                android:textColor="@color/md_theme_light_onPrimaryContainer"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:textColor = "?android:colorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_numeroLitriBirra" />
 
@@ -83,7 +83,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:text="Litri birra da produrre :"
-                android:textColor="@color/md_theme_light_onPrimaryContainer"
+                android:textColor = "?android:textColorPrimary"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editText_nomeRicetta" />
@@ -96,7 +96,6 @@
                 android:inputType="number"
                 android:ems="1"
                 android:text="1"
-                android:textColor="@color/md_theme_light_onPrimaryContainer"
                 app:layout_constraintBottom_toBottomOf="@+id/textView_numeroLitriBirra"
                 app:layout_constraintStart_toEndOf="@+id/textView_numeroLitriBirra"
                 app:layout_constraintTop_toTopOf="@+id/textView_numeroLitriBirra" />

@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView_ingrediente"
         tools:text="22.0"
-        android:textColor="@color/md_theme_dark_onPrimary"/>
+        />
 
 
     <TextView
@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:text="Acqua"
-        android:textColor="@color/md_theme_dark_onPrimary"
+        android:textColor = "?android:textColorPrimary"
         />
 
     <TextView
@@ -49,7 +49,7 @@
         app:layout_constraintStart_toEndOf="@+id/editTextText_ingrediente"
         app:layout_constraintTop_toTopOf="@+id/editTextText_ingrediente"
         tools:text="g"
-        android:textColor="@color/md_theme_dark_onPrimary"/>
+        android:textColor = "?android:textColorPrimary" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
 
