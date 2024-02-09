@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +25,8 @@ import it.unimib.brewday.model.Ricetta;
 public class ListaRicetteFragment extends Fragment {
 
     List<Ricetta> listaRicette;
+
+    RicetteRecyclerViewAdapter ricetteRecyclerViewAdapter;
     public ListaRicetteFragment() {
         // Required empty public constructor
     }
@@ -37,6 +40,11 @@ public class ListaRicetteFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         listaRicette = new ArrayList<>();
+        listaRicette.add(new Ricetta(1, "guiness"));
+        listaRicette.add(new Ricetta(2, "franzizkale"));
+        listaRicette.add(new Ricetta(3, "moretti"));
+        listaRicette.add(new Ricetta(4, "forste"));
+        listaRicette.add(new Ricetta(5, "valDiFiemmeBeer"));
     }
 
     @Override
@@ -56,7 +64,9 @@ public class ListaRicetteFragment extends Fragment {
                 LinearLayoutManager.VERTICAL, false);
 
 
-        RicetteRecyclerViewAdapter ricetteRecyclerViewAdapter = new RicetteRecyclerViewAdapter(listaRicette,
+
+
+         ricetteRecyclerViewAdapter = new RicetteRecyclerViewAdapter(listaRicette,
                 getContext(), new RicetteRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onElementoRicettaClick(Ricetta ricetta) {
@@ -76,5 +86,26 @@ public class ListaRicetteFragment extends Fragment {
         creaRicettaButton.setOnClickListener(v ->
             Navigation.findNavController(requireView()).navigate(R.id.action_listaRicetteFragment_to_creaRicettaFragment));
 
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerViewRicette);
     }
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            int posizione = viewHolder.getAdapterPosition();
+            switch (direction ) {
+                case ItemTouchHelper.LEFT:
+                    listaRicette.remove(posizione);
+                    ricetteRecyclerViewAdapter.notifyItemRemoved(posizione);
+
+
+                    break;
+            }
+        }
+    };
 }

@@ -85,6 +85,7 @@ public class RicetteRecyclerViewAdapter extends
         }
 
         public void bind(Ricetta ricetta){
+            nomeRicetta.setText(ricetta.getNome());
 
         }
     }

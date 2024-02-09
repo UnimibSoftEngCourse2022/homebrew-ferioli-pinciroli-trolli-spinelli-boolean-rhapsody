@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:elevation="32dp"
     android:padding="2dp"
     android:background="?android:selectableItemBackground"
@@ -14,14 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="4dp">
 
 
@@ -42,11 +41,11 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/cardview_light_background"
-                tools:contentDescription="Bottone iniza la Ricetta"
                 android:src="@drawable/baseline_add_24"
                 app:layout_constraintBottom_toBottomOf="@+id/textView_nomeRicetta"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView_nomeRicetta" />
+                app:layout_constraintTop_toTopOf="@+id/textView_nomeRicetta"
+                tools:contentDescription="Bottone iniza la Ricetta" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
