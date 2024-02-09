@@ -82,7 +82,7 @@ dependencies {
     androidTestImplementation("androidx.test:rules:$testRulesVersion")
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressocoreVersion")
 
-
+    implementation ("it.xabaras.android:recyclerview-swipedecorator:1.4")
 
 
 
