@@ -103,11 +103,6 @@ public class CreaRicettaFragment extends Fragment {
     }
 
 
-
-
-
-
-
     public void salvaRicetta(View view, int zeroIngredinti, List<Double> listaIngredientiPerLitro) {
         if (zeroIngredinti < 3) {
             //TODO chiamata luca

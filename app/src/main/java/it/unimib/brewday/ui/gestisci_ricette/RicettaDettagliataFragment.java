@@ -86,7 +86,7 @@ public class RicettaDettagliataFragment extends Fragment {
         );
 
 
-}
+    }
 
     public void setVisibile(boolean invertiVisibile, View view, EditText numeroLitriBirra, List<Ingrediente> listaIngredientiRicetta){
         if (!invertiVisibile){
