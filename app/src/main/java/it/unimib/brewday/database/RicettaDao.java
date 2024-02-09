@@ -26,7 +26,7 @@ public interface RicettaDao {
             "SELECT idRicetta, tipoIngrediente, dosaggioIngrediente " +
                     "FROM IngredienteRicetta WHERE idRicetta = :idRicetta"
     )
-    List<IngredienteRicetta> getIngredientiDellaRicetta(int idRicetta);
+    List<IngredienteRicetta> getIngredientiDellaRicetta(long idRicetta);
 
     @Insert
     long[] insertRicettaIngrediente(List<IngredienteRicetta> listaIngredientiRicetta);

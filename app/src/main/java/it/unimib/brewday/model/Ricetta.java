@@ -11,8 +11,9 @@ public class Ricetta {
     private int litriDiRiferimento;
 
 
-    public Ricetta(String nome){
+    public Ricetta(String nome, int litriDiRiferimento){
         this.nome = nome;
+        this.litriDiRiferimento = litriDiRiferimento;
     }
 
 

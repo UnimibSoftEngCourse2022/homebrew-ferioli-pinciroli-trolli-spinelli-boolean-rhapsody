@@ -22,7 +22,7 @@ public class RicetteRepository {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             long id = ricettaDao.insertRicetta(ricetta);
 
-            if(id >= 0){
+            if(id > 0){
                 for (int i = 0; i < listaDegliIngredienti.size(); i++) {
                     listaDegliIngredienti.get(i).setIdRicetta(id);
                 }
@@ -54,7 +54,7 @@ public class RicetteRepository {
         });
     }
 
-    public void getIngredientiDellaRicetta(int idRicetta, Callback callback){
+    public void getIngredientiDellaRicetta(long idRicetta, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             List<IngredienteRicetta> ingredientiDellaRicetta = ricettaDao.getIngredientiDellaRicetta(idRicetta);
 

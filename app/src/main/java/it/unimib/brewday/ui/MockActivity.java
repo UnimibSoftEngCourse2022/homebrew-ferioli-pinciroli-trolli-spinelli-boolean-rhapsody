@@ -3,9 +3,18 @@ package it.unimib.brewday.ui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 
+
+import java.util.ArrayList;
+import java.util.List;
 
 import it.unimib.brewday.R;
+import it.unimib.brewday.model.IngredienteRicetta;
+import it.unimib.brewday.model.Ricetta;
+import it.unimib.brewday.model.Risultato;
+import it.unimib.brewday.model.TipoIngrediente;
 import it.unimib.brewday.repository.RicetteRepository;
 import it.unimib.brewday.util.ServiceLocator;
 
@@ -18,37 +27,38 @@ public class MockActivity extends AppCompatActivity {
 
         RicetteRepository ricetteRepository = ServiceLocator.getInstance().getRicetteRepository(this);
 
-//        Ricetta r = new Ricetta("Birra della scimmia");
-//        RicettaIngrediente ricettaIngrediente = new RicettaIngrediente(1, TipoIngrediente.ACQUA, 20);
-//
-//        ricetteRepository.insertRicetta(r, risultato -> {
-//            if (risultato.isSuccessful()) {
-//                Log.d("TestMain", "Funziona inserimento ricetta");
-//
-//                ricetteRepository.insertRicettaIngrediente(ricettaIngrediente, risultato1 -> {
-//                    if (risultato1.isSuccessful()) {
-//                        Log.d("TestMain", "Funziona inserimento ingrediente");
-//
-//                        ricetteRepository.getIngredientiDellaRicetta(1, risultato2 -> {
-//                            if(risultato2.isSuccessful() && risultato2 instanceof Risultato.IngredientiDellaRicettaSuccesso){
-//                                Iterator i = ((Risultato.IngredientiDellaRicettaSuccesso) risultato2).getData().iterator();
-//                                while (i.hasNext()) {
-//                                    Log.d("TestMain", "Ingrediente : " + i.next().toString());
-//                                }
-//                            }
-//                            else{
-//                                Log.d("TestMain", "Non funziona lettura ingrediente");
-//                            }
-//                        });
-//                    }
-//                    else{
-//                        Log.d("TestMain", "Non funziona inserimento ingrediente");
-//                    }
-//                });
-//            }
-//            else{
-//                Log.d("TestMain", "Non funziona inserimento ricetta");
-//            }
-//        });
+        TextView textView = findViewById(R.id.textView);
+        TextView textView2 = findViewById(R.id.textView2);
+
+        Ricetta ricetta = new Ricetta("Birra della scimmia", 1);
+        List<IngredienteRicetta> listaIngredienti = new ArrayList<>();
+        listaIngredienti.add(new IngredienteRicetta(TipoIngrediente.ACQUA, 1));
+        listaIngredienti.add(new IngredienteRicetta(TipoIngrediente.MALTO, 3));
+        listaIngredienti.add(new IngredienteRicetta(TipoIngrediente.LUPPOLO, 5));
+        listaIngredienti.add(new IngredienteRicetta(TipoIngrediente.LIEVITI, 4));
+        listaIngredienti.add(new IngredienteRicetta(TipoIngrediente.ADDITIVI, 1));
+        listaIngredienti.add(new IngredienteRicetta(TipoIngrediente.ZUCCHERO, 100));
+
+        ricetteRepository.insertRicetta(ricetta, listaIngredienti, risultato -> {
+            if(risultato.isSuccessful()){
+                textView.setText("Ha funzionato");
+                ricetteRepository.getRicette(risultatoInnestato -> {
+                    if(risultatoInnestato.isSuccessful()){
+                        List<Ricetta> listaRicette = ((Risultato.ListaRicetteSuccesso) risultatoInnestato).getRicette();
+                        textView2.setText(listaRicette.get(0).getNome());
+                    }
+                });
+                ricetteRepository.getIngredientiDellaRicetta(5, risultatoInnestato -> {
+                    if(risultatoInnestato.isSuccessful()){
+                        List<IngredienteRicetta> listaIngredientiDellaRicetta = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultatoInnestato).getListaIngrediente();
+                        textView.setText(listaIngredientiDellaRicetta.get(0).getTipoIngrediente().getNome());
+                    }
+                });
+            }
+            else{
+                textView.setText(((Risultato.Errore) risultato).getMessaggio());
+            }
+        });
+
     }
 }

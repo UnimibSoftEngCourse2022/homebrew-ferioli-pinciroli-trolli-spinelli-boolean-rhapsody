@@ -15,7 +15,8 @@ public class Risultato {
                 || this instanceof IngredienteSuccesso
                 || this instanceof AttrezziSuccesso
                 || this instanceof ListaIngredientiDellaRicettaSuccesso
-                || this instanceof ListaRicetteSuccesso;
+                || this instanceof ListaRicetteSuccesso
+                || this instanceof SingolaRicettaSuccesso;
 
     }
 
@@ -97,14 +98,14 @@ public class Risultato {
     }
 
     public static final class Errore extends Risultato {
-        private final String message;
+        private final String messaggio;
 
-        public Errore(String message) {
-            this.message = message;
+        public Errore(String messaggio) {
+            this.messaggio = messaggio;
         }
 
-        public String getMessage(){
-            return message;
+        public String getMessaggio(){
+            return messaggio;
         }
     }
 }
