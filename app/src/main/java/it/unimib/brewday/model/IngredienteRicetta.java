@@ -3,6 +3,7 @@ package it.unimib.brewday.model;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 
 @Entity(
         primaryKeys = {"idRicetta", "tipoIngrediente"},
@@ -23,13 +24,20 @@ import androidx.room.ForeignKey;
                 )
         }
 )
-public class RicettaIngrediente {
+public class IngredienteRicetta {
     private long idRicetta;
     @NonNull private TipoIngrediente tipoIngrediente;
     private int dosaggioIngrediente;
 
-    public RicettaIngrediente(long idRicetta, @NonNull TipoIngrediente tipoIngrediente, int dosaggioIngrediente) {
+    public IngredienteRicetta(long idRicetta, @NonNull TipoIngrediente tipoIngrediente, int dosaggioIngrediente) {
         this.idRicetta = idRicetta;
+        this.tipoIngrediente = tipoIngrediente;
+        this.dosaggioIngrediente = dosaggioIngrediente;
+    }
+
+    @Ignore
+    public IngredienteRicetta(@NonNull TipoIngrediente tipoIngrediente, int dosaggioIngrediente){
+        this.idRicetta = -1;
         this.tipoIngrediente = tipoIngrediente;
         this.dosaggioIngrediente = dosaggioIngrediente;
     }

@@ -3,28 +3,35 @@ package it.unimib.brewday.database;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Upsert;
+import androidx.room.Update;
 
 import java.util.List;
 
-import it.unimib.brewday.model.IngredienteDellaRicetta;
 import it.unimib.brewday.model.Ricetta;
-import it.unimib.brewday.model.RicettaIngrediente;
+import it.unimib.brewday.model.IngredienteRicetta;
 
 @Dao
 public interface RicettaDao {
 
-    @Query(
-            "SELECT ri.tipoIngrediente, ri.dosaggioIngrediente " +
-                    "FROM ricetta r JOIN RicettaIngrediente ri ON r.id = ri.idRicetta " +
-                    "JOIN ingrediente i ON ri.tipoIngrediente = i.tipo " +
-                    "WHERE r.id = :idRicetta"
-    )
-    List<IngredienteDellaRicetta> getIngredientiDellaRicetta(int idRicetta);
+    @Query("SELECT * FROM ricetta")
+    List<Ricetta> getRicette();
 
     @Insert
     long insertRicetta(Ricetta ricetta);
 
-    @Upsert
-    long upsertRicettaIngrediente(RicettaIngrediente ricettaIngrediente);
+    @Update
+    int updateRicetta(Ricetta ricetta);
+
+    @Query(
+            "SELECT idRicetta, tipoIngrediente, dosaggioIngrediente " +
+                    "FROM IngredienteRicetta WHERE idRicetta = :idRicetta"
+    )
+    List<IngredienteRicetta> getIngredientiDellaRicetta(int idRicetta);
+
+    @Insert
+    long[] insertRicettaIngrediente(List<IngredienteRicetta> listaIngredientiRicetta);
+
+    @Update
+    int updateRicettaIngrediente(List<IngredienteRicetta> listaIngredientiRicetta);
+
 }

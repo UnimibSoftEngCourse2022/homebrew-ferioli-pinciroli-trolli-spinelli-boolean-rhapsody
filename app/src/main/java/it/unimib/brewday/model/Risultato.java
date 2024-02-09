@@ -14,8 +14,8 @@ public class Risultato {
                 || this instanceof IngredientiSuccesso
                 || this instanceof IngredienteSuccesso
                 || this instanceof AttrezziSuccesso
-                || this instanceof IngredientiDellaRicettaSuccesso;
-//                || this instanceof ListaRicetteSuccesso;
+                || this instanceof ListaIngredientiDellaRicettaSuccesso
+                || this instanceof ListaRicetteSuccesso;
 
     }
 
@@ -59,42 +59,42 @@ public class Risultato {
         }
     }
 
-    public static final class IngredientiDellaRicettaSuccesso extends Risultato {
-        private final List<IngredienteDellaRicetta> listaIngrediente;
+    public static final class ListaIngredientiDellaRicettaSuccesso extends Risultato {
+        private final List<IngredienteRicetta> listaIngrediente;
 
-        public IngredientiDellaRicettaSuccesso(List<IngredienteDellaRicetta> listaIngrediente) {
+        public ListaIngredientiDellaRicettaSuccesso(List<IngredienteRicetta> listaIngrediente) {
             this.listaIngrediente = listaIngrediente;
         }
 
-        public List<IngredienteDellaRicetta> getData(){
+        public List<IngredienteRicetta> getListaIngrediente(){
             return listaIngrediente;
         }
     }
 
-//    public static final class ListaRicetteSuccesso extends Risultato {
-//        private final List<RicettaConIngredienti> ricette;
-//
-//        public ListaRicetteSuccesso(List<RicettaConIngredienti> listaRicette){
-//            ricette = listaRicette;
-//        }
-//
-//        public List<RicettaConIngredienti> getRicette(){
-//            return ricette;
-//        }
-//
-//    }
-//
-//    public static final class SingolaRicettaSuccesso extends Risultato {
-//        private final RicettaConIngredienti ricetta;
-//
-//        public SingolaRicettaSuccesso(RicettaConIngredienti ricetta){
-//            this.ricetta = ricetta;
-//        }
-//
-//        public RicettaConIngredienti getRicetta(){
-//            return ricetta;
-//        }
-//    }
+    public static final class ListaRicetteSuccesso extends Risultato {
+        private final List<Ricetta> ricette;
+
+        public ListaRicetteSuccesso(List<Ricetta> ricette){
+            this.ricette = ricette;
+        }
+
+        public List<Ricetta> getRicette(){
+            return ricette;
+        }
+
+    }
+
+    public static final class SingolaRicettaSuccesso extends Risultato {
+        private final long idRicetta;
+
+        public SingolaRicettaSuccesso(long idRicetta){
+            this.idRicetta = idRicetta;
+        }
+
+        public long getIdRicetta(){
+            return idRicetta;
+        }
+    }
 
     public static final class Errore extends Risultato {
         private final String message;

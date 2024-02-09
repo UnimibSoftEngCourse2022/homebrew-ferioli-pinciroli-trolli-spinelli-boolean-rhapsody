@@ -4,9 +4,8 @@ import java.util.List;
 
 import it.unimib.brewday.database.LocalDatabase;
 import it.unimib.brewday.database.RicettaDao;
-import it.unimib.brewday.model.IngredienteDellaRicetta;
 import it.unimib.brewday.model.Ricetta;
-import it.unimib.brewday.model.RicettaIngrediente;
+import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.Callback;
 import it.unimib.brewday.util.RegistroErrori;
@@ -19,13 +18,15 @@ public class RicetteRepository {
         ricettaDao = localDatabase.ricettaDao();
     }
 
-    //Operazione di inserimento dati all'interno della tabella "Ricetta"
-    public void upsertRicetta(Ricetta ricetta, Callback callback){
+    public void insertRicetta(Ricetta ricetta, List<IngredienteRicetta> listaDegliIngredienti, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             long id = ricettaDao.insertRicetta(ricetta);
 
             if(id >= 0){
-                callback.onComplete(new Risultato.Successo());
+                for (int i = 0; i < listaDegliIngredienti.size(); i++) {
+                    listaDegliIngredienti.get(i).setIdRicetta(id);
+                }
+                insertRicettaIngrediente(listaDegliIngredienti, callback);
             }
             else{
                 callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_CREATION_ERROR));
@@ -33,108 +34,49 @@ public class RicetteRepository {
         });
     }
 
-    //Operazione di inserimento dei collegamenti tra la ricetta e gli ingredienti nella tabella RicettaIngrediente
-    public void upsertRicettaIngrediente(RicettaIngrediente ricettaIngrediente, Callback callback){
+    private void insertRicettaIngrediente(List<IngredienteRicetta> ingredienteRicetta, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-            long id = ricettaDao.upsertRicettaIngrediente(ricettaIngrediente);
+            long[] id = ricettaDao.insertRicettaIngrediente(ingredienteRicetta);
+            boolean isOK = true;
 
-            if(id >= 0){
+            for (int i = 0; i < id.length; i++) {
+                if(id[i] < 0){
+                    isOK = false;
+                }
+            }
+
+            if(isOK){
                 callback.onComplete(new Risultato.Successo());
             }
             else{
-                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_CREATION_ERROR));
+                callback.onComplete(new Risultato.Errore(RegistroErrori.INGREDIENTI_FETCH_ERROR));
             }
         });
     }
 
     public void getIngredientiDellaRicetta(int idRicetta, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-            List<IngredienteDellaRicetta> ricetteConIngredienti = ricettaDao.getIngredientiDellaRicetta(idRicetta);
+            List<IngredienteRicetta> ingredientiDellaRicetta = ricettaDao.getIngredientiDellaRicetta(idRicetta);
 
-            if(ricetteConIngredienti != null){
-                callback.onComplete(new Risultato.IngredientiDellaRicettaSuccesso(ricetteConIngredienti));
+            if(ingredientiDellaRicetta != null){
+                callback.onComplete(new Risultato.ListaIngredientiDellaRicettaSuccesso(ingredientiDellaRicetta));
             }
             else{
-                callback.onComplete(new Risultato.Errore(RegistroErrori.GET_INGREDIENTI_ERROR));
+                callback.onComplete(new Risultato.Errore(RegistroErrori.INGREDIENTI_FETCH_ERROR));
             }
         });
     }
 
-//    public void getAllRicetteConIngredienti(Callback callback){
-//        LocalDatabase.databaseWriteExecutor.execute(() -> {
-//            Map<Ricetta, List<IngredienteDellaRicetta>> ricetteConIngredienti = ricettaDao.getAllRicetteConIngredienti();
-//
-//            if(ricetteConIngredienti != null){
-//                callback.onComplete(new Risultato.ListaRicetteSuccesso(ricetteConIngredienti));
-//            }
-//            else{
-//                callback.onComplete(new Risultato.Errore("NON VA UNA MADONNA"));
-//            }
-//        });
-//    }
+    public void getRicette(Callback callback){
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
+            List<Ricetta> ricette = ricettaDao.getRicette();
 
-//    public void readListaRicette(Callback callback) {
-//        LocalDatabase.databaseWriteExecutor.execute(() -> {
-//            List<RicettaConIngredienti> allRicette = ricettaDao.getAllRicette();
-//
-//            if(allRicette != null) {
-//                callback.onComplete(new Risultato.ListaRicetteSuccesso(allRicette));
-//            }
-//            else {
-//                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_FETCH_ERROR));
-//            }
-//        });
-//    }
-//
-//    public void readRicettaById(long id, Callback callback){
-//        LocalDatabase.databaseWriteExecutor.execute(() -> {
-//            List<RicettaConIngredienti> ricetteTrovate = ricettaDao.getRicettaById(id);
-//
-//            if(ricetteTrovate != null){
-//                callback.onComplete(new Risultato.SingolaRicettaSuccesso(ricetteTrovate.get(0)));
-//            }
-//            else{
-//                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_FETCH_ERROR));
-//            }
-//        });
-//    }
-
-//    public void createRicetta(Ricetta ricetta, Callback callback){
-//        LocalDatabase.databaseWriteExecutor.execute(() -> {
-//            long id = ricettaDao.insertRicetta(ricetta);
-//
-//            if(id < 0) {
-//                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_CREATION_ERROR));
-//            }
-//            else{
-//                callback.onComplete(new Risultato.Successo());
-//            }
-//        });
-//    }
-//
-//    public void updateRicetta(Ricetta ricetta, Callback callback) {
-//        LocalDatabase.databaseWriteExecutor.execute(() -> {
-//
-//            int rowsUpdated = ricettaDao.updateRicetta(ricetta);
-//            if (rowsUpdated == 0) {
-//                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_UPDATE_ERROR));
-//            }
-//            else{
-//                callback.onComplete(new Risultato.Successo());
-//            }
-//        });
-//    }
-//
-//    public void deleteRicetta(Ricetta ricetta, Callback callback) {
-//        LocalDatabase.databaseWriteExecutor.execute(() -> {
-//
-//            int rowsDeleted = ricettaDao.deleteRicetta(ricetta);
-//            if (rowsDeleted == 0) {
-//                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_DELETION_ERROR));
-//            }
-//            else{
-//                callback.onComplete(new Risultato.Successo());
-//            }
-//        });
-//    }
+            if(ricette != null){
+                callback.onComplete(new Risultato.ListaRicetteSuccesso(ricette));
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_FETCH_ERROR));
+            }
+        });
+    }
 }
