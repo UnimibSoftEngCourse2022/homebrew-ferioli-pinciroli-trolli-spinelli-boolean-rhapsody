@@ -3,6 +3,7 @@ package it.unimib.brewday.ui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.List;
@@ -24,24 +25,17 @@ public class MockActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mock);
 
         RicetteRepository ricetteRepository = ServiceLocator.getInstance().getRicetteRepository(this);
-        TextView textView = findViewById(R.id.textView);
-        TextView textView2 = findViewById(R.id.textView2);
-        TextView textView3 = findViewById(R.id.textView3);
-        ricetteRepository.upsertRicetta(new Ricetta("PROVA"), result -> {
-            textView.setText(((Risultato.Errore) result).getMessage());
-        });
-        ricetteRepository.upsertRicettaIngrediente(new RicettaIngrediente(1, TipoIngrediente.ACQUA, 5), result -> {
-            textView2.setText(((Risultato.Errore) result).getMessage());
-        });
-        ricetteRepository.getIngredientiDellaRicetta(1, result -> {
-            if(result.isSuccessful()){
-                List<IngredienteDellaRicetta> lista = ((Risultato.IngredientiDellaRicettaSuccesso)result).getData();
-                textView3.setText(lista.get(0).getTipoIngrediente().getNome());
+
+        Ricetta r = new Ricetta("Birra della scimmia");
+        RicettaIngrediente ricettaIngrediente = new RicettaIngrediente(0, TipoIngrediente.ACQUA, 20);
+
+        ricetteRepository.upsertRicetta(r, risultato -> {
+            if (risultato.isSuccessful()) {
+                Log.d("TestMain", "Funziona inserimento ricetta");
             }
             else{
-                textView3.setText(((Risultato.Errore) result).getMessage());
+                Log.d("TestMain", "Non funziona inserimento ricetta");
             }
         });
-
     }
 }

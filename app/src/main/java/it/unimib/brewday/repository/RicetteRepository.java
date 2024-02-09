@@ -9,6 +9,7 @@ import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.RicettaIngrediente;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.Callback;
+import it.unimib.brewday.util.RegistroErrori;
 
 public class RicetteRepository {
 
@@ -20,26 +21,26 @@ public class RicetteRepository {
 
     public void upsertRicetta(Ricetta ricetta, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-            Long id = ricettaDao.insertRicetta(ricetta);
+            long id = ricettaDao.insertRicetta(ricetta);
 
             if(id >= 0){
-                callback.onComplete(new Risultato.Errore("FUNZIONA"));
+                callback.onComplete(new Risultato.Successo());
             }
             else{
-                callback.onComplete(new Risultato.Errore(id.toString()));
+                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_CREATION_ERROR));
             }
         });
     }
 
     public void upsertRicettaIngrediente(RicettaIngrediente ricettaIngrediente, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-            Long id = ricettaDao.upsertRicettaIngrediente(ricettaIngrediente);
+            long id = ricettaDao.upsertRicettaIngrediente(ricettaIngrediente);
 
             if(id >= 0){
                 callback.onComplete(new Risultato.Errore("FUNZIONA"));
             }
             else{
-                callback.onComplete(new Risultato.Errore(id.toString()));
+                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_CREATION_ERROR));
             }
         });
     }
