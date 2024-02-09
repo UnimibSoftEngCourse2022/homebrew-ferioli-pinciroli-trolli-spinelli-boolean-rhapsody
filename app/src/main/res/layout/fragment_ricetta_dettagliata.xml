@@ -16,18 +16,20 @@
         android:layout_width="match_parent"
         android:layout_height="450dp"
         android:layout_marginTop="8dp"
+        android:listSelector="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_listaIngredientiDettagliata" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_listaIngredientiDettagliata"
+        />
 
     <EditText
         android:id="@+id/textView_nomeRicetta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Nome Ricetta"
-        android:textColorHint = "?android:colorPrimary"
+        android:hint="@string/nome_ricetta"
+        android:textColor="?android:colorPrimary"
         android:textSize="30sp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"

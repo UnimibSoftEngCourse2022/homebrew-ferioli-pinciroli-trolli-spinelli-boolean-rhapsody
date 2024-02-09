@@ -33,7 +33,7 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:textAlignment="center"
-                android:textColorHint = "?android:colorPrimary"
+                android:textColor = "?android:colorPrimary"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,10 +44,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="450dp"
                 android:layout_marginTop="8dp"
+                android:listSelector="@android:color/transparent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_listaIngredienti" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_listaIngredienti"
+                />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_creaRicetta"
