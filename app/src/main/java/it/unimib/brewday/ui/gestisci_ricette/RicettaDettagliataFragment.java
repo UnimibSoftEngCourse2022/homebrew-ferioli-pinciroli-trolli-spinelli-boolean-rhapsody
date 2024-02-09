@@ -94,16 +94,11 @@ public class RicettaDettagliataFragment extends Fragment {
             visibile = !invertiVisibile;
         } else {
             if( gestioneRicette.controlloCreazione(view, fragmentRicettaDettagliataBinding.textViewNomeRicetta, fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra)) {
-                int zeroIngredinti = 0;
-                double litriScelti = Double.parseDouble(numeroLitriBirra.getText().toString());
-                List<Double> listaIngredientiPerLitro = new ArrayList<>();
 
-                for (Ingrediente ingrediente : listaIngredientiRicetta) {
-                    if (ingrediente.getQuantitaPosseduta() == 0) {
-                        zeroIngredinti++;
-                    }
-                    listaIngredientiPerLitro.add((ingrediente.getQuantitaPosseduta() / litriScelti));
-                }
+
+                List<Double> listaIngredientiPerLitro = new ArrayList<>();
+                int zeroIngredinti = gestioneRicette.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
+
                 salvaRicetta(view, zeroIngredinti, listaIngredientiRicetta, listaIngredientiPerLitro);
 
                 fragmentRicettaDettagliataBinding.buttonModificaRicetta.setText(R.string.modifica);
@@ -130,7 +125,7 @@ public class RicettaDettagliataFragment extends Fragment {
                     public void onRemoveIngredienteClick(Ingrediente ingrediente) {
                         //vuoto
                     }
-                }, (ingrediente) -> {
+                }, ingrediente -> {
            //vuoto
         }, visible);
 
