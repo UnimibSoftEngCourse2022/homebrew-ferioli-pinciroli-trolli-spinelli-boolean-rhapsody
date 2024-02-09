@@ -13,7 +13,8 @@ public class Risultato {
         return this instanceof Successo
                 || this instanceof IngredientiSuccesso
                 || this instanceof IngredienteSuccesso
-                || this instanceof AttrezziSuccesso;
+                || this instanceof AttrezziSuccesso
+                || this instanceof IngredientiDellaRicettaSuccesso;
 //                || this instanceof ListaRicetteSuccesso;
 
     }
@@ -55,6 +56,18 @@ public class Risultato {
 
         public List<Attrezzo> getAttrezzi() {
             return attrezzi;
+        }
+    }
+
+    public static final class IngredientiDellaRicettaSuccesso extends Risultato {
+        private final List<IngredienteDellaRicetta> listaIngrediente;
+
+        public IngredientiDellaRicettaSuccesso(List<IngredienteDellaRicetta> listaIngrediente) {
+            this.listaIngrediente = listaIngrediente;
+        }
+
+        public List<IngredienteDellaRicetta> getData(){
+            return listaIngrediente;
         }
     }
 

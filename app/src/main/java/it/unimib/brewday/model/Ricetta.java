@@ -1,6 +1,7 @@
 package it.unimib.brewday.model;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -8,13 +9,14 @@ public class Ricetta {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
-
     private String nome;
+    private int litriDiRiferimento;
 
-    public Ricetta(long id, String nome) {
-        this.id = id;
+
+    public Ricetta(String nome){
         this.nome = nome;
     }
+
 
     public long getId() {
         return id;
@@ -30,5 +32,13 @@ public class Ricetta {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public int getLitriDiRiferimento() {
+        return litriDiRiferimento;
+    }
+
+    public void setLitriDiRiferimento(int litriDiRiferimento) {
+        this.litriDiRiferimento = litriDiRiferimento;
     }
 }
