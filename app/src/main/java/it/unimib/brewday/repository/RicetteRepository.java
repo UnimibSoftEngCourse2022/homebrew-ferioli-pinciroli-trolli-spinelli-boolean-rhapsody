@@ -55,7 +55,7 @@ public class RicetteRepository {
                 callback.onComplete(new Risultato.IngredientiDellaRicettaSuccesso(ricetteConIngredienti));
             }
             else{
-                callback.onComplete(new Risultato.Errore("NON VA UNA MADONNA"));
+                callback.onComplete(new Risultato.Errore(RegistroErrori.GET_INGREDIENTI_ERROR));
             }
         });
     }
