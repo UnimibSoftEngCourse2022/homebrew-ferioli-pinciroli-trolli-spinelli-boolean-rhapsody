@@ -4,14 +4,18 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.List;
+
+import it.unimib.brewday.model.IngredienteRicetta;
+import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.repository.RicetteRepository;
 
 public class RicetteViewModel extends ViewModel {
 
-    private MutableLiveData<Risultato> ricetteRisultato;
+    private final MutableLiveData<Risultato> ricetteRisultato;
     private MutableLiveData<Risultato> ingredientiRicetteRisultato;
-    private MutableLiveData<Risultato> insertRicettaRisultato;
+    private final MutableLiveData<Risultato> insertRicettaRisultato;
     private MutableLiveData<Risultato> insertIngredientiRicettaRisultato;
     private MutableLiveData<Risultato> updateRicettaRisultato;
     private MutableLiveData<Risultato> updateIngredientiRicettaRisultato;
@@ -20,12 +24,17 @@ public class RicetteViewModel extends ViewModel {
 
     public RicetteViewModel(RicetteRepository ricetteRepository){
         this.ricetteRepository = ricetteRepository;
+        ricetteRisultato = new MutableLiveData<>();
+        insertRicettaRisultato = new MutableLiveData<>();
     }
 
     public void getAllRicette() {
+        ricetteRepository.getRicette(ricetteRisultato::postValue);
+    }
 
-        ricetteRepository.getRicette(risultato ->
-            ricetteRisultato.postValue(risultato));
+    public void insertRicetta(Ricetta ricetta, List<IngredienteRicetta> listaIngredienti) {
+        ricetteRepository.insertRicetta(ricetta, listaIngredienti, insertRicettaRisultato::postValue
+        );
     }
 
     public LiveData<Risultato> getRicetteRisultato() {
