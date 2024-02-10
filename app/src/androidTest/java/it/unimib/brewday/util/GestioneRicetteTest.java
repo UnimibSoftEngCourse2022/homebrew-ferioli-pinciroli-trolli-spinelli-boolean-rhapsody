@@ -12,6 +12,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 import it.unimib.brewday.model.Ingrediente;
+import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.TipoIngrediente;
 import it.unimib.brewday.util.GestioneRicette;
 
@@ -19,7 +20,7 @@ public class GestioneRicetteTest {
 
     private GestioneRicette gestioneRicette;
     private List<Ingrediente> listaIngredientiRicetta;
-    private List<Double> listaIngredientiPerLitro;
+    private List<IngredienteRicetta> listaIngredientiPerLitro;
     private Context context;
 
     @Before
@@ -61,8 +62,8 @@ public class GestioneRicetteTest {
     @Test
     public void testCreaListaIngredientiRicetta() {
         // Prepara i dati di test
-        Ingrediente ingrediente1 = new Ingrediente(1, TipoIngrediente.ACQUA, 100);
-        Ingrediente ingrediente2 = new Ingrediente(2, TipoIngrediente.MALTO, 200);
+        Ingrediente ingrediente1 = new Ingrediente(TipoIngrediente.ACQUA, 100);
+        Ingrediente ingrediente2 = new Ingrediente(TipoIngrediente.MALTO, 200);
         listaIngredientiRicetta.add(ingrediente1);
         listaIngredientiRicetta.add(ingrediente2);
 
@@ -74,8 +75,8 @@ public class GestioneRicetteTest {
 
         // Verifica se il calcolo degli ingredienti per litro è corretto
         assertEquals(2, listaIngredientiPerLitro.size());
-        assertEquals(20.0, listaIngredientiPerLitro.get(0), 0);
-        assertEquals(40.0, listaIngredientiPerLitro.get(1), 0);
+        assertEquals(20, listaIngredientiPerLitro.get(0).getDosaggioIngrediente());
+        assertEquals(40, listaIngredientiPerLitro.get(1).getDosaggioIngrediente());
 
         // Verifica se il numero di ingredienti con quantità zero è corretto
         assertEquals(0, zeroIngredienti);
