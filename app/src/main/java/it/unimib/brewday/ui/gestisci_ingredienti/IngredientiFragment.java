@@ -85,8 +85,7 @@ public class IngredientiFragment extends Fragment {
                         aggiornaDBIngrediente(ingrediente);
                     }
                 }, ingrediente ->
-
-                    aggiornaDBIngrediente( ingrediente)
+                    aggiornaDBIngrediente(ingrediente)
                 , true);
 
                 listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
