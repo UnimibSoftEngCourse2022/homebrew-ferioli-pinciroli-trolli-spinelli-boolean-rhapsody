@@ -22,6 +22,7 @@ import java.util.List;
 import it.unimib.brewday.R;
 import it.unimib.brewday.databinding.FragmentRicettaDettagliataBinding;
 import it.unimib.brewday.model.Ingrediente;
+import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewListaIngredientiDisponibili;
 import it.unimib.brewday.util.GestioneRicette;
 import it.unimib.brewday.util.ListaIngredienti;
@@ -96,7 +97,7 @@ public class RicettaDettagliataFragment extends Fragment {
             if( gestioneRicette.controlloCreazione(view, fragmentRicettaDettagliataBinding.textViewNomeRicetta, fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra)) {
 
 
-                List<Double> listaIngredientiPerLitro = new ArrayList<>();
+                List<IngredienteRicetta> listaIngredientiPerLitro = new ArrayList<>();
                 int zeroIngredinti = gestioneRicette.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
 
                 salvaRicetta(view, zeroIngredinti, listaIngredientiRicetta, listaIngredientiPerLitro);
@@ -133,9 +134,9 @@ public class RicettaDettagliataFragment extends Fragment {
         fragmentRicettaDettagliataBinding.listViewIngredrientiRicettaDettagliata.setDivider(null);
     }
 
-    private void salvaRicetta(View view, int zeroIngredinti , List<Ingrediente> listaIngredientiRicetta, List<Double> listaIngredientiPerLitro) {
+    private void salvaRicetta(View view, int zeroIngredinti , List<Ingrediente> listaIngredientiRicetta, List<IngredienteRicetta> listaIngredientiPerLitro) {
         if (zeroIngredinti < 3) {
-            //TODO chiamata luca con listaIngredientiPerLitro
+            //TODO updateRicetta
             setAdapterIngredienti(false,  listaIngredientiRicetta);
 
         } else {

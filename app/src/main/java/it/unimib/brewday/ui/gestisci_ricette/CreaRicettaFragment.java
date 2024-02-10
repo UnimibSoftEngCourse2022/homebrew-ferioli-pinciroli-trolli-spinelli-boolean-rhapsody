@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 
 import android.view.LayoutInflater;
@@ -26,7 +27,11 @@ import java.util.List;
 
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ingrediente;
+import it.unimib.brewday.model.IngredienteRicetta;
+import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewListaIngredientiDisponibili;
+import it.unimib.brewday.ui.gestisci_ingredienti.IngredienteViewModel;
+import it.unimib.brewday.ui.gestisci_ingredienti.IngredienteViewModelFactory;
 import it.unimib.brewday.util.GestioneRicette;
 import it.unimib.brewday.util.ListaIngredienti;
 
@@ -35,6 +40,8 @@ public class CreaRicettaFragment extends Fragment {
     private  FragmentCreaRicettaBinding fragmentCreaRicettaBinding;
 
     List<Ingrediente> listaIngredientiRicetta;
+
+    RicetteViewModel ricettaViewModel;
 
 
 
@@ -50,6 +57,9 @@ public class CreaRicettaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ricettaViewModel = new ViewModelProvider(this,
+                new RicetteViewModelFactory(getContext()))
+                .get(RicetteViewModel.class);
         // Inflate the layout for this fragment
         fragmentCreaRicettaBinding = FragmentCreaRicettaBinding.inflate(inflater, container, false);
         return fragmentCreaRicettaBinding.getRoot();
@@ -94,18 +104,18 @@ public class CreaRicettaFragment extends Fragment {
         creaRicettaButton.setOnClickListener(v -> {
 
                     if( gestioneRicette.controlloCreazione(view, nomeRicetta, numeroLitriBirra)){
-                        List<Double> listaIngredientiPerLitro = new ArrayList<>();
+                        List<IngredienteRicetta> listaIngredientiPerLitro = new ArrayList<>();
                         int zeroIngredinti = gestioneRicette.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
 
-                    salvaRicetta(view, zeroIngredinti, listaIngredientiPerLitro);
+                    salvaRicetta(view, zeroIngredinti, listaIngredientiPerLitro, new Ricetta(nomeRicetta.getText().toString(),Integer.parseInt(numeroLitriBirra.getText().toString()) ) );
                     }
         });
     }
 
 
-    private void salvaRicetta(View view, int zeroIngredinti, List<Double> listaIngredientiPerLitro) {
+    private void salvaRicetta(View view, int zeroIngredinti, List<IngredienteRicetta> ingredientiRicetta, Ricetta ricetta ) {
         if (zeroIngredinti < 3) {
-            //TODO chiamata luca
+           ricettaViewModel.insertRicetta(ricetta, ingredientiRicetta);
         } else {
             Snackbar.make(view, R.string.ingredienti_ricetta_mancanti, LENGTH_SHORT).show();
         }
