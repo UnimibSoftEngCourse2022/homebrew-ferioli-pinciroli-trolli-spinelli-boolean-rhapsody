@@ -1,6 +1,7 @@
 package it.unimib.brewday.database;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -21,6 +22,9 @@ public interface RicettaDao {
 
     @Update
     int updateRicetta(Ricetta ricetta);
+
+    @Delete
+    int deleteRicetta(Ricetta ricetta);
 
     @Query(
             "SELECT idRicetta, tipoIngrediente, dosaggioIngrediente " +

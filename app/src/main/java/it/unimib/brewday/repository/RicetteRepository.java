@@ -26,7 +26,7 @@ public class RicetteRepository {
                 for (int i = 0; i < listaDegliIngredienti.size(); i++) {
                     listaDegliIngredienti.get(i).setIdRicetta(id);
                 }
-                insertRicettaIngrediente(listaDegliIngredienti, callback);
+                insertIngredientiRicetta(listaDegliIngredienti, callback);
             }
             else{
                 callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_CREATION_ERROR));
@@ -34,7 +34,7 @@ public class RicetteRepository {
         });
     }
 
-    private void insertRicettaIngrediente(List<IngredienteRicetta> ingredienteRicetta, Callback callback){
+    private void insertIngredientiRicetta(List<IngredienteRicetta> ingredienteRicetta, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             long[] id = ricettaDao.insertIngredientiRicetta(ingredienteRicetta);
             boolean isOK = true;
@@ -54,7 +54,7 @@ public class RicetteRepository {
         });
     }
 
-    public void getIngredientiDellaRicetta(long idRicetta, Callback callback){
+    public void getIngredientiRicetta(long idRicetta, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             List<IngredienteRicetta> ingredientiDellaRicetta = ricettaDao.getIngredientiRicetta(idRicetta);
 
@@ -102,6 +102,19 @@ public class RicetteRepository {
             }
             else{
                 callback.onComplete(new Risultato.Errore(RegistroErrori.INGREDIENTI_UPDATE_ERROR));
+            }
+        });
+    }
+
+    public void deleteRicetta(Ricetta ricetta, Callback callback){
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
+            int righeCancellate = ricettaDao.deleteRicetta(ricetta);
+
+            if(righeCancellate > 0){
+                callback.onComplete(new Risultato.Successo());
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_DELETION_ERROR));
             }
         });
     }

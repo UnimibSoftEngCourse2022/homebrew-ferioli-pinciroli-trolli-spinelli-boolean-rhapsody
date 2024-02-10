@@ -3,7 +3,6 @@ package it.unimib.brewday.ui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 
@@ -49,7 +48,7 @@ public class MockActivity extends AppCompatActivity {
                         textView2.setText(listaRicette.get(0).getNome());
                     }
                 });
-                ricetteRepository.getIngredientiDellaRicetta(5, risultatoInnestato -> {
+                ricetteRepository.getIngredientiRicetta(5, risultatoInnestato -> {
                     if(risultatoInnestato.isSuccessful()){
                         List<IngredienteRicetta> listaIngredientiDellaRicetta = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultatoInnestato).getListaIngrediente();
                         textView.setText(listaIngredientiDellaRicetta.get(0).getTipoIngrediente().getNome());
