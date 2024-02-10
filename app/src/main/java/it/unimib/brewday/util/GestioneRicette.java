@@ -8,11 +8,11 @@ import android.widget.EditText;
 import com.google.android.material.snackbar.Snackbar;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ingrediente;
+import it.unimib.brewday.model.IngredienteRicetta;
 
 
 public class GestioneRicette {
@@ -42,7 +42,7 @@ public class GestioneRicette {
         return true;
     }
 
-    public int creaListaIngredientiRicetta(List<Ingrediente> listaIngredientiRicetta, List<Double> listaIngredientiPerLitro, EditText numeroLitriBirra){
+    public int creaListaIngredientiRicetta(List<Ingrediente> listaIngredientiRicetta, List<IngredienteRicetta> listaIngredientiRicettaPerLitro, EditText numeroLitriBirra){
             int zeroIngredinti = 0;
             double litriScelti = Double.parseDouble(numeroLitriBirra.getText().toString());
 
@@ -51,7 +51,7 @@ public class GestioneRicette {
                 if(ingrediente.getQuantitaPosseduta() == 0) {
                     zeroIngredinti ++;
                 }
-                listaIngredientiPerLitro.add((ingrediente.getQuantitaPosseduta() / litriScelti));
+                listaIngredientiRicettaPerLitro.add(new IngredienteRicetta( ingrediente.getTipo(),(int)Math.round(ingrediente.getQuantitaPosseduta() / litriScelti)));
             }
 
             return zeroIngredinti;
