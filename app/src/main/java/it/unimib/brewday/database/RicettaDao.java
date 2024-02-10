@@ -1,24 +1,20 @@
 package it.unimib.brewday.database;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
+
 import it.unimib.brewday.model.Ricetta;
+import it.unimib.brewday.model.IngredienteRicetta;
 
 @Dao
 public interface RicettaDao {
+
     @Query("SELECT * FROM ricetta")
-    List<Ricetta> getAllRicette();
-
-    @Query("SELECT * FROM ricetta WHERE id = :id")
-    List<Ricetta> getRicettaById(long id);
-
-    @Query("SELECT * FROM ricetta WHERE nome = :nome")
-    List<Ricetta> getRicettaByName(String nome);
+    List<Ricetta> getRicette();
 
     @Insert
     long insertRicetta(Ricetta ricetta);
@@ -26,6 +22,16 @@ public interface RicettaDao {
     @Update
     int updateRicetta(Ricetta ricetta);
 
-    @Delete
-    int deleteRicetta(Ricetta ricetta);
+    @Query(
+            "SELECT idRicetta, tipoIngrediente, dosaggioIngrediente " +
+                    "FROM IngredienteRicetta WHERE idRicetta = :idRicetta"
+    )
+    List<IngredienteRicetta> getIngredientiRicetta(long idRicetta);
+
+    @Insert
+    long[] insertIngredientiRicetta(List<IngredienteRicetta> listaIngredientiRicetta);
+
+    @Update
+    int updateIngredientiRicetta(IngredienteRicetta ingredienteRicetta);
+
 }

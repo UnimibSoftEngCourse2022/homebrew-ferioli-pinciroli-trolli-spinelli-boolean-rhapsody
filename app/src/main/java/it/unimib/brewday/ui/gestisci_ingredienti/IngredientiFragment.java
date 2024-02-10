@@ -93,7 +93,7 @@ public class IngredientiFragment extends Fragment {
                 listViewIngredientiDispobili.setDivider(null);
 
             } else {
-                Snackbar.make(view, ((Risultato.Errore) risultato).getMessage(), LENGTH_SHORT).show();
+                Snackbar.make(view, ((Risultato.Errore) risultato).getMessaggio(), LENGTH_SHORT).show();
             }
         });
     }

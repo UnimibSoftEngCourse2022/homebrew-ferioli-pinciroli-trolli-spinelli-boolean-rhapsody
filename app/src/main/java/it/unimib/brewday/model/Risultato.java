@@ -14,7 +14,9 @@ public class Risultato {
                 || this instanceof IngredientiSuccesso
                 || this instanceof IngredienteSuccesso
                 || this instanceof AttrezziSuccesso
-                || this instanceof ListaRicetteSuccesso;
+                || this instanceof ListaIngredientiDellaRicettaSuccesso
+                || this instanceof ListaRicetteSuccesso
+                || this instanceof SingolaRicettaSuccesso;
 
     }
 
@@ -58,11 +60,23 @@ public class Risultato {
         }
     }
 
+    public static final class ListaIngredientiDellaRicettaSuccesso extends Risultato {
+        private final List<IngredienteRicetta> listaIngrediente;
+
+        public ListaIngredientiDellaRicettaSuccesso(List<IngredienteRicetta> listaIngrediente) {
+            this.listaIngrediente = listaIngrediente;
+        }
+
+        public List<IngredienteRicetta> getListaIngrediente(){
+            return listaIngrediente;
+        }
+    }
+
     public static final class ListaRicetteSuccesso extends Risultato {
         private final List<Ricetta> ricette;
 
-        public ListaRicetteSuccesso(List<Ricetta> listaRicette){
-            ricette = listaRicette;
+        public ListaRicetteSuccesso(List<Ricetta> ricette){
+            this.ricette = ricette;
         }
 
         public List<Ricetta> getRicette(){
@@ -72,26 +86,26 @@ public class Risultato {
     }
 
     public static final class SingolaRicettaSuccesso extends Risultato {
-        private final Ricetta ricetta;
+        private final long idRicetta;
 
-        public SingolaRicettaSuccesso(Ricetta ricetta){
-            this.ricetta = ricetta;
+        public SingolaRicettaSuccesso(long idRicetta){
+            this.idRicetta = idRicetta;
         }
 
-        public Ricetta getRicetta(){
-            return ricetta;
+        public long getIdRicetta(){
+            return idRicetta;
         }
     }
 
     public static final class Errore extends Risultato {
-        private final String message;
+        private final String messaggio;
 
-        public Errore(String message) {
-            this.message = message;
+        public Errore(String messaggio) {
+            this.messaggio = messaggio;
         }
 
-        public String getMessage(){
-            return message;
+        public String getMessaggio(){
+            return messaggio;
         }
     }
 }

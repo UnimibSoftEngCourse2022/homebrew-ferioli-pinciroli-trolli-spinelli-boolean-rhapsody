@@ -20,6 +20,11 @@
             android:name="it.unimib.brewday.ui.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+            android:name="it.unimib.brewday.ui.MockActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
