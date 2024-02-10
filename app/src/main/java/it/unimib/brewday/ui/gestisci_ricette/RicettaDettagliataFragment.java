@@ -88,7 +88,7 @@ public class RicettaDettagliataFragment extends Fragment {
 
     }
 
-    public void setVisibile(boolean invertiVisibile, View view, EditText numeroLitriBirra, List<Ingrediente> listaIngredientiRicetta){
+    private void setVisibile(boolean invertiVisibile, View view, EditText numeroLitriBirra, List<Ingrediente> listaIngredientiRicetta){
         if (!invertiVisibile){
             fragmentRicettaDettagliataBinding.buttonModificaRicetta.setText(R.string.conferma);
             visibile = !invertiVisibile;
@@ -112,7 +112,7 @@ public class RicettaDettagliataFragment extends Fragment {
 
     }
 
-    public void setAdapterIngredienti(boolean visible, List<Ingrediente> listaIngredientiRicetta){
+    private void setAdapterIngredienti(boolean visible, List<Ingrediente> listaIngredientiRicetta){
         adapterListViewListaIngredientiRicetta = new AdapterListViewListaIngredientiDisponibili(
                 getContext(), 0, listaIngredientiRicetta, R.layout.lista_ingredienti_singoli,
                 new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
@@ -133,7 +133,7 @@ public class RicettaDettagliataFragment extends Fragment {
         fragmentRicettaDettagliataBinding.listViewIngredrientiRicettaDettagliata.setDivider(null);
     }
 
-    public void salvaRicetta(View view, int zeroIngredinti , List<Ingrediente> listaIngredientiRicetta, List<Double> listaIngredientiPerLitro) {
+    private void salvaRicetta(View view, int zeroIngredinti , List<Ingrediente> listaIngredientiRicetta, List<Double> listaIngredientiPerLitro) {
         if (zeroIngredinti < 3) {
             //TODO chiamata luca con listaIngredientiPerLitro
             setAdapterIngredienti(false,  listaIngredientiRicetta);

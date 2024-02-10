@@ -98,7 +98,7 @@ public class IngredientiFragment extends Fragment {
         });
     }
 
-    public void aggiornaDBIngrediente(Ingrediente ingrediente){
+    private void aggiornaDBIngrediente(Ingrediente ingrediente){
         ingredienteViewModel.updateIngrediente(ingrediente);
 
 

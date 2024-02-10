@@ -1,7 +1,6 @@
 package it.unimib.brewday.ui.gestisci_ricette;
 
 import android.graphics.Canvas;
-import android.health.connect.datatypes.units.Length;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;

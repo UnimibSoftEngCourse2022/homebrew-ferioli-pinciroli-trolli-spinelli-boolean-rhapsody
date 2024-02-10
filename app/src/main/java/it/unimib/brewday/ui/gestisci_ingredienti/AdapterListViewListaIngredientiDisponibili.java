@@ -36,10 +36,10 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
     private final OnFocusChangeListener onFocusChangeListener;
 
-    int posizionePrecedente = -1;
-    EditText quantitaIngredientePrecedente;
+    private int posizionePrecedente = -1;
+    private EditText quantitaIngredientePrecedente;
 
-    Ingrediente ingredientePrecedente;
+    private Ingrediente ingredientePrecedente;
 
 
     public AdapterListViewListaIngredientiDisponibili(@NonNull Context context, int resource, List<Ingrediente> listaIngredienti,
@@ -133,13 +133,13 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
     }
 
-    public void aggiungiQuantitaIngrediente(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
+    private void aggiungiQuantitaIngrediente(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
         ingrediente.setQuantitaPosseduta(verificaIngrediente(ingrediente, quantitaIngrediente).getQuantitaPosseduta() + quantitaBottone(position));
         quantitaIngrediente.setText(ingrediente.getQuantitaAssolutaToString());
 
     }
 
-    public Ingrediente verificaIngrediente(Ingrediente ingrediente, EditText quantitaIngrediente) {
+    private Ingrediente verificaIngrediente(Ingrediente ingrediente, EditText quantitaIngrediente) {
 
         if (quantitaIngrediente.getText().length() == 0) {
             ingrediente.setQuantitaPosseduta(0);
@@ -152,7 +152,7 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
         return ingrediente;
     }
 
-    public int quantitaBottone(int position) {
+    private int quantitaBottone(int position) {
         if (position == 0) {
             return 1;
         } else {
@@ -161,7 +161,7 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
     }
 
-    public void togliQuantitaIngrediente(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
+    private void togliQuantitaIngrediente(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
         if (ingrediente.getQuantitaPosseduta() < 10 && quantitaBottone(position) == 10) {
             ingrediente.setQuantitaPosseduta(0);
         } else {
@@ -171,13 +171,13 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
     }
 
-    public void resetQuantitaLasciatoTestoVuoto(Ingrediente ingrediente, EditText quantitaIngrediente) {
+    private void resetQuantitaLasciatoTestoVuoto(Ingrediente ingrediente, EditText quantitaIngrediente) {
         if (quantitaIngrediente.getText().length() == 0) {
             ingrediente.setQuantitaPosseduta(0);
         }
     }
 
-    public void inizializzaPositionePrecedente(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
+    private void inizializzaPositionePrecedente(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
 
         if (posizionePrecedente == -1) {
             posizionePrecedente = position;
@@ -187,7 +187,7 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
     }
 
-    public void controlloCambioSelezione(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
+    private void controlloCambioSelezione(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
 
         if (posizionePrecedente != position) {
             posizionePrecedente = position;
@@ -197,7 +197,7 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
     }
 
-    public boolean rispostaInvioTastiera(EditText quantitaIngrediente) {
+    private boolean rispostaInvioTastiera(EditText quantitaIngrediente) {
         quantitaIngrediente.setOnKeyListener((v, keyCode, event) ->
                 (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER));
         return false;
