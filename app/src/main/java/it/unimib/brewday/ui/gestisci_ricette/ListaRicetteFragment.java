@@ -26,8 +26,6 @@ import java.util.List;
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
-import it.unimib.brewday.repository.RicetteRepository;
-import it.unimib.brewday.util.ServiceLocator;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class ListaRicetteFragment extends Fragment {
@@ -35,8 +33,10 @@ public class ListaRicetteFragment extends Fragment {
     List<Ricetta> listaRicette;
     RicetteViewModel ricettaViewModel;
     RicetteRecyclerViewAdapter ricetteRecyclerViewAdapter;
-
     RecyclerView recyclerViewRicette;
+    String ricettaRimossaMessaggio ;
+    Ricetta ricettaRimossa;
+
     public ListaRicetteFragment() {
         // Required empty public constructor
     }
@@ -92,23 +92,19 @@ public class ListaRicetteFragment extends Fragment {
 
         ricetteRecyclerViewAdapter = new RicetteRecyclerViewAdapter(listaRicette, getContext(),
                 new RicetteRecyclerViewAdapter.OnItemClickListener() {
-            @Override
-            public void onElementoRicettaClick(Ricetta ricetta) {
-                ListaRicetteFragmentDirections.ActionListaRicetteFragmentToRicettaDettagliataFragment action =
-                    ListaRicetteFragmentDirections.actionListaRicetteFragmentToRicettaDettagliataFragment(ricetta);
-                Navigation.findNavController(view).navigate(action);
-            }
+                    @Override
+                    public void onElementoRicettaClick(Ricetta ricetta) {
+                        ListaRicetteFragmentDirections.ActionListaRicetteFragmentToRicettaDettagliataFragment action =
+                                ListaRicetteFragmentDirections.actionListaRicetteFragmentToRicettaDettagliataFragment(ricetta);
+                        Navigation.findNavController(view).navigate(action);
+                    }
 
-            @Override
-            public void onAggiungiRicettaClick(Ricetta ricetta) {
+                    @Override
+                    public void onAggiungiRicettaClick(Ricetta ricetta) {
 
-            }
-        }
+                    }
+                }
         );
-
-
-
-
 
 
 
@@ -118,12 +114,12 @@ public class ListaRicetteFragment extends Fragment {
         recyclerViewRicette.setAdapter(ricetteRecyclerViewAdapter);
 
         creaRicettaButton.setOnClickListener(v ->
-            Navigation.findNavController(requireView()).navigate(R.id.action_listaRicetteFragment_to_creaRicettaFragment));
+                Navigation.findNavController(requireView()).navigate(R.id.action_listaRicetteFragment_to_creaRicettaFragment));
 
     }
-    String ricettaRimossaMessaggio ;
-    Ricetta ricettaRimossa;
+
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
@@ -135,21 +131,11 @@ public class ListaRicetteFragment extends Fragment {
             switch (direction) {
                 case ItemTouchHelper.LEFT:
                     ricettaRimossa = listaRicette.get(posizione);
-                    ricettaRimossaMessaggio = "rimossa ricetta "+listaRicette.get(posizione).getNome();
+                    ricettaRimossaMessaggio = "Rimossa la ricetta "+listaRicette.get(posizione).getNome();
                     listaRicette.remove(posizione);
-                    int lunghezzaLista = listaRicette.size();
-
+                    ricettaViewModel.deleteRicetta(ricettaRimossa);
                     ricetteRecyclerViewAdapter.notifyItemRemoved(posizione);
-                    Snackbar.make(recyclerViewRicette, ricettaRimossaMessaggio, Snackbar.LENGTH_LONG).setAction("Annulla", v -> {
-
-                        listaRicette.add(posizione, ricettaRimossa);
-                       // ricetteRecyclerViewAdapter.notifyItemInserted(posizione);
-                        recyclerViewRicette.setAdapter(ricetteRecyclerViewAdapter);
-                    }).show();
-                    if (listaRicette.size() != lunghezzaLista){
-                        ricettaViewModel.deleteRicetta(ricettaRimossa);
-                    }
-
+                    Snackbar.make(recyclerViewRicette, ricettaRimossaMessaggio, Snackbar.LENGTH_SHORT).show();
                     break;
             }
         }
