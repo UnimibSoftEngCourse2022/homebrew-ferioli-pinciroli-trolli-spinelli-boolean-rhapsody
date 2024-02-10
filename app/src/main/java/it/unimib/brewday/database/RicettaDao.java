@@ -36,6 +36,5 @@ public interface RicettaDao {
     long[] insertIngredientiRicetta(List<IngredienteRicetta> listaIngredientiRicetta);
 
     @Update
-    int updateIngredientiRicetta(IngredienteRicetta ingredienteRicetta);
-
+    int updateIngredientiRicetta(List<IngredienteRicetta> ingredienteRicetta);
 }

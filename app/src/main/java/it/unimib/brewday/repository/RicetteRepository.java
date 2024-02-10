@@ -93,19 +93,6 @@ public class RicetteRepository {
         });
     }
 
-    public void updateIngredientiRicetta(IngredienteRicetta ingredienteRicetta, Callback callback){
-        LocalDatabase.databaseWriteExecutor.execute(() -> {
-            int righeAggiornate = ricettaDao.updateIngredientiRicetta(ingredienteRicetta);
-
-            if(righeAggiornate > 0){
-                callback.onComplete(new Risultato.Successo());
-            }
-            else{
-                callback.onComplete(new Risultato.Errore(RegistroErrori.INGREDIENTI_UPDATE_ERROR));
-            }
-        });
-    }
-
     public void deleteRicetta(Ricetta ricetta, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             int righeCancellate = ricettaDao.deleteRicetta(ricetta);
@@ -115,6 +102,20 @@ public class RicetteRepository {
             }
             else{
                 callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_DELETION_ERROR));
+            }
+        });
+    }
+
+    public void updateIngredientiRicetta(List<IngredienteRicetta> ingredienteRicetta, Callback callback) {
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
+
+            int righeAggiornate = ricettaDao.updateIngredientiRicetta(ingredienteRicetta);
+
+            if(righeAggiornate > 0) {
+                callback.onComplete(new Risultato.Successo());
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.INGREDIENTI_UPDATE_ERROR));
             }
         });
     }

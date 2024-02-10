@@ -92,7 +92,6 @@ public class CreaRicettaFragment extends Fragment {
                     }
                 }, ingrediente -> {
                    //vuoto
-
         }, true);
 
         listViewIngredientiRicetta.setAdapter(adapterListViewListaIngredientiRicetta);
@@ -115,7 +114,8 @@ public class CreaRicettaFragment extends Fragment {
 
     private void salvaRicetta(View view, int zeroIngredinti, List<IngredienteRicetta> ingredientiRicetta, Ricetta ricetta ) {
         if (zeroIngredinti < 3) {
-           ricettaViewModel.insertRicetta(ricetta, ingredientiRicetta);
+            ricettaViewModel.insertRicetta(ricetta, ingredientiRicetta);
+            getParentFragmentManager().popBackStackImmediate();
         } else {
             Snackbar.make(view, R.string.ingredienti_ricetta_mancanti, LENGTH_SHORT).show();
         }
