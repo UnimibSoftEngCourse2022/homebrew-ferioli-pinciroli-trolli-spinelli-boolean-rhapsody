@@ -46,4 +46,9 @@
             android:name="ricetta"
             app:argType="it.unimib.brewday.model.Ricetta" />
     </fragment>
+    <fragment
+        android:id="@+id/cosaDevoPreparareOggiFragment"
+        android:name="it.unimib.brewday.ui.CosaDevoPreparareOggiFragment"
+        android:label="fragment_cosa_devo_preparare_oggi"
+        tools:layout="@layout/fragment_cosa_devo_preparare_oggi" />
 </navigation>
