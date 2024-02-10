@@ -7,122 +7,31 @@
     android:layout_height="match_parent"
     tools:context=".ui.gestisci_attrezzi.GestisciAttrezziFragment">
 
-    <ImageButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/gestisciAttrezziFragment_imageButton_add"
         style="@android:style/Widget.Material.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         android:backgroundTint="@color/md_theme_light_primaryContainer"
         android:contentDescription="@string/aggiungiAttrezzatura_descrizione"
         android:src="@drawable/plus_large_svgrepo_com"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragmentGestisciAttrezzi_recyclerView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gestisciAttrezziFragment_materialCardView">
+        app:layout_constraintTop_toTopOf="parent">
 
     </androidx.recyclerview.widget.RecyclerView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/gestisciAttrezziFragment_materialCardView"
-        android:layout_width="350dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gestisciAttrezziFragment_imageButton_add">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/fragmentGestisciAttrezzi_nomeAttrezzo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
-                android:text="@string/nome_attrezzo"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/fragmentGestisciAttrezzi_tipologia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="60dp"
-                android:text="@string/tipologia"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragmentGestisciAttrezzi_capacita" />
-
-            <TextView
-                android:id="@+id/fragmentGestisciAttrezzi_capacita"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="60dp"
-                android:text="@string/capacit"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragmentGestisciAttrezzi_nomeAttrezzo" />
-
-            <EditText
-                android:id="@+id/fragmentGestisciAttrezzi_inserisciNome"
-                android:layout_width="200dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="@string/inserisci_nome"
-                android:inputType="text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.554"
-                app:layout_constraintStart_toEndOf="@+id/fragmentGestisciAttrezzi_nomeAttrezzo"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/fragmentGestisciAttrezzi_inserisciCapacita"
-                android:layout_width="200dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="30dp"
-                android:ems="10"
-                android:hint="@string/inserisci_capacita"
-                android:inputType="number"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.753"
-                app:layout_constraintStart_toEndOf="@+id/fragmentGestisciAttrezzi_capacita"
-                app:layout_constraintTop_toBottomOf="@+id/fragmentGestisciAttrezzi_inserisciNome" />
-
-            <Spinner
-                android:id="@+id/fragmentGestisciAttrezzi_spinner"
-                android:layout_width="200dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="30dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.741"
-                app:layout_constraintStart_toEndOf="@+id/fragmentGestisciAttrezzi_tipologia"
-                app:layout_constraintTop_toBottomOf="@+id/fragmentGestisciAttrezzi_inserisciCapacita" />
-
-            <Button
-                android:id="@+id/fragmentGestisciAttrezzi_conferma"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/conferma"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragmentGestisciAttrezzi_spinner" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

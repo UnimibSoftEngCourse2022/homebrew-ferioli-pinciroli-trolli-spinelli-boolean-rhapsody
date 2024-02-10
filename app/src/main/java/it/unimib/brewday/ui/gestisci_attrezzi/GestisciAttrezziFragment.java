@@ -64,55 +64,9 @@ public class GestisciAttrezziFragment extends Fragment {
 
         ImageButton addAttrezzo = view.findViewById(R.id.gestisciAttrezziFragment_imageButton_add);
 
-        //Componenti card
-        MaterialCardView materialCardView = view.findViewById(R.id.gestisciAttrezziFragment_materialCardView);
-        EditText nomeAttrezzo = view.findViewById(R.id.fragmentGestisciAttrezzi_inserisciNome);
-        EditText capacitaAttrezzo = view.findViewById(R.id.fragmentGestisciAttrezzi_inserisciCapacita);
-        Spinner spinner = view.findViewById(R.id.fragmentGestisciAttrezzi_spinner);
-        Button confermaInserimento = view.findViewById(R.id.fragmentGestisciAttrezzi_conferma);
-
-        //Gestione spinner
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this.getContext(),
-                R.array.attrezzi,
-                android.R.layout.simple_spinner_item
-        );
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        //Gestione visibilità card registrazione attrezzo
-        mViewModel.isAddCardVisible.observe(getViewLifecycleOwner(), aBoolean -> {
-            if (aBoolean)
-                materialCardView.setVisibility(View.VISIBLE);
-
-            else
-                materialCardView.setVisibility(View.GONE);
-        });
-
-        addAttrezzo.setOnClickListener(v -> mViewModel.isAddCardVisible.setValue(!mViewModel.isAddCardVisible.getValue()));
-
-        //Gestione conferma inserimento dati per creazione attrezzo
-        confermaInserimento.setOnClickListener(v -> {
-
-            if(nomeAttrezzo.getText().toString().equals("") ||
-                    capacitaAttrezzo.getText().toString().equals("")) {
-                Snackbar
-                        .make(view,R.string.attrezzi_dati_inaccettabili, BaseTransientBottomBar.LENGTH_SHORT)
-                        .show();
-            }
-            else{
-                String nome = nomeAttrezzo.getText().toString();
-                double capacita = Integer.parseInt(capacitaAttrezzo.getText().toString());
-                String tipo = spinner.getSelectedItem().toString();
-                Attrezzo attrezzo = new Attrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
-
-                mViewModel.createAttrezzo(attrezzo);
-                mViewModel.isAddCardVisible.setValue(!mViewModel.isAddCardVisible.getValue());
-                nomeAttrezzo.setText(null);
-                capacitaAttrezzo.setText(null);
-                spinner.setAdapter(adapter);
-            }
+        addAttrezzo.setOnClickListener(v -> {
+            InserisciAttrezzoDialog prova = new InserisciAttrezzoDialog(mViewModel);
+            prova.show(getParentFragmentManager(), "Inserisci nuovo attrezzo");
         });
 
         //Gestione stampa a schermo degli attrezzi registrati
