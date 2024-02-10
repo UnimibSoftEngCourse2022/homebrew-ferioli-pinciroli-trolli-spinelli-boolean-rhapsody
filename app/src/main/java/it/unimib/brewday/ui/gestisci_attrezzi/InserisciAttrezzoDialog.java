@@ -86,7 +86,9 @@ public class InserisciAttrezzoDialog extends DialogFragment {
             this.dismiss();
         });
 
-        return builder.create();
+        AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        return alertDialog;
     }
 }
 
