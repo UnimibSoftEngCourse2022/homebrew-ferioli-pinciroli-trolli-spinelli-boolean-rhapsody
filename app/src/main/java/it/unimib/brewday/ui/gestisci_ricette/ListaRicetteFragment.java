@@ -94,7 +94,9 @@ public class ListaRicetteFragment extends Fragment {
                 new RicetteRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onElementoRicettaClick(Ricetta ricetta) {
-
+                ListaRicetteFragmentDirections.ActionListaRicetteFragmentToRicettaDettagliataFragment action =
+                    ListaRicetteFragmentDirections.actionListaRicetteFragmentToRicettaDettagliataFragment(ricetta);
+                Navigation.findNavController(view).navigate(action);
             }
 
             @Override

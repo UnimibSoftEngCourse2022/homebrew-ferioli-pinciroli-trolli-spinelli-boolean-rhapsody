@@ -61,6 +61,9 @@ public class IngredienteRicetta {
     public int getDosaggioIngrediente() {
         return dosaggioIngrediente;
     }
+    public String getDosaggioIngredienteToString() {
+        return Integer.toString(dosaggioIngrediente);
+    }
 
     public void setDosaggioIngrediente(int dosaggioIngrediente) {
         this.dosaggioIngrediente = dosaggioIngrediente;

@@ -1,9 +1,12 @@
 package it.unimib.brewday.model;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Ricetta {
+public class Ricetta implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
@@ -40,4 +43,41 @@ public class Ricetta {
     public void setLitriDiRiferimento(int litriDiRiferimento) {
         this.litriDiRiferimento = litriDiRiferimento;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.id);
+        dest.writeString(this.nome);
+        dest.writeInt(this.litriDiRiferimento);
+    }
+
+    public void readFromParcel(Parcel source) {
+        this.id = source.readLong();
+        this.nome = source.readString();
+        this.litriDiRiferimento = source.readInt();
+    }
+
+    protected Ricetta(Parcel in) {
+        this.id = in.readLong();
+        this.nome = in.readString();
+        this.litriDiRiferimento = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Ricetta> CREATOR = new Parcelable.Creator<Ricetta>() {
+        @Override
+        public Ricetta createFromParcel(Parcel source) {
+            return new Ricetta(source);
+        }
+
+        @Override
+        public Ricetta[] newArray(int size) {
+            return new Ricetta[size];
+        }
+    };
 }

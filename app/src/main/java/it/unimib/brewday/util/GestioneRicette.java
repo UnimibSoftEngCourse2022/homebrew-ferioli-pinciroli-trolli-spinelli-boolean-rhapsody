@@ -57,5 +57,21 @@ public class GestioneRicette {
             return zeroIngredinti;
     }
 
+    public int modificaListaIngredientiRicetta(List<IngredienteRicetta> listaIngredientiRicetta, List<IngredienteRicetta> listaIngredientiRicettaPerLitro, EditText numeroLitriBirra){
+        int zeroIngredinti = 0;
+        double litriScelti = Double.parseDouble(numeroLitriBirra.getText().toString());
+
+
+        for (IngredienteRicetta ingrediente: listaIngredientiRicetta) {
+            if(ingrediente.getDosaggioIngrediente() == 0) {
+                zeroIngredinti ++;
+            }
+            listaIngredientiRicettaPerLitro.add(new IngredienteRicetta( ingrediente.getTipoIngrediente(),
+                    (int)Math.round(ingrediente.getDosaggioIngrediente() / litriScelti)));
+        }
+
+        return zeroIngredinti;
+    }
+
 
 }

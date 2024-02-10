@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_listaRicetteFragment_to_creaRicettaFragment"
             app:destination="@id/creaRicettaFragment" />
+        <action
+            android:id="@+id/action_listaRicetteFragment_to_ricettaDettagliataFragment"
+            app:destination="@id/ricettaDettagliataFragment" />
     </fragment>
     <fragment
         android:id="@+id/birreFragment"
@@ -38,5 +41,9 @@
         android:id="@+id/ricettaDettagliataFragment"
         android:name="it.unimib.brewday.ui.gestisci_ricette.RicettaDettagliataFragment"
         android:label="fragment_ricetta_dettagliata"
-        tools:layout="@layout/fragment_ricetta_dettagliata" />
+        tools:layout="@layout/fragment_ricetta_dettagliata" >
+        <argument
+            android:name="ricetta"
+            app:argType="it.unimib.brewday.model.Ricetta" />
+    </fragment>
 </navigation>
