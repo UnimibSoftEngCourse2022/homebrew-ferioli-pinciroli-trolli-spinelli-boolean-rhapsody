@@ -22,6 +22,37 @@ public class RicetteViewModel extends ViewModel {
         this.ricetteRepository = ricetteRepository;
     }
 
+    public void getAllRicette() {
 
+        ricetteRepository.getRicette(risultato ->
+            ricetteRisultato.postValue(risultato));
+    }
 
+    public LiveData<Risultato> getRicetteRisultato() {
+        return ricetteRisultato;
+    }
+
+    public LiveData<Risultato> getIngredientiRicetteRisultato() {
+        return ingredientiRicetteRisultato;
+    }
+
+    public LiveData<Risultato> getInsertRicettaRisultato() {
+        return insertRicettaRisultato;
+    }
+
+    public LiveData<Risultato> getInsertIngredientiRicettaRisultato() {
+        return insertIngredientiRicettaRisultato;
+    }
+
+    public LiveData<Risultato> getUpdateRicettaRisultato() {
+        return updateRicettaRisultato;
+    }
+
+    public LiveData<Risultato> getUpdateIngredientiRicettaRisultato() {
+        return updateIngredientiRicettaRisultato;
+    }
+
+    public LiveData<Risultato> getDeleteRicettaRisultato() {
+        return deleteRicettaRisultato;
+    }
 }
