@@ -81,7 +81,7 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
         aggiornaVisualizzazioneIngredienti(listaIngredienti.get(position), quantitaIngrediente, unitaMisura);
 
         Ingrediente ingredienteAdapter = verificaIngrediente(listaIngredienti.get(position), quantitaIngrediente);
-        ingredienteAdapter.getQuantitaPosseduta();
+
 
         if (!visibile) {
             aggiungiIngrediente.setVisibility(View.GONE);
@@ -110,12 +110,9 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
         quantitaIngrediente.setOnFocusChangeListener((v, hasFocus) ->
         {
-            resetQuantitaLasciatoTestoVuoto(ingredienteAdapter, quantitaIngrediente);
             inizializzaPositionePrecedente(ingredienteAdapter, position, quantitaIngrediente);
             controlloCambioSelezione(ingredienteAdapter, position, quantitaIngrediente);
-            if (rispostaInvioTastiera(quantitaIngrediente)) {
-                onFocusChangeListener.onChangeIngrediente(ingredienteAdapter);
-            }
+            rispostaInvioTastiera(ingredienteAdapter, quantitaIngrediente);
 
         });
 
@@ -162,6 +159,7 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
     }
 
     private void togliQuantitaIngrediente(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
+
         if (ingrediente.getQuantitaPosseduta() < 10 && quantitaBottone(position) == 10) {
             ingrediente.setQuantitaPosseduta(0);
         } else {
@@ -171,11 +169,6 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
     }
 
-    private void resetQuantitaLasciatoTestoVuoto(Ingrediente ingrediente, EditText quantitaIngrediente) {
-        if (quantitaIngrediente.getText().length() == 0) {
-            ingrediente.setQuantitaPosseduta(0);
-        }
-    }
 
     private void inizializzaPositionePrecedente(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
 
@@ -190,16 +183,29 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
     private void controlloCambioSelezione(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
 
         if (posizionePrecedente != position) {
+            salvaQuantita( ingredientePrecedente, quantitaIngredientePrecedente);
             posizionePrecedente = position;
             quantitaIngredientePrecedente = quantitaIngrediente;
             ingredientePrecedente = ingrediente;
+
+
         }
+
 
     }
 
-    private boolean rispostaInvioTastiera(EditText quantitaIngrediente) {
-        quantitaIngrediente.setOnKeyListener((v, keyCode, event) ->
-                (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER));
+    private void rispostaInvioTastiera(Ingrediente ingrediente, EditText quantitaIngrediente) {
+        quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
+               if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
+                   salvaQuantita( ingrediente,  quantitaIngrediente );
+        }
         return false;
+        });
+    }
+
+    private void salvaQuantita(Ingrediente ingrediente, EditText quantitaIngrediente  ){
+        verificaIngrediente(ingrediente, quantitaIngrediente);
+        onFocusChangeListener.onChangeIngrediente(ingrediente);
+
     }
 }
