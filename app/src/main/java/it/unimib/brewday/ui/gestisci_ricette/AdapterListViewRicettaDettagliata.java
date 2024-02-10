@@ -5,6 +5,7 @@ import static it.unimib.brewday.util.Constants.ACQUA;
 
 import android.content.Context;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -24,45 +25,49 @@ import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 
 
-
-public class AdapterListViewRicettaDettagliata extends ArrayAdapter<Ingrediente> {
+public class AdapterListViewRicettaDettagliata extends ArrayAdapter<IngredienteRicetta> {
 
     private final List<IngredienteRicetta> listaIngredienti;
     private final boolean visibile;
-    private final OnItemClickListener onItemClickListener;
+    private final OnItemClickListenerA onItemClickListener;
     private final int layout;
-    private final OnFocusChangeListener onFocusChangeListener;
+    private final OnFocusChangeListenerA onFocusChangeListener;
 
     private int posizionePrecedente = -1;
     private EditText quantitaIngredientePrecedente;
     private IngredienteRicetta ingredientePrecedente;
 
-    public AdapterListViewRicettaDettagliata(@NonNull Context context, int resource, int layout,
-                                             List<IngredienteRicetta> listaIngredienti, OnItemClickListener onItemClickListener, boolean visible, OnFocusChangeListener onFocusChangeListener) {
-        super(context, resource);
+
+    public AdapterListViewRicettaDettagliata(@NonNull Context context, int resource, List<IngredienteRicetta> listaIngredienti,
+                                             int layout, OnItemClickListenerA onItemClickListener, OnFocusChangeListenerA onFocusChangeListenerA, boolean visibile) {
+        super(context, resource, listaIngredienti);
         this.listaIngredienti = listaIngredienti;
-        this.onItemClickListener = onItemClickListener;
-        this.visibile = visible;
         this.layout = layout;
-        this.onFocusChangeListener = onFocusChangeListener;
+        this.onItemClickListener = onItemClickListener;
+        this.onFocusChangeListener = onFocusChangeListenerA;
+        this.visibile = visibile;
     }
 
-    public interface OnItemClickListener {
+
+    public interface OnItemClickListenerA {
 
         void onAddIngredienteClick(IngredienteRicetta ingredienteRicetta);
 
         void onRemoveIngredienteClick(IngredienteRicetta ingredienteRicetta);
+
     }
 
-    public interface OnFocusChangeListener {
+    public interface OnFocusChangeListenerA {
 
         void onChangeIngrediente(IngredienteRicetta ingredienteRicetta);
     }
 
-    @NonNull
     @Override
+    @NonNull
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(layout, parent, false);
+        }
         TextView nomeIngrediente = convertView.findViewById(R.id.textView_ingrediente);
         TextView unitaMisura = convertView.findViewById(R.id.textView_unitaMisura);
         EditText quantitaIngrediente = convertView.findViewById(R.id.editTextText_ingrediente);
@@ -70,8 +75,10 @@ public class AdapterListViewRicettaDettagliata extends ArrayAdapter<Ingrediente>
         FloatingActionButton rimuoviIngrediente = convertView.findViewById(R.id.button_rimuovi_ingrediente);
 
         nomeIngrediente.setText(listaIngredienti.get(position).getTipoIngrediente().getNome());
+        aggiornaVisualizzazioneIngredienti(listaIngredienti.get(position), quantitaIngrediente, unitaMisura);
 
         IngredienteRicetta ingredienteAdapter = verificaIngrediente(listaIngredienti.get(position), quantitaIngrediente);
+
 
         if (!visibile) {
             aggiungiIngrediente.setVisibility(View.GONE);
@@ -123,7 +130,7 @@ public class AdapterListViewRicettaDettagliata extends ArrayAdapter<Ingrediente>
 
     private void aggiungiQuantitaIngrediente(IngredienteRicetta ingredienteRicetta, int position, EditText quantitaIngrediente) {
         ingredienteRicetta.setDosaggioIngrediente(verificaIngrediente(ingredienteRicetta, quantitaIngrediente).getDosaggioIngrediente() + quantitaBottone(position));
-        quantitaIngrediente.setText(ingredienteRicetta.getDosaggioIngrediente());
+        quantitaIngrediente.setText(ingredienteRicetta.getDosaggioIngredienteToString());
 
     }
 
