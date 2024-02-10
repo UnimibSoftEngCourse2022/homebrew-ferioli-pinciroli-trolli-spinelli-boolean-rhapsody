@@ -19,7 +19,7 @@ public class RicetteViewModel extends ViewModel {
     private final MutableLiveData<Risultato> updateRicettaRisultato;
     private final MutableLiveData<Risultato> updateIngredientiRicettaRisultato;
     private final MutableLiveData<Risultato> deleteRicettaRisultato;
-    RicetteRepository ricetteRepository;
+    private final RicetteRepository ricetteRepository;
 
     public RicetteViewModel(RicetteRepository ricetteRepository){
         this.ricetteRepository = ricetteRepository;
