@@ -84,11 +84,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:text="Litri birra da produrre :"
+                android:text="@string/ricetta_per"
                 android:textColor = "?android:textColorPrimary"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editText_nomeRicetta" />
+
+            <TextView
+                android:id="@+id/textView_numeroLitriBirra2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/litri_di_birra"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/editNumber_numeroLitriBirra"
+                app:layout_constraintTop_toBottomOf="@+id/editText_nomeRicetta" />
+
 
             <EditText
                 android:id="@+id/editNumber_numeroLitriBirra"

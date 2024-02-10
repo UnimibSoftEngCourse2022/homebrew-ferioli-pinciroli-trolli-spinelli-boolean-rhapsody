@@ -38,7 +38,7 @@
         android:background="@android:color/transparent"/>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView_ricettaPer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -60,12 +60,12 @@
         android:text="1"
         android:textAlignment="textEnd"
         android:textColorHint="@color/seed"
-        app:layout_constraintBottom_toBottomOf="@+id/textView3"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="@+id/textView3" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView_ricettaPer"
+        app:layout_constraintStart_toEndOf="@+id/textView_ricettaPer"
+        app:layout_constraintTop_toTopOf="@+id/textView_ricettaPer" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView_litriDiBirra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
@@ -87,7 +87,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_ricettaPer" />
 
     <Button
         android:id="@+id/button_modificaRicetta"
