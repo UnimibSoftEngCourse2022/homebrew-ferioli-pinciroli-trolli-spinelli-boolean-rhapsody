@@ -97,7 +97,7 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
 
         View finalConvertView = convertView;
         rimuoviIngrediente.setOnClickListener(v -> {
-            if (listaIngredienti.get(position).getQuantitaPosseduta() < 1) {
+            if (ingredienteAdapter.getQuantitaPosseduta() < 1) {
                 Snackbar.make(finalConvertView, R.string.no_iingredienti_negativi, LENGTH_SHORT).show();
             } else {
                 togliQuantitaIngrediente(verificaIngrediente(ingredienteAdapter, quantitaIngrediente), position, quantitaIngrediente);
@@ -113,6 +113,7 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
             inizializzaPositionePrecedente(ingredienteAdapter, position, quantitaIngrediente);
             controlloCambioSelezione(ingredienteAdapter, position, quantitaIngrediente);
             rispostaInvioTastiera(ingredienteAdapter, quantitaIngrediente);
+
 
         });
 
@@ -197,13 +198,13 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
     private void rispostaInvioTastiera(Ingrediente ingrediente, EditText quantitaIngrediente) {
         quantitaIngrediente.setOnKeyListener((v, keyCode, event) -> {
                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
-                   salvaQuantita( ingrediente,  quantitaIngrediente );
+                   salvaQuantita( ingrediente,  quantitaIngrediente);
         }
         return false;
         });
     }
 
-    private void salvaQuantita(Ingrediente ingrediente, EditText quantitaIngrediente  ){
+    private void salvaQuantita(Ingrediente ingrediente, EditText quantitaIngrediente ){
         verificaIngrediente(ingrediente, quantitaIngrediente);
         onFocusChangeListener.onChangeIngrediente(ingrediente);
 

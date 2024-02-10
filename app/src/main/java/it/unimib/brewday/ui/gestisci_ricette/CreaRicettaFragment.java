@@ -45,6 +45,7 @@ public class CreaRicettaFragment extends Fragment {
 
 
 
+
     public CreaRicettaFragment() {
         // Required empty public constructor
     }
@@ -90,7 +91,7 @@ public class CreaRicettaFragment extends Fragment {
                             //vuoto
                     }
                 }, ingrediente -> {
-            //vuoto
+                   //vuoto
 
         }, true);
 
@@ -102,7 +103,6 @@ public class CreaRicettaFragment extends Fragment {
         );
 
         creaRicettaButton.setOnClickListener(v -> {
-
                     if( gestioneRicette.controlloCreazione(view, nomeRicetta, numeroLitriBirra)){
                         List<IngredienteRicetta> listaIngredientiPerLitro = new ArrayList<>();
                         int zeroIngredinti = gestioneRicette.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);

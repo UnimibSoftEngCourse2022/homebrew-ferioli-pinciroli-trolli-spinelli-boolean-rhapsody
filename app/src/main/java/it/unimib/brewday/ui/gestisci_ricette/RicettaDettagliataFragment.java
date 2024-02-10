@@ -35,6 +35,8 @@ public class RicettaDettagliataFragment extends Fragment {
     private FragmentRicettaDettagliataBinding fragmentRicettaDettagliataBinding;
     boolean visibile;
 
+
+
     GestioneRicette gestioneRicette;
 
     public RicettaDettagliataFragment() {
@@ -78,8 +80,9 @@ public class RicettaDettagliataFragment extends Fragment {
         numeroLitriRicettaBirra.setEnabled(visibile);
         nomeRicetta.setEnabled(visibile);
 
-        modificaRicettaButton.setOnClickListener(v ->
-                setVisibile(visibile, view, numeroLitriRicettaBirra, listaIngredientiRicetta)
+        modificaRicettaButton.setOnClickListener(v -> {
+            setVisibile(visibile, view, numeroLitriRicettaBirra, listaIngredientiRicetta);
+                }
         );
 
         numeroLitriRicettaBirra.setOnFocusChangeListener((v, hasFocus) ->
@@ -90,6 +93,7 @@ public class RicettaDettagliataFragment extends Fragment {
     }
 
     private void setVisibile(boolean invertiVisibile, View view, EditText numeroLitriBirra, List<Ingrediente> listaIngredientiRicetta){
+
         if (!invertiVisibile){
             fragmentRicettaDettagliataBinding.buttonModificaRicetta.setText(R.string.conferma);
             visibile = !invertiVisibile;
@@ -127,6 +131,8 @@ public class RicettaDettagliataFragment extends Fragment {
                         //vuoto
                     }
                 }, ingrediente -> {
+
+
            //vuoto
         }, visible);
 
