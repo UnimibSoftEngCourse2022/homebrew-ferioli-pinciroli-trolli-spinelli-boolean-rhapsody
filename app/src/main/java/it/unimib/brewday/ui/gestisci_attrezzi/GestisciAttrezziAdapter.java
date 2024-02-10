@@ -6,12 +6,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -125,7 +125,7 @@ public class GestisciAttrezziAdapter extends RecyclerView.Adapter<GestisciAttrez
         private final EditText nomeAttrezzo;
         private final EditText capacitaAttrezzo;
         private final Spinner tipoAttrezzo;
-        private final ImageButton cancella;
+        private final FloatingActionButton cancella;
         private final Button modifica;
         private final Button conferma;
         private final ArrayAdapter<CharSequence> adapter;
