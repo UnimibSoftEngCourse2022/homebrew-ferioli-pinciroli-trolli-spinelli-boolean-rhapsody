@@ -16,16 +16,16 @@ public class RicetteViewModel extends ViewModel {
     private final MutableLiveData<Risultato> ricetteRisultato;
     private MutableLiveData<Risultato> ingredientiRicetteRisultato;
     private final MutableLiveData<Risultato> insertRicettaRisultato;
-    private MutableLiveData<Risultato> insertIngredientiRicettaRisultato;
     private MutableLiveData<Risultato> updateRicettaRisultato;
     private MutableLiveData<Risultato> updateIngredientiRicettaRisultato;
-    private MutableLiveData<Risultato> deleteRicettaRisultato;
+    private final MutableLiveData<Risultato> deleteRicettaRisultato;
     RicetteRepository ricetteRepository;
 
     public RicetteViewModel(RicetteRepository ricetteRepository){
         this.ricetteRepository = ricetteRepository;
         ricetteRisultato = new MutableLiveData<>();
         insertRicettaRisultato = new MutableLiveData<>();
+        deleteRicettaRisultato = new MutableLiveData<>();
     }
 
     public void getAllRicette() {
@@ -33,8 +33,11 @@ public class RicetteViewModel extends ViewModel {
     }
 
     public void insertRicetta(Ricetta ricetta, List<IngredienteRicetta> listaIngredienti) {
-        ricetteRepository.insertRicetta(ricetta, listaIngredienti, insertRicettaRisultato::postValue
-        );
+        ricetteRepository.insertRicetta(ricetta, listaIngredienti, insertRicettaRisultato::postValue);
+    }
+
+    public void deleteRicetta(Ricetta ricetta) {
+        ricetteRepository.deleteRicetta(ricetta, deleteRicettaRisultato::postValue);
     }
 
     public LiveData<Risultato> getRicetteRisultato() {
@@ -47,10 +50,6 @@ public class RicetteViewModel extends ViewModel {
 
     public LiveData<Risultato> getInsertRicettaRisultato() {
         return insertRicettaRisultato;
-    }
-
-    public LiveData<Risultato> getInsertIngredientiRicettaRisultato() {
-        return insertIngredientiRicettaRisultato;
     }
 
     public LiveData<Risultato> getUpdateRicettaRisultato() {
