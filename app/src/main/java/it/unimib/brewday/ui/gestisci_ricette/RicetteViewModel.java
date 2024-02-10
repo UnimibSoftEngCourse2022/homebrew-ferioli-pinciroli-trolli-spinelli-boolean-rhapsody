@@ -14,10 +14,10 @@ import it.unimib.brewday.repository.RicetteRepository;
 public class RicetteViewModel extends ViewModel {
 
     private final MutableLiveData<Risultato> ricetteRisultato;
-    private MutableLiveData<Risultato> ingredientiRicetteRisultato;
+    private final MutableLiveData<Risultato> ingredientiRicetteRisultato;
     private final MutableLiveData<Risultato> insertRicettaRisultato;
     private final MutableLiveData<Risultato> updateRicettaRisultato;
-    private MutableLiveData<Risultato> updateIngredientiRicettaRisultato;
+    private final MutableLiveData<Risultato> updateIngredientiRicettaRisultato;
     private final MutableLiveData<Risultato> deleteRicettaRisultato;
     RicetteRepository ricetteRepository;
 
@@ -27,6 +27,8 @@ public class RicetteViewModel extends ViewModel {
         insertRicettaRisultato = new MutableLiveData<>();
         deleteRicettaRisultato = new MutableLiveData<>();
         updateRicettaRisultato = new MutableLiveData<>();
+        updateIngredientiRicettaRisultato = new MutableLiveData<>();
+        ingredientiRicetteRisultato = new MutableLiveData<>();
     }
 
     public void getAllRicette() {
@@ -43,6 +45,14 @@ public class RicetteViewModel extends ViewModel {
 
     public void updateRicetta(Ricetta ricetta) {
         ricetteRepository.updateRicetta(ricetta, updateRicettaRisultato::postValue);
+    }
+
+    public void updateIngredienteRicetta(IngredienteRicetta ingredienteRicetta) {
+        ricetteRepository.updateIngredientiRicetta(ingredienteRicetta, updateIngredientiRicettaRisultato::postValue);
+    }
+
+    public void getIngredientiRicetta(long idRicetta) {
+        ricetteRepository.getIngredientiRicetta(idRicetta, ingredientiRicetteRisultato::postValue);
     }
 
     public LiveData<Risultato> getRicetteRisultato() {
