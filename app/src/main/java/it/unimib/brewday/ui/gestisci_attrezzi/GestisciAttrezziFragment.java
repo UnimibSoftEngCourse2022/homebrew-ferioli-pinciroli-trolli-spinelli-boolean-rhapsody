@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -62,7 +63,7 @@ public class GestisciAttrezziFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ImageButton addAttrezzo = view.findViewById(R.id.gestisciAttrezziFragment_imageButton_add);
+        FloatingActionButton addAttrezzo = view.findViewById(R.id.gestisciAttrezziFragment_imageButton_add);
 
         addAttrezzo.setOnClickListener(v -> {
             InserisciAttrezzoDialog prova = new InserisciAttrezzoDialog(mViewModel);

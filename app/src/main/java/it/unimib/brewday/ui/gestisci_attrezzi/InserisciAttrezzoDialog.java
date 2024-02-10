@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,21 +29,18 @@ public class InserisciAttrezzoDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(R.layout.fragment_inserisci_attrezzo_dialog);
-        return builder.create();
-    }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View view = requireActivity().getLayoutInflater()
+                .inflate(R.layout.fragment_inserisci_attrezzo_dialog, null);
+        builder.setView(view);
 
         //Componenti card
         EditText nomeAttrezzo = view.findViewById(R.id.inserisciAttrezzoDialog_inserisciNome);
         EditText capacitaAttrezzo = view.findViewById(R.id.inserisciAttrezzoDialog_inserisciCapacita);
         Spinner spinner = view.findViewById(R.id.inserisciAttrezzoDialog_spinner);
         Button confermaInserimento = view.findViewById(R.id.inserisciAttrezzoDialog_conferma);
-        FloatingActionButton annullaInserimento = view.findViewById(R.id.inserisciAttrezzoDialog_annulla);
+        Button annullaInserimento = view.findViewById(R.id.inserisciAttrezzoDialog_annulla);
 
         //Gestione spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -90,6 +85,8 @@ public class InserisciAttrezzoDialog extends DialogFragment {
             //Chiude la finestra del dialog
             this.dismiss();
         });
+
+        return builder.create();
     }
 }
 
