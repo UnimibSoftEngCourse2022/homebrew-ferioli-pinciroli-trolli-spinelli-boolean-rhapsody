@@ -80,12 +80,12 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="15dp"
+                android:autofillHints=""
                 android:ems="10"
-                android:inputType="none"
                 android:hint="@string/inserisci_capacita"
+                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/oneRowCard_nomeReale"
-                android:autofillHints="" />
+                app:layout_constraintTop_toBottomOf="@+id/oneRowCard_nomeReale" />
 
             <Spinner
                 android:id="@+id/oneRowCard_tipoReale"
