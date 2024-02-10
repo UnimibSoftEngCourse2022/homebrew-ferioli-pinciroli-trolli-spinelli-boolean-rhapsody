@@ -9,23 +9,19 @@ import it.unimib.brewday.repository.RicetteRepository;
 
 public class RicetteViewModel extends ViewModel {
 
-    private final RicetteRepository ricetteRepository;
-    private MutableLiveData<Risultato> readListaRicetteRisultato;
-    private MutableLiveData<Risultato> readRicettaByIdRisultato;
-    private MutableLiveData<Risultato> readRicettaByNameRisultato;
-    private MutableLiveData<Risultato> createRicettaRisultato;
+    private MutableLiveData<Risultato> ricetteRisultato;
+    private MutableLiveData<Risultato> ingredientiRicetteRisultato;
+    private MutableLiveData<Risultato> insertRicettaRisultato;
+    private MutableLiveData<Risultato> insertIngredientiRicettaRisultato;
     private MutableLiveData<Risultato> updateRicettaRisultato;
+    private MutableLiveData<Risultato> updateIngredientiRicettaRisultato;
     private MutableLiveData<Risultato> deleteRicettaRisultato;
+    RicetteRepository ricetteRepository;
 
     public RicetteViewModel(RicetteRepository ricetteRepository){
         this.ricetteRepository = ricetteRepository;
     }
 
-    public LiveData<Risultato> readAllRicette(){
-        ricetteRepository.readListaRicette(risultato -> {
-            readListaRicetteRisultato.postValue(risultato);
-        });
-        return readListaRicetteRisultato;
-    }
+
 
 }

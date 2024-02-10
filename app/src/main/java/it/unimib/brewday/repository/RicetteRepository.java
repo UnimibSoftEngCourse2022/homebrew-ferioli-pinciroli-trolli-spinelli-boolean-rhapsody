@@ -5,6 +5,7 @@ import java.util.List;
 import it.unimib.brewday.database.LocalDatabase;
 import it.unimib.brewday.database.RicettaDao;
 import it.unimib.brewday.model.Ricetta;
+import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.Callback;
 import it.unimib.brewday.util.RegistroErrori;
@@ -17,80 +18,103 @@ public class RicetteRepository {
         ricettaDao = localDatabase.ricettaDao();
     }
 
-    public void readListaRicette(Callback callback) {
-        LocalDatabase.databaseWriteExecutor.execute(() -> {
-            List<Ricetta> allRicette = ricettaDao.getAllRicette();
-
-            if(allRicette != null) {
-                callback.onComplete(new Risultato.ListaRicetteSuccesso(allRicette));
-            }
-            else {
-                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_FETCH_ERROR));
-            }
-        });
-    }
-
-    public void readRicettaByName(String nomeRicetta, Callback callback){
-        LocalDatabase.databaseWriteExecutor.execute(() -> {
-            List<Ricetta> ricetteTrovate = ricettaDao.getRicettaByName(nomeRicetta);
-
-            if(ricetteTrovate != null){
-                callback.onComplete(new Risultato.ListaRicetteSuccesso(ricetteTrovate));
-            }
-            else{
-                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_FETCH_ERROR));
-            }
-        });
-    }
-
-    public void readRicettaById(long id, Callback callback){
-        LocalDatabase.databaseWriteExecutor.execute(() -> {
-            List<Ricetta> ricetteTrovate = ricettaDao.getRicettaById(id);
-
-            if(ricetteTrovate != null){
-                callback.onComplete(new Risultato.SingolaRicettaSuccesso(ricetteTrovate.get(0)));
-            }
-            else{
-                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_FETCH_ERROR));
-            }
-        });
-    }
-
-    public void createRicetta(Ricetta ricetta, Callback callback){
+    public void insertRicetta(Ricetta ricetta, List<IngredienteRicetta> listaDegliIngredienti, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             long id = ricettaDao.insertRicetta(ricetta);
 
-            if(id < 0) {
+            if(id > 0){
+                for (int i = 0; i < listaDegliIngredienti.size(); i++) {
+                    listaDegliIngredienti.get(i).setIdRicetta(id);
+                }
+                insertIngredientiRicetta(listaDegliIngredienti, callback);
+            }
+            else{
                 callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_CREATION_ERROR));
             }
-            else{
+        });
+    }
+
+    private void insertIngredientiRicetta(List<IngredienteRicetta> ingredienteRicetta, Callback callback){
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
+            long[] id = ricettaDao.insertIngredientiRicetta(ingredienteRicetta);
+            boolean isOK = true;
+
+            for (int i = 0; i < id.length; i++) {
+                if(id[i] < 0){
+                    isOK = false;
+                }
+            }
+
+            if(isOK){
                 callback.onComplete(new Risultato.Successo());
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.INGREDIENTI_FETCH_ERROR));
             }
         });
     }
 
-    public void updateRicetta(Ricetta ricetta, Callback callback) {
+    public void getIngredientiRicetta(long idRicetta, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
+            List<IngredienteRicetta> ingredientiDellaRicetta = ricettaDao.getIngredientiRicetta(idRicetta);
 
-            int rowsUpdated = ricettaDao.updateRicetta(ricetta);
-            if (rowsUpdated == 0) {
+            if(ingredientiDellaRicetta != null){
+                callback.onComplete(new Risultato.ListaIngredientiDellaRicettaSuccesso(ingredientiDellaRicetta));
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.INGREDIENTI_FETCH_ERROR));
+            }
+        });
+    }
+
+    public void getRicette(Callback callback){
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
+            List<Ricetta> ricette = ricettaDao.getRicette();
+
+            if(ricette != null){
+                callback.onComplete(new Risultato.ListaRicetteSuccesso(ricette));
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_FETCH_ERROR));
+            }
+        });
+    }
+
+    public void updateRicetta(Ricetta ricetta, Callback callback){
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
+            int righeAggiornate = ricettaDao.updateRicetta(ricetta);
+
+            if(righeAggiornate > 0){
+                callback.onComplete(new Risultato.Successo());
+            }
+            else{
                 callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_UPDATE_ERROR));
             }
-            else{
+        });
+    }
+
+    public void updateIngredientiRicetta(IngredienteRicetta ingredienteRicetta, Callback callback){
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
+            int righeAggiornate = ricettaDao.updateIngredientiRicetta(ingredienteRicetta);
+
+            if(righeAggiornate > 0){
                 callback.onComplete(new Risultato.Successo());
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.INGREDIENTI_UPDATE_ERROR));
             }
         });
     }
 
-    public void deleteRicetta(Ricetta ricetta, Callback callback) {
+    public void deleteRicetta(Ricetta ricetta, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
+            int righeCancellate = ricettaDao.deleteRicetta(ricetta);
 
-            int rowsDeleted = ricettaDao.deleteRicetta(ricetta);
-            if (rowsDeleted == 0) {
-                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_DELETION_ERROR));
+            if(righeCancellate > 0){
+                callback.onComplete(new Risultato.Successo());
             }
             else{
-                callback.onComplete(new Risultato.Successo());
+                callback.onComplete(new Risultato.Errore(RegistroErrori.RICETTA_DELETION_ERROR));
             }
         });
     }

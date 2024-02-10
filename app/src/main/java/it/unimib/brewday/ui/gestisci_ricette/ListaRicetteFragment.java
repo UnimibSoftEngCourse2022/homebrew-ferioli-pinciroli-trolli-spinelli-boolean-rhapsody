@@ -45,16 +45,6 @@ public class ListaRicetteFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        listaRicette = new ArrayList<>();
-        listaRicette.add(new Ricetta(1, "guiness"));
-        listaRicette.add(new Ricetta(2, "franzizkale"));
-        listaRicette.add(new Ricetta(3, "moretti"));
-        listaRicette.add(new Ricetta(4, "forst"));
-        listaRicette.add(new Ricetta(5, "valDiFiemmeBeer"));
-        listaRicette.add(new Ricetta(6, "paulaner"));
-        listaRicette.add(new Ricetta(7, "whiessebeer"));
-        listaRicette.add(new Ricetta(8, "lager"));
-        listaRicette.add(new Ricetta(9, "peroni"));
     }
 
     @Override

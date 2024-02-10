@@ -42,17 +42,17 @@ public class GestisciAttrezziAdapter extends RecyclerView.Adapter<GestisciAttrez
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         //Gestione nome
-        holder.nomeAttrezzo.setText(listaAttrezzi.get(position).nome);
+        holder.nomeAttrezzo.setText(listaAttrezzi.get(position).getNome());
         holder.nomeAttrezzo.setEnabled(false);
 
         //Gestione capacità
-        holder.capacitaAttrezzo.setText(String.valueOf(listaAttrezzi.get(position).capacita));
+        holder.capacitaAttrezzo.setText(String.valueOf(listaAttrezzi.get(position).getCapacita()));
         holder.capacitaAttrezzo.setEnabled(false);
 
         //Gestione spinner
         holder.tipoAttrezzo.setAdapter(holder.adapter);
         holder.tipoAttrezzo.setEnabled(false);
-        String tipoAttrezzoStringFormat = listaAttrezzi.get(position).tipoAttrezzo.getNome();
+        String tipoAttrezzoStringFormat = listaAttrezzi.get(position).getTipoAttrezzo().getNome();
         holder.tipoAttrezzo.setSelection(holder.adapter.getPosition(tipoAttrezzoStringFormat));
 
         //Gestione bottone modifica
@@ -74,8 +74,8 @@ public class GestisciAttrezziAdapter extends RecyclerView.Adapter<GestisciAttrez
                 holder.conferma.setVisibility(View.INVISIBLE);
 
 
-                holder.nomeAttrezzo.setText(listaAttrezzi.get(position).nome);
-                holder.capacitaAttrezzo.setText(String.valueOf(listaAttrezzi.get(position).capacita));
+                holder.nomeAttrezzo.setText(listaAttrezzi.get(position).getNome());
+                holder.capacitaAttrezzo.setText(String.valueOf(listaAttrezzi.get(position).getCapacita()));
                 holder.tipoAttrezzo.setSelection(holder.adapter.getPosition(tipoAttrezzoStringFormat));
             }
         });
@@ -96,7 +96,7 @@ public class GestisciAttrezziAdapter extends RecyclerView.Adapter<GestisciAttrez
                 String tipo = holder.tipoAttrezzo.getSelectedItem().toString();
 
                 Attrezzo attrezzo = new Attrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
-                attrezzo.id = listaAttrezzi.get(position).id;
+                attrezzo.setId(listaAttrezzi.get(position).getId());
                 attrezziViewModel.updateAttrezzo(attrezzo);
 
                 holder.modifica.setText(R.string.modifica);
@@ -110,7 +110,7 @@ public class GestisciAttrezziAdapter extends RecyclerView.Adapter<GestisciAttrez
             String tipo = holder.tipoAttrezzo.getSelectedItem().toString();
 
             Attrezzo attrezzo = new Attrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
-            attrezzo.id = listaAttrezzi.get(position).id;
+            attrezzo.setId(listaAttrezzi.get(position).getId());
             attrezziViewModel.deleteAttrezzo(attrezzo);
         });
     }
