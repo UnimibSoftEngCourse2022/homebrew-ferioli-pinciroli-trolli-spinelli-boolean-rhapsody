@@ -3,7 +3,6 @@ package it.unimib.brewday.ui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 
 import java.util.ArrayList;
@@ -26,10 +25,6 @@ public class MockActivity extends AppCompatActivity {
 
         RicetteRepository ricetteRepository = ServiceLocator.getInstance().getRicetteRepository(this);
 
-        TextView textView = findViewById(R.id.textView);
-        TextView textView2 = findViewById(R.id.textView2);
-        TextView textView3 = findViewById(R.id.textView3);
-
         Ricetta ricetta = new Ricetta("Birra della scimmia", 1);
         List<IngredienteRicetta> listaIngredienti = new ArrayList<>();
         listaIngredienti.add(new IngredienteRicetta(TipoIngrediente.ACQUA, 1));
@@ -41,31 +36,35 @@ public class MockActivity extends AppCompatActivity {
 
         ricetteRepository.insertRicetta(ricetta, listaIngredienti, risultato -> {
             if(risultato.isSuccessful()){
-                textView.setText("Ha funzionato");
                 ricetteRepository.getRicette(risultatoInnestato -> {
                     if(risultatoInnestato.isSuccessful()){
                         List<Ricetta> listaRicette = ((Risultato.ListaRicetteSuccesso) risultatoInnestato).getRicette();
-                        textView2.setText(listaRicette.get(0).getNome());
                     }
                 });
-                ricetteRepository.getIngredientiRicetta(5, risultatoInnestato -> {
+                ricetteRepository.getIngredientiRicetta(1, risultatoInnestato -> {
                     if(risultatoInnestato.isSuccessful()){
                         List<IngredienteRicetta> listaIngredientiDellaRicetta = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultatoInnestato).getListaIngrediente();
-                        textView.setText(listaIngredientiDellaRicetta.get(0).getTipoIngrediente().getNome());
                     }
                 });
             }
-            else{
-                textView.setText(((Risultato.Errore) risultato).getMessaggio());
-            }
         });
 
-        IngredienteRicetta ingredienteRicetta = new IngredienteRicetta(3, TipoIngrediente.ACQUA, 123912938);
-        ricetteRepository.updateIngredientiRicetta(ingredienteRicetta, risultato -> {
+        /*
+        List<IngredienteRicetta> ingredientiRicetta = new ArrayList();
+        IngredienteRicetta ingredienteRicetta = new IngredienteRicetta(1,
+                TipoIngrediente.ACQUA, 123912938);
+
+
+        IngredienteRicetta ingredienteRicetta1 = new IngredienteRicetta(2,
+                TipoIngrediente.ACQUA, 85973589);
+
+        ingredientiRicetta.add(ingredienteRicetta);
+        ingredientiRicetta.add(ingredienteRicetta1);
+        ricetteRepository.updateIngredientiRicetta(ingredientiRicetta, risultato -> {
             if(risultato.isSuccessful()){
-                textView3.setText("dovrebbe andare");
+
             }
         });
-
+         */
     }
 }
