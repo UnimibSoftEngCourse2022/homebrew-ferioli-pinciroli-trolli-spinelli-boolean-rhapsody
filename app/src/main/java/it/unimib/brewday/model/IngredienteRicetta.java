@@ -27,16 +27,16 @@ import androidx.room.Ignore;
 public class IngredienteRicetta {
     private long idRicetta;
     @NonNull private TipoIngrediente tipoIngrediente;
-    private int dosaggioIngrediente;
+    private double dosaggioIngrediente;
 
-    public IngredienteRicetta(long idRicetta, @NonNull TipoIngrediente tipoIngrediente, int dosaggioIngrediente) {
+    public IngredienteRicetta(long idRicetta, @NonNull TipoIngrediente tipoIngrediente, double dosaggioIngrediente) {
         this.idRicetta = idRicetta;
         this.tipoIngrediente = tipoIngrediente;
         this.dosaggioIngrediente = dosaggioIngrediente;
     }
 
     @Ignore
-    public IngredienteRicetta(@NonNull TipoIngrediente tipoIngrediente, int dosaggioIngrediente){
+    public IngredienteRicetta(@NonNull TipoIngrediente tipoIngrediente, double dosaggioIngrediente){
         this.idRicetta = -1;
         this.tipoIngrediente = tipoIngrediente;
         this.dosaggioIngrediente = dosaggioIngrediente;
@@ -58,14 +58,14 @@ public class IngredienteRicetta {
         this.tipoIngrediente = tipoIngrediente;
     }
 
-    public int getDosaggioIngrediente() {
+    public double getDosaggioIngrediente() {
         return dosaggioIngrediente;
     }
     public String getDosaggioIngredienteToString() {
-        return Integer.toString(dosaggioIngrediente);
+        return Double.toString(dosaggioIngrediente);
     }
 
-    public void setDosaggioIngrediente(int dosaggioIngrediente) {
+    public void setDosaggioIngrediente(double dosaggioIngrediente) {
         this.dosaggioIngrediente = dosaggioIngrediente;
     }
 }
