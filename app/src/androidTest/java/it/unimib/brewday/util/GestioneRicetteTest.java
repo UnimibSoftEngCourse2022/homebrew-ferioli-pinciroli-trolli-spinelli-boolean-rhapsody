@@ -75,8 +75,8 @@ public class GestioneRicetteTest {
 
         // Verifica se il calcolo degli ingredienti per litro è corretto
         assertEquals(2, listaIngredientiPerLitro.size());
-        assertEquals(20, listaIngredientiPerLitro.get(0).getDosaggioIngrediente());
-        assertEquals(40, listaIngredientiPerLitro.get(1).getDosaggioIngrediente());
+        assertEquals(20.0, listaIngredientiPerLitro.get(0).getDosaggioIngrediente(), 0);
+        assertEquals(40.0, listaIngredientiPerLitro.get(1).getDosaggioIngrediente(), 0);
 
         // Verifica se il numero di ingredienti con quantità zero è corretto
         assertEquals(0, zeroIngredienti);

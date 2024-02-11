@@ -50,7 +50,7 @@ public class BottomNavigationTest {
             new ActivityScenarioRule<>(MainActivity.class);
 
     private static final int[] MENU_CONTENT_ITEM_IDS = {
-            R.id.listaRicetteFragment, R.id.birreFragment, R.id.creaRicettaFragment, R.id.gestisciAttrezziFragment, R.id.ingredientiFragment
+            R.id.listaRicetteFragment, R.id.birreFragment, R.id.cosaDevoPreparareOggiFragment, R.id.gestisciAttrezziFragment, R.id.ingredientiFragment
     };
     private Map<Integer, String> menuStringContent;
 
@@ -65,7 +65,7 @@ public class BottomNavigationTest {
             menuStringContent = new HashMap<>(MENU_CONTENT_ITEM_IDS.length);
             menuStringContent.put(R.id.listaRicetteFragment, res.getString(R.string.lista_ricette));
             menuStringContent.put(R.id.birreFragment, res.getString(R.string.birre));
-            menuStringContent.put(R.id.creaRicettaFragment, res.getString(R.string.crea_ricetta));
+            menuStringContent.put(R.id.cosaDevoPreparareOggiFragment, res.getString(R.string.brewToday));
             menuStringContent.put(R.id.gestisciAttrezziFragment, res.getString(R.string.attrezzi));
             menuStringContent.put(R.id.ingredientiFragment, res.getString(R.string.ingredienti));
         });
@@ -112,15 +112,15 @@ public class BottomNavigationTest {
         when(mockedListener.onNavigationItemSelected(any(MenuItem.class))).thenReturn(false);
         onView(
                 allOf(
-                        withText(menuStringContent.get(R.id.creaRicettaFragment)),
+                        withText(menuStringContent.get(R.id.cosaDevoPreparareOggiFragment)),
                         isDescendantOfA(withId(R.id.bottom_navigation)),
                         isDisplayed()))
                 .perform(click());
 
         verify(mockedListener, times(1))
-                .onNavigationItemSelected(bottomNavigation.getMenu().findItem(R.id.creaRicettaFragment));
+                .onNavigationItemSelected(bottomNavigation.getMenu().findItem(R.id.cosaDevoPreparareOggiFragment));
 
-        assertFalse(bottomNavigation.getMenu().findItem(R.id.creaRicettaFragment).isChecked());
+        assertFalse(bottomNavigation.getMenu().findItem(R.id.cosaDevoPreparareOggiFragment).isChecked());
         assertTrue(bottomNavigation.getMenu().findItem(R.id.birreFragment).isChecked());
 
 
