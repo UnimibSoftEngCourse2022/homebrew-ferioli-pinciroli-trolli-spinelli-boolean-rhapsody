@@ -1,5 +1,6 @@
 package it.unimib.brewday.database;
 
+import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -8,6 +9,7 @@ import java.util.List;
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.BirraConRicetta;
 
+@Dao
 public interface BirraDao {
 
     @Insert

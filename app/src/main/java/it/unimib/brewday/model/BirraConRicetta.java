@@ -8,7 +8,7 @@ public class BirraConRicetta {
     @Embedded public Birra birra;
     @Relation(
             parentColumn = "id",
-            entityColumn = "nome"
+            entityColumn = "id"
     )
-    public String nomeRicetta;
+    public Ricetta nomeRicetta;
 }
