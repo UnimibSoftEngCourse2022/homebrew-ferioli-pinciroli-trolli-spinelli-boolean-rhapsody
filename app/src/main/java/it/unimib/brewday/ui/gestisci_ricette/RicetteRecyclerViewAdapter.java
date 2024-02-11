@@ -20,7 +20,8 @@ public class RicetteRecyclerViewAdapter extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final List<Ricetta> listaRicette;
-    private final Context context;
+
+    public final Context context;
     private final OnItemClickListener onItemClickListener;
 
     public interface OnItemClickListener {
@@ -77,10 +78,10 @@ public class RicetteRecyclerViewAdapter extends
 
             if(v.getId() == R.id.imageButton_aggiungiRicetta){
                 //Inizio Birra
-                onItemClickListener.onAggiungiRicettaClick(listaRicette.get(getAdapterPosition()));
+                onItemClickListener.onAggiungiRicettaClick(listaRicette.get(getBindingAdapterPosition()));
             } else {
                 //Ricetta dettagliata
-                onItemClickListener.onElementoRicettaClick(listaRicette.get(getAdapterPosition()));
+                onItemClickListener.onElementoRicettaClick(listaRicette.get(getBindingAdapterPosition()));
             }
 
         }
