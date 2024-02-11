@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.gestisci_ricette.RicettaDettagliataFragment">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <ListView
+        android:id="@+id/listView_ingredrientiRicettaDettagliata"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:layout_marginTop="8dp"
+        android:listSelector="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_listaIngredientiDettagliata"
+        />
+
+    <EditText
+        android:id="@+id/textView_nomeRicetta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/nome_ricetta"
+        android:textColor="?android:colorPrimary"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@android:color/transparent"/>
+
+    <TextView
+        android:id="@+id/textView_ricettaPer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/ricetta_per"
+        android:textColor = "?android:textColorPrimary"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_nomeRicetta" />
+
+    <EditText
+        android:id="@+id/editTextNumber_litriRicettaBirra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+
+        android:hint="@string/uno"
+        android:inputType="number"
+        android:text="1"
+        android:textAlignment="textEnd"
+        android:textColorHint="@color/seed"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_ricettaPer"
+        app:layout_constraintStart_toEndOf="@+id/textView_ricettaPer"
+        app:layout_constraintTop_toTopOf="@+id/textView_ricettaPer" />
+
+    <TextView
+        android:id="@+id/textView_litriDiBirra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:text="@string/litri_di_birra"
+        android:textColor = "?android:textColorPrimary"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextNumber_litriRicettaBirra"
+        app:layout_constraintStart_toEndOf="@+id/editTextNumber_litriRicettaBirra"
+        app:layout_constraintTop_toTopOf="@+id/editTextNumber_litriRicettaBirra" />
+
+    <TextView
+        android:id="@+id/textView_listaIngredientiDettagliata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/ingredienti"
+        android:textColor = "?android:colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_ricettaPer" />
+
+    <Button
+        android:id="@+id/button_modificaRicetta"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="128dp"
+        android:text="@string/modifica"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listView_ingredrientiRicettaDettagliata" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

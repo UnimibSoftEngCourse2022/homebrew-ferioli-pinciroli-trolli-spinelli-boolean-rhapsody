@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/listaRicetteFragment"
+        android:enabled="true"
+        android:icon="@drawable/recipe_svgrepo_com"
+        android:title="@string/lista_ricette" />
+    <item
+        android:id="@+id/birreFragment"
+        android:enabled="true"
+        android:icon="@drawable/beer_svgrepo_com"
+        android:title="@string/birre" />
+    <item
+        android:id="@+id/cosaDevoPreparareOggiFragment"
+        android:enabled="true"
+        android:icon="@drawable/new_svgrepo_com"
+        android:title="@string/brewToday" />
+    <item
+        android:id="@+id/gestisciAttrezziFragment"
+        android:enabled="true"
+        android:icon="@drawable/recipe_svgrepo_com_1_"
+        android:title="@string/attrezzi" />
+    <item
+        android:id="@+id/ingredientiFragment"
+        android:enabled="true"
+        android:icon="@drawable/balance_svgrepo_com"
+        android:title="@string/ingredienti" />
+</menu>
