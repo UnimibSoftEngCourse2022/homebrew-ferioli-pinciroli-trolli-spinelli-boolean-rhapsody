@@ -54,6 +54,7 @@ val dexmakermockitoVersion = "1.2"
 val lifecycleVersion = "2.6.2"
 val legacySupportVersion = "1.0.0"
 
+val swipedecorator = "1.4"
 val roomAnnotationCompilerVersion = "2.6.1"
 
 dependencies {
@@ -83,7 +84,7 @@ dependencies {
     androidTestImplementation("androidx.test:rules:$testRulesVersion")
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressocoreVersion")
 
-    implementation ("it.xabaras.android:recyclerview-swipedecorator:1.4")
+    implementation ("it.xabaras.android:recyclerview-swipedecorator:$swipedecorator")
 
 
 

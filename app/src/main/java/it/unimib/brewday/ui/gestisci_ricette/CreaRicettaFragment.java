@@ -30,8 +30,6 @@ import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewListaIngredientiDisponibili;
-import it.unimib.brewday.ui.gestisci_ingredienti.IngredienteViewModel;
-import it.unimib.brewday.ui.gestisci_ingredienti.IngredienteViewModelFactory;
 import it.unimib.brewday.util.GestioneRicette;
 import it.unimib.brewday.util.ListaIngredienti;
 
