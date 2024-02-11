@@ -16,7 +16,8 @@ public class Risultato {
                 || this instanceof AttrezziSuccesso
                 || this instanceof ListaIngredientiDellaRicettaSuccesso
                 || this instanceof ListaRicetteSuccesso
-                || this instanceof SingolaRicettaSuccesso;
+                || this instanceof SingolaRicettaSuccesso
+                || this instanceof AllBirreSuccesso;
 
     }
 
@@ -94,6 +95,18 @@ public class Risultato {
 
         public long getIdRicetta(){
             return idRicetta;
+        }
+    }
+
+    public static final class AllBirreSuccesso extends Risultato {
+        private final List<Birra> allBirre;
+
+        public AllBirreSuccesso(List<Birra> allBirre) {
+            this.allBirre = allBirre;
+        }
+
+        public List<Birra> getAllBirre() {
+            return allBirre;
         }
     }
 
