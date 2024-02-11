@@ -21,6 +21,12 @@ public class Birra {
     private int litriProdotti;
     @NonNull private long idRicetta;
 
+    public Birra(int litriProdotti, long idRicetta) {
+        this.idRicetta = idRicetta;
+        this.litriProdotti = litriProdotti;
+        terminata = false;
+    }
+
     public long getId() {
         return id;
     }

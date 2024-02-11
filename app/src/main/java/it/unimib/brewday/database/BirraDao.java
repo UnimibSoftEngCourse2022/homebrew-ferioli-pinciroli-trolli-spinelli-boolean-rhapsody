@@ -12,6 +12,6 @@ public interface BirraDao {
     @Insert
     long insertBirra(Birra birra);
 
-    @Query("SELECT * FROM Birra")
+    @Query("SELECT * FROM Birra ORDER BY terminata DESC")
     List<Birra> getAllBirre();
 }
