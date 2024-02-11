@@ -99,13 +99,13 @@ public class Risultato {
     }
 
     public static final class AllBirreSuccesso extends Risultato {
-        private final List<Birra> allBirre;
+        private final List<BirraConRicetta> allBirre;
 
-        public AllBirreSuccesso(List<Birra> allBirre) {
+        public AllBirreSuccesso(List<BirraConRicetta> allBirre) {
             this.allBirre = allBirre;
         }
 
-        public List<Birra> getAllBirre() {
+        public List<BirraConRicetta> getAllBirre() {
             return allBirre;
         }
     }
