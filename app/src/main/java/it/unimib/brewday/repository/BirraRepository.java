@@ -32,5 +32,18 @@ public class BirraRepository {
         });
     }
 
+    public void createBirra(Birra birra, Callback callback) {
 
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
+
+            long idBirraRegistrata = birraDao.insertBirra(birra);
+
+            if(idBirraRegistrata >= 0) {
+                callback.onComplete(new Risultato.Successo());
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.BIRRE_CREATION_ERROR));
+            }
+        });
+    }
 }

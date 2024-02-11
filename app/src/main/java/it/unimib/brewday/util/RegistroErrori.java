@@ -10,4 +10,5 @@ public class RegistroErrori {
     public static final String INGREDIENTI_FETCH_ERROR = "ingredienti_fetch_failed";
     public static final String INGREDIENTI_UPDATE_ERROR = "ingredienti_update_failed";
     public static final String BIRRE_FETCH_ERROR = "birre_fetch_failed";
+    public static final String BIRRE_CREATION_ERROR = "birre_creation_error";
 }
