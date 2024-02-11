@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -95,7 +96,7 @@ public class RicettaDettagliataFragment extends Fragment {
                 }
                 setAdapterIngredienti(false, listaIngredientiRicetta);
             } else{
-                Snackbar.make(view, "fdsa", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, "non riesco a recuperare gli ingredienti", BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 
