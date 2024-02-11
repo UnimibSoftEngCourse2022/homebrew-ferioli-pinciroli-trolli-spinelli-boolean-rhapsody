@@ -21,12 +21,12 @@ import it.unimib.brewday.R;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.TipoAttrezzo;
 
-public class GestisciAttrezziAdapter extends RecyclerView.Adapter<GestisciAttrezziAdapter.ViewHolder>{
+public class AttrezziAdapter extends RecyclerView.Adapter<AttrezziAdapter.ViewHolder>{
 
     private List<Attrezzo> listaAttrezzi;
-    private final GestisciAttrezziViewModel attrezziViewModel;
+    private final AttrezziViewModel attrezziViewModel;
 
-    public GestisciAttrezziAdapter(List<Attrezzo> dataList, GestisciAttrezziViewModel viewModel) {
+    public AttrezziAdapter(List<Attrezzo> dataList, AttrezziViewModel viewModel) {
         this.listaAttrezzi = dataList;
         attrezziViewModel = viewModel;
     }

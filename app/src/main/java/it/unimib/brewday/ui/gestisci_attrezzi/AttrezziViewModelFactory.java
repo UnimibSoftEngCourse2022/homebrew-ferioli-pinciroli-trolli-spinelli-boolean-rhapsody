@@ -6,17 +6,19 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-public class GestisciAttrezziViewModelFactory implements ViewModelProvider.Factory {
+import it.unimib.brewday.util.ServiceLocator;
+
+public class AttrezziViewModelFactory implements ViewModelProvider.Factory {
 
     public final Context context;
 
-    public GestisciAttrezziViewModelFactory(Context context) {
+    public AttrezziViewModelFactory(Context context) {
         this.context = context;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new GestisciAttrezziViewModel(context);
+        return (T) new AttrezziViewModel(ServiceLocator.getInstance().getAttrezziRepository(context));
     }
 }
