@@ -26,16 +26,19 @@ import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
+import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewListaIngredientiDisponibili;
 import it.unimib.brewday.util.GestioneRicette;
 
 
 public class RicettaDettagliataFragment extends Fragment {
 
 
-    AdapterListViewRicettaDettagliata adapterListViewRicettaDettagliata;
+    AdapterListViewListaIngredientiDisponibili adapterListViewListaIngredientiDisponibili;
     private FragmentRicettaDettagliataBinding fragmentRicettaDettagliataBinding;
     boolean visibile;
-    private List<IngredienteRicetta> listaIngredientiRicetta;
+    private List<IngredienteRicetta> listaIngredientiRicettaGL;
+
+    private List<Ingrediente> listaIngredientiRicetta = new ArrayList<>();
 
 
     GestioneRicette gestioneRicette;
@@ -69,7 +72,7 @@ public class RicettaDettagliataFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //ListView listViewIngredientiRicettaDettagliata = fragmentRicettaDettagliataBinding.listViewIngredrientiRicettaDettagliata;
+
         Button modificaRicettaButton = fragmentRicettaDettagliataBinding.buttonModificaRicetta;
         EditText numeroLitriRicettaBirra = fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra;
         EditText nomeRicetta = fragmentRicettaDettagliataBinding.textViewNomeRicetta;
@@ -78,6 +81,7 @@ public class RicettaDettagliataFragment extends Fragment {
 
         ricetteViewModel.getIngredientiRicetta(ricetta.getId());
         nomeRicetta.setText(ricetta.getNome());
+        numeroLitriRicettaBirra.setText(Integer.toString(ricetta.getLitriDiRiferimento()));
 
         visibile = false;
         numeroLitriRicettaBirra.setEnabled(visibile);
@@ -85,27 +89,11 @@ public class RicettaDettagliataFragment extends Fragment {
 
         ricetteViewModel.getIngredientiRicetteRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()){
-                listaIngredientiRicetta = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
-                //setAdapterIngredienti(false, listaIngredientiRicetta);
-                List<Ingrediente> ingredienti = new ArrayList<>();
-
-
-
-                adapterListViewRicettaDettagliata = new AdapterListViewRicettaDettagliata(getContext(), 0, listaIngredientiRicetta,
-                        R.layout.lista_ingredienti_singoli, new AdapterListViewRicettaDettagliata.OnItemClickListenerA() {
-                    @Override
-                    public void onAddIngredienteClick(IngredienteRicetta ingredienteRicetta) {
-
-                    }
-
-                    @Override
-                    public void onRemoveIngredienteClick(IngredienteRicetta ingredienteRicetta) {
-
-                    }
-                }, ingredienteRicetta -> {
-                }, true);
-                fragmentRicettaDettagliataBinding.listViewIngredrientiRicettaDettagliata.setAdapter(adapterListViewRicettaDettagliata);
-                fragmentRicettaDettagliataBinding.listViewIngredrientiRicettaDettagliata.setDivider(null);
+                listaIngredientiRicettaGL = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
+                for (IngredienteRicetta ingredienteRicetta: listaIngredientiRicettaGL) {
+                    listaIngredientiRicetta.add(new Ingrediente(ingredienteRicetta.getTipoIngrediente(), (int)ingredienteRicetta.getDosaggioIngrediente() * ricetta.getLitriDiRiferimento()));
+                }
+                setAdapterIngredienti(false, listaIngredientiRicetta);
             } else{
                 Snackbar.make(view, "fdsa", Snackbar.LENGTH_LONG).show();
             }
@@ -114,12 +102,11 @@ public class RicettaDettagliataFragment extends Fragment {
 
 
 
-        //setAdapterIngredienti(visibile, listaIngredientiRicetta);
 
 
-        modificaRicettaButton.setOnClickListener(v -> {
-                    setVisibile(visibile, view, numeroLitriRicettaBirra, listaIngredientiRicetta);
-                }
+        modificaRicettaButton.setOnClickListener(v ->
+                    setVisibile(visibile, view, nomeRicetta, numeroLitriRicettaBirra, listaIngredientiRicetta, ricetta)
+
         );
 
         numeroLitriRicettaBirra.setOnFocusChangeListener((v, hasFocus) ->
@@ -129,7 +116,7 @@ public class RicettaDettagliataFragment extends Fragment {
 
     }
 
-    private void setVisibile(boolean invertiVisibile, View view, EditText numeroLitriBirra, List<IngredienteRicetta> listaIngredientiRicetta){
+    private void setVisibile(boolean invertiVisibile, View view,EditText nomeRicetta , EditText numeroLitriBirra, List<Ingrediente> listaIngredientiRicetta, Ricetta ricetta){
 
         if (!invertiVisibile){
             fragmentRicettaDettagliataBinding.buttonModificaRicetta.setText(R.string.conferma);
@@ -138,10 +125,13 @@ public class RicettaDettagliataFragment extends Fragment {
             if( gestioneRicette.controlloCreazione(view, fragmentRicettaDettagliataBinding.textViewNomeRicetta, fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra)) {
 
 
-                List<IngredienteRicetta> listaIngredientiPerLitro = new ArrayList<>();
-                int zeroIngredinti = gestioneRicette.modificaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
 
-                salvaRicetta(view, zeroIngredinti, listaIngredientiPerLitro);
+                int zeroIngredinti = gestioneRicette.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiRicettaGL, numeroLitriBirra, ricetta.getId());
+
+                salvaRicetta(view, zeroIngredinti, listaIngredientiRicettaGL, listaIngredientiRicetta);
+                ricetta.setLitriDiRiferimento(Integer.parseInt(numeroLitriBirra.getText().toString()));
+                ricetta.setNome(nomeRicetta.getText().toString());
+                ricetteViewModel.updateRicetta(ricetta);
 
                 fragmentRicettaDettagliataBinding.buttonModificaRicetta.setText(R.string.modifica);
                 visibile = !invertiVisibile;
@@ -150,38 +140,36 @@ public class RicettaDettagliataFragment extends Fragment {
 
         fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra.setEnabled(visibile);
         fragmentRicettaDettagliataBinding.textViewNomeRicetta.setEnabled(visibile);
-        //setAdapterIngredienti(visibile, listaIngredientiRicetta);
+        setAdapterIngredienti(visibile, listaIngredientiRicetta);
 
     }
 
 
-    private void setAdapterIngredienti(boolean visible, List<IngredienteRicetta> listaIngredientiRicetta){
-        /*adapterListViewRicettaDettagliata = new AdapterListViewRicettaDettagliata(getContext(),
-                0, R.layout.lista_ingredienti_singoli, listaIngredientiRicetta, new AdapterListViewRicettaDettagliata.OnItemClickListenerA() {
-            @Override
-            public void onAddIngredienteClick(IngredienteRicetta ingredienteRicetta) {
+    private void setAdapterIngredienti(boolean visible, List<Ingrediente> listaIngredientiRicetta){
+        adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(),
+                0, listaIngredientiRicetta, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
 
+            @Override
+            public void onAddIngredienteClick(Ingrediente ingrediente) {
+                //vuoto
             }
 
             @Override
-            public void onRemoveIngredienteClick(IngredienteRicetta ingredienteRicetta) {
-
+            public void onRemoveIngredienteClick(Ingrediente ingrediente) {
+                //vuoto
             }
-        }, visible, new AdapterListViewRicettaDettagliata.OnFocusChangeListenerA() {
-            @Override
-            public void onChangeIngrediente(IngredienteRicetta ingredienteRicetta) {
+        }, ingrediente -> {
+            //vuoto
+        }, visible);
 
-            }
-        });*/
-
-        fragmentRicettaDettagliataBinding.listViewIngredrientiRicettaDettagliata.setAdapter(adapterListViewRicettaDettagliata);
+        fragmentRicettaDettagliataBinding.listViewIngredrientiRicettaDettagliata.setAdapter(adapterListViewListaIngredientiDisponibili);
         fragmentRicettaDettagliataBinding.listViewIngredrientiRicettaDettagliata.setDivider(null);
     }
 
-    private void salvaRicetta(View view, int zeroIngredinti , List<IngredienteRicetta> listaIngredientiPerLitro) {
+    private void salvaRicetta(View view, int zeroIngredinti , List<IngredienteRicetta> listaIngredientiRicettaGL, List<Ingrediente> listaIngredientiRicetta) {
         if (zeroIngredinti < 3) {
-            //TODO updateRicetta
-            setAdapterIngredienti(false,  listaIngredientiPerLitro);
+            ricetteViewModel.updateIngredientiRicetta(listaIngredientiRicettaGL);
+            setAdapterIngredienti(false,  listaIngredientiRicetta);
 
         } else {
             Snackbar.make(view, R.string.ingredienti_ricetta_mancanti, LENGTH_SHORT).show();

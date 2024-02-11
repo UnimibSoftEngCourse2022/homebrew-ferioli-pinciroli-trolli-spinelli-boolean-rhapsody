@@ -28,7 +28,7 @@ public interface RicettaDao {
 
     @Query(
             "SELECT idRicetta, tipoIngrediente, dosaggioIngrediente " +
-                    "FROM IngredienteRicetta WHERE idRicetta = :idRicetta"
+                    "FROM IngredienteRicetta WHERE idRicetta = :idRicetta ORDER BY tipoIngrediente ASC"
     )
     List<IngredienteRicetta> getIngredientiRicetta(long idRicetta);
 

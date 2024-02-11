@@ -106,7 +106,8 @@ public class CreaRicettaFragment extends Fragment {
                         List<IngredienteRicetta> listaIngredientiPerLitro = new ArrayList<>();
                         int zeroIngredinti = gestioneRicette.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
 
-                    salvaRicetta(view, zeroIngredinti, listaIngredientiPerLitro, new Ricetta(nomeRicetta.getText().toString(),Integer.parseInt(numeroLitriBirra.getText().toString()) ) );
+
+                    salvaRicetta(view, zeroIngredinti, listaIngredientiPerLitro, new Ricetta(nomeRicetta.getText().toString(),Integer.parseInt(numeroLitriBirra.getText().toString())));
                     }
         });
     }

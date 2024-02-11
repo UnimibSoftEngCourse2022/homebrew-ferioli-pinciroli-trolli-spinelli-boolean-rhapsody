@@ -45,29 +45,28 @@ public class GestioneRicette {
     public int creaListaIngredientiRicetta(List<Ingrediente> listaIngredientiRicetta, List<IngredienteRicetta> listaIngredientiRicettaPerLitro, EditText numeroLitriBirra){
             int zeroIngredinti = 0;
             double litriScelti = Double.parseDouble(numeroLitriBirra.getText().toString());
-
+                listaIngredientiRicettaPerLitro.clear();
 
             for (Ingrediente ingrediente: listaIngredientiRicetta) {
                 if(ingrediente.getQuantitaPosseduta() == 0) {
                     zeroIngredinti ++;
                 }
-                listaIngredientiRicettaPerLitro.add(new IngredienteRicetta( ingrediente.getTipo(),(int)Math.round(ingrediente.getQuantitaPosseduta() / litriScelti)));
+                listaIngredientiRicettaPerLitro.add(new IngredienteRicetta( ingrediente.getTipo(),ingrediente.getQuantitaPosseduta() / litriScelti));
             }
 
             return zeroIngredinti;
     }
 
-    public int modificaListaIngredientiRicetta(List<IngredienteRicetta> listaIngredientiRicetta, List<IngredienteRicetta> listaIngredientiRicettaPerLitro, EditText numeroLitriBirra){
+    public int creaListaIngredientiRicetta(List<Ingrediente> listaIngredientiRicetta, List<IngredienteRicetta> listaIngredientiRicettaPerLitro, EditText numeroLitriBirra, long idRicetta){
         int zeroIngredinti = 0;
         double litriScelti = Double.parseDouble(numeroLitriBirra.getText().toString());
+        listaIngredientiRicettaPerLitro.clear();
 
-
-        for (IngredienteRicetta ingrediente: listaIngredientiRicetta) {
-            if(ingrediente.getDosaggioIngrediente() == 0) {
+        for (Ingrediente ingrediente: listaIngredientiRicetta) {
+            if(ingrediente.getQuantitaPosseduta() == 0) {
                 zeroIngredinti ++;
             }
-            listaIngredientiRicettaPerLitro.add(new IngredienteRicetta( ingrediente.getTipoIngrediente(),
-                    (int)Math.round(ingrediente.getDosaggioIngrediente() / litriScelti)));
+            listaIngredientiRicettaPerLitro.add(new IngredienteRicetta( idRicetta, ingrediente.getTipo(),ingrediente.getQuantitaPosseduta() / litriScelti));
         }
 
         return zeroIngredinti;

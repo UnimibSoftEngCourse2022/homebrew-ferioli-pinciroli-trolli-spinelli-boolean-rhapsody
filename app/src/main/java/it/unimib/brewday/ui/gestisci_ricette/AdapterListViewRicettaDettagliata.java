@@ -28,7 +28,7 @@ import it.unimib.brewday.model.IngredienteRicetta;
 public class AdapterListViewRicettaDettagliata extends ArrayAdapter<IngredienteRicetta> {
 
     private final List<IngredienteRicetta> listaIngredienti;
-    private final boolean visibile;
+    private  boolean visibile;
     private final OnItemClickListenerA onItemClickListener;
     private final int layout;
     private final OnFocusChangeListenerA onFocusChangeListener;
