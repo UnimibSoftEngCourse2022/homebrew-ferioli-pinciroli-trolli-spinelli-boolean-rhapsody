@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/transparent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.gestisci_attrezzi.InserisciAttrezzoDialog">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/inserisciAttrezzoDialog_materialCardView"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/inserisciAttrezzoDialog_nomeAttrezzo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/nome_attrezzo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/inserisciAttrezzoDialog_tipologia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="60dp"
+                android:text="@string/tipologia"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inserisciAttrezzoDialog_capacita" />
+
+            <TextView
+                android:id="@+id/inserisciAttrezzoDialog_capacita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="60dp"
+                android:text="@string/capacit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inserisciAttrezzoDialog_nomeAttrezzo" />
+
+            <EditText
+                android:id="@+id/inserisciAttrezzoDialog_inserisciNome"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="@string/inserisci_nome"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.554"
+                app:layout_constraintStart_toEndOf="@+id/inserisciAttrezzoDialog_nomeAttrezzo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/inserisciAttrezzoDialog_inserisciCapacita"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="30dp"
+                android:ems="10"
+                android:hint="@string/inserisci_capacita"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.753"
+                app:layout_constraintStart_toEndOf="@+id/inserisciAttrezzoDialog_capacita"
+                app:layout_constraintTop_toBottomOf="@+id/inserisciAttrezzoDialog_inserisciNome" />
+
+            <Spinner
+                android:id="@+id/inserisciAttrezzoDialog_spinner"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.741"
+                app:layout_constraintStart_toEndOf="@+id/inserisciAttrezzoDialog_tipologia"
+                app:layout_constraintTop_toBottomOf="@+id/inserisciAttrezzoDialog_inserisciCapacita" />
+
+            <Button
+                android:id="@+id/inserisciAttrezzoDialog_conferma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/conferma"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inserisciAttrezzoDialog_spinner" />
+
+            <Button
+                android:id="@+id/inserisciAttrezzoDialog_annulla"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:text="@string/annulla"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/inserisciAttrezzoDialog_conferma" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

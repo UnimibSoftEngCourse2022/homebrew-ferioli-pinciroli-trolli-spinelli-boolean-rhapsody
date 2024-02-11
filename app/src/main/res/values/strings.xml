@@ -17,5 +17,16 @@
     <string name="ingredienti">Ingredienti</string>
     <string name="attrezzi">Attrezzi</string>
     <string name="tuoi_ingredienti">I tuoi Ingredienti:</string>
+    <string name="bottone_crea_ricetta">Bottone crea ricetta</string>
+    <string name="nome_ricetta">Nome Ricetta</string>
     <string name="brewday">BrewDay!</string>
+    <string name="ricetta_per">Ricetta per</string>
+    <string name="litri_di_birra">litri di Birra</string>
+    <string name="uno">1</string>
+    <string name="no_iingredienti_negativi">Non si possono avere ingredienti negativi</string>
+    <string name="nome_ricetta_mancante">Nome ricetta mancante</string>
+    <string name="litri_birra_ricetta_mancante">Litri di birra mancanti</string>
+    <string name="ingredienti_ricetta_mancanti">scegli più ingredienti</string>
+    <string name="attrezzi_dati_inaccettabili">Dati inseriti inaccettabili</string>
+    <string name="annulla">Annulla</string>
 </resources>

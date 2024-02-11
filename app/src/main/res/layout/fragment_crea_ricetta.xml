@@ -1,13 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="it.unimib.brewday.ui.CreaRicettaFragment">
+    tools:context="it.unimib.brewday.ui.gestisci_ricette.CreaRicettaFragment">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp">
+
+
+            <EditText
+                android:id="@+id/editText_nomeRicetta"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:hint="@string/nome_ricetta"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:textColor = "?android:colorPrimary"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ListView
+                android:id="@+id/listView_ingredrientiRicetta"
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                android:layout_marginTop="8dp"
+                android:listSelector="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_listaIngredienti"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_creaRicetta"
+                android:layout_width="wrap_content"
+                android:layout_height="64dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/crea_ricetta"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/listView_ingredrientiRicetta"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/textView_listaIngredienti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/ingredienti"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor = "?android:colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_numeroLitriBirra" />
+
+            <TextView
+                android:id="@+id/textView_numeroLitriBirra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/ricetta_per"
+                android:textColor = "?android:textColorPrimary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editText_nomeRicetta" />
+
+            <TextView
+                android:id="@+id/textView_numeroLitriBirra2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/litri_di_birra"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/editNumber_numeroLitriBirra"
+                app:layout_constraintTop_toBottomOf="@+id/editText_nomeRicetta" />
+
+
+            <EditText
+                android:id="@+id/editNumber_numeroLitriBirra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:inputType="number"
+                android:ems="1"
+                android:text="1"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_numeroLitriBirra"
+                app:layout_constraintStart_toEndOf="@+id/textView_numeroLitriBirra"
+                app:layout_constraintTop_toTopOf="@+id/textView_numeroLitriBirra" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("androidx.navigation.safeargs")
 }
 
 android {
@@ -32,6 +33,9 @@ android {
             isIncludeAndroidResources = true
         }
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 
@@ -50,6 +54,7 @@ val dexmakermockitoVersion = "1.2"
 val lifecycleVersion = "2.6.2"
 val legacySupportVersion = "1.0.0"
 
+val swipedecorator = "1.4"
 val roomAnnotationCompilerVersion = "2.6.1"
 
 dependencies {
@@ -79,6 +84,7 @@ dependencies {
     androidTestImplementation("androidx.test:rules:$testRulesVersion")
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressocoreVersion")
 
+    implementation ("it.xabaras.android:recyclerview-swipedecorator:$swipedecorator")
 
 
 
@@ -86,11 +92,6 @@ dependencies {
 
 
 
-
-    //Dipendenze richieste per room
-    val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
 
     //Dipendenze per fragment
     val  fragment_version = "1.6.2"

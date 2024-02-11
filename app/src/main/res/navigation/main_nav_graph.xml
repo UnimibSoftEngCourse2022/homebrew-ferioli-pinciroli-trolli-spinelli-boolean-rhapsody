@@ -7,9 +7,16 @@
 
     <fragment
         android:id="@+id/listaRicetteFragment"
-        android:name="it.unimib.brewday.ui.ListaRicetteFragment"
+        android:name="it.unimib.brewday.ui.gestisci_ricette.ListaRicetteFragment"
         android:label="Gestisci le tue ricette"
-        tools:layout="@layout/fragment_lista_ricette" />
+        tools:layout="@layout/fragment_lista_ricette" >
+        <action
+            android:id="@+id/action_listaRicetteFragment_to_creaRicettaFragment"
+            app:destination="@id/creaRicettaFragment" />
+        <action
+            android:id="@+id/action_listaRicetteFragment_to_ricettaDettagliataFragment"
+            app:destination="@id/ricettaDettagliataFragment" />
+    </fragment>
     <fragment
         android:id="@+id/birreFragment"
         android:name="it.unimib.brewday.ui.BirreFragment"
@@ -17,7 +24,7 @@
         tools:layout="@layout/fragment_birre" />
     <fragment
         android:id="@+id/creaRicettaFragment"
-        android:name="it.unimib.brewday.ui.CreaRicettaFragment"
+        android:name="it.unimib.brewday.ui.gestisci_ricette.CreaRicettaFragment"
         android:label="Crea una nuova ricetta"
         tools:layout="@layout/fragment_crea_ricetta" />
     <fragment
@@ -27,7 +34,21 @@
         tools:layout="@layout/fragment_ingredienti" />
     <fragment
         android:id="@+id/gestisciAttrezziFragment"
-        android:name="it.unimib.brewday.ui.gestisci_attrezzi.GestisciAttrezziFragment"
+        android:name="it.unimib.brewday.ui.gestisci_attrezzi.AttrezziFragment"
         android:label="Gestisci i tuoi attrezzi"
         tools:layout="@layout/fragment_gestisci_attrezzi" />
+    <fragment
+        android:id="@+id/ricettaDettagliataFragment"
+        android:name="it.unimib.brewday.ui.gestisci_ricette.RicettaDettagliataFragment"
+        android:label="fragment_ricetta_dettagliata"
+        tools:layout="@layout/fragment_ricetta_dettagliata" >
+        <argument
+            android:name="ricetta"
+            app:argType="it.unimib.brewday.model.Ricetta" />
+    </fragment>
+    <fragment
+        android:id="@+id/cosaDevoPreparareOggiFragment"
+        android:name="it.unimib.brewday.ui.CosaDevoPreparareOggiFragment"
+        android:label="fragment_cosa_devo_preparare_oggi"
+        tools:layout="@layout/fragment_cosa_devo_preparare_oggi" />
 </navigation>

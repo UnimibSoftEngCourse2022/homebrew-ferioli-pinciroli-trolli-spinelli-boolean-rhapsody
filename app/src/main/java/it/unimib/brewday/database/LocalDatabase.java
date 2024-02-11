@@ -17,11 +17,12 @@ import java.util.concurrent.Executors;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.Ricetta;
+import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.util.Converters;
 import it.unimib.brewday.util.Costanti;
 import it.unimib.brewday.util.ListaIngredienti;
 
-@Database(entities = {Attrezzo.class, Ingrediente.class, Ricetta.class}, version = 1)
+@Database(entities = {Attrezzo.class, Ingrediente.class, Ricetta.class, IngredienteRicetta.class}, version = 1)
 @TypeConverters({Converters.class})
 public abstract class LocalDatabase extends RoomDatabase {
 
@@ -30,6 +31,7 @@ public abstract class LocalDatabase extends RoomDatabase {
     //Lista dei DAO
     public abstract IngredienteDao ingredienteDao();
     public abstract AttrezzoDao attrezzoDao();
+    public abstract RicettaDao ricettaDao();
 
     //Istanza del DB
     private static volatile LocalDatabase INSTANCE;

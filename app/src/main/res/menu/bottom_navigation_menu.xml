@@ -11,10 +11,10 @@
         android:icon="@drawable/beer_svgrepo_com"
         android:title="@string/birre" />
     <item
-        android:id="@+id/creaRicettaFragment"
+        android:id="@+id/cosaDevoPreparareOggiFragment"
         android:enabled="true"
         android:icon="@drawable/new_svgrepo_com"
-        android:title="@string/crea_ricetta" />
+        android:title="BrewToday" />
     <item
         android:id="@+id/gestisciAttrezziFragment"
         android:enabled="true"

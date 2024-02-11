@@ -5,6 +5,7 @@ plugins {
 
 }
 
+
 sonar {
     properties {
         property("sonar.projectKey", "UnimibSoftEngCourse2022_homebrew-ferioli-pinciroli-trolli-spinelli-boolean-rhapsody")
@@ -12,3 +13,9 @@ sonar {
         property("sonar.host.url", "https://sonarcloud.io")
     }
 }
+buildscript {
+    dependencies {
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.6")
+    }
+}
+

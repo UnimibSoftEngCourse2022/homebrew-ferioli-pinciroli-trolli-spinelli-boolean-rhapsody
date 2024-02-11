@@ -19,7 +19,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView_ingrediente"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView_ingrediente"
-        tools:text="22.0" />
+        tools:text="22.0"
+        />
 
 
     <TextView
@@ -27,13 +28,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Acqua" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="Acqua"
+        android:textColor = "?android:textColorPrimary"
+        />
 
     <TextView
         android:id="@+id/textView_unitaMisura"
@@ -44,7 +48,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/editTextText_ingrediente"
         app:layout_constraintStart_toEndOf="@+id/editTextText_ingrediente"
         app:layout_constraintTop_toTopOf="@+id/editTextText_ingrediente"
-        tools:text="Kg" />
+        tools:text="g"
+        android:textColor = "?android:textColorPrimary" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
 
