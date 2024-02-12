@@ -27,6 +27,7 @@ import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
+import it.unimib.brewday.ui.gestione_birra.InserisciLitriDialog;
 import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewListaIngredientiDisponibili;
 import it.unimib.brewday.util.GestioneRicette;
 
@@ -77,6 +78,7 @@ public class RicettaDettagliataFragment extends Fragment {
         Button modificaRicettaButton = fragmentRicettaDettagliataBinding.buttonModificaRicetta;
         EditText numeroLitriRicettaBirra = fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra;
         EditText nomeRicetta = fragmentRicettaDettagliataBinding.textViewNomeRicetta;
+        Button preparaBirra = fragmentRicettaDettagliataBinding.buttonRicettaDettagliataPrepara;
         gestioneRicette = new GestioneRicette();
         Ricetta ricetta = RicettaDettagliataFragmentArgs.fromBundle(getArguments()).getRicetta();
 
@@ -108,6 +110,11 @@ public class RicettaDettagliataFragment extends Fragment {
                 setVisibile(visibile, view, nomeRicetta, numeroLitriRicettaBirra, listaIngredientiRicetta, ricetta)
 
         );
+
+        preparaBirra.setOnClickListener(v -> {
+            InserisciLitriDialog litriDialog = new InserisciLitriDialog(ricetta);
+            litriDialog.show(getParentFragmentManager(), "Scegli litri birra da preparare");
+        });
 
         numeroLitriRicettaBirra.setOnFocusChangeListener((v, hasFocus) ->
                 gestioneRicette.verificaNumeroLitriBirra(numeroLitriRicettaBirra, hasFocus)
