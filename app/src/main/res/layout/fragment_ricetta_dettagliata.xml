@@ -14,7 +14,7 @@
     <ListView
         android:id="@+id/listView_ingredrientiRicettaDettagliata"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="430dp"
         android:layout_marginTop="8dp"
         android:listSelector="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"

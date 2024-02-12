@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_listaRicetteFragment_to_ricettaDettagliataFragment"
             app:destination="@id/ricettaDettagliataFragment" />
+        <action
+            android:id="@+id/action_listaRicetteFragment_to_preparaBirraFragment"
+            app:destination="@id/preparaBirraFragment" />
     </fragment>
     <fragment
         android:id="@+id/birreFragment"

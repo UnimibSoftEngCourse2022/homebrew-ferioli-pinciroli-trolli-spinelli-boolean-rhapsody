@@ -27,6 +27,7 @@ import java.util.List;
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
+import it.unimib.brewday.ui.gestione_birra.InserisciLitriDialog;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class ListaRicetteFragment extends Fragment {
@@ -102,7 +103,8 @@ public class ListaRicetteFragment extends Fragment {
 
                     @Override
                     public void onAggiungiRicettaClick(Ricetta ricetta) {
-                        //vuoto
+                        InserisciLitriDialog litriDialog = new InserisciLitriDialog(ricetta, view, true );
+                        litriDialog.show(getParentFragmentManager(), "Scegli litri birra da preparare");
                     }
                 }
         );

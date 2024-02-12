@@ -15,17 +15,22 @@ import android.widget.EditText;
 
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ricetta;
+import it.unimib.brewday.ui.gestisci_ricette.ListaRicetteFragment;
+import it.unimib.brewday.ui.gestisci_ricette.ListaRicetteFragmentDirections;
 import it.unimib.brewday.ui.gestisci_ricette.RicettaDettagliataFragmentDirections;
 
 
 public class InserisciLitriDialog extends DialogFragment {
 
     private Ricetta ricetta;
-    private View fragmentRicettaView;
+    private View viewRicettaView;
 
-    public InserisciLitriDialog(Ricetta ricetta, View view) {
+    private boolean daListaRicette;
+
+    public InserisciLitriDialog(Ricetta ricetta, View view , boolean daListaRicette) {
         this.ricetta = ricetta;
-        this.fragmentRicettaView = view;
+        this.viewRicettaView = view;
+        this.daListaRicette = daListaRicette;
     }
 
     @NonNull
@@ -48,9 +53,18 @@ public class InserisciLitriDialog extends DialogFragment {
         );
 
         prepara.setOnClickListener(v -> {
-            RicettaDettagliataFragmentDirections.ActionRicettaDettagliataFragmentToPreparaBirraFragment action =
-                    RicettaDettagliataFragmentDirections.actionRicettaDettagliataFragmentToPreparaBirraFragment(ricetta, Integer.parseInt(numeroLitriBirra.getText().toString()));
-            Navigation.findNavController(fragmentRicettaView).navigate(action);
+
+            if(daListaRicette){
+                ListaRicetteFragmentDirections.ActionListaRicetteFragmentToPreparaBirraFragment action =
+                        ListaRicetteFragmentDirections.actionListaRicetteFragmentToPreparaBirraFragment(ricetta, Integer.parseInt(numeroLitriBirra.getText().toString()));
+                Navigation.findNavController(viewRicettaView).navigate(action);
+            }else {
+                RicettaDettagliataFragmentDirections.ActionRicettaDettagliataFragmentToPreparaBirraFragment action =
+                        RicettaDettagliataFragmentDirections.actionRicettaDettagliataFragmentToPreparaBirraFragment(ricetta, Integer.parseInt(numeroLitriBirra.getText().toString()));
+                Navigation.findNavController(viewRicettaView).navigate(action);
+            }
+
+
             this.dismiss();
         });
 

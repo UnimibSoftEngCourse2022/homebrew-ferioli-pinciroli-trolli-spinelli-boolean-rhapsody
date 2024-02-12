@@ -112,7 +112,7 @@ public class RicettaDettagliataFragment extends Fragment {
         );
 
         preparaBirra.setOnClickListener(v -> {
-            InserisciLitriDialog litriDialog = new InserisciLitriDialog(ricetta, view);
+            InserisciLitriDialog litriDialog = new InserisciLitriDialog(ricetta, view, false);
             litriDialog.show(getParentFragmentManager(), "Scegli litri birra da preparare");
         });
 
