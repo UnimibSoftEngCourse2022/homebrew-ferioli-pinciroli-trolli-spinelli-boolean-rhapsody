@@ -92,15 +92,14 @@ public class RicettaDettagliataFragment extends Fragment {
             if (risultato.isSuccessful()){
                 listaIngredientiRicettaGL = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
                 for (IngredienteRicetta ingredienteRicetta: listaIngredientiRicettaGL) {
-                    listaIngredientiRicetta.add(new Ingrediente(ingredienteRicetta.getTipoIngrediente(), (int)ingredienteRicetta.getDosaggioIngrediente() * ricetta.getLitriDiRiferimento()));
+                    listaIngredientiRicetta.add(new Ingrediente(ingredienteRicetta.getTipoIngrediente(),
+                            (int) (ingredienteRicetta.getDosaggioIngrediente() * ricetta.getLitriDiRiferimento())));
                 }
                 setAdapterIngredienti(false, listaIngredientiRicetta);
             } else{
                 Snackbar.make(view, "non riesco a recuperare gli ingredienti", BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
-
-
 
 
 
@@ -123,9 +122,8 @@ public class RicettaDettagliataFragment extends Fragment {
             fragmentRicettaDettagliataBinding.buttonModificaRicetta.setText(R.string.conferma);
             visibile = !invertiVisibile;
         } else {
-            if( gestioneRicette.controlloCreazione(view, fragmentRicettaDettagliataBinding.textViewNomeRicetta, fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra)) {
-
-
+            if( gestioneRicette.controlloCreazione(view, fragmentRicettaDettagliataBinding.textViewNomeRicetta,
+                    fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra)) {
 
                 int zeroIngredinti = gestioneRicette.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiRicettaGL, numeroLitriBirra, ricetta.getId());
 
