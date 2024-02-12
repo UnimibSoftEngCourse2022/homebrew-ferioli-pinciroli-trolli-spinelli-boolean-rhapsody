@@ -101,7 +101,6 @@ public class PreparaBirraFragment extends Fragment {
             //Navigation
         });
 
-
     }
 
     public static double round(double n, int decimals) {

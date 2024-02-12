@@ -90,21 +90,25 @@
 
     <Button
         android:id="@+id/button_modificaRicetta"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:text="@string/modifica"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_ricettaDettagliata_prepara"
         app:layout_constraintTop_toBottomOf="@+id/listView_ingredrientiRicettaDettagliata"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/button_ricettaDettagliata_prepara"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="64dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:text="Prepara"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

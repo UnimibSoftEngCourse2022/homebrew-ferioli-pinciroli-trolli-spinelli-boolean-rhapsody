@@ -125,6 +125,7 @@ public class RicettaDettagliataFragment extends Fragment {
 
         if (!invertiVisibile){
             fragmentRicettaDettagliataBinding.buttonModificaRicetta.setText(R.string.conferma);
+            fragmentRicettaDettagliataBinding.buttonRicettaDettagliataPrepara.setVisibility(View.GONE);
             visibile = !invertiVisibile;
         } else {
             if( gestioneRicette.controlloCreazione(view, fragmentRicettaDettagliataBinding.textViewNomeRicettaDettagliata,
@@ -138,6 +139,7 @@ public class RicettaDettagliataFragment extends Fragment {
                 ricetteViewModel.updateRicetta(ricetta);
 
                 fragmentRicettaDettagliataBinding.buttonModificaRicetta.setText(R.string.modifica);
+                fragmentRicettaDettagliataBinding.buttonRicettaDettagliataPrepara.setVisibility(View.VISIBLE);
                 visibile = !invertiVisibile;
             }
         }
