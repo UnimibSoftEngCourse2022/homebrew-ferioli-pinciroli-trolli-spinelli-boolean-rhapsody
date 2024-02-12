@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,7 +57,7 @@ public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
         private final TextView nomeBirra;
         private final TextView numeroLitri;
         private final Button terminaProduzione;
-        private final CardView cardContainer;
+        private final ConstraintLayout innerCardContainer;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -64,7 +65,7 @@ public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
             nomeBirra = itemView.findViewById(R.id.textView_nomeBirra);
             numeroLitri = itemView.findViewById(R.id.textView_numeroLitri);
             terminaProduzione = itemView.findViewById(R.id.button_terminaProduzione);
-            cardContainer = itemView.findViewById(R.id.cardView_birra);
+            innerCardContainer = itemView.findViewById(R.id.cardView_birra);
 
             itemView.setOnClickListener(view -> {
                 //listener in risposta al click sull'intera cella
@@ -76,10 +77,14 @@ public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
 
         public void bind(BirraConRicetta birra){
             nomeBirra.setText(birra.ricetta.getNome());
-            numeroLitri.setText(birra.birra.getLitriProdotti());
+            numeroLitri.setText(birra.birra.getLitriProdotti() + "L");
             if(birra.birra.isTerminata()){
                 terminaProduzione.setVisibility(View.GONE);
-                cardContainer.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_primaryContainer));
+                innerCardContainer.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_secondaryContainer));
+            }
+            else{
+                terminaProduzione.setVisibility(View.VISIBLE);
+                innerCardContainer.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_primaryContainer));
             }
         }
 

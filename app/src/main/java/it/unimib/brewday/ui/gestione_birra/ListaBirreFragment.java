@@ -14,6 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import it.unimib.brewday.R;
@@ -40,6 +43,7 @@ public class ListaBirreFragment extends Fragment {
         birraViewModel = new ViewModelProvider(this,
                 new BirraViewModelFactory(getContext()))
                 .get(BirraViewModel.class);
+        listaBirre = new ArrayList<>();
     }
 
     @Override
@@ -68,14 +72,14 @@ public class ListaBirreFragment extends Fragment {
             }
         });
 
-        birraViewModel.getCreateBirraResult().observe(getViewLifecycleOwner(), risultato -> {
+        birraViewModel.getAllBirreResult().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
                 listaBirre.clear();
                 listaBirre.addAll(((Risultato.AllBirreSuccesso) risultato).getAllBirre());
                 birreAdapter.notifyDataSetChanged();
             }
             else{
-                //gestione errore
+                Snackbar.make(view, "Perdindirindina", Snackbar.LENGTH_LONG).show();
             }
         });
 
