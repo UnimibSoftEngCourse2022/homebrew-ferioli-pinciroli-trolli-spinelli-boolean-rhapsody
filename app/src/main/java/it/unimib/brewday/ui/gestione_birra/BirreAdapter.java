@@ -1,11 +1,14 @@
 package it.unimib.brewday.ui.gestione_birra;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -13,29 +16,33 @@ import java.util.List;
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.BirraConRicetta;
 
-public class BirraAdapter extends RecyclerView.Adapter<BirraAdapter.ViewHolder>{
+public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
 
-    private final List<BirraConRicetta> birre;
+    private final List<BirraConRicetta> listaBirre;
     private final itemClickCallback callback;
 
-    public BirraAdapter(List<BirraConRicetta> birre, itemClickCallback callback) {
-        this.birre = birre;
+    public BirreAdapter(List<BirraConRicetta> listaBirre, itemClickCallback callback) {
+        this.listaBirre = listaBirre;
         this.callback = callback;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.elemento_lista_birre, parent, false);
+        return new BirreAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        //da implementare
+        holder.bind(listaBirre.get(position));
     }
 
     @Override
     public int getItemCount() {
+        if (listaBirre != null){
+            return listaBirre.size();
+        }
         return 0;
     }
 
@@ -43,12 +50,13 @@ public class BirraAdapter extends RecyclerView.Adapter<BirraAdapter.ViewHolder>{
 
 
 
-    //Classe che gestisce l'associazione tra i dati e la UI di un singolo elemneto della lista
+    //Classe che gestisce l'associazione tra i dati e la UI di un singolo elemento della lista
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         private final TextView nomeBirra;
         private final TextView numeroLitri;
         private final Button terminaProduzione;
+        private final CardView cardContainer;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -56,6 +64,7 @@ public class BirraAdapter extends RecyclerView.Adapter<BirraAdapter.ViewHolder>{
             nomeBirra = itemView.findViewById(R.id.textView_nomeBirra);
             numeroLitri = itemView.findViewById(R.id.textView_numeroLitri);
             terminaProduzione = itemView.findViewById(R.id.button_terminaProduzione);
+            cardContainer = itemView.findViewById(R.id.cardView_birra);
 
             itemView.setOnClickListener(view -> {
                 //listener in risposta al click sull'intera cella
@@ -65,8 +74,13 @@ public class BirraAdapter extends RecyclerView.Adapter<BirraAdapter.ViewHolder>{
             });
         }
 
-        public void Bind(BirraConRicetta birra){
-            //scrivere il binding
+        public void bind(BirraConRicetta birra){
+            nomeBirra.setText(birra.ricetta.getNome());
+            numeroLitri.setText(birra.birra.getLitriProdotti());
+            if(birra.birra.isTerminata()){
+                terminaProduzione.setVisibility(View.GONE);
+                cardContainer.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_primaryContainer));
+            }
         }
 
     }

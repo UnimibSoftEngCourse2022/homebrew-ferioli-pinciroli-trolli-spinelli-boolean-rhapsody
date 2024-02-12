@@ -10,5 +10,5 @@ public class BirraConRicetta {
             parentColumn = "id",
             entityColumn = "id"
     )
-    public Ricetta nomeRicetta;
+    public Ricetta ricetta;
 }

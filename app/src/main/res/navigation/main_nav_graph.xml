@@ -19,9 +19,9 @@
     </fragment>
     <fragment
         android:id="@+id/birreFragment"
-        android:name="it.unimib.brewday.ui.gestione_birra.BirreFragment"
+        android:name="it.unimib.brewday.ui.gestione_birra.ListaBirreFragment"
         android:label="Gestisci le tue birre"
-        tools:layout="@layout/fragment_birre" >
+        tools:layout="@layout/fragment_lista_birre" >
         <action
             android:id="@+id/action_birreFragment_to_birraDettagliataFragment"
             app:destination="@id/birraDettagliataFragment" />

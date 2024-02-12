@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="it.unimib.brewday.ui.gestione_birra.BirreFragment">
+    tools:context="it.unimib.brewday.ui.gestione_birra.ListaBirreFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_listaBirre"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

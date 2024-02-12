@@ -1,0 +1,88 @@
+package it.unimib.brewday.ui.gestione_birra;
+
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import java.util.List;
+
+import it.unimib.brewday.R;
+import it.unimib.brewday.databinding.FragmentListaBirreBinding;
+import it.unimib.brewday.model.BirraConRicetta;
+import it.unimib.brewday.model.Risultato;
+
+
+public class ListaBirreFragment extends Fragment {
+
+    private List<BirraConRicetta> listaBirre;
+    private BirraViewModel birraViewModel;
+    FragmentListaBirreBinding fragmentListaBirreBinding;
+
+    public ListaBirreFragment() {}
+
+    public static ListaBirreFragment newInstance() {
+        return new ListaBirreFragment();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        birraViewModel = new ViewModelProvider(this,
+                new BirraViewModelFactory(getContext()))
+                .get(BirraViewModel.class);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        fragmentListaBirreBinding = FragmentListaBirreBinding.inflate(inflater, container, false);
+        return fragmentListaBirreBinding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        RecyclerView recyclerViewBirre = fragmentListaBirreBinding.recyclerViewListaBirre;
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
+
+        BirreAdapter birreAdapter = new BirreAdapter(listaBirre, new BirreAdapter.itemClickCallback() {
+            @Override
+            public void onElementoBirraClick(BirraConRicetta birra) {
+                // TODO implementare
+            }
+
+            @Override
+            public void onTerminaBirraClick(BirraConRicetta birra) {
+                // TODO implementare
+            }
+        });
+
+        birraViewModel.getCreateBirraResult().observe(getViewLifecycleOwner(), risultato -> {
+            if(risultato.isSuccessful()){
+                listaBirre.clear();
+                listaBirre.addAll(((Risultato.AllBirreSuccesso) risultato).getAllBirre());
+                birreAdapter.notifyDataSetChanged();
+            }
+            else{
+                //gestione errore
+            }
+        });
+
+        birraViewModel.getAllBirre();
+
+
+        recyclerViewBirre.setLayoutManager(layoutManager);
+        recyclerViewBirre.setAdapter(birreAdapter);
+    }
+}
