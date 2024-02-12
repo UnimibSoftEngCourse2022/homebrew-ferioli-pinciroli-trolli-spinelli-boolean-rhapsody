@@ -23,8 +23,8 @@
                 style="@android:style/Widget.Material.ImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/md_theme_light_primaryContainer"
                 android:contentDescription="@string/cancella_attrezzatura"
                 android:src="@drawable/trash_can_svgrepo_com"
@@ -42,7 +42,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/oneRowCard_textViewCaoacita"
+                android:id="@+id/oneRowCard_textViewCapacita"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -67,12 +67,12 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
+                android:autofillHints=""
                 android:ems="10"
-                android:inputType="none"
                 android:hint="@string/inserisci_nome"
+                android:inputType="none"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:autofillHints="" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/oneRowCard_capacitaReale"
@@ -100,21 +100,21 @@
                 android:id="@+id/oneRowCard_buttonModifica"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/modifica"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/oneRowCard_imageCancella" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <Button
                 android:id="@+id/oneRowCard_conferma"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/conferma"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/oneRowCard_buttonModifica" />
+                app:layout_constraintEnd_toStartOf="@+id/oneRowCard_imageCancella"
+                app:layout_constraintStart_toEndOf="@+id/oneRowCard_buttonModifica" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
