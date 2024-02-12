@@ -1,7 +1,6 @@
 package it.unimib.brewday.ui.gestisci_ricette;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +65,7 @@ public class RicetteRecyclerViewAdapter extends
 
         public RicettaViewHolder(@NonNull View itemView) {
             super(itemView);
-            nomeRicetta = itemView.findViewById(R.id.textView_nomeRicetta);
+            nomeRicetta = itemView.findViewById(R.id.textView_nomeRicettaRecyclerView);
             aggiungiRicetta = itemView.findViewById(R.id.imageButton_aggiungiRicetta);
 
             itemView.setOnClickListener(this);

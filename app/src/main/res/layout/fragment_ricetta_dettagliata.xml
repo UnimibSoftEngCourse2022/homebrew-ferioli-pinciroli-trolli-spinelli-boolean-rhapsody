@@ -24,7 +24,7 @@
         />
 
     <EditText
-        android:id="@+id/textView_nomeRicetta"
+        android:id="@+id/textView_nomeRicettaDettagliata"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -47,7 +47,7 @@
         android:textColor = "?android:textColorPrimary"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_nomeRicetta" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_nomeRicettaDettagliata" />
 
     <EditText
         android:id="@+id/editTextNumber_litriRicettaBirra"

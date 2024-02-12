@@ -46,11 +46,13 @@ public class AdapterListViewIngredientiBirra extends ArrayAdapter<IngredienteRic
     }
 
     private void aggiornaVisualizzazioneIngredienti(IngredienteRicetta ingredienteRicetta, TextView quantitaIngrediente, TextView unitaMisura) {
-        quantitaIngrediente.setText(ingredienteRicetta.getDosaggioIngredienteToString());
+
         if (ingredienteRicetta.getTipoIngrediente().getNome().equalsIgnoreCase(ACQUA)) {
             unitaMisura.setText(" L");
+            quantitaIngrediente.setText(ingredienteRicetta.getDosaggioIngredienteToString());
         } else {
             unitaMisura.setText(" g");
+            quantitaIngrediente.setText(Integer.toString((int) ingredienteRicetta.getDosaggioIngrediente()));
         }
     }
 }

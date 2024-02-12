@@ -28,7 +28,7 @@
 
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/textView_nomeRicetta"
+                android:id="@+id/textView_nomeRicettaRecyclerView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -46,9 +46,9 @@
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/cardview_light_background"
                 android:src="@drawable/baseline_add_24"
-                app:layout_constraintBottom_toBottomOf="@+id/textView_nomeRicetta"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_nomeRicettaDettagliata"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView_nomeRicetta"
+                app:layout_constraintTop_toTopOf="@+id/textView_nomeRicettaDettagliata"
                 tools:contentDescription="Bottone iniza la Ricetta" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

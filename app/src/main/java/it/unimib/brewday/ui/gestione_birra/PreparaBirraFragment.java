@@ -16,10 +16,10 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 import it.unimib.brewday.R;
 import it.unimib.brewday.databinding.FragmentPreparaBirraBinding;
+import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
@@ -32,6 +32,7 @@ public class PreparaBirraFragment extends Fragment {
 
     private FragmentPreparaBirraBinding fragmentPreparaBirraBinding;
     private RicetteViewModel ricetteViewModel;
+    private BirraViewModel birraViewModel;
 
     List<IngredienteRicetta> listaIngredientiBirra = new ArrayList<>();
 
@@ -50,8 +51,9 @@ public class PreparaBirraFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ricetteViewModel = new ViewModelProvider(this,
-                new RicetteViewModelFactory(getContext()))
-                .get(RicetteViewModel.class);
+                new RicetteViewModelFactory(getContext())).get(RicetteViewModel.class);
+        birraViewModel = new ViewModelProvider(this,
+                new BirraViewModelFactory(getContext())).get(BirraViewModel.class);
     }
 
     @Override
@@ -73,27 +75,36 @@ public class PreparaBirraFragment extends Fragment {
         ricetteViewModel.getIngredientiRicetta(ricetta.getId());
         fragmentPreparaBirraBinding.textViewNomePreparaBirra.setText(ricetta.getNome());
 
-        /*listaIngredientiBirra.get().add(new IngredienteRicetta(ricetta.getId() ,TipoIngrediente.ACQUA, 0.0));
-        listaIngredientiBirra.get().add(new IngredienteRicetta(ricetta.getId() ,TipoIngrediente.ADDITIVI, 0.0));
-        listaIngredientiBirra.get().add(new IngredienteRicetta(ricetta.getId() ,TipoIngrediente.LUPPOLO, 0.0));
-        listaIngredientiBirra.get().add(new IngredienteRicetta(ricetta.getId() ,TipoIngrediente.MALTO, 0.0));
-        listaIngredientiBirra.get().add(new IngredienteRicetta(ricetta.getId() ,TipoIngrediente.ZUCCHERO, 0.0));
-        listaIngredientiBirra.get().add(new IngredienteRicetta(ricetta.getId() ,TipoIngrediente.LIEVITI, 0.0));
-*/
 
-            ricetteViewModel.getIngredientiRicetteRisultato().observe(getViewLifecycleOwner(), risultato ->  {
-                if (risultato.isSuccessful()){
-                    listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
-                    for (IngredienteRicetta ingredienteRicetta : listaIngredientiBirra) {
-                        ingredienteRicetta.setDosaggioIngrediente(ingredienteRicetta.getDosaggioIngrediente()*litriBirraScelti);
+        ricetteViewModel.getIngredientiRicetteRisultato().observe(getViewLifecycleOwner(), risultato ->  {
+            if (risultato.isSuccessful()){
+                listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
+                for (IngredienteRicetta ingredienteRicetta : listaIngredientiBirra) {
+                    if (ingredienteRicetta.getTipoIngrediente().equals(TipoIngrediente.ACQUA)){
+                        ingredienteRicetta.setDosaggioIngrediente(round(ingredienteRicetta.getDosaggioIngrediente()*litriBirraScelti, 1));
+                    } else {
+                        ingredienteRicetta.setDosaggioIngrediente(Math.round(ingredienteRicetta.getDosaggioIngrediente()*litriBirraScelti));
                     }
+
+                }
+
                 adapterListViewIngredientiBirra = new AdapterListViewIngredientiBirra(getContext(), R.layout.lista_ingredienti_birra, listaIngredientiBirra);
+                fragmentPreparaBirraBinding.listViewIngredrientiPreparaBirra.setAdapter(adapterListViewIngredientiBirra);
+                fragmentPreparaBirraBinding.listViewIngredrientiPreparaBirra.setDivider(null);
             } else {
                 Snackbar.make(view, "non riesco a recuperare gli ingredienti", BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 
-        //adapterListViewIngredientiBirra = new AdapterListViewIngredientiBirra(getContext(), R.layout.lista_ingredienti_birra, listaIngredientiBirra);
+        fragmentPreparaBirraBinding.buttonRicettaPreparaBirra.setOnClickListener(v -> {
+            birraViewModel.createBirra(new Birra(litriBirraScelti, ricetta.getId()));
+            //Navigation
+        });
 
+
+    }
+
+    public static double round(double n, int decimals) {
+        return Math.floor(n * Math.pow(10, decimals)) / Math.pow(10, decimals);
     }
 }

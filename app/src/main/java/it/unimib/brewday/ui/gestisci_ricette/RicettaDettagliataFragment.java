@@ -77,7 +77,7 @@ public class RicettaDettagliataFragment extends Fragment {
 
         Button modificaRicettaButton = fragmentRicettaDettagliataBinding.buttonModificaRicetta;
         EditText numeroLitriRicettaBirra = fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra;
-        EditText nomeRicetta = fragmentRicettaDettagliataBinding.textViewNomeRicetta;
+        EditText nomeRicetta = fragmentRicettaDettagliataBinding.textViewNomeRicettaDettagliata;
         Button preparaBirra = fragmentRicettaDettagliataBinding.buttonRicettaDettagliataPrepara;
         gestioneRicette = new GestioneRicette();
         Ricetta ricetta = RicettaDettagliataFragmentArgs.fromBundle(getArguments()).getRicetta();
@@ -127,7 +127,7 @@ public class RicettaDettagliataFragment extends Fragment {
             fragmentRicettaDettagliataBinding.buttonModificaRicetta.setText(R.string.conferma);
             visibile = !invertiVisibile;
         } else {
-            if( gestioneRicette.controlloCreazione(view, fragmentRicettaDettagliataBinding.textViewNomeRicetta,
+            if( gestioneRicette.controlloCreazione(view, fragmentRicettaDettagliataBinding.textViewNomeRicettaDettagliata,
                     fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra)) {
 
                 int zeroIngredinti = gestioneRicette.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiRicettaGL, numeroLitriBirra, ricetta.getId());
@@ -143,7 +143,7 @@ public class RicettaDettagliataFragment extends Fragment {
         }
 
         fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra.setEnabled(visibile);
-        fragmentRicettaDettagliataBinding.textViewNomeRicetta.setEnabled(visibile);
+        fragmentRicettaDettagliataBinding.textViewNomeRicettaDettagliata.setEnabled(visibile);
         setAdapterIngredienti(visibile, listaIngredientiRicetta);
 
     }
