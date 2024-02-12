@@ -65,10 +65,10 @@ public class AttrezziAdapter extends RecyclerView.Adapter<AttrezziAdapter.ViewHo
 
             //Controllo sulla tipologia di bottone
             if(holder.modifica.getText().equals("Modifica")) {
-                holder.modifica.setText(R.string.cancella);
+                holder.modifica.setText(R.string.annulla);
                 holder.conferma.setVisibility(View.VISIBLE);
             }
-            else if(holder.modifica.getText().equals("Cancella")) {
+            else if(holder.modifica.getText().equals("Annulla")) {
 
                 holder.modifica.setText(R.string.modifica);
                 holder.conferma.setVisibility(View.INVISIBLE);
