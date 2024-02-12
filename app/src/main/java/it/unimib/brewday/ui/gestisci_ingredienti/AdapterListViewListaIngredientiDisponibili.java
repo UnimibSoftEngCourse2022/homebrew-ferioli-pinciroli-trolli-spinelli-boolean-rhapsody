@@ -127,8 +127,6 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
         } else {
             unitaMisura.setText(" g");
         }
-
-
     }
 
     private void aggiungiQuantitaIngrediente(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {
