@@ -105,15 +105,13 @@ public class RicettaDettagliataFragment extends Fragment {
 
 
         modificaRicettaButton.setOnClickListener(v ->
-                    setVisibile(visibile, view, nomeRicetta, numeroLitriRicettaBirra, listaIngredientiRicetta, ricetta)
+                setVisibile(visibile, view, nomeRicetta, numeroLitriRicettaBirra, listaIngredientiRicetta, ricetta)
 
         );
 
         numeroLitriRicettaBirra.setOnFocusChangeListener((v, hasFocus) ->
                 gestioneRicette.verificaNumeroLitriBirra(numeroLitriRicettaBirra, hasFocus)
         );
-
-
     }
 
     private void setVisibile(boolean invertiVisibile, View view,EditText nomeRicetta , EditText numeroLitriBirra, List<Ingrediente> listaIngredientiRicetta, Ricetta ricetta){
@@ -174,6 +172,5 @@ public class RicettaDettagliataFragment extends Fragment {
             Snackbar.make(view, R.string.ingredienti_ricetta_mancanti, LENGTH_SHORT).show();
         }
     }
-
 
 }

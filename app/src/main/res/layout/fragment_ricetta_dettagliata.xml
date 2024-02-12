@@ -54,10 +54,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-
         android:hint="@string/uno"
         android:inputType="number"
-        android:text="1"
+        android:text="@string/uno"
         android:textAlignment="textEnd"
         android:textColorHint="@color/seed"
         app:layout_constraintBottom_toBottomOf="@+id/textView_ricettaPer"
