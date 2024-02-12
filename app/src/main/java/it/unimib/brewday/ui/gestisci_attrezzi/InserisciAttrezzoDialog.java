@@ -11,7 +11,6 @@ import android.widget.Spinner;
 
 import androidx.fragment.app.DialogFragment;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -21,10 +20,10 @@ import it.unimib.brewday.model.TipoAttrezzo;
 
 public class InserisciAttrezzoDialog extends DialogFragment {
 
-    private final GestisciAttrezziViewModel gestisciAttrezziViewModel;
+    private final AttrezziViewModel attrezziViewModel;
 
-    public InserisciAttrezzoDialog(GestisciAttrezziViewModel gestisciAttrezziViewModel) {
-        this.gestisciAttrezziViewModel = gestisciAttrezziViewModel;
+    public InserisciAttrezzoDialog(AttrezziViewModel attrezziViewModel) {
+        this.attrezziViewModel = attrezziViewModel;
     }
 
     @Override
@@ -67,7 +66,7 @@ public class InserisciAttrezzoDialog extends DialogFragment {
                 String tipo = spinner.getSelectedItem().toString();
                 Attrezzo attrezzo = new Attrezzo(nome, TipoAttrezzo.valueOf(tipo.toUpperCase()), capacita);
 
-                gestisciAttrezziViewModel.createAttrezzo(attrezzo);
+                attrezziViewModel.createAttrezzo(attrezzo);
                 nomeAttrezzo.setText(null);
                 capacitaAttrezzo.setText(null);
                 spinner.setAdapter(adapter);

@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -101,7 +102,7 @@ public class ListaRicetteFragment extends Fragment {
 
                     @Override
                     public void onAggiungiRicettaClick(Ricetta ricetta) {
-
+                        //vuoto
                     }
                 }
         );
@@ -128,15 +129,15 @@ public class ListaRicetteFragment extends Fragment {
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int posizione = viewHolder.getBindingAdapterPosition();
-            switch (direction) {
-                case ItemTouchHelper.LEFT:
+
+                if(direction == ItemTouchHelper.LEFT) {
                     ricettaRimossa = listaRicette.get(posizione);
                     ricettaRimossaMessaggio = "Rimossa la ricetta "+listaRicette.get(posizione).getNome();
                     listaRicette.remove(posizione);
                     ricettaViewModel.deleteRicetta(ricettaRimossa);
                     ricetteRecyclerViewAdapter.notifyItemRemoved(posizione);
-                    Snackbar.make(recyclerViewRicette, ricettaRimossaMessaggio, Snackbar.LENGTH_SHORT).show();
-                    break;
+                    Snackbar.make(recyclerViewRicette, ricettaRimossaMessaggio, BaseTransientBottomBar.LENGTH_SHORT).show();
+
             }
         }
 

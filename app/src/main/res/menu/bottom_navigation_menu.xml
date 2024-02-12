@@ -14,7 +14,7 @@
         android:id="@+id/cosaDevoPreparareOggiFragment"
         android:enabled="true"
         android:icon="@drawable/new_svgrepo_com"
-        android:title="BrewToday" />
+        android:title="@string/brewToday" />
     <item
         android:id="@+id/gestisciAttrezziFragment"
         android:enabled="true"

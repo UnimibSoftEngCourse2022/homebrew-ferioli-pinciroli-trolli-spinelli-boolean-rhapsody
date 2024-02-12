@@ -1,8 +1,6 @@
 package it.unimib.brewday.ui.gestisci_ingredienti;
 
 
-import android.content.Context;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,7 +10,6 @@ import java.util.List;
 import it.unimib.brewday.repository.IngredienteRepository;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.Ingrediente;
-import it.unimib.brewday.util.ServiceLocator;
 
 public class IngredienteViewModel extends ViewModel {
     private final MutableLiveData<Risultato>  readAllIngredientiMutableLiveData;
@@ -23,11 +20,11 @@ public class IngredienteViewModel extends ViewModel {
 
     IngredienteRepository ingredienteRepository;
 
-    public IngredienteViewModel(Context context) {
+    public IngredienteViewModel(IngredienteRepository ingredienteRepository) {
         readAllIngredientiMutableLiveData = new MutableLiveData<>();
         updateIngredientiMutableLiveData = new MutableLiveData<>();
         updateIngredienteMutableLiveData = new MutableLiveData<>();
-        ingredienteRepository = ServiceLocator.getInstance().getIngredienteRepository(context);
+        this.ingredienteRepository = ingredienteRepository;
     }
 
     public void readAllIngredienti(){

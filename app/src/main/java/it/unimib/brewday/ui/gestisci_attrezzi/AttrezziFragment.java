@@ -13,44 +13,35 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Spinner;
 
-import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Risultato;
-import it.unimib.brewday.model.TipoAttrezzo;
 
-public class GestisciAttrezziFragment extends Fragment {
+public class AttrezziFragment extends Fragment {
 
-    private GestisciAttrezziViewModel mViewModel;
-    private GestisciAttrezziAdapter attrezziAdapter;
+    private AttrezziViewModel mViewModel;
+    private AttrezziAdapter attrezziAdapter;
     private RecyclerView recyclerView;
 
-    public GestisciAttrezziFragment() {
+    public AttrezziFragment() {
         super(R.layout.fragment_gestisci_attrezzi);
     }
 
-    public static GestisciAttrezziFragment newInstance() {
-        return new GestisciAttrezziFragment();
+    public static AttrezziFragment newInstance() {
+        return new AttrezziFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(this,
-                new GestisciAttrezziViewModelFactory(getContext()))
-                .get(GestisciAttrezziViewModel.class);
+                new AttrezziViewModelFactory(getContext()))
+                .get(AttrezziViewModel.class);
     }
 
     @Override
@@ -104,7 +95,7 @@ public class GestisciAttrezziFragment extends Fragment {
         if (risultato.isSuccessful() && risultato instanceof Risultato.AttrezziSuccesso) {
             List<Attrezzo> nuoviAttrezzi = ((Risultato.AttrezziSuccesso) risultato).getAttrezzi();
             if (attrezziAdapter == null) {
-                attrezziAdapter = new GestisciAttrezziAdapter(nuoviAttrezzi, mViewModel);
+                attrezziAdapter = new AttrezziAdapter(nuoviAttrezzi, mViewModel);
                 recyclerView.setAdapter(attrezziAdapter);
             } else {
                 attrezziAdapter.setDataList(nuoviAttrezzi);

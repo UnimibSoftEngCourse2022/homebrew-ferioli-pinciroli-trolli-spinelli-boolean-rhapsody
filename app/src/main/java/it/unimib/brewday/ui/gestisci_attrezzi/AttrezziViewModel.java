@@ -1,7 +1,5 @@
 package it.unimib.brewday.ui.gestisci_attrezzi;
 
-import android.content.Context;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -9,9 +7,8 @@ import androidx.lifecycle.ViewModel;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.repository.AttrezziRepository;
-import it.unimib.brewday.util.ServiceLocator;
 
-public class GestisciAttrezziViewModel extends ViewModel {
+public class AttrezziViewModel extends ViewModel {
 
     private final MutableLiveData<Risultato> allAttrezzi;
     private final MutableLiveData<Risultato> createAttrezzoResult;
@@ -22,7 +19,7 @@ public class GestisciAttrezziViewModel extends ViewModel {
 
     private final AttrezziRepository attrezziRepository;
 
-    public GestisciAttrezziViewModel(Context context) {
+    public AttrezziViewModel(AttrezziRepository attrezziRepository) {
 
         allAttrezzi = new MutableLiveData<>();
         createAttrezzoResult = new MutableLiveData<>();
@@ -31,7 +28,7 @@ public class GestisciAttrezziViewModel extends ViewModel {
 
         isAddCardVisible = new MutableLiveData<>(false);
 
-        attrezziRepository = ServiceLocator.getInstance().getAttrezziRepository(context);
+        this.attrezziRepository = attrezziRepository;
     }
 
     public void readAllAttrezzi() {

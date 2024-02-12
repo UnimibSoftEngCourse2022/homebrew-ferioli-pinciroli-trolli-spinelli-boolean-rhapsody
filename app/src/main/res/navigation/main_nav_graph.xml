@@ -34,7 +34,7 @@
         tools:layout="@layout/fragment_ingredienti" />
     <fragment
         android:id="@+id/gestisciAttrezziFragment"
-        android:name="it.unimib.brewday.ui.gestisci_attrezzi.GestisciAttrezziFragment"
+        android:name="it.unimib.brewday.ui.gestisci_attrezzi.AttrezziFragment"
         android:label="Gestisci i tuoi attrezzi"
         tools:layout="@layout/fragment_gestisci_attrezzi" />
     <fragment

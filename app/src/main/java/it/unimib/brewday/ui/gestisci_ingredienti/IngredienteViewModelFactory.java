@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import it.unimib.brewday.util.ServiceLocator;
+
 public class IngredienteViewModelFactory implements ViewModelProvider.Factory{
 
  private final Context context;
@@ -18,6 +20,6 @@ public class IngredienteViewModelFactory implements ViewModelProvider.Factory{
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass){
-        return (T) new IngredienteViewModel(context);
+        return (T) new IngredienteViewModel(ServiceLocator.getInstance().getIngredienteRepository(context));
     }
 }

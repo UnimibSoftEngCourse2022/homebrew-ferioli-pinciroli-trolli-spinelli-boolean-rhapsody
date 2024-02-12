@@ -5,18 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.gestisci_attrezzi.GestisciAttrezziFragment">
+    tools:context=".ui.gestisci_attrezzi.AttrezziFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/gestisciAttrezziFragment_imageButton_add"
-        style="@android:style/Widget.Material.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
-        android:backgroundTint="@color/md_theme_light_primaryContainer"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:contentDescription="@string/aggiungiAttrezzatura_descrizione"
-        android:src="@drawable/plus_large_svgrepo_com"
+        android:src="@drawable/baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
