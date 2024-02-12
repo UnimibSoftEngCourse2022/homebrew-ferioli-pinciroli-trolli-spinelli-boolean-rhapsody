@@ -64,5 +64,14 @@
         android:id="@+id/inserisciLitriDialog"
         android:name="it.unimib.brewday.ui.gestione_birra.InserisciLitriDialog"
         android:label="fragment_inserisci_litri_dialog"
-        tools:layout="@layout/fragment_inserisci_litri_dialog" />
+        tools:layout="@layout/fragment_inserisci_litri_dialog" >
+        <action
+            android:id="@+id/action_inserisciLitriDialog_to_preparaBirraFragment"
+            app:destination="@id/preparaBirraFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/preparaBirraFragment"
+        android:name="it.unimib.brewday.ui.gestione_birra.PreparaBirraFragment"
+        android:label="fragment_prepara_birra"
+        tools:layout="@layout/fragment_prepara_birra" />
 </navigation>
