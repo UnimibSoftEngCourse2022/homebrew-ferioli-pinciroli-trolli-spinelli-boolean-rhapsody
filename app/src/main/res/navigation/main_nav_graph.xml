@@ -49,6 +49,9 @@
         <argument
             android:name="ricetta"
             app:argType="it.unimib.brewday.model.Ricetta" />
+        <action
+            android:id="@+id/action_ricettaDettagliataFragment_to_preparaBirraFragment"
+            app:destination="@id/preparaBirraFragment" />
     </fragment>
     <fragment
         android:id="@+id/cosaDevoPreparareOggiFragment"
@@ -61,17 +64,15 @@
         android:label="fragment_birra_dettagliata"
         tools:layout="@layout/fragment_birra_dettagliata" />
     <fragment
-        android:id="@+id/inserisciLitriDialog"
-        android:name="it.unimib.brewday.ui.gestione_birra.InserisciLitriDialog"
-        android:label="fragment_inserisci_litri_dialog"
-        tools:layout="@layout/fragment_inserisci_litri_dialog" >
-        <action
-            android:id="@+id/action_inserisciLitriDialog_to_preparaBirraFragment"
-            app:destination="@id/preparaBirraFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/preparaBirraFragment"
         android:name="it.unimib.brewday.ui.gestione_birra.PreparaBirraFragment"
         android:label="fragment_prepara_birra"
-        tools:layout="@layout/fragment_prepara_birra" />
+        tools:layout="@layout/fragment_prepara_birra" >
+        <argument
+            android:name="Ricetta"
+            app:argType="it.unimib.brewday.model.Ricetta" />
+        <argument
+            android:name="numeroLitriBirraScelti"
+            app:argType="integer" />
+    </fragment>
 </navigation>

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.navigation.Navigation;
 
 import android.view.View;
 import android.widget.Button;
@@ -14,14 +15,17 @@ import android.widget.EditText;
 
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ricetta;
+import it.unimib.brewday.ui.gestisci_ricette.RicettaDettagliataFragmentDirections;
 
 
 public class InserisciLitriDialog extends DialogFragment {
 
     private Ricetta ricetta;
+    private View fragmentRicettaView;
 
-    public InserisciLitriDialog(Ricetta ricetta) {
+    public InserisciLitriDialog(Ricetta ricetta, View view) {
         this.ricetta = ricetta;
+        this.fragmentRicettaView = view;
     }
 
     @NonNull
@@ -40,12 +44,13 @@ public class InserisciLitriDialog extends DialogFragment {
 
 
         annulla.setOnClickListener(v ->
-
             this.dismiss()
         );
 
         prepara.setOnClickListener(v -> {
-            Integer.parseInt(numeroLitriBirra.getText().toString());
+            RicettaDettagliataFragmentDirections.ActionRicettaDettagliataFragmentToPreparaBirraFragment action =
+                    RicettaDettagliataFragmentDirections.actionRicettaDettagliataFragmentToPreparaBirraFragment(ricetta, Integer.parseInt(numeroLitriBirra.getText().toString()));
+            Navigation.findNavController(fragmentRicettaView).navigate(action);
             this.dismiss();
         });
 
