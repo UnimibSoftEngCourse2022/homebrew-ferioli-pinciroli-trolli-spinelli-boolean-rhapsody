@@ -99,10 +99,7 @@ public class IngredientiFragment extends Fragment {
 
     private void aggiornaDBIngrediente(Ingrediente ingrediente){
         ingredienteViewModel.updateIngrediente(ingrediente);
-
-
     }
-
 
 
 }

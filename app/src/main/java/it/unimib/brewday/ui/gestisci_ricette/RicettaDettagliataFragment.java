@@ -93,6 +93,7 @@ public class RicettaDettagliataFragment extends Fragment {
         ricetteViewModel.getIngredientiRicetteRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()){
                 listaIngredientiRicettaGL = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
+                listaIngredientiRicetta.clear();
                 for (IngredienteRicetta ingredienteRicetta: listaIngredientiRicettaGL) {
                     listaIngredientiRicetta.add(new Ingrediente(ingredienteRicetta.getTipoIngrediente(),
                             (int) (ingredienteRicetta.getDosaggioIngrediente() * ricetta.getLitriDiRiferimento())));
