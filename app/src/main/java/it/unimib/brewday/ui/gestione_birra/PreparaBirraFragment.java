@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -126,8 +127,12 @@ public class PreparaBirraFragment extends Fragment {
             if (creaBirra){
                 birraViewModel.createBirra(new Birra(litriBirraScelti, ricetta.getId()));
                 ingredienteViewModel.updateIngredienti(listaIngredientiDifferenza);
+                //Navigation
+                Navigation.findNavController(requireView()).navigate(R.id.action_preparaBirraFragment_to_birreFragment);
+            } else {
+                Snackbar.make(view, "Attenzione ti mancano degli ingredienti", BaseTransientBottomBar.LENGTH_SHORT).show();
             }
-            //Navigation
+
         });
 
     }
