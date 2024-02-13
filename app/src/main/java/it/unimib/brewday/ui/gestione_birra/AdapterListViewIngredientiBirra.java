@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.util.List;
 
 import it.unimib.brewday.R;
@@ -38,26 +40,32 @@ public class AdapterListViewIngredientiBirra extends ArrayAdapter<IngredienteRic
         }
         TextView nomeIngrediente = convertView.findViewById(R.id.textView_ingrediente_birra);
         TextView unitaMisura = convertView.findViewById(R.id.textView_unitaMisura_birra);
-        TextView quantitaIngrediente = convertView.findViewById(R.id.textView_quantitaIngredienteBirra);
+        TextInputLayout quantitaIngrediente = convertView.findViewById(R.id.textInputLayout_quantitaIngredienteBirra);
 
+        quantitaIngrediente.setEnabled(false);
         nomeIngrediente.setText(listaIngredientiRicetta.get(position).getTipoIngrediente().getNome());
-        aggiornaVisualizzazioneIngredienti(listaIngredientiRicetta.get(position), quantitaIngrediente, unitaMisura);
+        aggiornaVisualizzazioneIngredienti(listaIngredientiRicetta.get(position), quantitaIngrediente, unitaMisura, listaIngredientiDifferenza.get(position));
 
-        if (listaIngredientiDifferenza.get(position).getQuantitaPosseduta() < 0){
-            quantitaIngrediente.requestFocus();
-            quantitaIngrediente.setError("Prova "+ (-listaIngredientiDifferenza.get(position).getQuantitaPosseduta()));
-        }
+
         return convertView;
     }
 
-    private void aggiornaVisualizzazioneIngredienti(IngredienteRicetta ingredienteRicetta, TextView quantitaIngrediente, TextView unitaMisura) {
+    private void aggiornaVisualizzazioneIngredienti(IngredienteRicetta ingredienteRicetta, TextInputLayout quantitaIngrediente, TextView unitaMisura, Ingrediente ingrediente) {
 
         if (ingredienteRicetta.getTipoIngrediente().getNome().equalsIgnoreCase(ACQUA)) {
             unitaMisura.setText(" L");
-            quantitaIngrediente.setText(ingredienteRicetta.getDosaggioIngredienteToString());
+            quantitaIngrediente.getEditText().setText(ingredienteRicetta.getDosaggioIngredienteToString());
+            if (ingrediente.getQuantitaPosseduta() < 0){
+                quantitaIngrediente.setError("Ti mancano "+ (- ingrediente.getQuantitaPosseduta())+ " l");
+            }
         } else {
             unitaMisura.setText(" g");
-            quantitaIngrediente.setText(Integer.toString((int) ingredienteRicetta.getDosaggioIngrediente()));
+            quantitaIngrediente.getEditText().setText(Integer.toString((int) ingredienteRicetta.getDosaggioIngrediente()));
+            if (ingrediente.getQuantitaPosseduta() < 0){
+                quantitaIngrediente.setError("Ti mancano "+ (- ingrediente.getQuantitaPosseduta())+ " g");
+            }
         }
     }
+
+
 }

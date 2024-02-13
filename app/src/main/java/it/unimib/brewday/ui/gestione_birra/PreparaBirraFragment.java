@@ -43,6 +43,7 @@ public class PreparaBirraFragment extends Fragment {
     List<Ingrediente> listaIngredientiDisponibili = new ArrayList<>();
     List<Attrezzo> listaAttrezziDisponibili = new ArrayList<>();
     List<Ingrediente> listaIngredientiDifferenza;
+    private boolean creaBirra;
 
     private AdapterListViewIngredientiBirra adapterListViewIngredientiBirra;
     public PreparaBirraFragment() {
@@ -81,6 +82,7 @@ public class PreparaBirraFragment extends Fragment {
 
         Ricetta ricetta = PreparaBirraFragmentArgs.fromBundle(getArguments()).getRicetta();
         int litriBirraScelti = PreparaBirraFragmentArgs.fromBundle(getArguments()).getNumeroLitriBirraScelti();
+        creaBirra = false;
 
 
         ricetteViewModel.getIngredientiRicetta(ricetta.getId());
@@ -116,11 +118,15 @@ public class PreparaBirraFragment extends Fragment {
                 adapterListViewIngredientiBirra = new AdapterListViewIngredientiBirra(getContext(), R.layout.lista_ingredienti_birra, listaIngredientiBirra, listaIngredientiDifferenza);
                 fragmentPreparaBirraBinding.listViewIngredrientiPreparaBirra.setAdapter(adapterListViewIngredientiBirra);
                 fragmentPreparaBirraBinding.listViewIngredrientiPreparaBirra.setDivider(null);
+                fragmentPreparaBirraBinding.listViewIngredrientiPreparaBirra.getItemsCanFocus();
             }
         });
 
         fragmentPreparaBirraBinding.buttonRicettaPreparaBirra.setOnClickListener(v -> {
-            birraViewModel.createBirra(new Birra(litriBirraScelti, ricetta.getId()));
+            if (creaBirra){
+                birraViewModel.createBirra(new Birra(litriBirraScelti, ricetta.getId()));
+                ingredienteViewModel.updateIngredienti(listaIngredientiDifferenza);
+            }
             //Navigation
         });
 
@@ -131,9 +137,13 @@ public class PreparaBirraFragment extends Fragment {
     }
 
     public void calcolaDifferenzaIngredienti(){
+        creaBirra = true;
         for(int i=0; i < listaIngredientiBirra.size(); i++){
             int differenza =  listaIngredientiDisponibili.get(i).getQuantitaPosseduta() - ((int) Math.round(listaIngredientiBirra.get(i).getDosaggioIngrediente()));
             Ingrediente ingrediente = new Ingrediente(listaIngredientiBirra.get(0).getTipoIngrediente(), differenza);
+            if (differenza < 0){
+                creaBirra = false;
+            }
             listaIngredientiDifferenza.add(ingrediente);
         }
     }

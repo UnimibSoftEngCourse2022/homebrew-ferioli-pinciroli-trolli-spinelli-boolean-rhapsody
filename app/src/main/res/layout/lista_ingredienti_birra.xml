@@ -28,23 +28,29 @@
         android:layout_marginStart="4dp"
         android:textColor="?android:textColorPrimary"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_quantitaIngredienteBirra"
-        app:layout_constraintStart_toEndOf="@+id/textView_quantitaIngredienteBirra"
-        app:layout_constraintTop_toTopOf="@+id/textView_quantitaIngredienteBirra"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textInputLayout_quantitaIngredienteBirra"
+        app:layout_constraintStart_toEndOf="@+id/textInputLayout_quantitaIngredienteBirra"
         tools:text="g" />
 
-    <TextView
-        android:id="@+id/textView_quantitaIngredienteBirra"
-        android:layout_width="wrap_content"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_quantitaIngredienteBirra"
+        android:layout_width="156dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="96dp"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="24sp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_ingrediente_birra"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView_ingrediente_birra"
-        tools:text="32" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_quantitaIngredienteBirra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textAlignment="textEnd"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="20sp"
+            tools:hint="hint" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

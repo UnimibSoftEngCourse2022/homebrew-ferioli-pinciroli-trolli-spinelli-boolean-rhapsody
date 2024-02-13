@@ -77,5 +77,8 @@
         <argument
             android:name="numeroLitriBirraScelti"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_preparaBirraFragment_to_birreFragment"
+            app:destination="@id/birreFragment" />
     </fragment>
 </navigation>
