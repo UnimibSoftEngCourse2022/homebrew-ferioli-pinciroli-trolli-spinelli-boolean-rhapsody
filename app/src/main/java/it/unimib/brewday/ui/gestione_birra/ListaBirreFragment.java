@@ -68,8 +68,8 @@ public class ListaBirreFragment extends Fragment {
 
             @Override
             public void onTerminaBirraClick(BirraConRicetta birra) {
-                //birra.setTerminata(true);
-                //birraViewModel.updateBirra(birra);
+                birra.setTerminata(true);
+                birraViewModel.updateBirra(birra);
             }
         });
 
@@ -81,6 +81,18 @@ public class ListaBirreFragment extends Fragment {
             }
             else{
                 Snackbar.make(view, "Perdindirindina", Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+        birraViewModel.getUpdateBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
+
+            //sembra che qui non ci arrivi mai, debuggare senza Camillo tra i coglioni
+
+            if(risultato.isSuccessful()){
+                Snackbar.make(view, "Funzica", Snackbar.LENGTH_LONG).show();
+            }
+            else{
+                Snackbar.make(view, "NON VA", Snackbar.LENGTH_LONG).show();
             }
         });
 

@@ -70,7 +70,7 @@ public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
                 //listener in risposta al click sull'intera cella
             });
             terminaProduzione.setOnClickListener(view -> {
-                //listener in risposta al click sul bottone termina della cella
+                callback.onTerminaBirraClick(listaBirre.get(getBindingAdapterPosition()));
             });
         }
 
