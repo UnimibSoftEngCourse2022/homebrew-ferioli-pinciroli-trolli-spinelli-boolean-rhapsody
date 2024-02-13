@@ -12,6 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
+
 import java.util.List;
 
 import it.unimib.brewday.R;
@@ -80,11 +82,11 @@ public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
             numeroLitri.setText(birra.getLitriProdotti() + "L");
             if(birra.isTerminata()){
                 terminaProduzione.setVisibility(View.GONE);
-                innerCardContainer.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_secondaryContainer));
+                innerCardContainer.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_secondaryContainer));
             }
             else{
                 terminaProduzione.setVisibility(View.VISIBLE);
-                innerCardContainer.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_primaryContainer));
+                innerCardContainer.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_primaryContainer));
             }
         }
 
