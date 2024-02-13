@@ -8,11 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
@@ -59,7 +56,7 @@ public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
         private final TextView nomeBirra;
         private final TextView numeroLitri;
         private final Button terminaProduzione;
-        private final CardView innerCardContainer;
+        private final CardView cardBirra;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -67,7 +64,7 @@ public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
             nomeBirra = itemView.findViewById(R.id.textView_nomeBirra);
             numeroLitri = itemView.findViewById(R.id.textView_numeroLitri);
             terminaProduzione = itemView.findViewById(R.id.button_terminaProduzione);
-            innerCardContainer = itemView.findViewById(R.id.cardView_birra);
+            cardBirra = itemView.findViewById(R.id.cardView_birra);
 
             itemView.setOnClickListener(view -> {
                 //listener in risposta al click sull'intera cella
@@ -82,11 +79,11 @@ public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
             numeroLitri.setText(birra.getLitriProdotti() + "L");
             if(birra.isTerminata()){
                 terminaProduzione.setVisibility(View.GONE);
-                innerCardContainer.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_secondaryContainer));
+                cardBirra.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_secondaryContainer));
             }
             else{
                 terminaProduzione.setVisibility(View.VISIBLE);
-                innerCardContainer.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_primaryContainer));
+                cardBirra.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_primaryContainer));
             }
         }
 
