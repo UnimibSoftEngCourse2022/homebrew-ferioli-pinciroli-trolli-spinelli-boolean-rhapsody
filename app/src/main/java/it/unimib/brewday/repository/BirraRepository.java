@@ -47,4 +47,19 @@ public class BirraRepository {
             }
         });
     }
+
+    public void updateBirra(Birra birra, Callback callback){
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
+
+            int numeroBirreModificate = birraDao.updateBirra(birra);
+
+            if(numeroBirreModificate > 0){
+                callback.onComplete(new Risultato.Successo());
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.BIRRE_UPDATE_ERROR));
+            }
+
+        });
+    }
 }

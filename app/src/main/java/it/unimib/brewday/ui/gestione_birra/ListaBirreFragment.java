@@ -68,7 +68,8 @@ public class ListaBirreFragment extends Fragment {
 
             @Override
             public void onTerminaBirraClick(BirraConRicetta birra) {
-                // TODO implementare
+                //birra.setTerminata(true);
+                //birraViewModel.updateBirra(birra);
             }
         });
 

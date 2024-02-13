@@ -3,6 +3,7 @@ package it.unimib.brewday.database;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -19,4 +20,7 @@ public interface BirraDao {
             "FROM birra AS B JOIN Ricetta AS R ON B.idRicetta = R.id " +
             "ORDER BY B.terminata ASC")
     List<BirraConRicetta> getAllBirre();
+
+    @Update
+    int updateBirra(Birra birra);
 }
