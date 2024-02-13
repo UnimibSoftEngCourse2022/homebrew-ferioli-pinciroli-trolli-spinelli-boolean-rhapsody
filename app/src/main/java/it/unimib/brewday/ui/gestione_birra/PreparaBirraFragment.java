@@ -64,7 +64,7 @@ public class PreparaBirraFragment extends Fragment {
                 new BirraViewModelFactory(getContext())).get(BirraViewModel.class);
         ingredienteViewModel = new ViewModelProvider(this,
                 new IngredienteViewModelFactory(getContext())).get(IngredienteViewModel.class);
-        listaIngredientiDisponibili = new ArrayList<>();
+
     }
 
     @Override
@@ -110,6 +110,7 @@ public class PreparaBirraFragment extends Fragment {
             if (risultato.isSuccessful()){
                 listaIngredientiDisponibili = ((Risultato.IngredientiSuccesso) risultato).getData();
 
+                listaIngredientiDifferenza = new ArrayList<>();
                 calcolaDifferenzaIngredienti();
 
                 adapterListViewIngredientiBirra = new AdapterListViewIngredientiBirra(getContext(), R.layout.lista_ingredienti_birra, listaIngredientiBirra, listaIngredientiDifferenza);
@@ -122,8 +123,7 @@ public class PreparaBirraFragment extends Fragment {
             birraViewModel.createBirra(new Birra(litriBirraScelti, ricetta.getId()));
             //Navigation
         });
-        fragmentPreparaBirraBinding.textViewNomePreparaBirra.requestFocus();
-        fragmentPreparaBirraBinding.textViewNomePreparaBirra.setError("Coglione");
+
     }
 
     public static double round(double n, int decimals) {
@@ -132,7 +132,7 @@ public class PreparaBirraFragment extends Fragment {
 
     public void calcolaDifferenzaIngredienti(){
         for(int i=0; i < listaIngredientiBirra.size(); i++){
-            int differenza = (int) Math.round(listaIngredientiDisponibili.get(i).getQuantitaPosseduta() - listaIngredientiBirra.get(0).getDosaggioIngrediente());
+            int differenza =  listaIngredientiDisponibili.get(i).getQuantitaPosseduta() - ((int) Math.round(listaIngredientiBirra.get(i).getDosaggioIngrediente()));
             Ingrediente ingrediente = new Ingrediente(listaIngredientiBirra.get(0).getTipoIngrediente(), differenza);
             listaIngredientiDifferenza.add(ingrediente);
         }
