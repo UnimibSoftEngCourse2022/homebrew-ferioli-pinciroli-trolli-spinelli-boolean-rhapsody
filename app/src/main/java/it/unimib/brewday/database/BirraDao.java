@@ -15,6 +15,8 @@ public interface BirraDao {
     @Insert
     long insertBirra(Birra birra);
 
-    @Query("SELECT * FROM Birra ORDER BY terminata ASC")
+    @Query("SELECT B.id, B.litriProdotti, B.idRicetta, B.terminata, R.nome AS nomeRicetta " +
+            "FROM birra AS B JOIN Ricetta AS R ON B.idRicetta = R.id " +
+            "ORDER BY B.terminata ASC")
     List<BirraConRicetta> getAllBirre();
 }

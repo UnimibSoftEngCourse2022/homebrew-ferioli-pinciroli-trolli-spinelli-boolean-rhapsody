@@ -6,17 +6,19 @@
     android:layout_height="wrap_content"
     android:elevation="32dp"
     android:padding="2dp"
-    android:background="?android:selectableItemBackground"
+
     android:descendantFocusability="blocksDescendants">
 
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="2dp"
-        app:cardCornerRadius="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/md_theme_light_primaryContainer"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,17 +26,21 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?android:selectableItemBackground"
             android:padding="4dp">
 
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/textView_nomeRicettaRecyclerView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageButton_aggiungiRicetta"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Birrozza Scura da paura" />
@@ -44,11 +50,11 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginEnd="8dp"
-                android:backgroundTint="@color/cardview_light_background"
+                android:backgroundTint="@color/md_theme_light_primaryContainer"
                 android:src="@drawable/baseline_add_24"
-                app:layout_constraintBottom_toBottomOf="@+id/textView_nomeRicettaDettagliata"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_nomeRicettaRecyclerView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView_nomeRicettaDettagliata"
+                app:layout_constraintTop_toTopOf="@+id/textView_nomeRicettaRecyclerView"
                 tools:contentDescription="Bottone iniza la Ricetta" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
