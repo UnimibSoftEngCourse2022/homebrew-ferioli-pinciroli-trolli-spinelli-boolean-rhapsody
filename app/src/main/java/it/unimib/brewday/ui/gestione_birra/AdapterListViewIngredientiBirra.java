@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,10 +22,12 @@ public class AdapterListViewIngredientiBirra extends ArrayAdapter<IngredienteRic
 
     private int layout;
     private List<IngredienteRicetta> listaIngredientiRicetta;
-    public AdapterListViewIngredientiBirra(@NonNull Context context, int resource, List<IngredienteRicetta> listaIngredientiRicetta) {
+    private List<Ingrediente> listaIngredientiDifferenza;
+    public AdapterListViewIngredientiBirra(@NonNull Context context, int resource, List<IngredienteRicetta> listaIngredientiRicetta, List<Ingrediente> ingredientiDifferenza) {
         super(context, resource, listaIngredientiRicetta);
         layout = resource;
         this.listaIngredientiRicetta = listaIngredientiRicetta;
+        this.listaIngredientiDifferenza = ingredientiDifferenza;
     }
 
     @NonNull
