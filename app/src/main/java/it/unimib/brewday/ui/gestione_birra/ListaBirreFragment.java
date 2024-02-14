@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +18,6 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unimib.brewday.R;
 import it.unimib.brewday.databinding.FragmentListaBirreBinding;
 import it.unimib.brewday.model.BirraConRicetta;
 import it.unimib.brewday.model.Risultato;
@@ -60,7 +58,7 @@ public class ListaBirreFragment extends Fragment {
         RecyclerView recyclerViewBirre = fragmentListaBirreBinding.recyclerViewListaBirre;
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
 
-        BirreAdapter birreAdapter = new BirreAdapter(listaBirre, new BirreAdapter.itemClickCallback() {
+        ListaBirreAdapter listaBirreAdapter = new ListaBirreAdapter(listaBirre, new ListaBirreAdapter.itemClickCallback() {
             @Override
             public void onElementoBirraClick(BirraConRicetta birra) {
                 // TODO implementare
@@ -77,7 +75,7 @@ public class ListaBirreFragment extends Fragment {
             if(risultato.isSuccessful()){
                 listaBirre.clear();
                 listaBirre.addAll(((Risultato.AllBirreSuccesso) risultato).getAllBirre());
-                birreAdapter.notifyDataSetChanged();
+                listaBirreAdapter.notifyDataSetChanged();
             }
             else{
                 Snackbar.make(view, "Perdindirindina", Snackbar.LENGTH_LONG).show();
@@ -100,6 +98,6 @@ public class ListaBirreFragment extends Fragment {
 
 
         recyclerViewBirre.setLayoutManager(layoutManager);
-        recyclerViewBirre.setAdapter(birreAdapter);
+        recyclerViewBirre.setAdapter(listaBirreAdapter);
     }
 }

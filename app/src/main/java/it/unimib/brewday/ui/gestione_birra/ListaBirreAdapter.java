@@ -16,12 +16,12 @@ import java.util.List;
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.BirraConRicetta;
 
-public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
+public class ListaBirreAdapter extends RecyclerView.Adapter<ListaBirreAdapter.ViewHolder>{
 
     private final List<BirraConRicetta> listaBirre;
     private final itemClickCallback callback;
 
-    public BirreAdapter(List<BirraConRicetta> listaBirre, itemClickCallback callback) {
+    public ListaBirreAdapter(List<BirraConRicetta> listaBirre, itemClickCallback callback) {
         this.listaBirre = listaBirre;
         this.callback = callback;
     }
@@ -30,7 +30,7 @@ public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.elemento_lista_birre, parent, false);
-        return new BirreAdapter.ViewHolder(view);
+        return new ListaBirreAdapter.ViewHolder(view);
     }
 
     @Override
