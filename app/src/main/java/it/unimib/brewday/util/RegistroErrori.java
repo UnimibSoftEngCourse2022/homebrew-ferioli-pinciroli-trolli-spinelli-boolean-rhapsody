@@ -12,4 +12,5 @@ public class RegistroErrori {
     public static final String BIRRE_FETCH_ERROR = "birre_fetch_failed";
     public static final String BIRRE_CREATION_ERROR = "birre_creation_failed";
     public static final String BIRRE_UPDATE_ERROR = "birre_update_failed";
+    public static final String ATTREZZO_TIPOLOGIA_MANCANTE = "attrezzo_tipologia_mancante";
 }

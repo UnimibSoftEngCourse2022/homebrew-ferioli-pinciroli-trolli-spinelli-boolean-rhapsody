@@ -21,12 +21,18 @@ public class Ottimizzazione {
             return new Risultato.AttrezziSuccesso(attrezziSelezionati);
         }
         else{
+            int litriSuggeriti = suggerisciLitri(listaAttrezzi);
+            if(litriSuggeriti != -1){
+                return new Risultato.ErroreConSuggerimentoLitri(litriSuggeriti);
+            }
+            else{
+                return new Risultato.Errore(RegistroErrori.ATTREZZO_TIPOLOGIA_MANCANTE);
+            }
 
         }
-        return null;
     }
 
-    public static List<Attrezzo> selezionaAttrezzi(List<Attrezzo> listaAttrezzi, int valoreRiferimento) {
+    private static List<Attrezzo> selezionaAttrezzi(List<Attrezzo> listaAttrezzi, int valoreRiferimento) {
         List<Attrezzo> attrezziScelti = new ArrayList<>();
 
         for (TipoAttrezzo tipo : TipoAttrezzo.values()) {
@@ -52,13 +58,36 @@ public class Ottimizzazione {
         return attrezziScelti;
     }
 
-    public static int suggerisciLitri(List<Attrezzo> listaAttrezziSelezionati, int valoreRiferimento){
 
-        for (Attrezzo attrezzo :
-                listaAttrezziSelezionati) {
+    private static int suggerisciLitri(List<Attrezzo> listaAttrezzi){
+
+        boolean esisteAttrezzoPerTipologia = false;
+        double litriSuggeriti = Double.MAX_VALUE;
+        for (TipoAttrezzo tipo : TipoAttrezzo.values()) {
+
+            double capacitaMassima = -1.0;
+
+            for (Attrezzo attrezzo : listaAttrezzi) {
+                if(attrezzo.getTipoAttrezzo() == tipo){
+                    esisteAttrezzoPerTipologia = true;
+                    if(attrezzo.getCapacita() > capacitaMassima){
+                        capacitaMassima = attrezzo.getCapacita();
+                    }
+                }
+            }
+
+            if(!esisteAttrezzoPerTipologia){
+                return -1;
+            }
+
+            if(capacitaMassima < litriSuggeriti){
+                litriSuggeriti = capacitaMassima;
+            }
 
         }
-        return 0;
+
+        return (int) litriSuggeriti;
+
     }
 
     private static int litriPerRicetta(

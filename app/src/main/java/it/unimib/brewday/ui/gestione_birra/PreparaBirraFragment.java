@@ -132,7 +132,9 @@ public class PreparaBirraFragment extends Fragment {
             if (risultato.isSuccessful()){
                 listaAttrezziDisponibili = ((Risultato.AttrezziSuccesso) risultato).getAttrezzi();
                 listaAttrezziUtilizzati = new ArrayList<>();
-                listaAttrezziUtilizzati = Ottimizzazione.ottimizzaAttrezzi(listaAttrezziDisponibili, litriBirraScelti);
+
+                //TODO: integrare la nuova ottimizzazione degli attrezzi
+                //listaAttrezziUtilizzati = Ottimizzazione.ottimizzaAttrezzi(listaAttrezziDisponibili, litriBirraScelti);
 
                 verificaAttrezziBirra();
             } else{

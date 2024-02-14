@@ -121,4 +121,15 @@ public class Risultato {
             return messaggio;
         }
     }
+
+    public static final class ErroreConSuggerimentoLitri extends Risultato {
+        private final int litriSuggeriti;
+        public ErroreConSuggerimentoLitri(int litriSuggeriti){
+            this.litriSuggeriti = litriSuggeriti;
+        }
+
+        public int getLitriSuggeriti(){
+            return litriSuggeriti;
+        }
+    }
 }
