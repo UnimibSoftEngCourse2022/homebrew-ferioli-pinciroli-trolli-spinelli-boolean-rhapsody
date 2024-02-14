@@ -15,7 +15,6 @@ import android.widget.EditText;
 
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ricetta;
-import it.unimib.brewday.ui.gestisci_ricette.ListaRicetteFragment;
 import it.unimib.brewday.ui.gestisci_ricette.ListaRicetteFragmentDirections;
 import it.unimib.brewday.ui.gestisci_ricette.RicettaDettagliataFragmentDirections;
 
