@@ -110,6 +110,18 @@ public class Risultato {
         }
     }
 
+    public static final class ListaDifferenzaIngredientiSuccesso extends Risultato {
+        private final List<Integer> listaDifferenzaIngredienti;
+
+        public ListaDifferenzaIngredientiSuccesso(List<Integer> listaDifferenzaIngredienti) {
+            this.listaDifferenzaIngredienti = listaDifferenzaIngredienti;
+        }
+
+        public List<Integer> getListaDifferenzaIngredienti() {
+            return listaDifferenzaIngredienti;
+        }
+    }
+
     public static final class Errore extends Risultato {
         private final String messaggio;
 
