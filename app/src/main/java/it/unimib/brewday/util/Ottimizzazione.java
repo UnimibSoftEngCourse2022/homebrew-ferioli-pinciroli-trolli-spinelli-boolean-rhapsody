@@ -7,24 +7,37 @@ import java.util.List;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
+import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.TipoAttrezzo;
 
 public class Ottimizzazione {
 
     private Ottimizzazione() {}
 
-    public static List<Attrezzo> ottimizzaAttrezzi(List<Attrezzo> listaAttrezzi, int valoreRiferimento) {
+    public static Risultato ottimizzaAttrezzi(List<Attrezzo> listaAttrezzi, int litriRiferimento){
+        List<Attrezzo> attrezziSelezionati = selezionaAttrezzi(listaAttrezzi, litriRiferimento);
+
+        if(TipoAttrezzo.values().length == attrezziSelezionati.size()){
+            return new Risultato.AttrezziSuccesso(attrezziSelezionati);
+        }
+        else{
+
+        }
+        return null;
+    }
+
+    public static List<Attrezzo> selezionaAttrezzi(List<Attrezzo> listaAttrezzi, int valoreRiferimento) {
         List<Attrezzo> attrezziScelti = new ArrayList<>();
 
         for (TipoAttrezzo tipo : TipoAttrezzo.values()) {
             Attrezzo attrezzoScelto = null;
-            double differenzaMinima = Integer.MAX_VALUE;
+            double differenzaMinima = Double.MAX_VALUE;
 
             for (Attrezzo attrezzo : listaAttrezzi) {
                 if (attrezzo.getTipoAttrezzo() == tipo) {
                     double differenza = Math.abs(attrezzo.getCapacita() - valoreRiferimento);
 
-                    if (attrezzo.getCapacita() >= valoreRiferimento || differenza < differenzaMinima) {
+                    if (attrezzo.getCapacita() >= valoreRiferimento && differenza < differenzaMinima) {
                         differenzaMinima = differenza;
                         attrezzoScelto = attrezzo;
                     }
@@ -37,6 +50,15 @@ public class Ottimizzazione {
         }
 
         return attrezziScelti;
+    }
+
+    public static int suggerisciLitri(List<Attrezzo> listaAttrezziSelezionati, int valoreRiferimento){
+
+        for (Attrezzo attrezzo :
+                listaAttrezziSelezionati) {
+
+        }
+        return 0;
     }
 
     private static int litriPerRicetta(
