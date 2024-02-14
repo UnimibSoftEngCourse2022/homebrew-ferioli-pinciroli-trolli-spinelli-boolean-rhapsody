@@ -29,7 +29,7 @@ public class ListaBirreAdapter extends RecyclerView.Adapter<ListaBirreAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.elemento_lista_birre, parent, false);
+        View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.elemento_lista_birra, parent, false);
         return new ListaBirreAdapter.ViewHolder(view);
     }
 

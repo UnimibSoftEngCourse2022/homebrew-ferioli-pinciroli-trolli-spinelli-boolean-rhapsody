@@ -34,7 +34,7 @@ public class AttrezziAdapter extends RecyclerView.Adapter<AttrezziAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.one_card_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.elemento_lista_attrezzo, parent, false);
         return new ViewHolder(view);
     }
 
