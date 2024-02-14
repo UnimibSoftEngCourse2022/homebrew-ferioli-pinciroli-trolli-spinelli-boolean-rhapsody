@@ -12,4 +12,8 @@ public class RegistroErrori {
     public static final String BIRRE_FETCH_ERROR = "birre_fetch_failed";
     public static final String BIRRE_CREATION_ERROR = "birre_creation_failed";
     public static final String BIRRE_UPDATE_ERROR = "birre_update_failed";
+    public static final String ATTREZZI_FETCH_ERROR = "Errore nella lettura degli attrezzi";
+    public static final String ATTREZZI_CREATION_ERROR = "Errore nell'inserimento degli attrezzi";
+    public static final String ATTREZZI_UPDATE_ERROR = "Errore nell'aggiornamento dei dati";
+    public static final String ATTREZZI_DELETE_ERROR = "Errore nella cancellazione dei dati";
 }
