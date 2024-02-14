@@ -83,11 +83,8 @@ public class ListaBirreFragment extends Fragment {
         });
 
         birraViewModel.getUpdateBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
-
-            //sembra che qui non ci arrivi mai, debuggare senza Camillo tra i coglioni
-
             if(risultato.isSuccessful()){
-                Snackbar.make(view, "Funzica", Snackbar.LENGTH_LONG).show();
+                listaBirreAdapter.notifyDataSetChanged();
             }
             else{
                 Snackbar.make(view, "NON VA", Snackbar.LENGTH_LONG).show();
