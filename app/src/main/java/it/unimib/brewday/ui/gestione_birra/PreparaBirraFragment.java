@@ -145,7 +145,10 @@ public class PreparaBirraFragment extends Fragment {
                 birraViewModel.createBirra(new Birra(litriBirraScelti, ricetta.getId()));
 
                 //ToDo da fixare updateAll
-                ingredienteViewModel.updateIngredienti(listaIngredientiDifferenza);
+                for (int i = 0; i < listaIngredientiDisponibili.size(); i++) {
+                    listaIngredientiDisponibili.get(i).setQuantitaPosseduta(listaIngredientiDifferenza.get(i).getQuantitaPosseduta());
+                }
+                ingredienteViewModel.updateIngredienti(listaIngredientiDisponibili);
 
                 //Navigation da fixare per bottomMenu
                 Navigation.findNavController(requireView()).navigate(R.id.action_preparaBirraFragment_to_birreFragment);
