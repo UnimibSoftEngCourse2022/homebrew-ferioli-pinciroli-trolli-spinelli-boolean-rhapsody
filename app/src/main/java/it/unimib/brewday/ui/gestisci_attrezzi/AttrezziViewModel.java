@@ -14,8 +14,7 @@ public class AttrezziViewModel extends ViewModel {
     private final MutableLiveData<Risultato> createAttrezzoResult;
     private final MutableLiveData<Risultato> updateAttrezzoResult;
     private final MutableLiveData<Risultato> deleteAttrezzoResult;
-
-    public final MutableLiveData<Boolean> isAddCardVisible;
+    private final MutableLiveData<Risultato> allAttrezziNonInUsoResult;
 
     private final AttrezziRepository attrezziRepository;
 
@@ -25,8 +24,7 @@ public class AttrezziViewModel extends ViewModel {
         createAttrezzoResult = new MutableLiveData<>();
         updateAttrezzoResult = new MutableLiveData<>();
         deleteAttrezzoResult = new MutableLiveData<>();
-
-        isAddCardVisible = new MutableLiveData<>(false);
+        allAttrezziNonInUsoResult = new MutableLiveData<>();
 
         this.attrezziRepository = attrezziRepository;
     }
@@ -47,6 +45,10 @@ public class AttrezziViewModel extends ViewModel {
         attrezziRepository.deleteAttrezzo(daCancellare, deleteAttrezzoResult::postValue);
     }
 
+    public void readAttrezziNonInUso() {
+        attrezziRepository.readAllAttrezziInUso(allAttrezziNonInUsoResult::postValue);
+    }
+
     public LiveData<Risultato> getAllAttrezziResult() {
         return allAttrezzi;
     }
@@ -61,5 +63,9 @@ public class AttrezziViewModel extends ViewModel {
 
     public LiveData<Risultato> getUpdateAttrezzoResult() {
         return updateAttrezzoResult;
+    }
+
+    public LiveData<Risultato> getAllAttrezziDisponibiliResult() {
+        return allAttrezziNonInUsoResult;
     }
 }

@@ -105,7 +105,7 @@ public class PreparaBirraFragment extends Fragment {
             if (risultato.isSuccessful()){
                 listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
                 ingredienteViewModel.readAllIngredienti();
-                attrezziViewModel.readAllAttrezzi();
+                attrezziViewModel.readAttrezziNonInUso();
 
                 setDosaggioDaIngredienteRicetta(litriBirraScelti);
             } else {
@@ -128,7 +128,7 @@ public class PreparaBirraFragment extends Fragment {
             }
         });
 
-        attrezziViewModel.getAllAttrezziResult().observe(getViewLifecycleOwner(), risultato -> {
+        attrezziViewModel.getAllAttrezziDisponibiliResult().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()){
                 listaAttrezziDisponibili = ((Risultato.AttrezziSuccesso) risultato).getAttrezzi();
                 listaAttrezziUtilizzati = new ArrayList<>();
