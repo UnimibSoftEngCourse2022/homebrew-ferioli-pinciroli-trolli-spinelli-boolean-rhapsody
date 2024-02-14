@@ -59,7 +59,6 @@ public class PreparaBirraFragment extends Fragment {
 
 
     public static PreparaBirraFragment newInstance() {
-
         return new PreparaBirraFragment();
     }
 
@@ -152,17 +151,19 @@ public class PreparaBirraFragment extends Fragment {
         });
 
         fragmentPreparaBirraBinding.buttonRicettaPreparaBirra.setOnClickListener(v -> {
-            if (possiedeIngredienti){
+
+            if (verificaIngredienti()){
                 if (possiedeAttrezzi){
                     birraViewModel.createBirra(new Birra(litriBirraScelti, ricetta.getId()));
 
                     for (int i = 0; i < listaIngredientiDisponibili.size(); i++) {
                         listaIngredientiDisponibili.get(i).setQuantitaPosseduta(listaDifferenzaIngredienti.get(i));
                     }
-                    ingredienteViewModel.updateIngredienti(listaIngredientiDisponibili);
+                    //ingredienteViewModel.updateIngredienti(listaIngredientiDisponibili);
 
                     //Navigation da fixare per bottomMenu
-                    Navigation.findNavController(requireView()).navigate(R.id.action_preparaBirraFragment_to_birreFragment);
+                    //Navigation.findNavController(requireView()).navigate(R.id.action_preparaBirraFragment_to_birreFragment);
+
                 } else {
                     Snackbar.make(view, "Attenzione ti mancano degli attrezzi", BaseTransientBottomBar.LENGTH_SHORT).show();
                 }
@@ -172,7 +173,7 @@ public class PreparaBirraFragment extends Fragment {
         });
 
     }
-
+/*
     public static double round(double n, int decimals) {
         return Math.floor(n * Math.pow(10, decimals)) / Math.pow(10, decimals);
     }
@@ -198,11 +199,21 @@ public class PreparaBirraFragment extends Fragment {
         }
     }
 
+ */
+
     public void verificaAttrezziBirra(){
         if (listaAttrezziUtilizzati.size() == 3){
             possiedeAttrezzi = true;
         }
+    }
 
+    public boolean verificaIngredienti(){
+        for (int i = 0; i < listaDifferenzaIngredienti.size(); i++) {
+            if (listaDifferenzaIngredienti.get(i) < 0){
+                return false;
+            }
+        }
+        return  true;
     }
 
 }

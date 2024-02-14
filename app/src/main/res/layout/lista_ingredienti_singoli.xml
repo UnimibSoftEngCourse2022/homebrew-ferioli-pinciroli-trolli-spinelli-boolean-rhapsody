@@ -51,7 +51,6 @@
         tools:text="g" />
 
     <ImageButton
-
         android:id="@+id/imageButton_rimuovi_ingrediente"
         android:layout_width="48dp"
         android:layout_height="48dp"
