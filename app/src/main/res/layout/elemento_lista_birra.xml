@@ -45,7 +45,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageView_numeroLitri"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginTop="8dp"
@@ -61,9 +61,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10L"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="@+id/imageView" />
+                app:layout_constraintBottom_toBottomOf="@+id/imageView_numeroLitri"
+                app:layout_constraintStart_toEndOf="@+id/imageView_numeroLitri"
+                app:layout_constraintTop_toTopOf="@+id/imageView_numeroLitri" />
 
             <Button
                 android:id="@+id/button_terminaProduzione"
@@ -75,6 +75,25 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView_dataTerminazione"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView_numeroLitri"
+                app:srcCompat="@drawable/calendar_today_24" />
+
+            <TextView
+                android:id="@+id/textView_dataTerminazione"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="21/02/2024"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView_dataTerminazione"
+                app:layout_constraintStart_toEndOf="@+id/imageView_dataTerminazione"
+                app:layout_constraintTop_toTopOf="@+id/imageView_dataTerminazione" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

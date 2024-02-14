@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,12 +17,12 @@ import java.util.List;
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.BirraConRicetta;
 
-public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
+public class ListaBirreAdapter extends RecyclerView.Adapter<ListaBirreAdapter.ViewHolder>{
 
     private final List<BirraConRicetta> listaBirre;
-    private final itemClickCallback callback;
+    private final ItemClickCallback callback;
 
-    public BirreAdapter(List<BirraConRicetta> listaBirre, itemClickCallback callback) {
+    public ListaBirreAdapter(List<BirraConRicetta> listaBirre, ItemClickCallback callback) {
         this.listaBirre = listaBirre;
         this.callback = callback;
     }
@@ -29,8 +30,8 @@ public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.elemento_lista_birre, parent, false);
-        return new BirreAdapter.ViewHolder(view);
+        View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.elemento_lista_birra, parent, false);
+        return new ListaBirreAdapter.ViewHolder(view);
     }
 
     @Override
@@ -55,6 +56,8 @@ public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
 
         private final TextView nomeBirra;
         private final TextView numeroLitri;
+        private final TextView dataTerminazione;
+        private final ImageView iconaTerminazione;
         private final Button terminaProduzione;
         private final CardView cardBirra;
 
@@ -63,15 +66,15 @@ public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
             super(itemView);
             nomeBirra = itemView.findViewById(R.id.textView_nomeBirra);
             numeroLitri = itemView.findViewById(R.id.textView_numeroLitri);
+            dataTerminazione = itemView.findViewById(R.id.textView_dataTerminazione);
+            iconaTerminazione = itemView.findViewById(R.id.imageView_dataTerminazione);
             terminaProduzione = itemView.findViewById(R.id.button_terminaProduzione);
             cardBirra = itemView.findViewById(R.id.cardView_birra);
 
             itemView.setOnClickListener(view -> {
                 //listener in risposta al click sull'intera cella
             });
-            terminaProduzione.setOnClickListener(view -> {
-                //listener in risposta al click sul bottone termina della cella
-            });
+            terminaProduzione.setOnClickListener(view -> callback.onTerminaBirraClick(listaBirre.get(getBindingAdapterPosition())));
         }
 
         public void bind(BirraConRicetta birra){
@@ -79,10 +82,16 @@ public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
             numeroLitri.setText(birra.getLitriProdotti() + "L");
             if(birra.isTerminata()){
                 terminaProduzione.setVisibility(View.GONE);
+
+                dataTerminazione.setText(birra.getDataTerminazione());
+                dataTerminazione.setVisibility(View.VISIBLE);
+                iconaTerminazione.setVisibility(View.VISIBLE);
                 cardBirra.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_secondaryContainer));
             }
             else{
                 terminaProduzione.setVisibility(View.VISIBLE);
+                dataTerminazione.setVisibility(View.GONE);
+                iconaTerminazione.setVisibility(View.GONE);
                 cardBirra.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_primaryContainer));
             }
         }
@@ -91,7 +100,7 @@ public class BirreAdapter extends RecyclerView.Adapter<BirreAdapter.ViewHolder>{
 
 
     //Callback da invocare per notificare l'evento di click relativo ad un preciso elemento della lista
-    public interface itemClickCallback {
+    public interface ItemClickCallback {
         void onElementoBirraClick(BirraConRicetta birra);
         void onTerminaBirraClick(BirraConRicetta birra);
     }

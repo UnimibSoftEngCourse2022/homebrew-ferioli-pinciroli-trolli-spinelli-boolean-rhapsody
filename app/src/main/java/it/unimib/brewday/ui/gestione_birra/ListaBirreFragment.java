@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,12 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
-import it.unimib.brewday.R;
 import it.unimib.brewday.databinding.FragmentListaBirreBinding;
 import it.unimib.brewday.model.BirraConRicetta;
 import it.unimib.brewday.model.Risultato;
@@ -31,10 +33,8 @@ public class ListaBirreFragment extends Fragment {
     private BirraViewModel birraViewModel;
     FragmentListaBirreBinding fragmentListaBirreBinding;
 
-    public ListaBirreFragment() {}
-
-    public static ListaBirreFragment newInstance() {
-        return new ListaBirreFragment();
+    public ListaBirreFragment() {
+        //costruttore vuoto
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ListaBirreFragment extends Fragment {
         RecyclerView recyclerViewBirre = fragmentListaBirreBinding.recyclerViewListaBirre;
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
 
-        BirreAdapter birreAdapter = new BirreAdapter(listaBirre, new BirreAdapter.itemClickCallback() {
+        ListaBirreAdapter listaBirreAdapter = new ListaBirreAdapter(listaBirre, new ListaBirreAdapter.ItemClickCallback() {
             @Override
             public void onElementoBirraClick(BirraConRicetta birra) {
                 // TODO implementare
@@ -68,7 +68,10 @@ public class ListaBirreFragment extends Fragment {
 
             @Override
             public void onTerminaBirraClick(BirraConRicetta birra) {
-                // TODO implementare
+                birra.setTerminata(true);
+                birra.setDataTerminazione(new SimpleDateFormat("dd/MM/yyyy", Locale.ITALY)
+                        .format(Calendar.getInstance().getTime()));
+                birraViewModel.updateBirra(birra);
             }
         });
 
@@ -76,10 +79,19 @@ public class ListaBirreFragment extends Fragment {
             if(risultato.isSuccessful()){
                 listaBirre.clear();
                 listaBirre.addAll(((Risultato.AllBirreSuccesso) risultato).getAllBirre());
-                birreAdapter.notifyDataSetChanged();
+                listaBirreAdapter.notifyDataSetChanged();
             }
             else{
-                Snackbar.make(view, "Perdindirindina", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, "Perdindirindina", BaseTransientBottomBar.LENGTH_LONG).show();
+            }
+        });
+
+        birraViewModel.getUpdateBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
+            if(risultato.isSuccessful()){
+                listaBirreAdapter.notifyDataSetChanged();
+            }
+            else{
+                Snackbar.make(view, "NON VA", BaseTransientBottomBar.LENGTH_LONG).show();
             }
         });
 
@@ -87,6 +99,6 @@ public class ListaBirreFragment extends Fragment {
 
 
         recyclerViewBirre.setLayoutManager(layoutManager);
-        recyclerViewBirre.setAdapter(birreAdapter);
+        recyclerViewBirre.setAdapter(listaBirreAdapter);
     }
 }
