@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,7 +59,6 @@ public class ListaBirreAdapter extends RecyclerView.Adapter<ListaBirreAdapter.Vi
         private final ImageButton terminaProduzione;
         private final TextView dataTerminazione;
         private final ImageView iconaTerminazione;
-        private final Button terminaProduzione;
         private final CardView cardBirra;
 
 
@@ -69,7 +69,6 @@ public class ListaBirreAdapter extends RecyclerView.Adapter<ListaBirreAdapter.Vi
             terminaProduzione = itemView.findViewById(R.id.imageButton_terminaProduzione);
             dataTerminazione = itemView.findViewById(R.id.textView_dataTerminazione);
             iconaTerminazione = itemView.findViewById(R.id.imageView_dataTerminazione);
-            terminaProduzione = itemView.findViewById(R.id.button_terminaProduzione);
             cardBirra = itemView.findViewById(R.id.cardView_birra);
 
             itemView.setOnClickListener(view -> {
