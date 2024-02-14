@@ -3,8 +3,7 @@ package it.unimib.brewday.ui.gestione_birra;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -56,6 +55,7 @@ public class ListaBirreAdapter extends RecyclerView.Adapter<ListaBirreAdapter.Vi
 
         private final TextView nomeBirra;
         private final TextView numeroLitri;
+        private final ImageButton terminaProduzione;
         private final TextView dataTerminazione;
         private final ImageView iconaTerminazione;
         private final Button terminaProduzione;
@@ -66,6 +66,7 @@ public class ListaBirreAdapter extends RecyclerView.Adapter<ListaBirreAdapter.Vi
             super(itemView);
             nomeBirra = itemView.findViewById(R.id.textView_nomeBirra);
             numeroLitri = itemView.findViewById(R.id.textView_numeroLitri);
+            terminaProduzione = itemView.findViewById(R.id.imageButton_terminaProduzione);
             dataTerminazione = itemView.findViewById(R.id.textView_dataTerminazione);
             iconaTerminazione = itemView.findViewById(R.id.imageView_dataTerminazione);
             terminaProduzione = itemView.findViewById(R.id.button_terminaProduzione);

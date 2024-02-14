@@ -11,12 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -74,8 +74,8 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
         TextView nomeIngrediente = convertView.findViewById(R.id.textView_ingrediente);
         TextView unitaMisura = convertView.findViewById(R.id.textView_unitaMisura);
         EditText quantitaIngrediente = convertView.findViewById(R.id.editTextText_ingrediente);
-        FloatingActionButton aggiungiIngrediente = convertView.findViewById(R.id.button_aggiungi_ingrediente);
-        FloatingActionButton rimuoviIngrediente = convertView.findViewById(R.id.button_rimuovi_ingrediente);
+        ImageButton aggiungiIngrediente = convertView.findViewById(R.id.imageButton_aggiungi_ingrediente);
+        ImageButton rimuoviIngrediente = convertView.findViewById(R.id.imageButton_rimuovi_ingrediente);
 
         nomeIngrediente.setText(listaIngredienti.get(position).getTipo().getNome());
         aggiornaVisualizzazioneIngredienti(listaIngredienti.get(position), quantitaIngrediente, unitaMisura);

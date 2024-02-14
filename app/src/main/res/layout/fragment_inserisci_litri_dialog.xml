@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.gestione_birra.InserisciLitriDialog">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="300dp"
-        android:layout_height="132dp"
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="350dp"
+        android:layout_height="150dp"
+        app:cardCornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:cardCornerRadius="30dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,47 +23,46 @@
                 android:id="@+id/textView_LitriDialog_Prepara"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="prepara"
-                android:textSize="22dp"
-                app:layout_constraintBottom_toTopOf="@+id/button_LitriDialog_Annulla"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="28dp"
+                android:text="@string/prepara"
+                android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.611" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/editText_LitriDialog_numeroLitriBirra"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="24dp"
                 android:inputType="number"
-                android:text="1"
-                app:layout_constraintBottom_toBottomOf="@+id/textView_LitriDialog_Prepara"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:text="@string/quantita_base_produzione"
+                android:textAlignment="center"
                 app:layout_constraintStart_toEndOf="@+id/textView_LitriDialog_Prepara"
-                app:layout_constraintTop_toTopOf="@+id/textView_LitriDialog_Prepara"
-                app:layout_constraintVertical_bias="0.538" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView_LitriDialog_LBirra"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="L di questa birra"
-                android:textSize="22dp"
-                app:layout_constraintBottom_toBottomOf="@+id/editText_LitriDialog_numeroLitriBirra"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginTop="30dp"
+                android:text="@string/l_di_questa_birra"
+                android:textSize="22sp"
                 app:layout_constraintStart_toEndOf="@+id/editText_LitriDialog_numeroLitriBirra"
-                app:layout_constraintTop_toTopOf="@+id/editText_LitriDialog_numeroLitriBirra"
-                app:layout_constraintVertical_bias="0.538" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/button_LitriDialog_Annulla"
                 style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Annulla"
+                android:layout_marginStart="30dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/annulla"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -71,15 +70,16 @@
                 android:id="@+id/button_LitriDialog_Prepara"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="Prepara"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/prepara"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

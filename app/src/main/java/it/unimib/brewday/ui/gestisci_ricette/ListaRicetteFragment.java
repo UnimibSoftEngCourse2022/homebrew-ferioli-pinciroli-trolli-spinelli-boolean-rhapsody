@@ -148,9 +148,9 @@ public class ListaRicetteFragment extends Fragment {
             new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
 
                     .addSwipeLeftBackgroundColor(R.color.md_theme_light_error)
-                    .addSwipeLeftActionIcon(R.drawable.baseline_delete_outline_24)
+                    .addSwipeLeftActionIcon(R.drawable.delete_24px)
                     .addBackgroundColor(ContextCompat.getColor(getContext(), R.color.md_theme_light_error))
-                    .addActionIcon(R.drawable.baseline_delete_outline_24)
+                    .addActionIcon(R.drawable.delete_24px)
                     .create()
                     .decorate();
 

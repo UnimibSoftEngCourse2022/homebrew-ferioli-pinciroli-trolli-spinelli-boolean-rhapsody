@@ -3,77 +3,77 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_gravity="fill_horizontal">
 
 
     <EditText
         android:id="@+id/editTextText_ingrediente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="112dp"
+        android:layout_marginStart="10dp"
         android:background="@android:color/transparent"
         android:inputType="number"
+        android:maxLength="5"
         android:minWidth="48dp"
         android:minHeight="48dp"
         android:textAlignment="textEnd"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_ingrediente"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView_ingrediente"
-        tools:text="22.0"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageButton_rimuovi_ingrediente"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="22.0" />
 
 
     <TextView
         android:id="@+id/textView_ingrediente"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
+        android:textColor="?android:textColorPrimary"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:text="Acqua"
-        android:textColor = "?android:textColorPrimary"
-        />
+        tools:text="Acqua" />
 
     <TextView
         android:id="@+id/textView_unitaMisura"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
+        android:layout_marginStart="2dp"
+        android:textColor="?android:textColorPrimary"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextText_ingrediente"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editTextText_ingrediente"
-        app:layout_constraintTop_toTopOf="@+id/editTextText_ingrediente"
-        tools:text="g"
-        android:textColor = "?android:textColorPrimary" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="g" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
 
-        android:id="@+id/button_rimuovi_ingrediente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
+        android:id="@+id/imageButton_rimuovi_ingrediente"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/bottone_meno"
         android:src="@drawable/baseline_horizontal_rule_24"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextText_ingrediente"
-        app:layout_constraintEnd_toStartOf="@+id/editTextText_ingrediente"
-        app:layout_constraintTop_toTopOf="@+id/editTextText_ingrediente"
-        tools:contentDescription="bottone -" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView_ingrediente"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/roundcorner"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
 
-        android:id="@+id/button_aggiungi_ingrediente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:id="@+id/imageButton_aggiungi_ingrediente"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="80dp"
+        android:contentDescription="@string/bottone_piu"
         android:src="@drawable/baseline_add_24"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextText_ingrediente"
-        app:layout_constraintStart_toEndOf="@+id/textView_unitaMisura"
-        app:layout_constraintTop_toTopOf="@+id/editTextText_ingrediente"
-        tools:contentDescription="bottone +" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageButton_rimuovi_ingrediente"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/roundcorner"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,7 +14,7 @@
     <ListView
         android:id="@+id/listView_ingredrientiRicettaDettagliata"
         android:layout_width="match_parent"
-        android:layout_height="445dp"
+        android:layout_height="430dp"
         android:layout_marginTop="8dp"
         android:listSelector="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,14 +28,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
         android:hint="@string/nome_ricetta"
+        android:minHeight="48dp"
+        android:textAlignment="center"
         android:textColor="?android:colorPrimary"
         android:textSize="30sp"
-        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@android:color/transparent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_ricettaPer"
@@ -56,8 +57,10 @@
         android:layout_marginStart="4dp"
         android:hint="@string/uno"
         android:inputType="number"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
         android:text="@string/uno"
-        android:textAlignment="textEnd"
+        android:textAlignment="center"
         android:textColorHint="@color/seed"
         app:layout_constraintBottom_toBottomOf="@+id/textView_ricettaPer"
         app:layout_constraintStart_toEndOf="@+id/textView_ricettaPer"
@@ -88,28 +91,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_ricettaPer" />
 
-    <Button
-        android:id="@+id/button_modificaRicetta"
-        android:layout_width="wrap_content"
-        android:layout_height="64dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="48dp"
-        android:text="@string/modifica"
+    <ImageButton
+        android:id="@+id/imageButton_modificaRicetta"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/roundcorner"
+        android:contentDescription="@string/modifica"
+        android:src="@drawable/edit_24px"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_ricettaDettagliata_prepara"
-        app:layout_constraintTop_toBottomOf="@+id/listView_ingredrientiRicettaDettagliata"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/listView_ingredrientiRicettaDettagliata" />
 
-    <Button
-        android:id="@+id/button_ricettaDettagliata_prepara"
-        android:layout_width="wrap_content"
-        android:layout_height="64dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="8dp"
-        android:text="Prepara"
+    <ImageButton
+        android:id="@+id/imageButton_ricettaDettagliata_prepara"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/roundcorner"
+        android:contentDescription="@string/prepara"
+        android:src="@drawable/start_24px"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

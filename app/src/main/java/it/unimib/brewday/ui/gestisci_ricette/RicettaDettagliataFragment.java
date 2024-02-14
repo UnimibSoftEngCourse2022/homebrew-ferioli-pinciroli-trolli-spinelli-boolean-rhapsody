@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -75,10 +75,10 @@ public class RicettaDettagliataFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button modificaRicettaButton = fragmentRicettaDettagliataBinding.buttonModificaRicetta;
+        ImageButton modificaRicettaButton = fragmentRicettaDettagliataBinding.imageButtonModificaRicetta;
         EditText numeroLitriRicettaBirra = fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra;
         EditText nomeRicetta = fragmentRicettaDettagliataBinding.textViewNomeRicettaDettagliata;
-        Button preparaBirra = fragmentRicettaDettagliataBinding.buttonRicettaDettagliataPrepara;
+        ImageButton preparaBirra = fragmentRicettaDettagliataBinding.imageButtonRicettaDettagliataPrepara;
         gestioneRicette = new GestioneRicette();
         Ricetta ricetta = RicettaDettagliataFragmentArgs.fromBundle(getArguments()).getRicetta();
 
@@ -125,8 +125,8 @@ public class RicettaDettagliataFragment extends Fragment {
     private void setVisibile(boolean invertiVisibile, View view,EditText nomeRicetta , EditText numeroLitriBirra, List<Ingrediente> listaIngredientiRicetta, Ricetta ricetta){
 
         if (!invertiVisibile){
-            fragmentRicettaDettagliataBinding.buttonModificaRicetta.setText(R.string.conferma);
-            fragmentRicettaDettagliataBinding.buttonRicettaDettagliataPrepara.setVisibility(View.GONE);
+            fragmentRicettaDettagliataBinding.imageButtonModificaRicetta.setImageResource(R.drawable.check_circle_24px);
+            fragmentRicettaDettagliataBinding.imageButtonRicettaDettagliataPrepara.setVisibility(View.GONE);
             visibile = !invertiVisibile;
         } else {
             if( gestioneRicette.controlloCreazione(view, fragmentRicettaDettagliataBinding.textViewNomeRicettaDettagliata,
@@ -139,8 +139,8 @@ public class RicettaDettagliataFragment extends Fragment {
                 ricetta.setNome(nomeRicetta.getText().toString());
                 ricetteViewModel.updateRicetta(ricetta);
 
-                fragmentRicettaDettagliataBinding.buttonModificaRicetta.setText(R.string.modifica);
-                fragmentRicettaDettagliataBinding.buttonRicettaDettagliataPrepara.setVisibility(View.VISIBLE);
+                fragmentRicettaDettagliataBinding.imageButtonModificaRicetta.setImageResource(R.drawable.edit_24px);
+                fragmentRicettaDettagliataBinding.imageButtonRicettaDettagliataPrepara.setVisibility(View.VISIBLE);
                 visibile = !invertiVisibile;
             }
         }

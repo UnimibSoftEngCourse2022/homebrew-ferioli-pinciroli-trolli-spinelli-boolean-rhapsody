@@ -51,7 +51,7 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/md_theme_light_primaryContainer"
-                android:src="@drawable/baseline_add_24"
+                android:src="@drawable/start_24px"
                 app:layout_constraintBottom_toBottomOf="@+id/textView_nomeRicettaRecyclerView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView_nomeRicettaRecyclerView"
