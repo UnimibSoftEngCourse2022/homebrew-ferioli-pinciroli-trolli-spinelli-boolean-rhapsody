@@ -55,7 +55,7 @@ public class AdapterListViewIngredientiBirra extends ArrayAdapter<IngredienteRic
             unitaMisura.setText(" L");
             quantitaIngrediente.getEditText().setText(ingredienteRicetta.getDosaggioIngredienteToString());
             if (differenza < 0){
-                quantitaIngrediente.setError("Ti mancano "+ (- differenza+ " l"));
+                quantitaIngrediente.setError("Ti mancano "+ (- differenza) + " l");
             }
         } else {
             unitaMisura.setText(" g");

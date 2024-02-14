@@ -115,7 +115,12 @@ public class RicetteViewModel extends ViewModel {
     public LiveData<Risultato> getDeleteRicettaRisultato() {
         return deleteRicettaRisultato;
     }
-
+    public LiveData<Risultato> getDifferenzaIngredientiRisultato(){
+        return  differenzaIngredientiRisultato;
+    }
+    public LiveData<Risultato> getIngredientiRicettaPerLitriRisultato(){
+        return  ingredientiRicettaPerLitriRisultato;
+    }
     public void setDosaggioDaIngredienteRicetta(int litriBirraScelti, List<IngredienteRicetta> listaIngredientiBirra ){
         for (IngredienteRicetta ingredienteRicetta : listaIngredientiBirra) {
             if (ingredienteRicetta.getTipoIngrediente().equals(TipoIngrediente.ACQUA)) {

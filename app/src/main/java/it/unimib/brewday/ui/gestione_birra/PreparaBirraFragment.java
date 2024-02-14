@@ -98,23 +98,23 @@ public class PreparaBirraFragment extends Fragment {
         possiedeAttrezzi = false;
 
 
-        ricetteViewModel.getIngredientiRicetta(ricetta.getId());
+        ricetteViewModel.getDifferenzaIngredienti(ricetta.getId(), litriBirraScelti);
         fragmentPreparaBirraBinding.textViewNomePreparaBirra.setText(ricetta.getNome());
 
 
-        ricetteViewModel.getIngredientiRicetteRisultato().observe(getViewLifecycleOwner(), risultato ->  {
+        ricetteViewModel.getIngredientiRicettaPerLitriRisultato().observe(getViewLifecycleOwner(), risultato ->  {
             if (risultato.isSuccessful()){
                 listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
-                ingredienteViewModel.readAllIngredienti();
+
                 attrezziViewModel.readAllAttrezzi();
 
-                setDosaggioDaIngredienteRicetta(litriBirraScelti);
+
             } else {
                 Snackbar.make(view, "non riesco a recuperare gli ingredienti", BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 
-        ingredienteViewModel.getReadAllIngredientiResult().observe(getViewLifecycleOwner(), risultato -> {
+        /*ingredienteViewModel.getReadAllIngredientiResult().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()){
                 listaIngredientiDisponibili = ((Risultato.IngredientiSuccesso) risultato).getData();
 
@@ -127,7 +127,17 @@ public class PreparaBirraFragment extends Fragment {
             } else{
                 //errore
             }
+        });*/
+
+        ricetteViewModel.getDifferenzaIngredientiRisultato().observe(getViewLifecycleOwner(), risultato -> {
+            if (risultato.isSuccessful()) {
+                listaDifferenzaIngredienti = ((Risultato.ListaDifferenzaIngredientiSuccesso) risultato).getListaDifferenzaIngredienti();
+                adapterListViewIngredientiBirra = new AdapterListViewIngredientiBirra(getContext(), R.layout.lista_ingredienti_birra, listaIngredientiBirra, listaDifferenzaIngredienti);
+                fragmentPreparaBirraBinding.listViewIngredrientiPreparaBirra.setAdapter(adapterListViewIngredientiBirra);
+                fragmentPreparaBirraBinding.listViewIngredrientiPreparaBirra.setDivider(null);
+            }
         });
+
 
         attrezziViewModel.getAllAttrezziResult().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()){
