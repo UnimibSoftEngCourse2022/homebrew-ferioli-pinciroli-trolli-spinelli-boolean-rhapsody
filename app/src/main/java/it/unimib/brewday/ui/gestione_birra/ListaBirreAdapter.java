@@ -20,9 +20,9 @@ import it.unimib.brewday.model.BirraConRicetta;
 public class ListaBirreAdapter extends RecyclerView.Adapter<ListaBirreAdapter.ViewHolder>{
 
     private final List<BirraConRicetta> listaBirre;
-    private final itemClickCallback callback;
+    private final ItemClickCallback callback;
 
-    public ListaBirreAdapter(List<BirraConRicetta> listaBirre, itemClickCallback callback) {
+    public ListaBirreAdapter(List<BirraConRicetta> listaBirre, ItemClickCallback callback) {
         this.listaBirre = listaBirre;
         this.callback = callback;
     }
@@ -74,9 +74,7 @@ public class ListaBirreAdapter extends RecyclerView.Adapter<ListaBirreAdapter.Vi
             itemView.setOnClickListener(view -> {
                 //listener in risposta al click sull'intera cella
             });
-            terminaProduzione.setOnClickListener(view -> {
-                callback.onTerminaBirraClick(listaBirre.get(getBindingAdapterPosition()));
-            });
+            terminaProduzione.setOnClickListener(view -> callback.onTerminaBirraClick(listaBirre.get(getBindingAdapterPosition())));
         }
 
         public void bind(BirraConRicetta birra){
@@ -85,7 +83,7 @@ public class ListaBirreAdapter extends RecyclerView.Adapter<ListaBirreAdapter.Vi
             if(birra.isTerminata()){
                 terminaProduzione.setVisibility(View.GONE);
 
-                dataTerminazione.setText(birra.getDataTerminazione().toString());
+                dataTerminazione.setText(birra.getDataTerminazione());
                 dataTerminazione.setVisibility(View.VISIBLE);
                 iconaTerminazione.setVisibility(View.VISIBLE);
                 cardBirra.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_secondaryContainer));
@@ -102,7 +100,7 @@ public class ListaBirreAdapter extends RecyclerView.Adapter<ListaBirreAdapter.Vi
 
 
     //Callback da invocare per notificare l'evento di click relativo ad un preciso elemento della lista
-    public interface itemClickCallback {
+    public interface ItemClickCallback {
         void onElementoBirraClick(BirraConRicetta birra);
         void onTerminaBirraClick(BirraConRicetta birra);
     }

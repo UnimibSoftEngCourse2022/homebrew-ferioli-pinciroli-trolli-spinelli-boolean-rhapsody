@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.repository.BirraRepository;
-import it.unimib.brewday.ui.Callback;
 
 public class BirraViewModel extends ViewModel {
 

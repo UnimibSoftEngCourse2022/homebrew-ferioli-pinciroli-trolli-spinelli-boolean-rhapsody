@@ -13,12 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -33,10 +33,8 @@ public class ListaBirreFragment extends Fragment {
     private BirraViewModel birraViewModel;
     FragmentListaBirreBinding fragmentListaBirreBinding;
 
-    public ListaBirreFragment() {}
-
-    public static ListaBirreFragment newInstance() {
-        return new ListaBirreFragment();
+    public ListaBirreFragment() {
+        //costruttore vuoto
     }
 
     @Override
@@ -62,7 +60,7 @@ public class ListaBirreFragment extends Fragment {
         RecyclerView recyclerViewBirre = fragmentListaBirreBinding.recyclerViewListaBirre;
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
 
-        ListaBirreAdapter listaBirreAdapter = new ListaBirreAdapter(listaBirre, new ListaBirreAdapter.itemClickCallback() {
+        ListaBirreAdapter listaBirreAdapter = new ListaBirreAdapter(listaBirre, new ListaBirreAdapter.ItemClickCallback() {
             @Override
             public void onElementoBirraClick(BirraConRicetta birra) {
                 // TODO implementare
@@ -71,9 +69,8 @@ public class ListaBirreFragment extends Fragment {
             @Override
             public void onTerminaBirraClick(BirraConRicetta birra) {
                 birra.setTerminata(true);
-                String dataTerminazione = new SimpleDateFormat("dd/MM/yyyy", Locale.ITALY)
-                        .format(Calendar.getInstance().getTime());
-                birra.setDataTerminazione(dataTerminazione);
+                birra.setDataTerminazione(new SimpleDateFormat("dd/MM/yyyy", Locale.ITALY)
+                        .format(Calendar.getInstance().getTime()));
                 birraViewModel.updateBirra(birra);
             }
         });
@@ -85,7 +82,7 @@ public class ListaBirreFragment extends Fragment {
                 listaBirreAdapter.notifyDataSetChanged();
             }
             else{
-                Snackbar.make(view, "Perdindirindina", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, "Perdindirindina", BaseTransientBottomBar.LENGTH_LONG).show();
             }
         });
 
@@ -94,7 +91,7 @@ public class ListaBirreFragment extends Fragment {
                 listaBirreAdapter.notifyDataSetChanged();
             }
             else{
-                Snackbar.make(view, "NON VA", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, "NON VA", BaseTransientBottomBar.LENGTH_LONG).show();
             }
         });
 
