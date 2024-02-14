@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -55,6 +56,8 @@ public class ListaBirreAdapter extends RecyclerView.Adapter<ListaBirreAdapter.Vi
 
         private final TextView nomeBirra;
         private final TextView numeroLitri;
+        private final TextView dataTerminazione;
+        private final ImageView iconaTerminazione;
         private final Button terminaProduzione;
         private final CardView cardBirra;
 
@@ -63,6 +66,8 @@ public class ListaBirreAdapter extends RecyclerView.Adapter<ListaBirreAdapter.Vi
             super(itemView);
             nomeBirra = itemView.findViewById(R.id.textView_nomeBirra);
             numeroLitri = itemView.findViewById(R.id.textView_numeroLitri);
+            dataTerminazione = itemView.findViewById(R.id.textView_dataTerminazione);
+            iconaTerminazione = itemView.findViewById(R.id.imageView_dataTerminazione);
             terminaProduzione = itemView.findViewById(R.id.button_terminaProduzione);
             cardBirra = itemView.findViewById(R.id.cardView_birra);
 
@@ -79,10 +84,16 @@ public class ListaBirreAdapter extends RecyclerView.Adapter<ListaBirreAdapter.Vi
             numeroLitri.setText(birra.getLitriProdotti() + "L");
             if(birra.isTerminata()){
                 terminaProduzione.setVisibility(View.GONE);
+
+                dataTerminazione.setText(birra.getDataTerminazione().toString());
+                dataTerminazione.setVisibility(View.VISIBLE);
+                iconaTerminazione.setVisibility(View.VISIBLE);
                 cardBirra.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_secondaryContainer));
             }
             else{
                 terminaProduzione.setVisibility(View.VISIBLE);
+                dataTerminazione.setVisibility(View.GONE);
+                iconaTerminazione.setVisibility(View.GONE);
                 cardBirra.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_primaryContainer));
             }
         }

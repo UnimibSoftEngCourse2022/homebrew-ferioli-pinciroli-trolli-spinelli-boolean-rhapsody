@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
+
 @Entity(foreignKeys = {
         @ForeignKey(
                 entity = Ricetta.class,
@@ -18,6 +20,7 @@ public class Birra {
 
     @PrimaryKey(autoGenerate = true) private long id;
     private boolean terminata;
+    private String dataTerminazione;
     private int litriProdotti;
     @NonNull private long idRicetta;
 
@@ -57,5 +60,13 @@ public class Birra {
 
     public void setIdRicetta(long idRicetta) {
         this.idRicetta = idRicetta;
+    }
+
+    public String getDataTerminazione() {
+        return dataTerminazione;
+    }
+
+    public void setDataTerminazione(String dataTerminazione) {
+        this.dataTerminazione = dataTerminazione;
     }
 }

@@ -15,8 +15,12 @@ import android.view.ViewGroup;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import it.unimib.brewday.databinding.FragmentListaBirreBinding;
 import it.unimib.brewday.model.BirraConRicetta;
@@ -67,6 +71,9 @@ public class ListaBirreFragment extends Fragment {
             @Override
             public void onTerminaBirraClick(BirraConRicetta birra) {
                 birra.setTerminata(true);
+                String dataTerminazione = new SimpleDateFormat("dd/MM/yyyy", Locale.ITALY)
+                        .format(Calendar.getInstance().getTime());
+                birra.setDataTerminazione(dataTerminazione);
                 birraViewModel.updateBirra(birra);
             }
         });
