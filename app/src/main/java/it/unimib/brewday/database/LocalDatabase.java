@@ -15,6 +15,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import it.unimib.brewday.model.Attrezzo;
+import it.unimib.brewday.model.AttrezzoBirra;
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.Ricetta;
@@ -28,7 +29,8 @@ import it.unimib.brewday.util.ListaIngredienti;
         Ingrediente.class,
         Ricetta.class,
         IngredienteRicetta.class,
-        Birra.class}, version = 1)
+        Birra.class,
+        AttrezzoBirra.class}, version = 1)
 @TypeConverters({Converters.class})
 public abstract class LocalDatabase extends RoomDatabase {
 
