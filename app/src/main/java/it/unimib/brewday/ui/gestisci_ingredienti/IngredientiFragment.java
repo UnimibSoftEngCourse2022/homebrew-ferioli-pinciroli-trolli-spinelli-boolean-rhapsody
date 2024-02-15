@@ -95,6 +95,12 @@ public class IngredientiFragment extends Fragment {
                 Snackbar.make(view, ((Risultato.Errore) risultato).getMessaggio(), LENGTH_SHORT).show();
             }
         });
+
+        ingredienteViewModel.getUpdateIngredienteResult().observe(getViewLifecycleOwner(), risultato -> {
+            if (!risultato.isSuccessful()){
+                Snackbar.make(view, "Errore nell'aggiornamento degli ingredienti", LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void aggiornaDBIngrediente(Ingrediente ingrediente){
