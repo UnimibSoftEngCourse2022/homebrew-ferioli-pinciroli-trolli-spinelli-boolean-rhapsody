@@ -69,7 +69,7 @@ public class AttrezziRepository {
         });
     }
 
-    public void readAllAttrezziInUso(Callback callback) {
+    public void readAllAttrezziNonInUso(Callback callback) {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
 
             List<Attrezzo> attrezziNonInUso = attrezziDao.getAllAttrezziNonInUtilizzo();

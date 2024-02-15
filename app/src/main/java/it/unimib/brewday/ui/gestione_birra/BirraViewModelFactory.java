@@ -19,6 +19,11 @@ public class BirraViewModelFactory implements ViewModelProvider.Factory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new BirraViewModel(ServiceLocator.getInstance().getBirraRepository(context));
+        return (T) new BirraViewModel(
+                ServiceLocator.getInstance().getBirraRepository(context),
+                ServiceLocator.getInstance().getIngredienteRepository(context),
+                ServiceLocator.getInstance().getRicetteRepository(context),
+                ServiceLocator.getInstance().getAttrezziRepository(context)
+        );
     }
 }

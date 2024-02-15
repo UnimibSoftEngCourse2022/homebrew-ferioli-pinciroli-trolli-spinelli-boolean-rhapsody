@@ -27,19 +27,13 @@ import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
-import it.unimib.brewday.ui.gestisci_ricette.RicetteViewModel;
-import it.unimib.brewday.ui.gestisci_attrezzi.AttrezziViewModel;
-import it.unimib.brewday.ui.gestisci_attrezzi.AttrezziViewModelFactory;
-import it.unimib.brewday.ui.gestisci_ricette.RicetteViewModelFactory;
 import it.unimib.brewday.util.Ottimizzazione;
 
 
 public class PreparaBirraFragment extends Fragment {
 
     private FragmentPreparaBirraBinding fragmentPreparaBirraBinding;
-    private RicetteViewModel ricetteViewModel;
     private BirraViewModel birraViewModel;
-    private AttrezziViewModel attrezziViewModel;
     List<IngredienteRicetta> listaIngredientiBirra;
     List<Ingrediente> listaIngredientiDisponibili;
     List<Attrezzo> listaAttrezziDisponibili;
@@ -60,13 +54,9 @@ public class PreparaBirraFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ricetteViewModel = new ViewModelProvider(this,
-                new RicetteViewModelFactory(getContext())).get(RicetteViewModel.class);
+
         birraViewModel = new ViewModelProvider(this,
                 new BirraViewModelFactory(getContext())).get(BirraViewModel.class);
-
-        attrezziViewModel = new ViewModelProvider(this,
-                new AttrezziViewModelFactory(getContext())).get(AttrezziViewModel.class);
 
         listaIngredientiBirra = new ArrayList<>();
         listaIngredientiDisponibili = new ArrayList<>();
@@ -76,8 +66,10 @@ public class PreparaBirraFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        fragmentPreparaBirraBinding = FragmentPreparaBirraBinding.inflate(inflater, container,false);
+        fragmentPreparaBirraBinding = FragmentPreparaBirraBinding
+                .inflate(inflater, container,false);
         return fragmentPreparaBirraBinding.getRoot();
     }
 
@@ -85,42 +77,66 @@ public class PreparaBirraFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        /*
+         * Ottengo i dati dai safe args ed inizializzo alcuni elementi della schemrata (nome)
+         */
         Ricetta ricetta = PreparaBirraFragmentArgs.fromBundle(getArguments()).getRicetta();
         int litriBirraScelti = PreparaBirraFragmentArgs.fromBundle(getArguments()).getNumeroLitriBirraScelti();
         possiedeAttrezzi = false;
         fragmentPreparaBirraBinding.textViewNomePreparaBirra.setText(ricetta.getNome());
 
-        ricetteViewModel.getIngredientiRicettaPerLitriRisultato().observe(getViewLifecycleOwner(), risultato ->  {
+        /*
+         * Osservo il risultato del recupero degli ingredienti della ricetta moltiplicati per il numero di litri
+         */
+        birraViewModel.getIngredientiRicettaPerLitriRisultato().observe(getViewLifecycleOwner(), risultato ->  {
             if (risultato.isSuccessful()){
                 listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
             } else {
-                Snackbar.make(view, "non riesco a recuperare gli ingredienti", BaseTransientBottomBar.LENGTH_SHORT).show();
+                Snackbar.make(view, "Errore nel recupero e calcolo degli ingredienti", BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 
-        ricetteViewModel.getDifferenzaIngredientiRisultato().observe(getViewLifecycleOwner(), risultato -> {
+        /*
+         * Osservo il risultato della differenza tra gli ingredienti che ci sono a disposizione e
+         * quelli richiesti per preparare i litri di birra specificati. (Serve per far comparire
+         * a schermo gli errori)
+         */
+        birraViewModel.getDifferenzaIngredientiRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()) {
                 listaDifferenzaIngredienti = ((Risultato.ListaDifferenzaIngredientiSuccesso) risultato).getListaDifferenzaIngredienti();
-                adapterListViewIngredientiBirra = new AdapterListViewIngredientiBirra(getContext(), R.layout.lista_ingredienti_birra, listaIngredientiBirra, listaDifferenzaIngredienti);
+
+                adapterListViewIngredientiBirra = new AdapterListViewIngredientiBirra(
+                        getContext(),
+                        R.layout.lista_ingredienti_birra,
+                        listaIngredientiBirra,
+                        listaDifferenzaIngredienti);
+
                 fragmentPreparaBirraBinding.listViewIngredrientiPreparaBirra.setAdapter(adapterListViewIngredientiBirra);
                 fragmentPreparaBirraBinding.listViewIngredrientiPreparaBirra.setDivider(null);
             }
         });
 
-        attrezziViewModel.getAllAttrezziDisponibiliResult().observe(getViewLifecycleOwner(), risultato -> {
+        /*
+         * Osservo la lista degli attrezzi che ci sono a disposizione.
+         */
+        birraViewModel.getAllAttrezziNonInUsoResult().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()){
                 listaAttrezziDisponibili = ((Risultato.ListaAttrezziSuccesso) risultato).getAttrezzi();
                 listaAttrezziSelezionati = new ArrayList<>();
 
-                Risultato risultatoOttimizzazione = Ottimizzazione.ottimizzaAttrezzi(listaAttrezziDisponibili, litriBirraScelti);
+                Risultato risultatoOttimizzazione =
+                        Ottimizzazione.ottimizzaAttrezzi(listaAttrezziDisponibili, litriBirraScelti);
+
                 if(risultatoOttimizzazione.isSuccessful()){
                     possiedeAttrezzi = true;
-                    listaAttrezziSelezionati = ((Risultato.ListaAttrezziSuccesso) risultatoOttimizzazione).getAttrezzi();
+                    listaAttrezziSelezionati =
+                            ((Risultato.ListaAttrezziSuccesso) risultatoOttimizzazione).getAttrezzi();
 
                 }
                 else{
                     if(risultatoOttimizzazione instanceof Risultato.ErroreConSuggerimentoLitri){
-                        int litri = ((Risultato.ErroreConSuggerimentoLitri) risultatoOttimizzazione).getLitriSuggeriti();
+                        int litri = ((Risultato.ErroreConSuggerimentoLitri) risultatoOttimizzazione)
+                                .getLitriSuggeriti();
                     }
                     else{
 
@@ -150,10 +166,8 @@ public class PreparaBirraFragment extends Fragment {
             }
         });*/
 
-        ricetteViewModel.getDifferenzaIngredienti(ricetta.getId(), litriBirraScelti);
-        attrezziViewModel.readAttrezziNonInUso();
-
-
+        birraViewModel.getDifferenzaIngredienti(ricetta.getId(), litriBirraScelti);
+        birraViewModel.readAttrezziNonInUso();
 
         fragmentPreparaBirraBinding.buttonRicettaPreparaBirra.setOnClickListener(v -> {
 
@@ -166,7 +180,7 @@ public class PreparaBirraFragment extends Fragment {
                     }
                     //ingredienteViewModel.updateIngredienti(listaIngredientiDisponibili);
 
-                    clearBackStack(getParentFragmentManager());
+                    //clearBackStack(getParentFragmentManager());
                     Snackbar.make(view, "Hai creato una nuova Birra!!", BaseTransientBottomBar.LENGTH_SHORT).show();
 
                 } else {
@@ -183,39 +197,6 @@ public class PreparaBirraFragment extends Fragment {
         if (fragmentManager.getBackStackEntryCount() > 0) {
             FragmentManager.BackStackEntry entry = fragmentManager.getBackStackEntryAt(0);
             fragmentManager.popBackStack(entry.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
-    }
-/*
-    public static double round(double n, int decimals) {
-        return Math.floor(n * Math.pow(10, decimals)) / Math.pow(10, decimals);
-    }
-
-    public void calcolaDifferenzaIngredienti(){
-        possiedeIngredienti = true;
-        for(int i=0; i < listaIngredientiBirra.size(); i++){
-            int differenza =  listaIngredientiDisponibili.get(i).getQuantitaPosseduta() - ((int) Math.round(listaIngredientiBirra.get(i).getDosaggioIngrediente()));
-            if (differenza < 0){
-                possiedeIngredienti = false;
-            }
-            listaDifferenzaIngredienti.add(differenza);
-        }
-    }
-
-    public void setDosaggioDaIngredienteRicetta(int litriBirraScelti){
-        for (IngredienteRicetta ingredienteRicetta : listaIngredientiBirra) {
-            if (ingredienteRicetta.getTipoIngrediente().equals(TipoIngrediente.ACQUA)) {
-                ingredienteRicetta.setDosaggioIngrediente(round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti, 1));
-            } else {
-                ingredienteRicetta.setDosaggioIngrediente(Math.round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti));
-            }
-        }
-    }
-
- */
-
-    public void verificaAttrezziBirra(){
-        if (listaAttrezziSelezionati.size() == 3){
-            possiedeAttrezzi = true;
         }
     }
 

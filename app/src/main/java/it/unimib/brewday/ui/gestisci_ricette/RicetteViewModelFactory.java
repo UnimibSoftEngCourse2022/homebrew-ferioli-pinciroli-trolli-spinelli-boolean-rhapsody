@@ -18,6 +18,6 @@ public class RicetteViewModelFactory implements ViewModelProvider.Factory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new RicetteViewModel(ServiceLocator.getInstance().getRicetteRepository(context), ServiceLocator.getInstance().getIngredienteRepository(context));
+        return (T) new RicetteViewModel(ServiceLocator.getInstance().getRicetteRepository(context));
     }
 }
