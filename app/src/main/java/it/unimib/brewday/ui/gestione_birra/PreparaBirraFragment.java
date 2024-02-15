@@ -180,8 +180,8 @@ public class PreparaBirraFragment extends Fragment {
                     }
                     //ingredienteViewModel.updateIngredienti(listaIngredientiDisponibili);
 
-                    //clearBackStack(getParentFragmentManager());
                     Snackbar.make(view, "Hai creato una nuova Birra!!", BaseTransientBottomBar.LENGTH_SHORT).show();
+                    getParentFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
                 } else {
                     Snackbar.make(view, "Attenzione ti mancano degli attrezzi", BaseTransientBottomBar.LENGTH_SHORT).show();
@@ -193,12 +193,6 @@ public class PreparaBirraFragment extends Fragment {
 
     }
 
-    private void clearBackStack(FragmentManager fragmentManager) {
-        if (fragmentManager.getBackStackEntryCount() > 0) {
-            FragmentManager.BackStackEntry entry = fragmentManager.getBackStackEntryAt(0);
-            fragmentManager.popBackStack(entry.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
-    }
 
     public boolean verificaIngredienti(){
         for (int i = 0; i < listaDifferenzaIngredienti.size(); i++) {
