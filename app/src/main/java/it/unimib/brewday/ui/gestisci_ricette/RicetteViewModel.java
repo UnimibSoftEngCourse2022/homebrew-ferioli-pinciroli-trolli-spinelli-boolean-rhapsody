@@ -72,19 +72,18 @@ public class RicetteViewModel extends ViewModel {
 
     public void getDifferenzaIngredienti(long idRicetta, int litriBirraScelti){
 
-        ricetteRepository.readIngredientiRicetta(idRicetta, risultato -> {
-            if(risultato.isSuccessful()){
-                List<IngredienteRicetta> listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
-                setDosaggioDaIngredienteRicetta(litriBirraScelti , listaIngredientiBirra );
-                ingredientiRicettaPerLitriRisultato.postValue(new Risultato.ListaIngredientiDellaRicettaSuccesso(listaIngredientiBirra));
+        ricetteRepository.readIngredientiRicetta(idRicetta, risultatoIngredientiRicetta -> {
+            if(risultatoIngredientiRicetta.isSuccessful()){
+                List<IngredienteRicetta> listaIngredientiRicetta = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultatoIngredientiRicetta).getListaIngrediente();
+                setDosaggioDaIngredienteRicetta(litriBirraScelti , listaIngredientiRicetta);
+                ingredientiRicettaPerLitriRisultato.postValue(new Risultato.ListaIngredientiDellaRicettaSuccesso(listaIngredientiRicetta));
 
-                ingredientiRepository.readAllIngredienti(risultato1 -> {
-                    if(risultato1.isSuccessful()){
-                        List<Ingrediente> listaIngredientiDisponibili = ((Risultato.IngredientiSuccesso) risultato1).getData();
+                ingredientiRepository.readAllIngredienti(risultatoIngredienti -> {
+                    if(risultatoIngredienti.isSuccessful()){
+                        List<Ingrediente> listaIngredientiDisponibili = ((Risultato.ListaIngredientiSuccesso) risultatoIngredienti).getData();
                         List<Integer> listaDifferenzaIngredienti = new ArrayList<>();
-                        calcolaDifferenzaIngredienti(listaIngredientiDisponibili,listaIngredientiBirra ,listaDifferenzaIngredienti );
+                        calcolaDifferenzaIngredienti(listaIngredientiDisponibili,listaIngredientiRicetta ,listaDifferenzaIngredienti );
                         differenzaIngredientiRisultato.postValue(new Risultato.ListaDifferenzaIngredientiSuccesso(listaDifferenzaIngredienti));
-
                     }
                 });
             }
@@ -122,8 +121,8 @@ public class RicetteViewModel extends ViewModel {
     public LiveData<Risultato> getIngredientiRicettaPerLitriRisultato(){
         return  ingredientiRicettaPerLitriRisultato;
     }
-    private void setDosaggioDaIngredienteRicetta(int litriBirraScelti, List<IngredienteRicetta> listaIngredientiBirra ){
-        for (IngredienteRicetta ingredienteRicetta : listaIngredientiBirra) {
+    private void setDosaggioDaIngredienteRicetta(int litriBirraScelti, List<IngredienteRicetta> listaIngredientiRicetta ){
+        for (IngredienteRicetta ingredienteRicetta : listaIngredientiRicetta) {
             if (ingredienteRicetta.getTipoIngrediente().equals(TipoIngrediente.ACQUA)) {
                 ingredienteRicetta.setDosaggioIngrediente(round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti, 1));
             } else {

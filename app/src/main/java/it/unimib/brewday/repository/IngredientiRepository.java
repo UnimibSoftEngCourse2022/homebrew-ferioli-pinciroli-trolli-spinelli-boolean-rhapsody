@@ -20,7 +20,7 @@ public class IngredientiRepository {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             List<Ingrediente> listaIngredienti = ingredienteDao.getAllIngredienti();
             if(listaIngredienti != null){
-                callback.onComplete(new Risultato.IngredientiSuccesso(listaIngredienti));
+                callback.onComplete(new Risultato.ListaIngredientiSuccesso(listaIngredienti));
             }
             else{
                 callback.onComplete(new Risultato.Errore("Fallimento lettura ingredienti disponibili"));
@@ -34,7 +34,7 @@ public class IngredientiRepository {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
            int aggiornato = ingredienteDao.updateAllIngredienti(listaIngredienti);
             if(aggiornato != 0){
-                callback.onComplete(new Risultato.IngredientiSuccesso(listaIngredienti));
+                callback.onComplete(new Risultato.ListaIngredientiSuccesso(listaIngredienti));
             }
             else{
                 callback.onComplete(new Risultato.Errore("ingredienti non aggiornati "));

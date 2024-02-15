@@ -1,7 +1,6 @@
 package it.unimib.brewday.util;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import it.unimib.brewday.model.Attrezzo;
@@ -18,7 +17,7 @@ public class Ottimizzazione {
         List<Attrezzo> attrezziSelezionati = selezionaAttrezzi(listaAttrezzi, litriRiferimento);
 
         if(TipoAttrezzo.values().length == attrezziSelezionati.size()){
-            return new Risultato.AttrezziSuccesso(attrezziSelezionati);
+            return new Risultato.ListaAttrezziSuccesso(attrezziSelezionati);
         }
         else{
             int litriSuggeriti = suggerisciLitri(listaAttrezzi);

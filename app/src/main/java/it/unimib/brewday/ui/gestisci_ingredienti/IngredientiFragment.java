@@ -72,7 +72,7 @@ public class IngredientiFragment extends Fragment {
         ingredienteViewModel.readAllIngredienti();
         ingredienteViewModel.getReadAllIngredientiResult().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
-                listaIngredienti = ((Risultato.IngredientiSuccesso) risultato).getData();
+                listaIngredienti = ((Risultato.ListaIngredientiSuccesso) risultato).getData();
 
                 adapterListViewIngredienti = new AdapterListViewIngredienti(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewIngredienti.OnItemClickListener() {
                     @Override

@@ -11,9 +11,9 @@ public class Risultato {
 
     public boolean isSuccessful() {
         return this instanceof Successo
-                || this instanceof IngredientiSuccesso
+                || this instanceof ListaIngredientiSuccesso
                 || this instanceof IngredienteSuccesso
-                || this instanceof AttrezziSuccesso
+                || this instanceof ListaAttrezziSuccesso
                 || this instanceof ListaIngredientiDellaRicettaSuccesso
                 || this instanceof ListaRicetteSuccesso
                 || this instanceof SingolaRicettaSuccesso
@@ -38,10 +38,10 @@ public class Risultato {
         }
     }
 
-    public static final class IngredientiSuccesso extends Risultato {
+    public static final class ListaIngredientiSuccesso extends Risultato {
         private final List<Ingrediente> listaIngrediente;
 
-        public IngredientiSuccesso(List<Ingrediente> listaIngrediente) {
+        public ListaIngredientiSuccesso(List<Ingrediente> listaIngrediente) {
             this.listaIngrediente = listaIngrediente;
         }
 
@@ -50,10 +50,10 @@ public class Risultato {
         }
     }
 
-    public static final class AttrezziSuccesso extends Risultato {
+    public static final class ListaAttrezziSuccesso extends Risultato {
         private final List<Attrezzo> attrezzi;
 
-        public AttrezziSuccesso(List<Attrezzo> attrezzo) {
+        public ListaAttrezziSuccesso(List<Attrezzo> attrezzo) {
             this.attrezzi = attrezzo;
         }
 

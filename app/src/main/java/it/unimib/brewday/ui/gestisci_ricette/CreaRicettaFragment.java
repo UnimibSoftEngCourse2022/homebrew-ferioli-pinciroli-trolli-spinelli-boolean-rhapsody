@@ -111,8 +111,8 @@ public class CreaRicettaFragment extends Fragment {
     }
 
 
-    private void salvaRicetta(View view, int zeroIngredinti, List<IngredienteRicetta> ingredientiRicetta, Ricetta ricetta ) {
-        if (zeroIngredinti < 3) {
+    private void salvaRicetta(View view, int zeroIngredienti, List<IngredienteRicetta> ingredientiRicetta, Ricetta ricetta) {
+        if (zeroIngredienti < 3) {
             ricettaViewModel.insertRicetta(ricetta, ingredientiRicetta);
             getParentFragmentManager().popBackStackImmediate();
         } else {

@@ -22,7 +22,7 @@ public class AttrezziRepository {
             List<Attrezzo> allAttrezzi = attrezziDao.getAllAttrezzi();
 
             if(allAttrezzi != null) {
-                callback.onComplete(new Risultato.AttrezziSuccesso(allAttrezzi));
+                callback.onComplete(new Risultato.ListaAttrezziSuccesso(allAttrezzi));
             }
             else {
                 callback.onComplete(new Risultato.Errore(RegistroErrori.ATTREZZI_FETCH_ERROR));
@@ -74,7 +74,7 @@ public class AttrezziRepository {
 
             List<Attrezzo> attrezziNonInUso = attrezziDao.getAllAttrezziNonInUtilizzo();
             if(attrezziNonInUso != null) {
-                callback.onComplete(new Risultato.AttrezziSuccesso(attrezziNonInUso));
+                callback.onComplete(new Risultato.ListaAttrezziSuccesso(attrezziNonInUso));
             }
             else{
                 callback.onComplete(new Risultato.Errore(RegistroErrori.ATTREZZI_FETCH_ERROR));
