@@ -92,6 +92,14 @@ public class CreaRicettaFragment extends Fragment {
                    //vuoto
         }, true);
 
+        ricettaViewModel.getInsertRicettaRisultato().observe(getViewLifecycleOwner(), risultato -> {
+            if (risultato.isSuccessful()){
+                getParentFragmentManager().popBackStackImmediate();
+            } else {
+                Snackbar.make(view, "Errore nella creazione della ricetta", LENGTH_SHORT).show();
+            }
+        });
+
         listViewIngredientiRicetta.setAdapter(adapterListViewListaIngredientiRicetta);
         listViewIngredientiRicetta.setDivider(null);
 
@@ -114,7 +122,6 @@ public class CreaRicettaFragment extends Fragment {
     private void salvaRicetta(View view, int zeroIngredienti, List<IngredienteRicetta> ingredientiRicetta, Ricetta ricetta) {
         if (zeroIngredienti < 3) {
             ricettaViewModel.insertRicetta(ricetta, ingredientiRicetta);
-            getParentFragmentManager().popBackStackImmediate();
         } else {
             Snackbar.make(view, R.string.ingredienti_ricetta_mancanti, LENGTH_SHORT).show();
         }

@@ -104,7 +104,19 @@ public class RicettaDettagliataFragment extends Fragment {
             }
         });
 
+        ricetteViewModel.getUpdateIngredientiRicettaRisultato().observe(getViewLifecycleOwner(), risultato -> {
+            if (risultato.isSuccessful()){
+                setAdapterIngredienti(false,  listaIngredientiRicetta);
+            } else {
+                Snackbar.make(view, "Errore, ingredienti non aggiornati correttamente", BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        });
 
+        ricetteViewModel.getUpdateRicettaRisultato().observe(getViewLifecycleOwner(), risultato -> {
+            if (!risultato.isSuccessful()){
+                Snackbar.make(view, "Errore, ricetta non aggiornata correttamente", BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        });
 
 
         modificaRicettaButton.setOnClickListener(v ->
@@ -134,7 +146,7 @@ public class RicettaDettagliataFragment extends Fragment {
 
                 int zeroIngredinti = gestioneRicette.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiRicettaGL, numeroLitriBirra, ricetta.getId());
 
-                salvaRicetta(view, zeroIngredinti, listaIngredientiRicettaGL, listaIngredientiRicetta);
+                salvaRicetta(view, zeroIngredinti, listaIngredientiRicettaGL);
                 ricetta.setLitriDiRiferimento(Integer.parseInt(numeroLitriBirra.getText().toString()));
                 ricetta.setNome(nomeRicetta.getText().toString());
                 ricetteViewModel.updateRicetta(ricetta);
@@ -173,11 +185,9 @@ public class RicettaDettagliataFragment extends Fragment {
         fragmentRicettaDettagliataBinding.listViewIngredrientiRicettaDettagliata.setDivider(null);
     }
 
-    private void salvaRicetta(View view, int zeroIngredinti , List<IngredienteRicetta> listaIngredientiRicettaGL, List<Ingrediente> listaIngredientiRicetta) {
+    private void salvaRicetta(View view, int zeroIngredinti , List<IngredienteRicetta> listaIngredientiRicettaGL) {
         if (zeroIngredinti < 3) {
             ricetteViewModel.updateIngredientiRicetta(listaIngredientiRicettaGL);
-            setAdapterIngredienti(false,  listaIngredientiRicetta);
-
         } else {
             Snackbar.make(view, R.string.ingredienti_ricetta_mancanti, LENGTH_SHORT).show();
         }
