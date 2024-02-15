@@ -1,12 +1,14 @@
 package it.unimib.brewday.database;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
 
+import it.unimib.brewday.model.AttrezzoBirra;
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.BirraConRicetta;
 
@@ -23,4 +25,10 @@ public interface BirraDao {
 
     @Update
     int updateBirra(Birra birra);
+
+    @Insert
+    long[] insertBirraAttrezzi(List<AttrezzoBirra> listaAttrezziBirra);
+
+    @Delete
+    int deleteBirraAttrezzi(List<AttrezzoBirra> listaAttrezziBirra);
 }

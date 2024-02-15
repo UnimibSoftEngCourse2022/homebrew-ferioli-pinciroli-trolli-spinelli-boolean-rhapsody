@@ -5,6 +5,7 @@ import it.unimib.brewday.database.LocalDatabase;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.Callback;
+import it.unimib.brewday.util.RegistroErrori;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class AttrezziRepository {
                 callback.onComplete(new Risultato.AttrezziSuccesso(allAttrezzi));
             }
             else {
-                callback.onComplete(new Risultato.Errore("Errore nella lettura degli attrezzi"));
+                callback.onComplete(new Risultato.Errore(RegistroErrori.ATTREZZI_FETCH_ERROR));
             }
         });
     }
@@ -34,7 +35,7 @@ public class AttrezziRepository {
             long id = attrezziDao.insertAttrezzo(attrezzo);
 
             if(id == -1) {
-                callback.onComplete(new Risultato.Errore("Errore nell'inserimento degli attrezzi"));
+                callback.onComplete(new Risultato.Errore(RegistroErrori.ATTREZZI_CREATION_ERROR));
             }
             else{
                 callback.onComplete(new Risultato.Successo());
@@ -47,7 +48,7 @@ public class AttrezziRepository {
 
             int rowsUpdated = attrezziDao.updateAttrezzo(attrezzo);
             if (rowsUpdated == 0) {
-                callback.onComplete(new Risultato.Errore("Errore nell'aggiornamento dei dati"));
+                callback.onComplete(new Risultato.Errore(RegistroErrori.ATTREZZI_UPDATE_ERROR));
             }
             else{
                 callback.onComplete(new Risultato.Successo());
@@ -60,7 +61,7 @@ public class AttrezziRepository {
 
             int rowsDeleted = attrezziDao.deleteAttrezzo(attrezzo);
             if (rowsDeleted == 0) {
-                callback.onComplete(new Risultato.Errore("Errore nella cancellazione dei dati"));
+                callback.onComplete(new Risultato.Errore(RegistroErrori.ATTREZZI_DELETE_ERROR));
             }
             else{
                 callback.onComplete(new Risultato.Successo());
@@ -68,4 +69,16 @@ public class AttrezziRepository {
         });
     }
 
+    public void readAllAttrezziInUso(Callback callback) {
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
+
+            List<Attrezzo> attrezziNonInUso = attrezziDao.getAllAttrezziNonInUtilizzo();
+            if(attrezziNonInUso != null) {
+                callback.onComplete(new Risultato.AttrezziSuccesso(attrezziNonInUso));
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.ATTREZZI_FETCH_ERROR));
+            }
+        });
+    }
 }
