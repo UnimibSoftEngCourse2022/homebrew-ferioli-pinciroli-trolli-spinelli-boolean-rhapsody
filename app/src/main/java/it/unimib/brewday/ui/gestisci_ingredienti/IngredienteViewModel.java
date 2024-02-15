@@ -16,13 +16,10 @@ public class IngredienteViewModel extends ViewModel {
 
     private final MutableLiveData<Risultato>  updateIngredienteMutableLiveData ;
 
-    private final MutableLiveData<Risultato>  updateIngredientiMutableLiveData ;
-
     IngredientiRepository ingredientiRepository;
 
     public IngredienteViewModel(IngredientiRepository ingredientiRepository) {
         readAllIngredientiMutableLiveData = new MutableLiveData<>();
-        updateIngredientiMutableLiveData = new MutableLiveData<>();
         updateIngredienteMutableLiveData = new MutableLiveData<>();
         this.ingredientiRepository = ingredientiRepository;
     }
@@ -35,19 +32,11 @@ public class IngredienteViewModel extends ViewModel {
         ingredientiRepository.updateIngrediente(ingrediente, updateIngredienteMutableLiveData::postValue);
     }
 
-    public void updateIngredienti(List<Ingrediente> listaIngredienti){
-        ingredientiRepository.updateAllIngredienti(listaIngredienti, updateIngredienteMutableLiveData::postValue);
-    }
-
     public LiveData<Risultato> getReadAllIngredientiResult () {
         return readAllIngredientiMutableLiveData;
     }
 
     public LiveData<Risultato> getUpdateIngredienteResult () {
         return updateIngredienteMutableLiveData;
-    }
-
-    public LiveData<Risultato> getUdateIngredientiResult () {
-        return updateIngredientiMutableLiveData;
     }
 }

@@ -28,6 +28,7 @@ public class BirraViewModel extends ViewModel {
     private final MutableLiveData<Risultato> ingredientiRicettaPerLitriRisultato;
     private final MutableLiveData<Risultato> differenzaIngredientiRisultato;
     private final MutableLiveData<Risultato> allAttrezziNonInUsoResult;
+    private final MutableLiveData<Risultato>  updateIngredientiMutableLiveData ;
 
     //Repository di accesso ai dati
     private final BirreRepository birreRepository;
@@ -52,6 +53,7 @@ public class BirraViewModel extends ViewModel {
         differenzaIngredientiRisultato = new MutableLiveData<>();
         ingredientiRicettaPerLitriRisultato = new MutableLiveData<>();
         allAttrezziNonInUsoResult = new MutableLiveData<>();
+        updateIngredientiMutableLiveData = new MutableLiveData<>();
     }
 
     public void getAllBirre() {
@@ -96,10 +98,17 @@ public class BirraViewModel extends ViewModel {
 
     }
 
+    public void updateIngredientiDisponibili(List<Ingrediente> listaIngredienti){
+        ingredientiRepository.updateAllIngredienti(listaIngredienti, updateIngredientiMutableLiveData::postValue);
+    }
+
     public void readAttrezziNonInUso() {
         attrezziRepository.readAllAttrezziNonInUso(allAttrezziNonInUsoResult::postValue);
     }
 
+    /*
+     * Metodi per ottenere riferimento a Mutable live data
+     */
     public LiveData<Risultato> getAllBirreResult() {
         return getAllBirreRisultato;
     }
@@ -114,10 +123,11 @@ public class BirraViewModel extends ViewModel {
 
     public LiveData<Risultato> getAllAttrezziNonInUsoResult() {return allAttrezziNonInUsoResult;}
 
-    public LiveData<Risultato> getDifferenzaIngredientiRisultato(){
-        return  differenzaIngredientiRisultato;
-    }
-    public LiveData<Risultato> getIngredientiRicettaPerLitriRisultato(){return  ingredientiRicettaPerLitriRisultato;}
+    public LiveData<Risultato> getDifferenzaIngredientiRisultato(){return  differenzaIngredientiRisultato;}
+
+    public LiveData<Risultato> getIngredientiRicettaPerLitriRisultato(){return ingredientiRicettaPerLitriRisultato;}
+
+    public LiveData<Risultato> getUdateIngredientiResult () { return updateIngredientiMutableLiveData;}
 
     /*
      * Metodi di supporto per la gestione del calclo della differenza tra gli ingredienti
