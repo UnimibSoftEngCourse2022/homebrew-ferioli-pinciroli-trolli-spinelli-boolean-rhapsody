@@ -80,6 +80,7 @@ public class PreparaBirraFragment extends Fragment {
          */
         Ricetta ricetta = PreparaBirraFragmentArgs.fromBundle(getArguments()).getRicetta();
         int litriBirraScelti = PreparaBirraFragmentArgs.fromBundle(getArguments()).getNumeroLitriBirraScelti();
+        fragmentPreparaBirraBinding.textViewNumeroLitriPreparaBirra.setText(Integer.toString(litriBirraScelti));
         possiedeAttrezzi = false;
         fragmentPreparaBirraBinding.textViewNomePreparaBirra.setText(ricetta.getNome());
 
@@ -126,11 +127,14 @@ public class PreparaBirraFragment extends Fragment {
         birraViewModel.getAttrezziSelezionatiRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
                 possiedeAttrezzi = true;
+                fragmentPreparaBirraBinding.imageViewControloAttrezziPreparaBirra.setImageResource(R.drawable.check);
                 listaAttrezziSelezionati = ((Risultato.ListaAttrezziSuccesso) risultato).getAttrezzi();
             }
             else{
+                fragmentPreparaBirraBinding.imageViewControloAttrezziPreparaBirra.setImageResource(R.drawable.fail);
                 if(risultato instanceof Risultato.ErroreConSuggerimentoLitri){
                     //gestire il suggerimento
+                    Snackbar.make(view, ((Risultato.Errore) risultato).getMessaggio(), BaseTransientBottomBar.LENGTH_SHORT).show();
                 }
                 else{
                     //TODO: gestione errore
