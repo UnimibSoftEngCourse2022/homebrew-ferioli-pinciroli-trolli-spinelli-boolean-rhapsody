@@ -63,7 +63,6 @@ public class InserisciLitriDialog extends DialogFragment {
                 Navigation.findNavController(viewRicettaView).navigate(action);
             }
 
-
             this.dismiss();
         });
 

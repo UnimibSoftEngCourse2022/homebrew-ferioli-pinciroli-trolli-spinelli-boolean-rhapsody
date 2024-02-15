@@ -4,11 +4,15 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
+import it.unimib.brewday.model.TipoIngrediente;
+import it.unimib.brewday.repository.IngredienteRepository;
 import it.unimib.brewday.repository.RicetteRepository;
 
 public class RicetteViewModel extends ViewModel {
@@ -18,17 +22,28 @@ public class RicetteViewModel extends ViewModel {
     private final MutableLiveData<Risultato> insertRicettaRisultato;
     private final MutableLiveData<Risultato> updateRicettaRisultato;
     private final MutableLiveData<Risultato> deleteRicettaRisultato;
+
+    private final MutableLiveData<Risultato> differenzaIngredientiRisultato;
+
+    private final MutableLiveData<Risultato> ingredientiRicettaPerLitriRisultato;
     private final MutableLiveData<Risultato> updateIngredientiRicettaRisultato;
+
+
     private final RicetteRepository ricetteRepository;
 
-    public RicetteViewModel(RicetteRepository ricetteRepository){
+    private  final IngredienteRepository ingredienteRepository;
+
+    public RicetteViewModel(RicetteRepository ricetteRepository, IngredienteRepository ingredienteRepository){
         this.ricetteRepository = ricetteRepository;
+        this.ingredienteRepository = ingredienteRepository;
         ricetteRisultato = new MutableLiveData<>();
         insertRicettaRisultato = new MutableLiveData<>();
         deleteRicettaRisultato = new MutableLiveData<>();
         updateRicettaRisultato = new MutableLiveData<>();
         updateIngredientiRicettaRisultato = new MutableLiveData<>();
         ingredientiRicetteRisultato = new MutableLiveData<>();
+        differenzaIngredientiRisultato = new MutableLiveData<>();
+        ingredientiRicettaPerLitriRisultato = new MutableLiveData<>();
     }
 
     public void getAllRicette() {
@@ -55,6 +70,29 @@ public class RicetteViewModel extends ViewModel {
         ricetteRepository.getIngredientiRicetta(idRicetta, ingredientiRicetteRisultato::postValue);
     }
 
+    public void getDifferenzaIngredienti(long idRicetta, int litriBirraScelti){
+
+        ricetteRepository.getIngredientiRicetta(idRicetta, risultato -> {
+            if(risultato.isSuccessful()){
+                List<IngredienteRicetta> listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
+                setDosaggioDaIngredienteRicetta(litriBirraScelti , listaIngredientiBirra );
+                ingredientiRicettaPerLitriRisultato.postValue(new Risultato.ListaIngredientiDellaRicettaSuccesso(listaIngredientiBirra));
+
+                ingredienteRepository.readAllIngredienti(risultato1 -> {
+                    if(risultato1.isSuccessful()){
+                        List<Ingrediente> listaIngredientiDisponibili = ((Risultato.IngredientiSuccesso) risultato1).getData();
+                        List<Integer> listaDifferenzaIngredienti = new ArrayList<>();
+                        calcolaDifferenzaIngredienti(listaIngredientiDisponibili,listaIngredientiBirra ,listaDifferenzaIngredienti );
+                        differenzaIngredientiRisultato.postValue(new Risultato.ListaDifferenzaIngredientiSuccesso(listaDifferenzaIngredienti));
+
+                    }
+                });
+            }
+
+        });
+
+    }
+
     public LiveData<Risultato> getRicetteRisultato() {
         return ricetteRisultato;
     }
@@ -78,5 +116,34 @@ public class RicetteViewModel extends ViewModel {
     public LiveData<Risultato> getDeleteRicettaRisultato() {
         return deleteRicettaRisultato;
     }
+    public LiveData<Risultato> getDifferenzaIngredientiRisultato(){
+        return  differenzaIngredientiRisultato;
+    }
+    public LiveData<Risultato> getIngredientiRicettaPerLitriRisultato(){
+        return  ingredientiRicettaPerLitriRisultato;
+    }
+    private void setDosaggioDaIngredienteRicetta(int litriBirraScelti, List<IngredienteRicetta> listaIngredientiBirra ){
+        for (IngredienteRicetta ingredienteRicetta : listaIngredientiBirra) {
+            if (ingredienteRicetta.getTipoIngrediente().equals(TipoIngrediente.ACQUA)) {
+                ingredienteRicetta.setDosaggioIngrediente(round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti, 1));
+            } else {
+                ingredienteRicetta.setDosaggioIngrediente(Math.round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti));
+            }
+        }
+    }
 
+    private void calcolaDifferenzaIngredienti(List<Ingrediente> listaIngredientiDisponibili, List<IngredienteRicetta> listaIngredientiBirra, List<Integer> listaDifferenzaIngredienti){
+      //  possiedeIngredienti = true;
+        for(int i=0; i < listaIngredientiBirra.size(); i++){
+            int differenza =  listaIngredientiDisponibili.get(i).getQuantitaPosseduta() - ((int) Math.round(listaIngredientiBirra.get(i).getDosaggioIngrediente()));
+           /* if (differenza < 0){
+                possiedeIngredienti = false;
+            }*/
+            listaDifferenzaIngredienti.add(differenza);
+        }
+    }
+
+    private static double round(double n, int decimals) {
+        return Math.floor(n * Math.pow(10, decimals)) / Math.pow(10, decimals);
+    }
 }

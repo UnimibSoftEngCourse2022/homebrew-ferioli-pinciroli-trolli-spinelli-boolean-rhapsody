@@ -15,6 +15,7 @@ public class BirraViewModel extends ViewModel {
     private final MutableLiveData<Risultato> updateBirraRisultato;
     private final BirraRepository birraRepository;
 
+
     public BirraViewModel(BirraRepository birraRepository) {
         this.birraRepository = birraRepository;
         getAllBirreRisultato = new MutableLiveData<>();
