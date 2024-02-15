@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
@@ -60,8 +61,25 @@ public class BirraViewModel extends ViewModel {
         birreRepository.readAllBirre(getAllBirreRisultato::postValue);
     }
 
-    public void createBirra(Birra birra) {
-        birreRepository.createBirra(birra, createBirraRisultato::postValue);
+    public void createBirra(Birra birra, List<Integer> listaDifferenzaIngredienti, List<Attrezzo> listaAttrezzi) {
+        birreRepository.createBirra(birra, risultatoBirra -> {
+            if (risultatoBirra.isSuccessful()){
+                ingredientiRepository.readAllIngredienti(risultatoIngredienti -> {
+                    if (risultatoIngredienti.isSuccessful()){
+                        List<Ingrediente> listaIngredientiDisponibili = ((Risultato.ListaIngredientiSuccesso) risultatoIngredienti).getData();
+                        for (int i = 0; i < listaIngredientiDisponibili.size(); i++) {
+                            listaIngredientiDisponibili.get(i).setQuantitaPosseduta(listaDifferenzaIngredienti.get(i));
+                        }
+                        ingredientiRepository.updateAllIngredienti(listaIngredientiDisponibili, updateIngredientiMutableLiveData::postValue);
+                    }
+                });
+                createBirraRisultato.postValue(new Risultato.Successo());
+            } else {
+                createBirraRisultato.postValue(new Risultato.Errore("Errore nella creazione della Birra"));
+            }
+
+
+        });
     }
 
     public void updateBirra(Birra birra){
@@ -98,9 +116,6 @@ public class BirraViewModel extends ViewModel {
 
     }
 
-    public void updateIngredientiDisponibili(List<Ingrediente> listaIngredienti){
-        ingredientiRepository.updateAllIngredienti(listaIngredienti, updateIngredientiMutableLiveData::postValue);
-    }
 
     public void readAttrezziNonInUso() {
         attrezziRepository.readAllAttrezziNonInUso(allAttrezziNonInUsoResult::postValue);
@@ -127,7 +142,7 @@ public class BirraViewModel extends ViewModel {
 
     public LiveData<Risultato> getIngredientiRicettaPerLitriRisultato(){return ingredientiRicettaPerLitriRisultato;}
 
-    public LiveData<Risultato> getUdateIngredientiResult () { return updateIngredientiMutableLiveData;}
+    public LiveData<Risultato> getUpdateIngredientiResult() { return updateIngredientiMutableLiveData;}
 
     /*
      * Metodi di supporto per la gestione del calclo della differenza tra gli ingredienti

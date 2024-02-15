@@ -151,20 +151,15 @@ public class PreparaBirraFragment extends Fragment {
             }
         });
 
-        /*ingredienteViewModel.getReadAllIngredientiResult().observe(getViewLifecycleOwner(), risultato -> {
+        birraViewModel.getCreateBirraResult().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()){
-                listaIngredientiDisponibili = ((Risultato.IngredientiSuccesso) risultato).getData();
-
-                listaDifferenzaIngredienti = new ArrayList<>();
-                calcolaDifferenzaIngredienti();
-
-                adapterListViewIngredientiBirra = new AdapterListViewIngredientiBirra(getContext(), R.layout.lista_ingredienti_birra, listaIngredientiBirra, listaDifferenzaIngredienti);
-                fragmentPreparaBirraBinding.listViewIngredrientiPreparaBirra.setAdapter(adapterListViewIngredientiBirra);
-                fragmentPreparaBirraBinding.listViewIngredrientiPreparaBirra.setDivider(null);
+                Snackbar.make(view, "Hai creato una nuova Birra!!", BaseTransientBottomBar.LENGTH_SHORT).show();
+                getParentFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             } else{
-                //errore
+                Snackbar.make(view, ((Risultato.Errore) risultato).getMessaggio(), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
-        });*/
+        });
+
 
         birraViewModel.getDifferenzaIngredienti(ricetta.getId(), litriBirraScelti);
         birraViewModel.readAttrezziNonInUso();
@@ -173,15 +168,7 @@ public class PreparaBirraFragment extends Fragment {
 
             if (verificaIngredienti()){
                 if (possiedeAttrezzi){
-                    birraViewModel.createBirra(new Birra(litriBirraScelti, ricetta.getId()));
-
-                    for (int i = 0; i < listaIngredientiDisponibili.size(); i++) {
-                        listaIngredientiDisponibili.get(i).setQuantitaPosseduta(listaDifferenzaIngredienti.get(i));
-                    }
-                    //ingredienteViewModel.updateIngredienti(listaIngredientiDisponibili);
-
-                    Snackbar.make(view, "Hai creato una nuova Birra!!", BaseTransientBottomBar.LENGTH_SHORT).show();
-                    getParentFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    birraViewModel.createBirra(new Birra(litriBirraScelti, ricetta.getId()), listaDifferenzaIngredienti, listaAttrezziSelezionati);
 
                 } else {
                     Snackbar.make(view, "Attenzione ti mancano degli attrezzi", BaseTransientBottomBar.LENGTH_SHORT).show();
