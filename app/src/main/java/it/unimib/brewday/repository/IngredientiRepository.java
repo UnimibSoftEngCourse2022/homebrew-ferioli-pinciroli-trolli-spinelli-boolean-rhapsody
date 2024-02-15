@@ -8,17 +8,17 @@ import it.unimib.brewday.database.LocalDatabase;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.ui.Callback;
 
-public class IngredienteRepository {
+public class IngredientiRepository {
 
     final IngredienteDao ingredienteDao;
 
-    public IngredienteRepository(LocalDatabase localDatabase) {
+    public IngredientiRepository(LocalDatabase localDatabase) {
         this.ingredienteDao = localDatabase.ingredienteDao();
     }
 
     public void readAllIngredienti(Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-            List<Ingrediente> listaIngredienti = ingredienteDao.getAll();
+            List<Ingrediente> listaIngredienti = ingredienteDao.getAllIngredienti();
             if(listaIngredienti != null){
                 callback.onComplete(new Risultato.IngredientiSuccesso(listaIngredienti));
             }

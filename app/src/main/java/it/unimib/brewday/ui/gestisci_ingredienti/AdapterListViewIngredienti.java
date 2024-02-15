@@ -24,7 +24,7 @@ import java.util.List;
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ingrediente;
 
-public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ingrediente> {
+public class AdapterListViewIngredienti extends ArrayAdapter<Ingrediente> {
 
 
     private final List<Ingrediente> listaIngredienti;
@@ -42,8 +42,8 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
     private Ingrediente ingredientePrecedente;
 
 
-    public AdapterListViewListaIngredientiDisponibili(@NonNull Context context, int resource, List<Ingrediente> listaIngredienti,
-                                                      int layout, OnItemClickListener onItemClickListener, OnFocusChangeListener onFocusChangeListener, boolean visibile) {
+    public AdapterListViewIngredienti(@NonNull Context context, int resource, List<Ingrediente> listaIngredienti,
+                                      int layout, OnItemClickListener onItemClickListener, OnFocusChangeListener onFocusChangeListener, boolean visibile) {
         super(context, resource, listaIngredienti);
         this.listaIngredienti = listaIngredienti;
         this.layout = layout;

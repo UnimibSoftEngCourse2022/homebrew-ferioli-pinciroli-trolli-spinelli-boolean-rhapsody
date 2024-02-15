@@ -14,7 +14,7 @@ import java.util.List;
 public interface AttrezzoDao {
 
     @Query("SELECT * FROM attrezzo")
-    List<Attrezzo> getAll();
+    List<Attrezzo> getAllAttrezzi();
 
     @Query("SELECT * FROM attrezzo " +
             "EXCEPT " +

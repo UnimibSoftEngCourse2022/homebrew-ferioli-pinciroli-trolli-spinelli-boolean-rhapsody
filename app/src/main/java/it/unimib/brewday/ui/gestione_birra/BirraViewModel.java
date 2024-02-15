@@ -6,33 +6,33 @@ import androidx.lifecycle.ViewModel;
 
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.Risultato;
-import it.unimib.brewday.repository.BirraRepository;
+import it.unimib.brewday.repository.BirreRepository;
 
 public class BirraViewModel extends ViewModel {
 
     private final MutableLiveData<Risultato> getAllBirreRisultato;
     private final MutableLiveData<Risultato> createBirraRisultato;
     private final MutableLiveData<Risultato> updateBirraRisultato;
-    private final BirraRepository birraRepository;
+    private final BirreRepository birreRepository;
 
 
-    public BirraViewModel(BirraRepository birraRepository) {
-        this.birraRepository = birraRepository;
+    public BirraViewModel(BirreRepository birreRepository) {
+        this.birreRepository = birreRepository;
         getAllBirreRisultato = new MutableLiveData<>();
         createBirraRisultato = new MutableLiveData<>();
         updateBirraRisultato = new MutableLiveData<>();
     }
 
     public void getAllBirre() {
-        birraRepository.getAllBirre(getAllBirreRisultato::postValue);
+        birreRepository.readAllBirre(getAllBirreRisultato::postValue);
     }
 
     public void createBirra(Birra birra) {
-        birraRepository.createBirra(birra, createBirraRisultato::postValue);
+        birreRepository.createBirra(birra, createBirraRisultato::postValue);
     }
 
     public void updateBirra(Birra birra){
-        birraRepository.updateBirra(birra, updateBirraRisultato::postValue);
+        birreRepository.updateBirra(birra, updateBirraRisultato::postValue);
     }
 
     public LiveData<Risultato> getAllBirreResult() {

@@ -28,14 +28,14 @@ import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.gestione_birra.InserisciLitriDialog;
-import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewListaIngredientiDisponibili;
+import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewIngredienti;
 import it.unimib.brewday.util.GestioneRicette;
 
 
 public class RicettaDettagliataFragment extends Fragment {
 
 
-    AdapterListViewListaIngredientiDisponibili adapterListViewListaIngredientiDisponibili;
+    AdapterListViewIngredienti adapterListViewIngredienti;
     private FragmentRicettaDettagliataBinding fragmentRicettaDettagliataBinding;
     boolean visibile;
     private List<IngredienteRicetta> listaIngredientiRicettaGL;
@@ -153,8 +153,8 @@ public class RicettaDettagliataFragment extends Fragment {
 
 
     private void setAdapterIngredienti(boolean visible, List<Ingrediente> listaIngredientiRicetta){
-        adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(),
-                0, listaIngredientiRicetta, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
+        adapterListViewIngredienti = new AdapterListViewIngredienti(getContext(),
+                0, listaIngredientiRicetta, R.layout.lista_ingredienti_singoli, new AdapterListViewIngredienti.OnItemClickListener() {
 
             @Override
             public void onAddIngredienteClick(Ingrediente ingrediente) {
@@ -169,7 +169,7 @@ public class RicettaDettagliataFragment extends Fragment {
             //vuoto
         }, visible);
 
-        fragmentRicettaDettagliataBinding.listViewIngredrientiRicettaDettagliata.setAdapter(adapterListViewListaIngredientiDisponibili);
+        fragmentRicettaDettagliataBinding.listViewIngredrientiRicettaDettagliata.setAdapter(adapterListViewIngredienti);
         fragmentRicettaDettagliataBinding.listViewIngredrientiRicettaDettagliata.setDivider(null);
     }
 

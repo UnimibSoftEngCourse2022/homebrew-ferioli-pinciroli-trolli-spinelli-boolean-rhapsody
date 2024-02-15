@@ -11,15 +11,15 @@ import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.Callback;
 import it.unimib.brewday.util.RegistroErrori;
 
-public class BirraRepository {
+public class BirreRepository {
 
     private final BirraDao birraDao;
 
-    public BirraRepository(LocalDatabase localDatabase) {
+    public BirreRepository(LocalDatabase localDatabase) {
         birraDao = localDatabase.birraDao();
     }
 
-    public void getAllBirre(Callback callback) {
+    public void readAllBirre(Callback callback) {
 
         LocalDatabase.databaseWriteExecutor.execute(() -> {
 

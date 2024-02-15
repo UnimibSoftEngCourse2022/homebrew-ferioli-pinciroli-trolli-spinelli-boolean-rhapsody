@@ -15,7 +15,7 @@ import it.unimib.brewday.model.IngredienteRicetta;
 public interface RicettaDao {
 
     @Query("SELECT * FROM ricetta")
-    List<Ricetta> getRicette();
+    List<Ricetta> getAllRicette();
 
     @Insert
     long insertRicetta(Ricetta ricetta);

@@ -32,7 +32,7 @@ public class IngredientiFragment extends Fragment {
 
     IngredienteViewModel ingredienteViewModel;
 
-    AdapterListViewListaIngredientiDisponibili adapterListViewListaIngredientiDisponibili;
+    AdapterListViewIngredienti adapterListViewIngredienti;
 
     List<Ingrediente> listaIngredienti;
 
@@ -74,7 +74,7 @@ public class IngredientiFragment extends Fragment {
             if(risultato.isSuccessful()){
                 listaIngredienti = ((Risultato.IngredientiSuccesso) risultato).getData();
 
-                adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
+                adapterListViewIngredienti = new AdapterListViewIngredienti(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewIngredienti.OnItemClickListener() {
                     @Override
                     public void onAddIngredienteClick(Ingrediente ingrediente) {
                         aggiornaDBIngrediente(ingrediente);
@@ -88,7 +88,7 @@ public class IngredientiFragment extends Fragment {
                     aggiornaDBIngrediente(ingrediente)
                 , true);
 
-                listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
+                listViewIngredientiDispobili.setAdapter(adapterListViewIngredienti);
                 listViewIngredientiDispobili.setDivider(null);
 
             } else {

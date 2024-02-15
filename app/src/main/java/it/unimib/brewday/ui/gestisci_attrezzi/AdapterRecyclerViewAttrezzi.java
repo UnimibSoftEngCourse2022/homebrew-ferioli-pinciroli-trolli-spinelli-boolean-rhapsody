@@ -1,6 +1,5 @@
 package it.unimib.brewday.ui.gestisci_attrezzi;
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +20,12 @@ import it.unimib.brewday.R;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.TipoAttrezzo;
 
-public class AttrezziAdapter extends RecyclerView.Adapter<AttrezziAdapter.ViewHolder>{
+public class AdapterRecyclerViewAttrezzi extends RecyclerView.Adapter<AdapterRecyclerViewAttrezzi.ViewHolder>{
 
     private List<Attrezzo> listaAttrezzi;
     private final AttrezziViewModel attrezziViewModel;
 
-    public AttrezziAdapter(List<Attrezzo> dataList, AttrezziViewModel viewModel) {
+    public AdapterRecyclerViewAttrezzi(List<Attrezzo> dataList, AttrezziViewModel viewModel) {
         this.listaAttrezzi = dataList;
         attrezziViewModel = viewModel;
     }

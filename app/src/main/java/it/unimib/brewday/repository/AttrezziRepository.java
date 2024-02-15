@@ -19,7 +19,7 @@ public class AttrezziRepository {
 
     public void readAllAttrezzi(Callback callback) {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-            List<Attrezzo> allAttrezzi = attrezziDao.getAll();
+            List<Attrezzo> allAttrezzi = attrezziDao.getAllAttrezzi();
 
             if(allAttrezzi != null) {
                 callback.onComplete(new Risultato.AttrezziSuccesso(allAttrezzi));

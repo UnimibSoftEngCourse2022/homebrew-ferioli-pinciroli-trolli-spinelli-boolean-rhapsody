@@ -29,7 +29,7 @@ import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
-import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewListaIngredientiDisponibili;
+import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewIngredienti;
 import it.unimib.brewday.util.GestioneRicette;
 import it.unimib.brewday.util.ListaIngredienti;
 
@@ -76,9 +76,9 @@ public class CreaRicettaFragment extends Fragment {
         ListaIngredienti listaIngredienti = new ListaIngredienti();
         listaIngredientiRicetta = listaIngredienti.getListaIngredienti();
 
-        AdapterListViewListaIngredientiDisponibili adapterListViewListaIngredientiRicetta = new AdapterListViewListaIngredientiDisponibili(
+        AdapterListViewIngredienti adapterListViewListaIngredientiRicetta = new AdapterListViewIngredienti(
                 getContext(), 0, listaIngredientiRicetta, R.layout.lista_ingredienti_singoli,
-                new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
+                new AdapterListViewIngredienti.OnItemClickListener() {
                     @Override
                     public void onAddIngredienteClick(Ingrediente ingrediente) {
                                 //vuoto

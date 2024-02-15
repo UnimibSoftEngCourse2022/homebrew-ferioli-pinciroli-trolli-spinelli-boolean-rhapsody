@@ -25,7 +25,7 @@ import it.unimib.brewday.model.Risultato;
 public class AttrezziFragment extends Fragment {
 
     private AttrezziViewModel mViewModel;
-    private AttrezziAdapter attrezziAdapter;
+    private AdapterRecyclerViewAttrezzi adapterRecyclerViewAttrezzi;
     private RecyclerView recyclerView;
 
     public AttrezziFragment() {
@@ -94,11 +94,11 @@ public class AttrezziFragment extends Fragment {
     public void addNuoviAttrezzi(Risultato risultato) {
         if (risultato.isSuccessful() && risultato instanceof Risultato.AttrezziSuccesso) {
             List<Attrezzo> nuoviAttrezzi = ((Risultato.AttrezziSuccesso) risultato).getAttrezzi();
-            if (attrezziAdapter == null) {
-                attrezziAdapter = new AttrezziAdapter(nuoviAttrezzi, mViewModel);
-                recyclerView.setAdapter(attrezziAdapter);
+            if (adapterRecyclerViewAttrezzi == null) {
+                adapterRecyclerViewAttrezzi = new AdapterRecyclerViewAttrezzi(nuoviAttrezzi, mViewModel);
+                recyclerView.setAdapter(adapterRecyclerViewAttrezzi);
             } else {
-                attrezziAdapter.setDataList(nuoviAttrezzi);
+                adapterRecyclerViewAttrezzi.setDataList(nuoviAttrezzi);
             }
         }
     }

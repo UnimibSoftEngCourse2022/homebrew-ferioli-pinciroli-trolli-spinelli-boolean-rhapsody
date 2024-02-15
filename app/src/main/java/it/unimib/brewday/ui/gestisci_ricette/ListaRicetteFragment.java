@@ -34,7 +34,7 @@ public class ListaRicetteFragment extends Fragment {
 
     List<Ricetta> listaRicette;
     RicetteViewModel ricettaViewModel;
-    RicetteRecyclerViewAdapter ricetteRecyclerViewAdapter;
+    AdapterRecyclerViewRicette adapterRecyclerViewRicette;
     RecyclerView recyclerViewRicette;
     String ricettaRimossaMessaggio ;
     Ricetta ricettaRimossa;
@@ -79,7 +79,7 @@ public class ListaRicetteFragment extends Fragment {
                 this.listaRicette.clear();
                 this.listaRicette.addAll(((Risultato.ListaRicetteSuccesso) risultato).getRicette());
 
-                ricetteRecyclerViewAdapter.notifyDataSetChanged();
+                adapterRecyclerViewRicette.notifyDataSetChanged();
             }
         });
 
@@ -87,13 +87,13 @@ public class ListaRicetteFragment extends Fragment {
 
         ricettaViewModel.getDeleteRicettaRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()){
-                ricetteRecyclerViewAdapter.notifyDataSetChanged();
+                adapterRecyclerViewRicette.notifyDataSetChanged();
             }
         });
 
 
-        ricetteRecyclerViewAdapter = new RicetteRecyclerViewAdapter(listaRicette, getContext(),
-                new RicetteRecyclerViewAdapter.OnItemClickListener() {
+        adapterRecyclerViewRicette = new AdapterRecyclerViewRicette(listaRicette, getContext(),
+                new AdapterRecyclerViewRicette.OnItemClickListener() {
                     @Override
                     public void onElementoRicettaClick(Ricetta ricetta) {
                         ListaRicetteFragmentDirections.ActionListaRicetteFragmentToRicettaDettagliataFragment action =
@@ -114,7 +114,7 @@ public class ListaRicetteFragment extends Fragment {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerViewRicette);
         recyclerViewRicette.setLayoutManager(layoutManager);
-        recyclerViewRicette.setAdapter(ricetteRecyclerViewAdapter);
+        recyclerViewRicette.setAdapter(adapterRecyclerViewRicette);
 
         creaRicettaButton.setOnClickListener(v ->
                 Navigation.findNavController(requireView()).navigate(R.id.action_listaRicetteFragment_to_creaRicettaFragment));
@@ -137,7 +137,7 @@ public class ListaRicetteFragment extends Fragment {
                     ricettaRimossaMessaggio = "Rimossa la ricetta "+listaRicette.get(posizione).getNome();
                     listaRicette.remove(posizione);
                     ricettaViewModel.deleteRicetta(ricettaRimossa);
-                    ricetteRecyclerViewAdapter.notifyItemRemoved(posizione);
+                    adapterRecyclerViewRicette.notifyItemRemoved(posizione);
                     Snackbar.make(recyclerViewRicette, ricettaRimossaMessaggio, BaseTransientBottomBar.LENGTH_SHORT).show();
 
             }

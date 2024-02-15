@@ -12,7 +12,7 @@ import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.TipoIngrediente;
-import it.unimib.brewday.repository.IngredienteRepository;
+import it.unimib.brewday.repository.IngredientiRepository;
 import it.unimib.brewday.repository.RicetteRepository;
 
 public class RicetteViewModel extends ViewModel {
@@ -31,11 +31,11 @@ public class RicetteViewModel extends ViewModel {
 
     private final RicetteRepository ricetteRepository;
 
-    private  final IngredienteRepository ingredienteRepository;
+    private  final IngredientiRepository ingredientiRepository;
 
-    public RicetteViewModel(RicetteRepository ricetteRepository, IngredienteRepository ingredienteRepository){
+    public RicetteViewModel(RicetteRepository ricetteRepository, IngredientiRepository ingredientiRepository){
         this.ricetteRepository = ricetteRepository;
-        this.ingredienteRepository = ingredienteRepository;
+        this.ingredientiRepository = ingredientiRepository;
         ricetteRisultato = new MutableLiveData<>();
         insertRicettaRisultato = new MutableLiveData<>();
         deleteRicettaRisultato = new MutableLiveData<>();
@@ -47,7 +47,7 @@ public class RicetteViewModel extends ViewModel {
     }
 
     public void getAllRicette() {
-        ricetteRepository.getRicette(ricetteRisultato::postValue);
+        ricetteRepository.readAllRicette(ricetteRisultato::postValue);
     }
 
     public void insertRicetta(Ricetta ricetta, List<IngredienteRicetta> listaIngredienti) {
@@ -67,18 +67,18 @@ public class RicetteViewModel extends ViewModel {
     }
 
     public void getIngredientiRicetta(long idRicetta) {
-        ricetteRepository.getIngredientiRicetta(idRicetta, ingredientiRicetteRisultato::postValue);
+        ricetteRepository.readIngredientiRicetta(idRicetta, ingredientiRicetteRisultato::postValue);
     }
 
     public void getDifferenzaIngredienti(long idRicetta, int litriBirraScelti){
 
-        ricetteRepository.getIngredientiRicetta(idRicetta, risultato -> {
+        ricetteRepository.readIngredientiRicetta(idRicetta, risultato -> {
             if(risultato.isSuccessful()){
                 List<IngredienteRicetta> listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
                 setDosaggioDaIngredienteRicetta(litriBirraScelti , listaIngredientiBirra );
                 ingredientiRicettaPerLitriRisultato.postValue(new Risultato.ListaIngredientiDellaRicettaSuccesso(listaIngredientiBirra));
 
-                ingredienteRepository.readAllIngredienti(risultato1 -> {
+                ingredientiRepository.readAllIngredienti(risultato1 -> {
                     if(risultato1.isSuccessful()){
                         List<Ingrediente> listaIngredientiDisponibili = ((Risultato.IngredientiSuccesso) risultato1).getData();
                         List<Integer> listaDifferenzaIngredienti = new ArrayList<>();

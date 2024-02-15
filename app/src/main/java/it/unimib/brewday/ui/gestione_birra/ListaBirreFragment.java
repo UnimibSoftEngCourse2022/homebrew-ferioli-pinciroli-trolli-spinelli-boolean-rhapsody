@@ -60,7 +60,7 @@ public class ListaBirreFragment extends Fragment {
         RecyclerView recyclerViewBirre = fragmentListaBirreBinding.recyclerViewListaBirre;
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
 
-        ListaBirreAdapter listaBirreAdapter = new ListaBirreAdapter(listaBirre, new ListaBirreAdapter.ItemClickCallback() {
+        AdapterRecyclerViewBirre adapterRecyclerViewBirre = new AdapterRecyclerViewBirre(listaBirre, new AdapterRecyclerViewBirre.ItemClickCallback() {
             @Override
             public void onElementoBirraClick(BirraConRicetta birra) {
                 // TODO implementare
@@ -79,7 +79,7 @@ public class ListaBirreFragment extends Fragment {
             if(risultato.isSuccessful()){
                 listaBirre.clear();
                 listaBirre.addAll(((Risultato.AllBirreSuccesso) risultato).getAllBirre());
-                listaBirreAdapter.notifyDataSetChanged();
+                adapterRecyclerViewBirre.notifyDataSetChanged();
             }
             else{
                 Snackbar.make(view, "Perdindirindina", BaseTransientBottomBar.LENGTH_LONG).show();
@@ -88,7 +88,7 @@ public class ListaBirreFragment extends Fragment {
 
         birraViewModel.getUpdateBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
-                listaBirreAdapter.notifyDataSetChanged();
+                adapterRecyclerViewBirre.notifyDataSetChanged();
             }
             else{
                 Snackbar.make(view, "NON VA", BaseTransientBottomBar.LENGTH_LONG).show();
@@ -99,6 +99,6 @@ public class ListaBirreFragment extends Fragment {
 
 
         recyclerViewBirre.setLayoutManager(layoutManager);
-        recyclerViewBirre.setAdapter(listaBirreAdapter);
+        recyclerViewBirre.setAdapter(adapterRecyclerViewBirre);
     }
 }

@@ -27,9 +27,9 @@ import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
+import it.unimib.brewday.ui.gestisci_ricette.RicetteViewModel;
 import it.unimib.brewday.ui.gestisci_attrezzi.AttrezziViewModel;
 import it.unimib.brewday.ui.gestisci_attrezzi.AttrezziViewModelFactory;
-import it.unimib.brewday.ui.gestisci_ricette.RicetteViewModel;
 import it.unimib.brewday.ui.gestisci_ricette.RicetteViewModelFactory;
 import it.unimib.brewday.util.Ottimizzazione;
 

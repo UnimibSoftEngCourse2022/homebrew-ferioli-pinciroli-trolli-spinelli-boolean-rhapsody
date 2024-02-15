@@ -15,7 +15,7 @@ import java.util.List;
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ricetta;
 
-public class RicetteRecyclerViewAdapter extends
+public class AdapterRecyclerViewRicette extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final List<Ricetta> listaRicette;
@@ -29,7 +29,7 @@ public class RicetteRecyclerViewAdapter extends
         void onAggiungiRicettaClick(Ricetta ricetta);
     }
 
-    public RicetteRecyclerViewAdapter(List<Ricetta> listaRicette, Context context, OnItemClickListener onItemClickListener) {
+    public AdapterRecyclerViewRicette(List<Ricetta> listaRicette, Context context, OnItemClickListener onItemClickListener) {
         this.listaRicette = listaRicette;
         this.onItemClickListener = onItemClickListener;
         this.context = context;
