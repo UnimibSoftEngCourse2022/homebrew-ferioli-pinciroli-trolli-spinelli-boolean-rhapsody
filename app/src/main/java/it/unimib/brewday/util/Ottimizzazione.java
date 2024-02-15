@@ -90,36 +90,22 @@ public class Ottimizzazione {
 
     }
 
-    private static int litriPerRicetta(
-            List<IngredienteRicetta> ingredientiRicetta,
-            List<Ingrediente> ingredientiPosseduti) {
+    public static int litriPerRicetta(List<IngredienteRicetta> ingredientiRicetta, List<Ingrediente> ingredientiPosseduti) {
 
-        ordinaIngredientiRicettaPerTipoIngrediente(ingredientiRicetta);
-        ordinaIngredientiPerTipoIngrediente(ingredientiPosseduti);
         double maxLitriDaProdurre = -1;
 
-        for(int i = 0; i < ingredientiRicetta.size(); i++) {
-            for (int j = 0; j < ingredientiPosseduti.size(); j++) {
-                if(ingredientiRicetta.get(i).getTipoIngrediente().getNome().equals(ingredientiPosseduti.get(j).getTipo().getNome())) {
-
-                    double litriIngrediente = (1 / ingredientiRicetta.get(i).getDosaggioIngrediente())
-                            * ingredientiPosseduti.get(j).getQuantitaPosseduta();
-                    if(maxLitriDaProdurre == -1 || litriIngrediente < maxLitriDaProdurre) {
+        for (IngredienteRicetta ingredienteDellaRicetta : ingredientiRicetta) {
+            for (Ingrediente ingrediente : ingredientiPosseduti) {
+                if(ingredienteDellaRicetta.getTipoIngrediente().getNome().equals(ingrediente.getTipo().getNome())){
+                    double litriIngrediente = (1 / ingredienteDellaRicetta.getDosaggioIngrediente()) * ingrediente.getQuantitaPosseduta();
+                    if(maxLitriDaProdurre < 0 || litriIngrediente < maxLitriDaProdurre) {
                         maxLitriDaProdurre = litriIngrediente;
                     }
                 }
             }
         }
 
-        return Double.valueOf(maxLitriDaProdurre).intValue();
-    }
-
-    private static void ordinaIngredientiRicettaPerTipoIngrediente(List<IngredienteRicetta> ingredientiRicetta) {
-        ingredientiRicetta.sort(Comparator.comparing(ingredienteRicetta -> ingredienteRicetta.getTipoIngrediente().getNome()));
-    }
-
-    private static void ordinaIngredientiPerTipoIngrediente(List<Ingrediente> listaIngredienti) {
-        listaIngredienti.sort(Comparator.comparing(ingrediente -> ingrediente.getTipo().getNome()));
+        return (int) maxLitriDaProdurre;
     }
 
 }
