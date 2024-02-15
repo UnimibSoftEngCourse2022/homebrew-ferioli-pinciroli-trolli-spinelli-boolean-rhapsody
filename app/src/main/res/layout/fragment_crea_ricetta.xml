@@ -42,14 +42,13 @@
             <ListView
                 android:id="@+id/listView_ingredrientiRicetta"
                 android:layout_width="match_parent"
-                android:layout_height="450dp"
+                android:layout_height="445dp"
                 android:layout_marginTop="8dp"
                 android:listSelector="@android:color/transparent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_listaIngredienti"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/textView_listaIngredienti" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_creaRicetta"

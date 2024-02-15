@@ -10,7 +10,7 @@
     <ListView
         android:id="@+id/listView_ingredrientiDisponibili"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="450dp"
         android:listSelector="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
