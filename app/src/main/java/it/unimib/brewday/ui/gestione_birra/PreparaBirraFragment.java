@@ -140,7 +140,7 @@ public class PreparaBirraFragment extends Fragment {
 
 
         birraViewModel.getDifferenzaIngredienti(ricetta.getId(), litriBirraScelti);
-        birraViewModel.readAndOptimizeAttrezziLiberi(litriBirraScelti);
+        birraViewModel.getAndOptimizeAttrezziLiberi(litriBirraScelti);
 
         fragmentPreparaBirraBinding.buttonRicettaPreparaBirra.setOnClickListener(v -> {
 

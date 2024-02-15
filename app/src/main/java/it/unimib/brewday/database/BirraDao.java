@@ -29,6 +29,6 @@ public interface BirraDao {
     @Insert
     long[] insertBirraAttrezzi(List<AttrezzoBirra> listaAttrezziBirra);
 
-    @Delete
-    int deleteBirraAttrezzi(List<AttrezzoBirra> listaAttrezziBirra);
+    @Query("DELETE FROM AttrezzoBirra WHERE idBirra = :idBirra")
+    int deleteBirraAttrezzi(long idBirra);
 }

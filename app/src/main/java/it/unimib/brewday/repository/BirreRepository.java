@@ -1,6 +1,9 @@
 package it.unimib.brewday.repository;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import it.unimib.brewday.database.BirraDao;
 import it.unimib.brewday.database.LocalDatabase;
@@ -52,13 +55,16 @@ public class BirreRepository {
         });
     }
 
-    public void updateBirra(Birra birra, Callback callback){
+    public void terminaBirra(Birra birra, Callback callback){
+        birra.setTerminata(true);
+        birra.setDataTerminazione(new SimpleDateFormat("dd/MM/yyyy", Locale.ITALY)
+                .format(Calendar.getInstance().getTime()));
         LocalDatabase.databaseWriteExecutor.execute(() -> {
 
             int numeroBirreModificate = birraDao.updateBirra(birra);
 
             if(numeroBirreModificate > 0){
-                callback.onComplete(new Risultato.Successo());
+                deleteBirraAttrezzi(birra.getId(), callback);
             }
             else{
                 callback.onComplete(new Risultato.Errore(RegistroErrori.BIRRE_UPDATE_ERROR));
@@ -89,17 +95,18 @@ public class BirreRepository {
         });
     }
 
-    private void deleteBirraAttrezzi(List<AttrezzoBirra> attrezziBirra, Callback callback) {
+    private void deleteBirraAttrezzi(long idBirra, Callback callback) {
 
         LocalDatabase.databaseWriteExecutor.execute(() -> {
 
-            int numeroBirreAttrezziCanellati = birraDao.deleteBirraAttrezzi(attrezziBirra);
+            int numeroBirreAttrezziCancellati = birraDao.deleteBirraAttrezzi(idBirra);
 
-            if(numeroBirreAttrezziCanellati == 0) {
-                callback.onComplete(new Risultato.Errore(RegistroErrori.BIRRE_DELETE_ERROR));
+            if(numeroBirreAttrezziCancellati > 0) {
+                callback.onComplete(new Risultato.Successo());
             }
             else{
-                callback.onComplete(new Risultato.Successo());
+                callback.onComplete(new Risultato.Errore(RegistroErrori.BIRRE_DELETE_ERROR));
+
             }
         });
     }

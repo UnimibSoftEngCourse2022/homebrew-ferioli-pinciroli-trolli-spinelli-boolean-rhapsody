@@ -71,7 +71,7 @@ public class ListaBirreFragment extends Fragment {
                 birra.setTerminata(true);
                 birra.setDataTerminazione(new SimpleDateFormat("dd/MM/yyyy", Locale.ITALY)
                         .format(Calendar.getInstance().getTime()));
-                birraViewModel.updateBirra(birra);
+                birraViewModel.terminaBirra(birra);
             }
         });
 
@@ -86,7 +86,7 @@ public class ListaBirreFragment extends Fragment {
             }
         });
 
-        birraViewModel.getUpdateBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
+        birraViewModel.getTerminaBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
                 adapterRecyclerViewBirre.notifyDataSetChanged();
             }

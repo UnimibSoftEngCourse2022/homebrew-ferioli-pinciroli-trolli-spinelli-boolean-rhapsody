@@ -17,8 +17,8 @@ import androidx.room.ForeignKey;
                         entity = Attrezzo.class,
                         parentColumns = "id",
                         childColumns = "idAttrezzo",
-                        onDelete = ForeignKey.CASCADE,
-                        onUpdate = ForeignKey.CASCADE
+                        onDelete = ForeignKey.RESTRICT,
+                        onUpdate = ForeignKey.RESTRICT
                 )
         }
 )
