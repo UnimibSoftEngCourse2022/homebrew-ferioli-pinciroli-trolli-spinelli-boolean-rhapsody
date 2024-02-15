@@ -34,14 +34,14 @@ public class BirreRepository {
         });
     }
 
-    public void createBirra(Birra birra, Callback callback) {
+    public void createBirra(Birra birra, List<AttrezzoBirra> attrezziBirra, Callback callback) {
 
         LocalDatabase.databaseWriteExecutor.execute(() -> {
 
             long idBirraRegistrata = birraDao.insertBirra(birra);
 
             if(idBirraRegistrata >= 0) {
-                callback.onComplete(new Risultato.Successo());
+                this.createBirraAttrezzi(attrezziBirra, callback);
             }
             else{
                 callback.onComplete(new Risultato.Errore(RegistroErrori.BIRRE_CREATION_ERROR));

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.unimib.brewday.model.Attrezzo;
+import it.unimib.brewday.model.AttrezzoBirra;
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
@@ -64,7 +65,12 @@ public class BirraViewModel extends ViewModel {
 
     public void createBirra(Birra birra, List<Integer> listaDifferenzaIngredienti, List<Attrezzo> listaAttrezzi) {
 
-        birreRepository.createBirra(birra, risultatoBirra -> {
+        List<AttrezzoBirra> attrezziBirra = new ArrayList<>();
+        for (Attrezzo attrezzo : listaAttrezzi) {
+            attrezziBirra.add(new AttrezzoBirra(birra.getId(), attrezzo.getId()));
+        }
+
+        birreRepository.createBirra(birra, attrezziBirra, risultatoBirra -> {
             if (risultatoBirra.isSuccessful()){
 
                 ingredientiRepository.readAllIngredienti(risultatoIngredienti -> {
@@ -76,9 +82,7 @@ public class BirraViewModel extends ViewModel {
                         }
                         ingredientiRepository.updateAllIngredienti(listaIngredientiDisponibili, updateIngredientiMutableLiveData::postValue);
                     }
-
                 });
-
                 createBirraRisultato.postValue(new Risultato.Successo());
 
             } else {

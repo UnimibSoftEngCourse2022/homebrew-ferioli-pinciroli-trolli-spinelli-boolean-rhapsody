@@ -27,8 +27,6 @@ import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
-import it.unimib.brewday.util.Ottimizzazione;
-
 
 public class PreparaBirraFragment extends Fragment {
 
@@ -151,7 +149,7 @@ public class PreparaBirraFragment extends Fragment {
                     birraViewModel.createBirra(new Birra(litriBirraScelti, ricetta.getId()), listaDifferenzaIngredienti, listaAttrezziSelezionati);
 
                 } else {
-                    Snackbar.make(view, "Gli attrezzi sono troppo piccoli (nella media)", BaseTransientBottomBar.LENGTH_SHORT).show();
+                    Snackbar.make(view, "Gli attrezzi sono troppo piccoli", BaseTransientBottomBar.LENGTH_SHORT).show();
                 }
             } else {
                 Snackbar.make(view, "Attenzione ti mancano degli ingredienti", BaseTransientBottomBar.LENGTH_SHORT).show();
