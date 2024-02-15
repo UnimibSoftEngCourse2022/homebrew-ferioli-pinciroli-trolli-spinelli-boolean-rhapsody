@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.AttrezzoBirra;
@@ -25,7 +28,7 @@ public class BirraViewModel extends ViewModel {
     //Livedata per pagina birra
     private final MutableLiveData<Risultato> getAllBirreRisultato;
     private final MutableLiveData<Risultato> createBirraRisultato;
-    private final MutableLiveData<Risultato> updateBirraRisultato;
+    private final MutableLiveData<Risultato> terminaBirraRisultato;
 
     //Livedata per pagina creazione birra
     private final MutableLiveData<Risultato> ingredientiRicettaPerLitriRisultato;
@@ -51,7 +54,7 @@ public class BirraViewModel extends ViewModel {
 
         getAllBirreRisultato = new MutableLiveData<>();
         createBirraRisultato = new MutableLiveData<>();
-        updateBirraRisultato = new MutableLiveData<>();
+        terminaBirraRisultato = new MutableLiveData<>();
 
         differenzaIngredientiRisultato = new MutableLiveData<>();
         ingredientiRicettaPerLitriRisultato = new MutableLiveData<>();
@@ -91,8 +94,8 @@ public class BirraViewModel extends ViewModel {
         });
     }
 
-    public void updateBirra(Birra birra){
-        birreRepository.updateBirra(birra, updateBirraRisultato::postValue);
+    public void terminaBirra(Birra birra){
+        birreRepository.terminaBirra(birra, terminaBirraRisultato::postValue);
     }
 
     public void getDifferenzaIngredienti(long idRicetta, int litriBirraScelti){
@@ -126,7 +129,7 @@ public class BirraViewModel extends ViewModel {
     }
 
 
-    public void readAndOptimizeAttrezziLiberi(int litriScelti) {
+    public void getAndOptimizeAttrezziLiberi(int litriScelti) {
         attrezziRepository.readAllAttrezziNonInUso(risultato -> {
             if (risultato.isSuccessful()){
                 List<Attrezzo> listaAttrezziDisponibili = ((Risultato.ListaAttrezziSuccesso) risultato).getAttrezzi();
@@ -152,8 +155,8 @@ public class BirraViewModel extends ViewModel {
         return createBirraRisultato;
     }
 
-    public LiveData<Risultato> getUpdateBirraRisultato(){
-        return updateBirraRisultato;
+    public LiveData<Risultato> getTerminaBirraRisultato() {
+        return terminaBirraRisultato;
     }
 
     public LiveData<Risultato> getAttrezziSelezionatiRisultato() {
