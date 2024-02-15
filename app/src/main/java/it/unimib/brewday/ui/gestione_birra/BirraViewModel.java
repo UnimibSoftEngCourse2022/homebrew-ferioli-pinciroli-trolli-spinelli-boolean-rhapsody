@@ -17,6 +17,7 @@ import it.unimib.brewday.repository.AttrezziRepository;
 import it.unimib.brewday.repository.BirreRepository;
 import it.unimib.brewday.repository.IngredientiRepository;
 import it.unimib.brewday.repository.RicetteRepository;
+import it.unimib.brewday.util.Ottimizzazione;
 
 public class BirraViewModel extends ViewModel {
 
@@ -28,7 +29,7 @@ public class BirraViewModel extends ViewModel {
     //Livedata per pagina creazione birra
     private final MutableLiveData<Risultato> ingredientiRicettaPerLitriRisultato;
     private final MutableLiveData<Risultato> differenzaIngredientiRisultato;
-    private final MutableLiveData<Risultato> allAttrezziNonInUsoResult;
+    private final MutableLiveData<Risultato> attrezziSelezionatiRisultato;
     private final MutableLiveData<Risultato>  updateIngredientiMutableLiveData ;
 
     //Repository di accesso ai dati
@@ -53,7 +54,7 @@ public class BirraViewModel extends ViewModel {
 
         differenzaIngredientiRisultato = new MutableLiveData<>();
         ingredientiRicettaPerLitriRisultato = new MutableLiveData<>();
-        allAttrezziNonInUsoResult = new MutableLiveData<>();
+        attrezziSelezionatiRisultato = new MutableLiveData<>();
         updateIngredientiMutableLiveData = new MutableLiveData<>();
     }
 
@@ -62,9 +63,12 @@ public class BirraViewModel extends ViewModel {
     }
 
     public void createBirra(Birra birra, List<Integer> listaDifferenzaIngredienti, List<Attrezzo> listaAttrezzi) {
+
         birreRepository.createBirra(birra, risultatoBirra -> {
             if (risultatoBirra.isSuccessful()){
+
                 ingredientiRepository.readAllIngredienti(risultatoIngredienti -> {
+
                     if (risultatoIngredienti.isSuccessful()){
                         List<Ingrediente> listaIngredientiDisponibili = ((Risultato.ListaIngredientiSuccesso) risultatoIngredienti).getData();
                         for (int i = 0; i < listaIngredientiDisponibili.size(); i++) {
@@ -72,13 +76,14 @@ public class BirraViewModel extends ViewModel {
                         }
                         ingredientiRepository.updateAllIngredienti(listaIngredientiDisponibili, updateIngredientiMutableLiveData::postValue);
                     }
+
                 });
+
                 createBirraRisultato.postValue(new Risultato.Successo());
+
             } else {
                 createBirraRisultato.postValue(new Risultato.Errore("Errore nella creazione della Birra"));
             }
-
-
         });
     }
 
@@ -117,8 +122,19 @@ public class BirraViewModel extends ViewModel {
     }
 
 
-    public void readAttrezziNonInUso() {
-        attrezziRepository.readAllAttrezziNonInUso(allAttrezziNonInUsoResult::postValue);
+    public void readAndOptimizeAttrezziLiberi(int litriScelti) {
+        attrezziRepository.readAllAttrezziNonInUso(risultato -> {
+            if (risultato.isSuccessful()){
+                List<Attrezzo> listaAttrezziDisponibili = ((Risultato.ListaAttrezziSuccesso) risultato).getAttrezzi();
+
+                Risultato risultatoOttimizzazione = Ottimizzazione.ottimizzaAttrezzi(listaAttrezziDisponibili, litriScelti);
+                attrezziSelezionatiRisultato.postValue(risultatoOttimizzazione);
+
+            }
+            else{
+                attrezziSelezionatiRisultato.postValue(risultato);
+            }
+        });
     }
 
     /*
@@ -136,9 +152,13 @@ public class BirraViewModel extends ViewModel {
         return updateBirraRisultato;
     }
 
-    public LiveData<Risultato> getAllAttrezziNonInUsoResult() {return allAttrezziNonInUsoResult;}
+    public LiveData<Risultato> getAttrezziSelezionatiRisultato() {
+        return attrezziSelezionatiRisultato;
+    }
 
-    public LiveData<Risultato> getDifferenzaIngredientiRisultato(){return  differenzaIngredientiRisultato;}
+    public LiveData<Risultato> getDifferenzaIngredientiRisultato(){
+        return  differenzaIngredientiRisultato;
+    }
 
     public LiveData<Risultato> getIngredientiRicettaPerLitriRisultato(){return ingredientiRicettaPerLitriRisultato;}
 

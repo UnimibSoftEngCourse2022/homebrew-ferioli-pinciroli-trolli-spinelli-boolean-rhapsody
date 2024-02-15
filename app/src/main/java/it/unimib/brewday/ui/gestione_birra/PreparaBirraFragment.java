@@ -78,7 +78,7 @@ public class PreparaBirraFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         /*
-         * Ottengo i dati dai safe args ed inizializzo alcuni elementi della schemrata (nome)
+         * Ottengo i dati dai safe args ed inizializzo alcuni elementi della schermata (nome)
          */
         Ricetta ricetta = PreparaBirraFragmentArgs.fromBundle(getArguments()).getRicetta();
         int litriBirraScelti = PreparaBirraFragmentArgs.fromBundle(getArguments()).getNumeroLitriBirraScelti();
@@ -116,41 +116,6 @@ public class PreparaBirraFragment extends Fragment {
             }
         });
 
-        /*
-         * Osservo la lista degli attrezzi che ci sono a disposizione.
-         */
-        birraViewModel.getAllAttrezziNonInUsoResult().observe(getViewLifecycleOwner(), risultato -> {
-            if (risultato.isSuccessful()){
-                listaAttrezziDisponibili = ((Risultato.ListaAttrezziSuccesso) risultato).getAttrezzi();
-                listaAttrezziSelezionati = new ArrayList<>();
-
-                Risultato risultatoOttimizzazione =
-                        Ottimizzazione.ottimizzaAttrezzi(listaAttrezziDisponibili, litriBirraScelti);
-
-                if(risultatoOttimizzazione.isSuccessful()){
-                    possiedeAttrezzi = true;
-                    listaAttrezziSelezionati =
-                            ((Risultato.ListaAttrezziSuccesso) risultatoOttimizzazione).getAttrezzi();
-
-                }
-                else{
-                    if(risultatoOttimizzazione instanceof Risultato.ErroreConSuggerimentoLitri){
-                        int litri = ((Risultato.ErroreConSuggerimentoLitri) risultatoOttimizzazione)
-                                .getLitriSuggeriti();
-                    }
-                    else{
-
-                    }
-                }
-
-                //TODO: integrare la nuova ottimizzazione degli attrezzi
-                //listaAttrezziUtilizzati = Ottimizzazione.ottimizzaAttrezzi(listaAttrezziDisponibili, litriBirraScelti);
-
-            } else{
-                //errore
-            }
-        });
-
         birraViewModel.getCreateBirraResult().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()){
                 Snackbar.make(view, "Hai creato una nuova Birra!!", BaseTransientBottomBar.LENGTH_SHORT).show();
@@ -160,9 +125,24 @@ public class PreparaBirraFragment extends Fragment {
             }
         });
 
+        birraViewModel.getAttrezziSelezionatiRisultato().observe(getViewLifecycleOwner(), risultato -> {
+            if(risultato.isSuccessful()){
+                possiedeAttrezzi = true;
+                listaAttrezziSelezionati = ((Risultato.ListaAttrezziSuccesso) risultato).getAttrezzi();
+            }
+            else{
+                if(risultato instanceof Risultato.ErroreConSuggerimentoLitri){
+                    //gestire il suggerimento
+                }
+                else{
+                    //TODO: gestione errore
+                }
+            }
+        });
+
 
         birraViewModel.getDifferenzaIngredienti(ricetta.getId(), litriBirraScelti);
-        birraViewModel.readAttrezziNonInUso();
+        birraViewModel.readAndOptimizeAttrezziLiberi(litriBirraScelti);
 
         fragmentPreparaBirraBinding.buttonRicettaPreparaBirra.setOnClickListener(v -> {
 
@@ -171,7 +151,7 @@ public class PreparaBirraFragment extends Fragment {
                     birraViewModel.createBirra(new Birra(litriBirraScelti, ricetta.getId()), listaDifferenzaIngredienti, listaAttrezziSelezionati);
 
                 } else {
-                    Snackbar.make(view, "Attenzione ti mancano degli attrezzi", BaseTransientBottomBar.LENGTH_SHORT).show();
+                    Snackbar.make(view, "Gli attrezzi sono troppo piccoli (nella media)", BaseTransientBottomBar.LENGTH_SHORT).show();
                 }
             } else {
                 Snackbar.make(view, "Attenzione ti mancano degli ingredienti", BaseTransientBottomBar.LENGTH_SHORT).show();
