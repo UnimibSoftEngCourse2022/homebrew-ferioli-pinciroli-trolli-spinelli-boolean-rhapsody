@@ -41,6 +41,9 @@ public class BirreRepository {
             long idBirraRegistrata = birraDao.insertBirra(birra);
 
             if(idBirraRegistrata >= 0) {
+                for (AttrezzoBirra attrezzo: attrezziBirra) {
+                    attrezzo.setIdBirra(idBirraRegistrata);
+                }
                 this.createBirraAttrezzi(attrezziBirra, callback);
             }
             else{
