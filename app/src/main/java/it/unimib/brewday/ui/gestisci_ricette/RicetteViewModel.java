@@ -72,23 +72,24 @@ public class RicetteViewModel extends ViewModel {
 
     public void getDifferenzaIngredienti(long idRicetta, int litriBirraScelti){
 
-            ricetteRepository.getIngredientiRicetta(idRicetta, risultato -> {
-                if(risultato.isSuccessful()){
-                    List<IngredienteRicetta> listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
-                    setDosaggioDaIngredienteRicetta(litriBirraScelti , listaIngredientiBirra );
-                    ingredientiRicettaPerLitriRisultato.postValue(new Risultato.ListaIngredientiDellaRicettaSuccesso(listaIngredientiBirra));
-                    ingredienteRepository.readAllIngredienti(risultato1 -> {
-                        if(risultato1.isSuccessful()){
-                            List<Ingrediente> listaIngredientiDisponibili = ((Risultato.IngredientiSuccesso) risultato1).getData();
-                            List<Integer> listaDifferenzaIngredienti = new ArrayList<>();
-                            calcolaDifferenzaIngredienti(listaIngredientiDisponibili,listaIngredientiBirra ,listaDifferenzaIngredienti );
-                            differenzaIngredientiRisultato.postValue(new Risultato.ListaDifferenzaIngredientiSuccesso(listaDifferenzaIngredienti));
+        ricetteRepository.getIngredientiRicetta(idRicetta, risultato -> {
+            if(risultato.isSuccessful()){
+                List<IngredienteRicetta> listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
+                setDosaggioDaIngredienteRicetta(litriBirraScelti , listaIngredientiBirra );
+                ingredientiRicettaPerLitriRisultato.postValue(new Risultato.ListaIngredientiDellaRicettaSuccesso(listaIngredientiBirra));
+
+                ingredienteRepository.readAllIngredienti(risultato1 -> {
+                    if(risultato1.isSuccessful()){
+                        List<Ingrediente> listaIngredientiDisponibili = ((Risultato.IngredientiSuccesso) risultato1).getData();
+                        List<Integer> listaDifferenzaIngredienti = new ArrayList<>();
+                        calcolaDifferenzaIngredienti(listaIngredientiDisponibili,listaIngredientiBirra ,listaDifferenzaIngredienti );
+                        differenzaIngredientiRisultato.postValue(new Risultato.ListaDifferenzaIngredientiSuccesso(listaDifferenzaIngredienti));
 
                     }
-                    });
-                }
+                });
+            }
 
-            });
+        });
 
     }
 
@@ -121,7 +122,7 @@ public class RicetteViewModel extends ViewModel {
     public LiveData<Risultato> getIngredientiRicettaPerLitriRisultato(){
         return  ingredientiRicettaPerLitriRisultato;
     }
-    public void setDosaggioDaIngredienteRicetta(int litriBirraScelti, List<IngredienteRicetta> listaIngredientiBirra ){
+    private void setDosaggioDaIngredienteRicetta(int litriBirraScelti, List<IngredienteRicetta> listaIngredientiBirra ){
         for (IngredienteRicetta ingredienteRicetta : listaIngredientiBirra) {
             if (ingredienteRicetta.getTipoIngrediente().equals(TipoIngrediente.ACQUA)) {
                 ingredienteRicetta.setDosaggioIngrediente(round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti, 1));
@@ -131,7 +132,7 @@ public class RicetteViewModel extends ViewModel {
         }
     }
 
-    public void calcolaDifferenzaIngredienti(List<Ingrediente> listaIngredientiDisponibili, List<IngredienteRicetta> listaIngredientiBirra, List<Integer> listaDifferenzaIngredienti){
+    private void calcolaDifferenzaIngredienti(List<Ingrediente> listaIngredientiDisponibili, List<IngredienteRicetta> listaIngredientiBirra, List<Integer> listaDifferenzaIngredienti){
       //  possiedeIngredienti = true;
         for(int i=0; i < listaIngredientiBirra.size(); i++){
             int differenza =  listaIngredientiDisponibili.get(i).getQuantitaPosseduta() - ((int) Math.round(listaIngredientiBirra.get(i).getDosaggioIngrediente()));
@@ -142,7 +143,7 @@ public class RicetteViewModel extends ViewModel {
         }
     }
 
-    public static double round(double n, int decimals) {
+    private static double round(double n, int decimals) {
         return Math.floor(n * Math.pow(10, decimals)) / Math.pow(10, decimals);
     }
 }
