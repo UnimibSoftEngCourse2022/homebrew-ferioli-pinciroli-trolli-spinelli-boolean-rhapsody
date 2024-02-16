@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <TextView
-        android:id="@+id/textView_NomeBirra"
+        android:id="@+id/textView_NomeBirraDettagliata"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nome Birra"
@@ -23,18 +23,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView_IngredientiPer_Birra"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:text="ingredienti per"
-        android:textStyle="bold"
-        android:textColor="?android:colorPrimary"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_NomeBirra" />
+        <TextView
+            android:id="@+id/textView_IngredientiPer_Birra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="ingredienti per"
+            android:textColor="?android:colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_NomeBirraDettagliata" />
 
     <TextView
         android:id="@+id/textView_numeroLitri_BirraDettagliata"
@@ -63,57 +63,63 @@
         app:layout_constraintTop_toTopOf="@+id/textView_numeroLitri_BirraDettagliata"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="409dp"
-        android:layout_height="430dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_IngredientiPer_Birra" />
+        <ListView
+            android:id="@+id/listView_igredientiBirraDettagliata"
+            android:layout_width="match_parent"
+            android:layout_height="430dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_IngredientiPer_Birra" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recyclerView_attrezziBirraDettagliata"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Attrezzi"
-        android:textColor="?android:colorPrimary"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listView" />
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="Attrezzi"
+            android:textColor="?android:colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listView_igredientiBirraDettagliata" />
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="128dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
             android:text="Note"
             android:textColor="?android:colorPrimary"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listView" />
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView_attrezziBirraDettagliata" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="409dp"
+            android:id="@+id/inputTextLayout_noteBirraDettagliata"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText_noteBirraDettagliata"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="hint" />
