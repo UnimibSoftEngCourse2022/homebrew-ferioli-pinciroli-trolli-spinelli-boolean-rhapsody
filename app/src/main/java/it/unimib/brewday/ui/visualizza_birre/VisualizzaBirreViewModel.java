@@ -9,6 +9,7 @@ import java.util.List;
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Risultato;
+import it.unimib.brewday.model.TipoIngrediente;
 import it.unimib.brewday.repository.BirreRepository;
 import it.unimib.brewday.repository.RicetteRepository;
 
@@ -65,4 +66,19 @@ public class VisualizzaBirreViewModel extends ViewModel {
     }
 
     public LiveData<Risultato> getIngredientiBirraRisultato(){return getIngredientiBirraRisultato;}
+
+    private void setDosaggioDaIngredienteRicetta(int litriBirraScelti,
+                                                 List<IngredienteRicetta> listaIngredientiRicetta ){
+        for (IngredienteRicetta ingredienteRicetta : listaIngredientiRicetta) {
+            if (ingredienteRicetta.getTipoIngrediente().equals(TipoIngrediente.ACQUA)) {
+                ingredienteRicetta.setDosaggioIngrediente(round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti, 1));
+            } else {
+                ingredienteRicetta.setDosaggioIngrediente(Math.round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti));
+            }
+        }
+    }
+
+    private static double round(double n, int decimals) {
+        return Math.floor(n * Math.pow(10, decimals)) / Math.pow(10, decimals);
+    }
 }

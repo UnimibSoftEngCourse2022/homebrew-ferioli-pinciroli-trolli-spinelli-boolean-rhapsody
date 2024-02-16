@@ -43,8 +43,11 @@ public class AdapterListViewIngredientiBirra extends ArrayAdapter<IngredienteRic
 
         quantitaIngrediente.setEnabled(false);
         nomeIngrediente.setText(listaIngredientiRicetta.get(position).getTipoIngrediente().getNome());
-        aggiornaVisualizzazioneIngredienti(listaIngredientiRicetta.get(position), quantitaIngrediente, unitaMisura, listaIngredientiDifferenza.get(position));
-
+        if(listaIngredientiDifferenza.isEmpty()) {
+            aggiornaVisualizzazioneIngredienti(listaIngredientiRicetta.get(position), quantitaIngrediente, unitaMisura,0 );
+        }else{
+            aggiornaVisualizzazioneIngredienti(listaIngredientiRicetta.get(position), quantitaIngrediente, unitaMisura,listaIngredientiDifferenza.get(position));
+        }
 
         return convertView;
     }
