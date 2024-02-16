@@ -1,5 +1,8 @@
 package it.unimib.brewday.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -14,7 +17,7 @@ import androidx.room.PrimaryKey;
                 onUpdate = ForeignKey.CASCADE
         )
 })
-public class Birra {
+public class Birra implements Parcelable {
 
     @PrimaryKey(autoGenerate = true) private long id;
     private boolean terminata;
@@ -67,4 +70,16 @@ public class Birra {
     public void setDataTerminazione(String dataTerminazione) {
         this.dataTerminazione = dataTerminazione;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+
+    }
+
+
 }

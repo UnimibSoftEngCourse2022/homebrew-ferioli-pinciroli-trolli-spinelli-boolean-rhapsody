@@ -27,11 +27,14 @@ public class BirraViewModel extends ViewModel {
     private final MutableLiveData<Risultato> createBirraRisultato;
     private final MutableLiveData<Risultato> terminaBirraRisultato;
 
+    private final MutableLiveData<Risultato> getIngredientiBirraRisultato;
+
     //Livedata per pagina creazione birra
     private final MutableLiveData<Risultato> ingredientiRicettaPerLitriRisultato;
     private final MutableLiveData<Risultato> differenzaIngredientiRisultato;
     private final MutableLiveData<Risultato> attrezziSelezionatiRisultato;
     private final MutableLiveData<Risultato>  updateIngredientiMutableLiveData ;
+
 
     //Repository di accesso ai dati
     private final BirreRepository birreRepository;
@@ -52,6 +55,7 @@ public class BirraViewModel extends ViewModel {
         getAllBirreRisultato = new MutableLiveData<>();
         createBirraRisultato = new MutableLiveData<>();
         terminaBirraRisultato = new MutableLiveData<>();
+        getIngredientiBirraRisultato = new MutableLiveData<>();
 
         differenzaIngredientiRisultato = new MutableLiveData<>();
         ingredientiRicettaPerLitriRisultato = new MutableLiveData<>();
@@ -141,6 +145,18 @@ public class BirraViewModel extends ViewModel {
         });
     }
 
+    public void getIngredientiBirra (Birra birra){
+    ricetteRepository.readIngredientiRicetta(birra.getIdRicetta(), risultato -> {
+        if (risultato.isSuccessful()) {
+            List<IngredienteRicetta> listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
+            setDosaggioDaIngredienteRicetta(birra.getLitriProdotti(), listaIngredientiBirra );
+            getIngredientiBirraRisultato.postValue(new Risultato.ListaIngredientiDellaRicettaSuccesso(listaIngredientiBirra));
+        }
+    });
+
+
+    }
+
     /*
      * Metodi per ottenere riferimento a Mutable live data
      */
@@ -167,6 +183,8 @@ public class BirraViewModel extends ViewModel {
     public LiveData<Risultato> getIngredientiRicettaPerLitriRisultato(){return ingredientiRicettaPerLitriRisultato;}
 
     public LiveData<Risultato> getUpdateIngredientiResult() { return updateIngredientiMutableLiveData;}
+
+    public LiveData<Risultato> getIngredientiBirraRisultato(){return getIngredientiBirraRisultato;}
 
     /*
      * Metodi di supporto per la gestione del calclo della differenza tra gli ingredienti

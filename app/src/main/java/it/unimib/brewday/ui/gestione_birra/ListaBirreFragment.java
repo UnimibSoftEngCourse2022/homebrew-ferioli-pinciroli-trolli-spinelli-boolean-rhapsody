@@ -66,7 +66,10 @@ public class ListaBirreFragment extends Fragment {
             @Override
             public void onElementoBirraClick(BirraConRicetta birra) {
                 // TODO implementare birra dettagliata
-                Navigation.findNavController(view).navigate(R.id.action_birreFragment_to_birraDettagliataFragment);
+                ListaBirreFragmentDirections.ActionBirreFragmentToBirraDettagliataFragment action =
+                        ListaBirreFragmentDirections.actionBirreFragmentToBirraDettagliataFragment(birra);
+
+                Navigation.findNavController(view).navigate(action);
             }
 
             @Override

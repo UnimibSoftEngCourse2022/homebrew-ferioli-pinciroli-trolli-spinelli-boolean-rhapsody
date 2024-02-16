@@ -65,7 +65,11 @@
         android:id="@+id/birraDettagliataFragment"
         android:name="it.unimib.brewday.ui.gestione_birra.BirraDettagliataFragment"
         android:label="fragment_birra_dettagliata"
-        tools:layout="@layout/fragment_birra_dettagliata" />
+        tools:layout="@layout/fragment_birra_dettagliata" >
+        <argument
+            android:name="Birra"
+            app:argType="it.unimib.brewday.model.Birra" />
+    </fragment>
     <fragment
         android:id="@+id/preparaBirraFragment"
         android:name="it.unimib.brewday.ui.gestione_birra.PreparaBirraFragment"
