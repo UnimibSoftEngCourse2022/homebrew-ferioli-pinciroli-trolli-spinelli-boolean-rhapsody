@@ -77,7 +77,25 @@ public class RicettaDettagliataFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //Gestione Topbar
         AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if (activity != null) {
+            ActionBar actionBar = activity.getSupportActionBar();
+
+            // Imposta il titolo personalizzato
+            if (actionBar != null) {
+                actionBar.setTitle("");
+            }
+        }
+
+        ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar != null) {
+            // Imposta il colore del pulsante back
+            actionBar.setHomeAsUpIndicator(R.drawable.arrow_back_24px);
+
+            // Abilita il pulsante back
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
 
         ImageButton modificaRicettaButton = fragmentRicettaDettagliataBinding.imageButtonModificaRicetta;
@@ -93,16 +111,6 @@ public class RicettaDettagliataFragment extends Fragment {
         visibile = false;
         numeroLitriRicettaBirra.setEnabled(visibile);
         nomeRicetta.setEnabled(visibile);
-
-        //Gestione titolo Topbar (Deve essere vuoto)
-        if (activity != null) {
-            ActionBar actionBar = activity.getSupportActionBar();
-
-            // Imposta il titolo personalizzato
-            if (actionBar != null) {
-                actionBar.setTitle("");
-            }
-        }
 
         ricetteViewModel.getIngredientiRicetteRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()){
