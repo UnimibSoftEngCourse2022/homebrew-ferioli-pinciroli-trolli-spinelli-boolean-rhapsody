@@ -28,8 +28,8 @@ public class BirraViewModel extends ViewModel {
     private final MutableLiveData<Risultato> terminaBirraRisultato;
 
     //Livedata per pagina creazione birra
-    private final MutableLiveData<Risultato> ingredientiRicettaPerLitriRisultato;
-    private final MutableLiveData<Risultato> differenzaIngredientiRisultato;
+    private final MutableLiveData<Risultato> dosaggiRisultato;
+    private final MutableLiveData<Risultato> consumoIngredientiRisultato;
     private final MutableLiveData<Risultato> attrezziSelezionatiRisultato;
     private final MutableLiveData<Risultato>  updateIngredientiMutableLiveData ;
 
@@ -53,8 +53,8 @@ public class BirraViewModel extends ViewModel {
         createBirraRisultato = new MutableLiveData<>();
         terminaBirraRisultato = new MutableLiveData<>();
 
-        differenzaIngredientiRisultato = new MutableLiveData<>();
-        ingredientiRicettaPerLitriRisultato = new MutableLiveData<>();
+        consumoIngredientiRisultato = new MutableLiveData<>();
+        dosaggiRisultato = new MutableLiveData<>();
         attrezziSelezionatiRisultato = new MutableLiveData<>();
         updateIngredientiMutableLiveData = new MutableLiveData<>();
     }
@@ -95,7 +95,7 @@ public class BirraViewModel extends ViewModel {
         birreRepository.terminaBirra(birra, terminaBirraRisultato::postValue);
     }
 
-    public void getDifferenzaIngredienti(long idRicetta, int litriBirraScelti){
+    public void calcolaDosaggi(long idRicetta, int litriBirraScelti){
 
         ricetteRepository.readIngredientiRicetta(idRicetta, risultatoIngredientiRicetta -> {
 
@@ -105,24 +105,26 @@ public class BirraViewModel extends ViewModel {
                         ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultatoIngredientiRicetta).getListaIngrediente();
 
                 setDosaggioDaIngredienteRicetta(litriBirraScelti , ingredientiRicetta);
-                ingredientiRicettaPerLitriRisultato.postValue(new Risultato.ListaIngredientiDellaRicettaSuccesso(ingredientiRicetta));
-
-                ingredientiRepository.readAllIngredienti(risultatoIngredienti -> {
-
-                    if(risultatoIngredienti.isSuccessful()){
-
-                        List<Ingrediente> listaIngredientiDisponibili =
-                                ((Risultato.ListaIngredientiSuccesso) risultatoIngredienti).getData();
-
-                        List<Integer> listaDifferenzaIngredienti = new ArrayList<>();
-                        calcolaDifferenzaIngredienti(listaIngredientiDisponibili,ingredientiRicetta ,listaDifferenzaIngredienti);
-                        differenzaIngredientiRisultato.postValue(new Risultato.ListaDifferenzaIngredientiSuccesso(listaDifferenzaIngredienti));
-                    }
-                });
+                dosaggiRisultato.postValue(new Risultato.ListaIngredientiDellaRicettaSuccesso(ingredientiRicetta));
             }
 
         });
 
+    }
+
+    public void calcolaConsumoIngredienti(List<IngredienteRicetta> ingredientiRicetta) {
+        ingredientiRepository.readAllIngredienti(risultatoIngredienti -> {
+
+            if(risultatoIngredienti.isSuccessful()){
+
+                List<Ingrediente> listaIngredientiDisponibili =
+                        ((Risultato.ListaIngredientiSuccesso) risultatoIngredienti).getData();
+
+                List<Integer> listaDifferenzaIngredienti = new ArrayList<>();
+                calcolaDifferenzaIngredienti(listaIngredientiDisponibili, ingredientiRicetta,listaDifferenzaIngredienti);
+                consumoIngredientiRisultato.postValue(new Risultato.ListaDifferenzaIngredientiSuccesso(listaDifferenzaIngredienti));
+            }
+        });
     }
 
 
@@ -160,11 +162,11 @@ public class BirraViewModel extends ViewModel {
         return attrezziSelezionatiRisultato;
     }
 
-    public LiveData<Risultato> getDifferenzaIngredientiRisultato(){
-        return  differenzaIngredientiRisultato;
+    public LiveData<Risultato> getConsumoIngredientiRisultato(){
+        return consumoIngredientiRisultato;
     }
 
-    public LiveData<Risultato> getIngredientiRicettaPerLitriRisultato(){return ingredientiRicettaPerLitriRisultato;}
+    public LiveData<Risultato> getDosaggiRisultato(){return dosaggiRisultato;}
 
     public LiveData<Risultato> getUpdateIngredientiResult() { return updateIngredientiMutableLiveData;}
 

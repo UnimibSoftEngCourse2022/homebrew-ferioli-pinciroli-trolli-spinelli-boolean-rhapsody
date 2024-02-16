@@ -11,16 +11,16 @@ import android.view.ViewGroup;
 import it.unimib.brewday.R;
 
 
-public class CosaDevoPreparareOggiFragment extends Fragment {
+public class CosaPrerparareOggiFragment extends Fragment {
 
 
-    public CosaDevoPreparareOggiFragment() {
+    public CosaPrerparareOggiFragment() {
         // Required empty public constructor
     }
 
 
-    public static CosaDevoPreparareOggiFragment newInstance() {
-        return new CosaDevoPreparareOggiFragment();
+    public static CosaPrerparareOggiFragment newInstance() {
+        return new CosaPrerparareOggiFragment();
     }
 
 
@@ -28,6 +28,6 @@ public class CosaDevoPreparareOggiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cosa_devo_preparare_oggi, container, false);
+        return inflater.inflate(R.layout.fragment_cosa_preparare_oggi, container, false);
     }
 }

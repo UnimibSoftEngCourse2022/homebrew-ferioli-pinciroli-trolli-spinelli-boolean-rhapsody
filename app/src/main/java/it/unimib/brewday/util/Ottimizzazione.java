@@ -57,8 +57,8 @@ public class Ottimizzazione {
         return attrezziScelti;
     }
 
-
-    private static int suggerisciLitri(List<Attrezzo> listaAttrezzi){
+    //calcola il numero massimo di litri che è possibile produrre con gli attrezzi passati
+    public static int suggerisciLitri(List<Attrezzo> listaAttrezzi){
 
         boolean esisteAttrezzoPerTipologia = false;
         double litriSuggeriti = Double.MAX_VALUE;
@@ -89,6 +89,7 @@ public class Ottimizzazione {
 
     }
 
+
     public static int litriPerRicetta(List<IngredienteRicetta> ingredientiRicetta, List<Ingrediente> ingredientiPosseduti) {
 
         double maxLitriDaProdurre = -1;
@@ -106,5 +107,7 @@ public class Ottimizzazione {
 
         return (int) maxLitriDaProdurre;
     }
+
+
 
 }
