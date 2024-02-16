@@ -27,8 +27,8 @@ public class Birra implements Parcelable {
     private int litriProdotti;
     @NonNull private long idRicetta;
 
-    Nota notaGenerale;
-    List<NotaDegustazione> listaDiNote;
+    //Nota notaGenerale;
+    //List<NotaDegustazione> listaDiNote;
 
     public Birra(int litriProdotti, long idRicetta) {
         this.idRicetta = idRicetta;
@@ -75,7 +75,7 @@ public class Birra implements Parcelable {
     public void setDataTerminazione(String dataTerminazione) {
         this.dataTerminazione = dataTerminazione;
     }
-
+/*
     public Nota getNotaGenerale() {
         return notaGenerale;
     }
@@ -92,15 +92,48 @@ public class Birra implements Parcelable {
         this.listaDiNote = listaDiNote;
     }
 
+ */
+
+
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
-
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.id);
+        dest.writeByte(this.terminata ? (byte) 1 : (byte) 0);
+        dest.writeString(this.dataTerminazione);
+        dest.writeInt(this.litriProdotti);
+        dest.writeLong(this.idRicetta);
     }
 
+    public void readFromParcel(Parcel source) {
+        this.id = source.readLong();
+        this.terminata = source.readByte() != 0;
+        this.dataTerminazione = source.readString();
+        this.litriProdotti = source.readInt();
+        this.idRicetta = source.readLong();
+    }
 
+    protected Birra(Parcel in) {
+        this.id = in.readLong();
+        this.terminata = in.readByte() != 0;
+        this.dataTerminazione = in.readString();
+        this.litriProdotti = in.readInt();
+        this.idRicetta = in.readLong();
+    }
+
+    public static final Creator<Birra> CREATOR = new Creator<Birra>() {
+        @Override
+        public Birra createFromParcel(Parcel source) {
+            return new Birra(source);
+        }
+
+        @Override
+        public Birra[] newArray(int size) {
+            return new Birra[size];
+        }
+    };
 }

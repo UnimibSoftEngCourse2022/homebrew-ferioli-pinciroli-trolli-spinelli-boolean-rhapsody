@@ -20,6 +20,7 @@ import it.unimib.brewday.R;
 import it.unimib.brewday.databinding.FragmentBirraDettagliataBinding;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Birra;
+import it.unimib.brewday.model.BirraConRicetta;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.gestione_birra.AdapterListViewIngredientiBirra;
@@ -66,8 +67,10 @@ public class BirraDettagliataFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(),
                 LinearLayoutManager.HORIZONTAL, false);
 
-        Birra birraSelezionata = BirraDettagliataFragmentArgs.fromBundle(getArguments()).getBirra();
-        fragmentBirraDettagliataBinding.textViewNumeroLitriBirraDettagliata.setText(String.valueOf(birraSelezionata.getLitriProdotti()));
+        BirraConRicetta birraSelezionata = BirraDettagliataFragmentArgs.fromBundle(getArguments()).getBirra();
+        fragmentBirraDettagliataBinding.textViewNumeroLitriBirraDettagliata.setText(Integer.toString(birraSelezionata.getLitriProdotti()));
+        fragmentBirraDettagliataBinding.textViewNomeBirraDettagliata.setText(birraSelezionata.getNomeRicetta());
+
             visualizzaBirreViewModel.getIngredientiBirra(birraSelezionata);
 
             visualizzaBirreViewModel.getIngredientiBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
@@ -86,7 +89,7 @@ public class BirraDettagliataFragment extends Fragment {
                 }
             });
             if(birraSelezionata.isTerminata()) {
-                fragmentBirraDettagliataBinding.textView6.setVisibility(View.GONE);
+                fragmentBirraDettagliataBinding.textViewAttrezziBirraDettagliata.setVisibility(View.GONE);
             }else{
                 visualizzaBirreViewModel.getAttrezziBirra(birraSelezionata);
             }

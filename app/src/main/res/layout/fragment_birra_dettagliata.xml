@@ -66,8 +66,9 @@
         <ListView
             android:id="@+id/listView_igredientiBirraDettagliata"
             android:layout_width="match_parent"
-            android:layout_height="430dp"
+            android:layout_height="405dp"
             android:layout_marginTop="16dp"
+            android:listSelector="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_IngredientiPer_Birra" />
@@ -77,11 +78,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:listSelector="@android:color/transparent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_attrezziBirraDettagliata" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/textView_attrezziBirraDettagliata"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -112,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="200dp"
+            android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -122,7 +124,7 @@
                 android:id="@+id/editText_noteBirraDettagliata"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="hint" />
+                android:hint="Note" />
         </com.google.android.material.textfield.TextInputLayout>
 
 

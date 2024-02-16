@@ -23,13 +23,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import it.unimib.brewday.R;
 import it.unimib.brewday.databinding.FragmentListaBirreBinding;
 import it.unimib.brewday.model.BirraConRicetta;
 import it.unimib.brewday.model.Risultato;
-import it.unimib.brewday.ui.gestione_birra.AdapterRecyclerViewBirre;
-import it.unimib.brewday.ui.visualizza_birre.VisualizzaBirreViewModel;
-import it.unimib.brewday.ui.visualizza_birre.VisualizzaBirreViewModelFactory;
 
 
 public class ListaBirreFragment extends Fragment {
@@ -68,7 +64,6 @@ public class ListaBirreFragment extends Fragment {
         AdapterRecyclerViewBirre adapterRecyclerViewBirre = new AdapterRecyclerViewBirre(listaBirre, new AdapterRecyclerViewBirre.ItemClickCallback() {
             @Override
             public void onElementoBirraClick(BirraConRicetta birra) {
-                // TODO implementare birra dettagliata
                 ListaBirreFragmentDirections.ActionBirreFragmentToBirraDettagliataFragment action =
                         ListaBirreFragmentDirections.actionBirreFragmentToBirraDettagliataFragment(birra);
 
