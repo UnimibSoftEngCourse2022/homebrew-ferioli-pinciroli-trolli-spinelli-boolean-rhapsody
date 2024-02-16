@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -72,7 +73,7 @@ public class AdapterRecyclerViewBirre extends RecyclerView.Adapter<AdapterRecycl
             cardBirra = itemView.findViewById(R.id.cardView_birra);
 
             itemView.setOnClickListener(view -> {
-                //listener in risposta al click sull'intera cella
+               callback.onElementoBirraClick(listaBirre.get(getBindingAdapterPosition()));
             });
             terminaProduzione.setOnClickListener(view -> callback.onTerminaBirraClick(listaBirre.get(getBindingAdapterPosition())));
         }

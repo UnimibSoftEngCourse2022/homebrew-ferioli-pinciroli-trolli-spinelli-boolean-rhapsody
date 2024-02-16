@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import it.unimib.brewday.R;
 import it.unimib.brewday.databinding.FragmentListaBirreBinding;
 import it.unimib.brewday.model.BirraConRicetta;
 import it.unimib.brewday.model.Risultato;
@@ -64,6 +66,7 @@ public class ListaBirreFragment extends Fragment {
             @Override
             public void onElementoBirraClick(BirraConRicetta birra) {
                 // TODO implementare birra dettagliata
+                Navigation.findNavController(view).navigate(R.id.action_birreFragment_to_birraDettagliataFragment);
             }
 
             @Override
