@@ -25,7 +25,6 @@ import it.unimib.brewday.R;
 import it.unimib.brewday.databinding.FragmentPreparaBirraBinding;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Birra;
-import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
@@ -34,11 +33,9 @@ public class PreparaBirraFragment extends Fragment {
 
     private FragmentPreparaBirraBinding fragmentPreparaBirraBinding;
     private BirraViewModel birraViewModel;
-    List<IngredienteRicetta> listaIngredientiBirra;
-    List<Ingrediente> listaIngredientiDisponibili;
-    List<Attrezzo> listaAttrezziDisponibili;
-    List<Integer> listaDifferenzaIngredienti;
-    List<Attrezzo> listaAttrezziSelezionati;
+    private List<IngredienteRicetta> listaIngredientiBirra;
+    private List<Integer> listaDifferenzaIngredienti;
+    private List<Attrezzo> listaAttrezziSelezionati;
     private boolean possiedeAttrezzi;
 
     private AdapterListViewIngredientiBirra adapterListViewIngredientiBirra;
@@ -59,8 +56,6 @@ public class PreparaBirraFragment extends Fragment {
                 new BirraViewModelFactory(getContext())).get(BirraViewModel.class);
 
         listaIngredientiBirra = new ArrayList<>();
-        listaIngredientiDisponibili = new ArrayList<>();
-        listaAttrezziDisponibili = new ArrayList<>();
     }
 
     @Override
