@@ -4,7 +4,7 @@
     <string name="aggiungiAttrezzatura_descrizione">Serve per aggiungere un attrezzo</string>
     <string name="nome_attrezzo">Nome attrezzo</string>
     <string name="tipologia">Tipologia</string>
-    <string name="capacit">Capacità</string>
+    <string name="capacita">Capacità (Litri)</string>
     <string name="inserisci_capacita">Inserisci capacità</string>
     <string name="inserisci_nome">Inserisci nome</string>
     <string name="modifica">Modifica</string>
@@ -30,4 +30,11 @@
     <string name="attrezzi_dati_inaccettabili">Dati inseriti inaccettabili</string>
     <string name="annulla">Annulla</string>
     <string name="brewToday">BrewToday</string>
+    <string name="termina">Termina</string>
+    <string name="bottone_meno">Bottone -</string>
+    <string name="bottone_piu">bottone +</string>
+    <string name="termina_produzione_birra">Termina produzione birra</string>
+    <string name="prepara">Prepara</string>
+    <string name="l_di_questa_birra">L di questa birra</string>
+    <string name="quantita_base_produzione">1</string>
 </resources>

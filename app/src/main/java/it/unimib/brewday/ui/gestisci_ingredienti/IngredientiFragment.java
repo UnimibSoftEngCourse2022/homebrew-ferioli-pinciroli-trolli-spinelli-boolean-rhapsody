@@ -32,7 +32,7 @@ public class IngredientiFragment extends Fragment {
 
     IngredienteViewModel ingredienteViewModel;
 
-    AdapterListViewListaIngredientiDisponibili adapterListViewListaIngredientiDisponibili;
+    AdapterListViewIngredienti adapterListViewIngredienti;
 
     List<Ingrediente> listaIngredienti;
 
@@ -72,9 +72,9 @@ public class IngredientiFragment extends Fragment {
         ingredienteViewModel.readAllIngredienti();
         ingredienteViewModel.getReadAllIngredientiResult().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
-                listaIngredienti = ((Risultato.IngredientiSuccesso) risultato).getData();
+                listaIngredienti = ((Risultato.ListaIngredientiSuccesso) risultato).getData();
 
-                adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
+                adapterListViewIngredienti = new AdapterListViewIngredienti(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewIngredienti.OnItemClickListener() {
                     @Override
                     public void onAddIngredienteClick(Ingrediente ingrediente) {
                         aggiornaDBIngrediente(ingrediente);
@@ -88,21 +88,24 @@ public class IngredientiFragment extends Fragment {
                     aggiornaDBIngrediente(ingrediente)
                 , true);
 
-                listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
+                listViewIngredientiDispobili.setAdapter(adapterListViewIngredienti);
                 listViewIngredientiDispobili.setDivider(null);
 
             } else {
                 Snackbar.make(view, ((Risultato.Errore) risultato).getMessaggio(), LENGTH_SHORT).show();
             }
         });
+
+        ingredienteViewModel.getUpdateIngredienteResult().observe(getViewLifecycleOwner(), risultato -> {
+            if (!risultato.isSuccessful()){
+                Snackbar.make(view, "Errore nell'aggiornamento degli ingredienti", LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void aggiornaDBIngrediente(Ingrediente ingrediente){
         ingredienteViewModel.updateIngrediente(ingrediente);
-
-
     }
-
 
 
 }

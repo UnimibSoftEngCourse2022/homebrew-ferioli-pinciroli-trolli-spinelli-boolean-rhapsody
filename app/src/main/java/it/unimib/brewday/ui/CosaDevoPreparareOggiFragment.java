@@ -10,11 +10,7 @@ import android.view.ViewGroup;
 
 import it.unimib.brewday.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CosaDevoPreparareOggiFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class CosaDevoPreparareOggiFragment extends Fragment {
 
 

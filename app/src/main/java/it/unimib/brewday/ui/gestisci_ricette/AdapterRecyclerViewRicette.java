@@ -1,7 +1,6 @@
 package it.unimib.brewday.ui.gestisci_ricette;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import java.util.List;
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ricetta;
 
-public class RicetteRecyclerViewAdapter extends
+public class AdapterRecyclerViewRicette extends
         RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final List<Ricetta> listaRicette;
@@ -30,7 +29,7 @@ public class RicetteRecyclerViewAdapter extends
         void onAggiungiRicettaClick(Ricetta ricetta);
     }
 
-    public RicetteRecyclerViewAdapter(List<Ricetta> listaRicette, Context context,OnItemClickListener onItemClickListener) {
+    public AdapterRecyclerViewRicette(List<Ricetta> listaRicette, Context context, OnItemClickListener onItemClickListener) {
         this.listaRicette = listaRicette;
         this.onItemClickListener = onItemClickListener;
         this.context = context;
@@ -40,7 +39,7 @@ public class RicetteRecyclerViewAdapter extends
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.elemento_lista_ricetta, parent, false);
+        view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.elemento_lista_ricette, parent, false);
         return new RicettaViewHolder(view);
     }
 
@@ -66,7 +65,7 @@ public class RicetteRecyclerViewAdapter extends
 
         public RicettaViewHolder(@NonNull View itemView) {
             super(itemView);
-            nomeRicetta = itemView.findViewById(R.id.textView_nomeRicetta);
+            nomeRicetta = itemView.findViewById(R.id.textView_nomeRicettaRecyclerView);
             aggiungiRicetta = itemView.findViewById(R.id.imageButton_aggiungiRicetta);
 
             itemView.setOnClickListener(this);

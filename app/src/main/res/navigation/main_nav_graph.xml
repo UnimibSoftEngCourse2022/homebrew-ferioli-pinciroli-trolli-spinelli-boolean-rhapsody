@@ -16,12 +16,19 @@
         <action
             android:id="@+id/action_listaRicetteFragment_to_ricettaDettagliataFragment"
             app:destination="@id/ricettaDettagliataFragment" />
+        <action
+            android:id="@+id/action_listaRicetteFragment_to_preparaBirraFragment"
+            app:destination="@id/preparaBirraFragment" />
     </fragment>
     <fragment
         android:id="@+id/birreFragment"
-        android:name="it.unimib.brewday.ui.BirreFragment"
+        android:name="it.unimib.brewday.ui.gestione_birra.ListaBirreFragment"
         android:label="Gestisci le tue birre"
-        tools:layout="@layout/fragment_birre" />
+        tools:layout="@layout/fragment_lista_birre" >
+        <action
+            android:id="@+id/action_birreFragment_to_birraDettagliataFragment"
+            app:destination="@id/birraDettagliataFragment" />
+    </fragment>
     <fragment
         android:id="@+id/creaRicettaFragment"
         android:name="it.unimib.brewday.ui.gestisci_ricette.CreaRicettaFragment"
@@ -45,10 +52,30 @@
         <argument
             android:name="ricetta"
             app:argType="it.unimib.brewday.model.Ricetta" />
+        <action
+            android:id="@+id/action_ricettaDettagliataFragment_to_preparaBirraFragment"
+            app:destination="@id/preparaBirraFragment" />
     </fragment>
     <fragment
         android:id="@+id/cosaDevoPreparareOggiFragment"
         android:name="it.unimib.brewday.ui.CosaDevoPreparareOggiFragment"
         android:label="fragment_cosa_devo_preparare_oggi"
         tools:layout="@layout/fragment_cosa_devo_preparare_oggi" />
+    <fragment
+        android:id="@+id/birraDettagliataFragment"
+        android:name="it.unimib.brewday.ui.gestione_birra.BirraDettagliataFragment"
+        android:label="fragment_birra_dettagliata"
+        tools:layout="@layout/fragment_birra_dettagliata" />
+    <fragment
+        android:id="@+id/preparaBirraFragment"
+        android:name="it.unimib.brewday.ui.gestione_birra.PreparaBirraFragment"
+        android:label="fragment_prepara_birra"
+        tools:layout="@layout/fragment_prepara_birra" >
+        <argument
+            android:name="Ricetta"
+            app:argType="it.unimib.brewday.model.Ricetta" />
+        <argument
+            android:name="numeroLitriBirraScelti"
+            app:argType="integer" />
+    </fragment>
 </navigation>

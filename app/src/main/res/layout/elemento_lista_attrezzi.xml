@@ -18,16 +18,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <ImageButton
                 android:id="@+id/oneRowCard_imageCancella"
-                style="@android:style/Widget.Material.ImageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="@color/md_theme_light_primaryContainer"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/roundcorner"
                 android:contentDescription="@string/cancella_attrezzatura"
-                android:src="@drawable/trash_can_svgrepo_com"
+                android:src="@drawable/delete_24px"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -38,16 +37,18 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
                 android:text="@string/nome_attrezzo"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/oneRowCard_textViewCapacita"
+                android:id="@+id/oneRowCard_textViewCaoacita"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="50dp"
                 android:text="@string/tipologia"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/oneRowCard_textViewTipo" />
 
@@ -57,7 +58,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="50dp"
-                android:text="@string/capacit"
+                android:text="@string/capacita"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/oneRowCard_textViewNome" />
 
@@ -67,12 +69,12 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
-                android:autofillHints=""
                 android:ems="10"
-                android:hint="@string/inserisci_nome"
                 android:inputType="none"
+                android:hint="@string/inserisci_nome"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:autofillHints="" />
 
             <EditText
                 android:id="@+id/oneRowCard_capacitaReale"
@@ -96,25 +98,29 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/oneRowCard_capacitaReale" />
 
-            <Button
-                android:id="@+id/oneRowCard_buttonModifica"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="@string/modifica"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <Button
-                android:id="@+id/oneRowCard_conferma"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/conferma"
+            <ImageButton
+                android:id="@+id/oneRowCard_imageButtonModifica"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="15dp"
+                android:contentDescription="@string/modifica"
+                android:src="@drawable/edit_24px"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/oneRowCard_imageCancella"
-                app:layout_constraintStart_toEndOf="@+id/oneRowCard_buttonModifica" />
+                android:background="@drawable/roundcorner"/>
+
+            <ImageButton
+                android:id="@+id/oneRowCard_conferma"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/roundcorner"
+                android:contentDescription="@string/conferma"
+                android:src="@drawable/check_circle_24px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/oneRowCard_imageButtonModifica" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

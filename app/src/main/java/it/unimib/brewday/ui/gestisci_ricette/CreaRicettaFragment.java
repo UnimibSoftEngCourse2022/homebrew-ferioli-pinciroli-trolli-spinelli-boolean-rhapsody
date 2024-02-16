@@ -29,7 +29,7 @@ import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
-import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewListaIngredientiDisponibili;
+import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewIngredienti;
 import it.unimib.brewday.util.GestioneRicette;
 import it.unimib.brewday.util.ListaIngredienti;
 
@@ -76,9 +76,9 @@ public class CreaRicettaFragment extends Fragment {
         ListaIngredienti listaIngredienti = new ListaIngredienti();
         listaIngredientiRicetta = listaIngredienti.getListaIngredienti();
 
-        AdapterListViewListaIngredientiDisponibili adapterListViewListaIngredientiRicetta = new AdapterListViewListaIngredientiDisponibili(
+        AdapterListViewIngredienti adapterListViewListaIngredientiRicetta = new AdapterListViewIngredienti(
                 getContext(), 0, listaIngredientiRicetta, R.layout.lista_ingredienti_singoli,
-                new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
+                new AdapterListViewIngredienti.OnItemClickListener() {
                     @Override
                     public void onAddIngredienteClick(Ingrediente ingrediente) {
                                 //vuoto
@@ -91,6 +91,14 @@ public class CreaRicettaFragment extends Fragment {
                 }, ingrediente -> {
                    //vuoto
         }, true);
+
+        ricettaViewModel.getInsertRicettaRisultato().observe(getViewLifecycleOwner(), risultato -> {
+            if (risultato.isSuccessful()){
+                getParentFragmentManager().popBackStackImmediate();
+            } else {
+                Snackbar.make(view, "Errore nella creazione della ricetta", LENGTH_SHORT).show();
+            }
+        });
 
         listViewIngredientiRicetta.setAdapter(adapterListViewListaIngredientiRicetta);
         listViewIngredientiRicetta.setDivider(null);
@@ -111,14 +119,14 @@ public class CreaRicettaFragment extends Fragment {
     }
 
 
-    private void salvaRicetta(View view, int zeroIngredinti, List<IngredienteRicetta> ingredientiRicetta, Ricetta ricetta ) {
-        if (zeroIngredinti < 3) {
+    private void salvaRicetta(View view, int zeroIngredienti, List<IngredienteRicetta> ingredientiRicetta, Ricetta ricetta) {
+        if (zeroIngredienti < 3) {
             ricettaViewModel.insertRicetta(ricetta, ingredientiRicetta);
-            getParentFragmentManager().popBackStackImmediate();
         } else {
             Snackbar.make(view, R.string.ingredienti_ricetta_mancanti, LENGTH_SHORT).show();
         }
     }
+
 
 
 }

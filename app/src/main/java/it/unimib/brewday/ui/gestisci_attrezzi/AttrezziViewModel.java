@@ -15,8 +15,6 @@ public class AttrezziViewModel extends ViewModel {
     private final MutableLiveData<Risultato> updateAttrezzoResult;
     private final MutableLiveData<Risultato> deleteAttrezzoResult;
 
-    public final MutableLiveData<Boolean> isAddCardVisible;
-
     private final AttrezziRepository attrezziRepository;
 
     public AttrezziViewModel(AttrezziRepository attrezziRepository) {
@@ -25,8 +23,6 @@ public class AttrezziViewModel extends ViewModel {
         createAttrezzoResult = new MutableLiveData<>();
         updateAttrezzoResult = new MutableLiveData<>();
         deleteAttrezzoResult = new MutableLiveData<>();
-
-        isAddCardVisible = new MutableLiveData<>(false);
 
         this.attrezziRepository = attrezziRepository;
     }

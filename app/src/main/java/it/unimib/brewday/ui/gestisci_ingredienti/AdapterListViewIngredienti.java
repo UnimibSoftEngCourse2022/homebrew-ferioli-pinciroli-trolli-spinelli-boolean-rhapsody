@@ -11,12 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.List;
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ingrediente;
 
-public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ingrediente> {
+public class AdapterListViewIngredienti extends ArrayAdapter<Ingrediente> {
 
 
     private final List<Ingrediente> listaIngredienti;
@@ -42,8 +42,8 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
     private Ingrediente ingredientePrecedente;
 
 
-    public AdapterListViewListaIngredientiDisponibili(@NonNull Context context, int resource, List<Ingrediente> listaIngredienti,
-                                                      int layout, OnItemClickListener onItemClickListener, OnFocusChangeListener onFocusChangeListener, boolean visibile) {
+    public AdapterListViewIngredienti(@NonNull Context context, int resource, List<Ingrediente> listaIngredienti,
+                                      int layout, OnItemClickListener onItemClickListener, OnFocusChangeListener onFocusChangeListener, boolean visibile) {
         super(context, resource, listaIngredienti);
         this.listaIngredienti = listaIngredienti;
         this.layout = layout;
@@ -74,8 +74,8 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
         TextView nomeIngrediente = convertView.findViewById(R.id.textView_ingrediente);
         TextView unitaMisura = convertView.findViewById(R.id.textView_unitaMisura);
         EditText quantitaIngrediente = convertView.findViewById(R.id.editTextText_ingrediente);
-        FloatingActionButton aggiungiIngrediente = convertView.findViewById(R.id.button_aggiungi_ingrediente);
-        FloatingActionButton rimuoviIngrediente = convertView.findViewById(R.id.button_rimuovi_ingrediente);
+        ImageButton aggiungiIngrediente = convertView.findViewById(R.id.imageButton_aggiungi_ingrediente);
+        ImageButton rimuoviIngrediente = convertView.findViewById(R.id.imageButton_rimuovi_ingrediente);
 
         nomeIngrediente.setText(listaIngredienti.get(position).getTipo().getNome());
         aggiornaVisualizzazioneIngredienti(listaIngredienti.get(position), quantitaIngrediente, unitaMisura);
@@ -127,8 +127,6 @@ public class AdapterListViewListaIngredientiDisponibili extends ArrayAdapter<Ing
         } else {
             unitaMisura.setText(" g");
         }
-
-
     }
 
     private void aggiungiQuantitaIngrediente(Ingrediente ingrediente, int position, EditText quantitaIngrediente) {

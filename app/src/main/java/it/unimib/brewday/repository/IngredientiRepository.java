@@ -8,19 +8,19 @@ import it.unimib.brewday.database.LocalDatabase;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.ui.Callback;
 
-public class IngredienteRepository {
+public class IngredientiRepository {
 
     final IngredienteDao ingredienteDao;
 
-    public IngredienteRepository(LocalDatabase localDatabase) {
+    public IngredientiRepository(LocalDatabase localDatabase) {
         this.ingredienteDao = localDatabase.ingredienteDao();
     }
 
     public void readAllIngredienti(Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-            List<Ingrediente> listaIngredienti = ingredienteDao.getAll();
+            List<Ingrediente> listaIngredienti = ingredienteDao.getAllIngredienti();
             if(listaIngredienti != null){
-                callback.onComplete(new Risultato.IngredientiSuccesso(listaIngredienti));
+                callback.onComplete(new Risultato.ListaIngredientiSuccesso(listaIngredienti));
             }
             else{
                 callback.onComplete(new Risultato.Errore("Fallimento lettura ingredienti disponibili"));
@@ -34,7 +34,7 @@ public class IngredienteRepository {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
            int aggiornato = ingredienteDao.updateAllIngredienti(listaIngredienti);
             if(aggiornato != 0){
-                callback.onComplete(new Risultato.IngredientiSuccesso(listaIngredienti));
+                callback.onComplete(new Risultato.ListaIngredientiSuccesso(listaIngredienti));
             }
             else{
                 callback.onComplete(new Risultato.Errore("ingredienti non aggiornati "));

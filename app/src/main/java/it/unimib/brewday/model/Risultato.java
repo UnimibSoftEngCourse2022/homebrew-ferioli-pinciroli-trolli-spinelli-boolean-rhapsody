@@ -11,12 +11,14 @@ public class Risultato {
 
     public boolean isSuccessful() {
         return this instanceof Successo
-                || this instanceof IngredientiSuccesso
+                || this instanceof ListaIngredientiSuccesso
                 || this instanceof IngredienteSuccesso
-                || this instanceof AttrezziSuccesso
+                || this instanceof ListaAttrezziSuccesso
                 || this instanceof ListaIngredientiDellaRicettaSuccesso
                 || this instanceof ListaRicetteSuccesso
-                || this instanceof SingolaRicettaSuccesso;
+                || this instanceof SingolaRicettaSuccesso
+                || this instanceof AllBirreSuccesso
+                || this instanceof ListaDifferenzaIngredientiSuccesso;
 
     }
 
@@ -36,10 +38,10 @@ public class Risultato {
         }
     }
 
-    public static final class IngredientiSuccesso extends Risultato {
+    public static final class ListaIngredientiSuccesso extends Risultato {
         private final List<Ingrediente> listaIngrediente;
 
-        public IngredientiSuccesso(List<Ingrediente> listaIngrediente) {
+        public ListaIngredientiSuccesso(List<Ingrediente> listaIngrediente) {
             this.listaIngrediente = listaIngrediente;
         }
 
@@ -48,10 +50,10 @@ public class Risultato {
         }
     }
 
-    public static final class AttrezziSuccesso extends Risultato {
+    public static final class ListaAttrezziSuccesso extends Risultato {
         private final List<Attrezzo> attrezzi;
 
-        public AttrezziSuccesso(List<Attrezzo> attrezzo) {
+        public ListaAttrezziSuccesso(List<Attrezzo> attrezzo) {
             this.attrezzi = attrezzo;
         }
 
@@ -97,6 +99,30 @@ public class Risultato {
         }
     }
 
+    public static final class AllBirreSuccesso extends Risultato {
+        private final List<BirraConRicetta> allBirre;
+
+        public AllBirreSuccesso(List<BirraConRicetta> allBirre) {
+            this.allBirre = allBirre;
+        }
+
+        public List<BirraConRicetta> getAllBirre() {
+            return allBirre;
+        }
+    }
+
+    public static final class ListaDifferenzaIngredientiSuccesso extends Risultato {
+        private final List<Integer> listaDifferenzaIngredienti;
+
+        public ListaDifferenzaIngredientiSuccesso(List<Integer> listaDifferenzaIngredienti) {
+            this.listaDifferenzaIngredienti = listaDifferenzaIngredienti;
+        }
+
+        public List<Integer> getListaDifferenzaIngredienti() {
+            return listaDifferenzaIngredienti;
+        }
+    }
+
     public static final class Errore extends Risultato {
         private final String messaggio;
 
@@ -106,6 +132,17 @@ public class Risultato {
 
         public String getMessaggio(){
             return messaggio;
+        }
+    }
+
+    public static final class ErroreConSuggerimentoLitri extends Risultato {
+        private final int litriSuggeriti;
+        public ErroreConSuggerimentoLitri(int litriSuggeriti){
+            this.litriSuggeriti = litriSuggeriti;
+        }
+
+        public int getLitriSuggeriti(){
+            return litriSuggeriti;
         }
     }
 }

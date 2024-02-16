@@ -4,14 +4,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -21,12 +20,12 @@ import it.unimib.brewday.R;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.TipoAttrezzo;
 
-public class AttrezziAdapter extends RecyclerView.Adapter<AttrezziAdapter.ViewHolder>{
+public class AdapterRecyclerViewAttrezzi extends RecyclerView.Adapter<AdapterRecyclerViewAttrezzi.ViewHolder>{
 
     private List<Attrezzo> listaAttrezzi;
     private final AttrezziViewModel attrezziViewModel;
 
-    public AttrezziAdapter(List<Attrezzo> dataList, AttrezziViewModel viewModel) {
+    public AdapterRecyclerViewAttrezzi(List<Attrezzo> dataList, AttrezziViewModel viewModel) {
         this.listaAttrezzi = dataList;
         attrezziViewModel = viewModel;
     }
@@ -34,7 +33,7 @@ public class AttrezziAdapter extends RecyclerView.Adapter<AttrezziAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.one_card_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.elemento_lista_attrezzi, parent, false);
         return new ViewHolder(view);
     }
 
@@ -64,16 +63,15 @@ public class AttrezziAdapter extends RecyclerView.Adapter<AttrezziAdapter.ViewHo
             holder.tipoAttrezzo.setEnabled(!holder.tipoAttrezzo.isEnabled());
 
             //Controllo sulla tipologia di bottone
-            if(holder.modifica.getText().equals("Modifica")) {
-                holder.modifica.setText(R.string.annulla);
+            if(holder.isModifica) {
+                holder.setModifica(false);
+                holder.modifica.setImageResource(R.drawable.cancel_24px);
                 holder.conferma.setVisibility(View.VISIBLE);
             }
-            else if(holder.modifica.getText().equals("Annulla")) {
-
-                holder.modifica.setText(R.string.modifica);
+            else {
+                holder.setModifica(true);
                 holder.conferma.setVisibility(View.INVISIBLE);
-
-
+                holder.modifica.setImageResource(R.drawable.edit_24px);
                 holder.nomeAttrezzo.setText(listaAttrezzi.get(position).getNome());
                 holder.capacitaAttrezzo.setText(String.valueOf(listaAttrezzi.get(position).getCapacita()));
                 holder.tipoAttrezzo.setSelection(holder.adapter.getPosition(tipoAttrezzoStringFormat));
@@ -99,7 +97,8 @@ public class AttrezziAdapter extends RecyclerView.Adapter<AttrezziAdapter.ViewHo
                 attrezzo.setId(listaAttrezzi.get(position).getId());
                 attrezziViewModel.updateAttrezzo(attrezzo);
 
-                holder.modifica.setText(R.string.modifica);
+                holder.setModifica(true);
+                holder.modifica.setImageResource(R.drawable.edit_24px);
             }
         });
 
@@ -125,10 +124,11 @@ public class AttrezziAdapter extends RecyclerView.Adapter<AttrezziAdapter.ViewHo
         private final EditText nomeAttrezzo;
         private final EditText capacitaAttrezzo;
         private final Spinner tipoAttrezzo;
-        private final FloatingActionButton cancella;
-        private final Button modifica;
-        private final Button conferma;
+        private final ImageButton cancella;
+        private final ImageButton modifica;
+        private final ImageButton conferma;
         private final ArrayAdapter<CharSequence> adapter;
+        private boolean isModifica = true;
 
         public ViewHolder(View view) {
             super(view);
@@ -137,13 +137,17 @@ public class AttrezziAdapter extends RecyclerView.Adapter<AttrezziAdapter.ViewHo
             capacitaAttrezzo = view.findViewById(R.id.oneRowCard_capacitaReale);
             tipoAttrezzo = view.findViewById(R.id.oneRowCard_tipoReale);
             cancella = view.findViewById(R.id.oneRowCard_imageCancella);
-            modifica = view.findViewById(R.id.oneRowCard_buttonModifica);
+            modifica = view.findViewById(R.id.oneRowCard_imageButtonModifica);
             conferma = view.findViewById(R.id.oneRowCard_conferma);
             adapter = ArrayAdapter.createFromResource(
                     view.getContext(),
                     R.array.attrezzi,
                     android.R.layout.simple_spinner_item
             );
+        }
+
+        public void setModifica(boolean modifica) {
+            this.isModifica = modifica;
         }
     }
 

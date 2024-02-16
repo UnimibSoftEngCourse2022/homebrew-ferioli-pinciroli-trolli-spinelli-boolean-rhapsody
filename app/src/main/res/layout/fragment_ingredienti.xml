@@ -7,29 +7,15 @@
     tools:context=".ui.gestisci_ingredienti.IngredientiFragment">
 
 
-    <TextView
-        android:id="@+id/textView_titoloIngredienti"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/tuoi_ingredienti"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor = "?android:textColorPrimary" />
-
     <ListView
         android:id="@+id/listView_ingredrientiDisponibili"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="48dp"
+        android:layout_height="450dp"
         android:listSelector="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_titoloIngredienti"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
