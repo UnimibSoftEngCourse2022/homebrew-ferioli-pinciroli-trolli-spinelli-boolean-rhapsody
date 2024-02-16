@@ -22,14 +22,9 @@ import it.unimib.brewday.util.Ottimizzazione;
 
 public class BirraViewModel extends ViewModel {
 
-    //Livedata per pagina birra
-    private final MutableLiveData<Risultato> getAllBirreRisultato;
-    private final MutableLiveData<Risultato> createBirraRisultato;
-    private final MutableLiveData<Risultato> terminaBirraRisultato;
-
-    private final MutableLiveData<Risultato> getIngredientiBirraRisultato;
 
     //Livedata per pagina creazione birra
+    private final MutableLiveData<Risultato> createBirraRisultato;
     private final MutableLiveData<Risultato> ingredientiRicettaPerLitriRisultato;
     private final MutableLiveData<Risultato> differenzaIngredientiRisultato;
     private final MutableLiveData<Risultato> attrezziSelezionatiRisultato;
@@ -52,20 +47,14 @@ public class BirraViewModel extends ViewModel {
         this.ricetteRepository = ricetteRepository;
         this.attrezziRepository = attrezziRepository;
 
-        getAllBirreRisultato = new MutableLiveData<>();
         createBirraRisultato = new MutableLiveData<>();
-        terminaBirraRisultato = new MutableLiveData<>();
-        getIngredientiBirraRisultato = new MutableLiveData<>();
-
         differenzaIngredientiRisultato = new MutableLiveData<>();
         ingredientiRicettaPerLitriRisultato = new MutableLiveData<>();
         attrezziSelezionatiRisultato = new MutableLiveData<>();
         updateIngredientiMutableLiveData = new MutableLiveData<>();
     }
 
-    public void getAllBirre() {
-        birreRepository.readAllBirre(getAllBirreRisultato::postValue);
-    }
+
 
     public void createBirra(Birra birra, List<Integer> listaDifferenzaIngredienti, List<Attrezzo> listaAttrezzi) {
 
@@ -95,9 +84,7 @@ public class BirraViewModel extends ViewModel {
         });
     }
 
-    public void terminaBirra(Birra birra){
-        birreRepository.terminaBirra(birra, terminaBirraRisultato::postValue);
-    }
+
 
     public void getDifferenzaIngredienti(long idRicetta, int litriBirraScelti){
 
@@ -145,31 +132,13 @@ public class BirraViewModel extends ViewModel {
         });
     }
 
-    public void getIngredientiBirra (Birra birra){
-    ricetteRepository.readIngredientiRicetta(birra.getIdRicetta(), risultato -> {
-        if (risultato.isSuccessful()) {
-            List<IngredienteRicetta> listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
-            setDosaggioDaIngredienteRicetta(birra.getLitriProdotti(), listaIngredientiBirra );
-            getIngredientiBirraRisultato.postValue(new Risultato.ListaIngredientiDellaRicettaSuccesso(listaIngredientiBirra));
-        }
-    });
 
-
-    }
 
     /*
      * Metodi per ottenere riferimento a Mutable live data
      */
-    public LiveData<Risultato> getAllBirreResult() {
-        return getAllBirreRisultato;
-    }
-
     public LiveData<Risultato> getCreateBirraResult() {
         return createBirraRisultato;
-    }
-
-    public LiveData<Risultato> getTerminaBirraRisultato() {
-        return terminaBirraRisultato;
     }
 
     public LiveData<Risultato> getAttrezziSelezionatiRisultato() {
@@ -183,8 +152,6 @@ public class BirraViewModel extends ViewModel {
     public LiveData<Risultato> getIngredientiRicettaPerLitriRisultato(){return ingredientiRicettaPerLitriRisultato;}
 
     public LiveData<Risultato> getUpdateIngredientiResult() { return updateIngredientiMutableLiveData;}
-
-    public LiveData<Risultato> getIngredientiBirraRisultato(){return getIngredientiBirraRisultato;}
 
     /*
      * Metodi di supporto per la gestione del calclo della differenza tra gli ingredienti

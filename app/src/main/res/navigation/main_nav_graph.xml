@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/birreFragment"
-        android:name="it.unimib.brewday.ui.gestione_birra.ListaBirreFragment"
+        android:name="it.unimib.brewday.ui.visualizza_birre.ListaBirreFragment"
         android:label="Gestisci le tue birre"
         tools:layout="@layout/fragment_lista_birre" >
         <action
