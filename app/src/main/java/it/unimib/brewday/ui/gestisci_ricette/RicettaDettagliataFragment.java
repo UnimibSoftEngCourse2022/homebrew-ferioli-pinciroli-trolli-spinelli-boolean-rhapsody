@@ -2,6 +2,8 @@ package it.unimib.brewday.ui.gestisci_ricette;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
+import static it.unimib.brewday.ui.Topbar.gestisciTopbar;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -78,24 +80,7 @@ public class RicettaDettagliataFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //Gestione Topbar
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        if (activity != null) {
-            ActionBar actionBar = activity.getSupportActionBar();
-
-            // Imposta il titolo personalizzato
-            if (actionBar != null) {
-                actionBar.setTitle("");
-            }
-        }
-
-        ActionBar actionBar = activity.getSupportActionBar();
-        if (actionBar != null) {
-            // Imposta il colore del pulsante back
-            actionBar.setHomeAsUpIndicator(R.drawable.arrow_back_24px);
-
-            // Abilita il pulsante back
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        gestisciTopbar((AppCompatActivity) requireActivity());
 
 
         ImageButton modificaRicettaButton = fragmentRicettaDettagliataBinding.imageButtonModificaRicetta;
