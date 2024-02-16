@@ -39,7 +39,7 @@ public class AdapterRecyclerViewRicette extends
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.elemento_lista_ricetta, parent, false);
+        view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.elemento_lista_ricette, parent, false);
         return new RicettaViewHolder(view);
     }
 
