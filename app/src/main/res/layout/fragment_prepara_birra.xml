@@ -22,7 +22,7 @@
         android:id="@+id/textView_listaIngredientiPreaparaBirra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:text="ingredienti per "
         android:textColor="?android:colorPrimary"
@@ -35,14 +35,14 @@
         android:id="@+id/listView_ingredrientiPreparaBirra"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginBottom="8dp"
         android:listSelector="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@+id/button_ricettaPreparaBirra"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_listaIngredientiPreaparaBirra" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_LDiBirraPreparaBirra" />
 
     <Button
         android:id="@+id/button_ricettaPreparaBirra"
@@ -60,11 +60,10 @@
         android:id="@+id/textView_numeroLitriPreparaBirra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:text="2"
+        android:textColor="?android:colorPrimary"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="?android:colorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/textView_listaIngredientiPreaparaBirra"
         app:layout_constraintStart_toEndOf="@+id/textView_listaIngredientiPreaparaBirra"
         app:layout_constraintTop_toTopOf="@+id/textView_listaIngredientiPreaparaBirra"
@@ -74,11 +73,11 @@
         android:id="@+id/textView_LDiBirraPreparaBirra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="l di birra"
-        android:textStyle="bold"
+        android:layout_marginStart="2dp"
+        android:text="L di birra"
         android:textColor="?android:colorPrimary"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/textView_numeroLitriPreparaBirra"
         app:layout_constraintStart_toEndOf="@+id/textView_numeroLitriPreparaBirra"
         app:layout_constraintTop_toTopOf="@+id/textView_numeroLitriPreparaBirra"
@@ -102,6 +101,26 @@
         tools:src="@drawable/check"
         app:layout_constraintEnd_toStartOf="@+id/imageView_attrezzoPreparaBirra"
         app:layout_constraintTop_toBottomOf="@+id/textView_nomePreparaBirra" />
+
+    <ImageView
+        android:id="@+id/imageView_litriMassimi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/water_full_24px"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_attrezzoPreparaBirra"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_attrezzoPreparaBirra" />
+
+    <TextView
+        android:id="@+id/textView_litriSuggeriti"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5L"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_litriMassimi"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_litriMassimi"
+        app:layout_constraintTop_toTopOf="@+id/imageView_litriMassimi" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

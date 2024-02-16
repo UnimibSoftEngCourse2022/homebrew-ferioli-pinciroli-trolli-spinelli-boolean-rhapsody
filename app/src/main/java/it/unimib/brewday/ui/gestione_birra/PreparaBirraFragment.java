@@ -145,12 +145,17 @@ public class PreparaBirraFragment extends Fragment {
             if(risultato.isSuccessful()){
                 possiedeAttrezzi = true;
                 fragmentPreparaBirraBinding.imageViewControloAttrezziPreparaBirra.setImageResource(R.drawable.check);
+                fragmentPreparaBirraBinding.textViewLitriSuggeriti.setVisibility(View.GONE);
+                fragmentPreparaBirraBinding.imageViewLitriMassimi.setVisibility(View.GONE);
                 listaAttrezziSelezionati = ((Risultato.ListaAttrezziSuccesso) risultato).getAttrezzi();
             }
             else{
                 fragmentPreparaBirraBinding.imageViewControloAttrezziPreparaBirra.setImageResource(R.drawable.fail);
                 if(risultato instanceof Risultato.ErroreConSuggerimentoLitri){
-                    //gestire l'errore con il suggerimento dei litri
+                    int litriSuggeriti = ((Risultato.ErroreConSuggerimentoLitri) risultato).getLitriSuggeriti();
+                    fragmentPreparaBirraBinding.textViewLitriSuggeriti.setText(litriSuggeriti + "L");
+                    fragmentPreparaBirraBinding.textViewLitriSuggeriti.setVisibility(View.VISIBLE);
+                    fragmentPreparaBirraBinding.imageViewLitriMassimi.setVisibility(View.VISIBLE);
                 }
                 else{
                     //gestire l'errore "generale"
