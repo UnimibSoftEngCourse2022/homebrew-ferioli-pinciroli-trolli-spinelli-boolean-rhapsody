@@ -67,8 +67,7 @@ public class BirraDettagliataFragment extends Fragment {
                 LinearLayoutManager.HORIZONTAL, false);
 
         Birra birraSelezionata = BirraDettagliataFragmentArgs.fromBundle(getArguments()).getBirra();
-
-
+        fragmentBirraDettagliataBinding.textViewNumeroLitriBirraDettagliata.setText(String.valueOf(birraSelezionata.getLitriProdotti()));
             visualizzaBirreViewModel.getIngredientiBirra(birraSelezionata);
 
             visualizzaBirreViewModel.getIngredientiBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
@@ -83,7 +82,7 @@ public class BirraDettagliataFragment extends Fragment {
 
                     fragmentBirraDettagliataBinding.listViewIgredientiBirraDettagliata.setAdapter(adapterListViewIngredientiBirra);
                     fragmentBirraDettagliataBinding.listViewIgredientiBirraDettagliata.setDivider(null);
-                    //fragmentBirraDettagliataBinding.listViewIgredientiBirraDettagliata.setVisibility(View.GONE);
+
                 }
             });
             if(birraSelezionata.isTerminata()) {

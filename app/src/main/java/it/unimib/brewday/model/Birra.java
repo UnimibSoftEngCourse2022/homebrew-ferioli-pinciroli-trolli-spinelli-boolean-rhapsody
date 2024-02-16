@@ -8,6 +8,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.util.List;
+
 @Entity(foreignKeys = {
         @ForeignKey(
                 entity = Ricetta.class,
@@ -24,6 +26,9 @@ public class Birra implements Parcelable {
     private String dataTerminazione;
     private int litriProdotti;
     @NonNull private long idRicetta;
+
+    Nota notaGenerale;
+    List<NotaDegustazione> listaDiNote;
 
     public Birra(int litriProdotti, long idRicetta) {
         this.idRicetta = idRicetta;
@@ -69,6 +74,22 @@ public class Birra implements Parcelable {
 
     public void setDataTerminazione(String dataTerminazione) {
         this.dataTerminazione = dataTerminazione;
+    }
+
+    public Nota getNotaGenerale() {
+        return notaGenerale;
+    }
+
+    public void setNotaGenerale(Nota notaGenerale) {
+        this.notaGenerale = notaGenerale;
+    }
+
+    public List<NotaDegustazione> getListaDiNote() {
+        return listaDiNote;
+    }
+
+    public void setListaDiNote(List<NotaDegustazione> listaDiNote) {
+        this.listaDiNote = listaDiNote;
     }
 
     @Override
