@@ -21,6 +21,11 @@ public interface AttrezzoDao {
             "SELECT A.* FROM attrezzobirra AS AB JOIN attrezzo AS A ON AB.idAttrezzo = A.id")
     List<Attrezzo> getAllAttrezziNonInUtilizzo();
 
+    @Query("SELECT * FROM attrezzo AS A " +
+            "JOIN attrezzoBirra AS AB ON AB.idAttrezzo = A.id " +
+            "WHERE AB.idBirra = :idBirra")
+    List<Attrezzo> getAllAttrezziInUtilizzo(long idBirra);
+
     @Insert
     long insertAttrezzo(Attrezzo attrezzo);
 
