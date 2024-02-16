@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="16dp"
-        android:text="@string/ingredienti"
+        android:text="ingredienti per "
         android:textColor="?android:colorPrimary"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -75,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="L di birra"
+        android:text="l di birra"
         android:textStyle="bold"
         android:textColor="?android:colorPrimary"
         android:textSize="20sp"
@@ -99,7 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        tools:src="@drawable/check_circle_24px"
+        tools:src="@drawable/check"
         app:layout_constraintEnd_toStartOf="@+id/imageView_attrezzoPreparaBirra"
         app:layout_constraintTop_toBottomOf="@+id/textView_nomePreparaBirra" />
 

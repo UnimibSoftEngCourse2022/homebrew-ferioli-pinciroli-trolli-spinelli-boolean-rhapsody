@@ -11,7 +11,9 @@
         android:id="@+id/editTextText_ingrediente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@android:color/transparent"
         android:inputType="number"
         android:maxLength="5"
@@ -19,7 +21,7 @@
         android:minHeight="48dp"
         android:textAlignment="textEnd"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton_rimuovi_ingrediente"
+        app:layout_constraintStart_toEndOf="@+id/textView_ingrediente"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="22.0" />
 
@@ -28,11 +30,11 @@
         android:id="@+id/textView_ingrediente"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:textColor="?android:textColorPrimary"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -43,6 +45,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:textColor="?android:textColorPrimary"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,12 +58,14 @@
         android:id="@+id/imageButton_rimuovi_ingrediente"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/roundcorner"
         android:contentDescription="@string/bottone_meno"
         android:src="@drawable/baseline_horizontal_rule_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView_ingrediente"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/roundcorner"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
 
@@ -67,12 +73,14 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="80dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/roundcorner"
         android:contentDescription="@string/bottone_piu"
         android:src="@drawable/baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageButton_rimuovi_ingrediente"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/roundcorner"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

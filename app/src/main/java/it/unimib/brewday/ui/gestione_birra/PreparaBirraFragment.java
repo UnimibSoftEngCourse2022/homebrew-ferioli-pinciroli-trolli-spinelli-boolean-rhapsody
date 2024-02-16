@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentManager;
@@ -23,7 +25,6 @@ import it.unimib.brewday.R;
 import it.unimib.brewday.databinding.FragmentPreparaBirraBinding;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Birra;
-import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
@@ -32,11 +33,9 @@ public class PreparaBirraFragment extends Fragment {
 
     private FragmentPreparaBirraBinding fragmentPreparaBirraBinding;
     private BirraViewModel birraViewModel;
-    List<IngredienteRicetta> listaIngredientiBirra;
-    List<Ingrediente> listaIngredientiDisponibili;
-    List<Attrezzo> listaAttrezziDisponibili;
-    List<Integer> listaDifferenzaIngredienti;
-    List<Attrezzo> listaAttrezziSelezionati;
+    private List<IngredienteRicetta> listaIngredientiBirra;
+    private List<Integer> listaDifferenzaIngredienti;
+    private List<Attrezzo> listaAttrezziSelezionati;
     private boolean possiedeAttrezzi;
 
     private AdapterListViewIngredientiBirra adapterListViewIngredientiBirra;
@@ -57,8 +56,6 @@ public class PreparaBirraFragment extends Fragment {
                 new BirraViewModelFactory(getContext())).get(BirraViewModel.class);
 
         listaIngredientiBirra = new ArrayList<>();
-        listaIngredientiDisponibili = new ArrayList<>();
-        listaAttrezziDisponibili = new ArrayList<>();
     }
 
     @Override
@@ -74,6 +71,26 @@ public class PreparaBirraFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //Gestione Topbar
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if (activity != null) {
+            ActionBar actionBar = activity.getSupportActionBar();
+
+            // Imposta il titolo personalizzato
+            if (actionBar != null) {
+                actionBar.setTitle("");
+            }
+        }
+
+        ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar != null) {
+            // Imposta il colore del pulsante back
+            actionBar.setHomeAsUpIndicator(R.drawable.arrow_back_24px);
+
+            // Abilita il pulsante back
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         /*
          * Ottengo i dati dai safe args ed inizializzo alcuni elementi della schermata (nome)
@@ -150,7 +167,6 @@ public class PreparaBirraFragment extends Fragment {
             if (verificaIngredienti()){
                 if (possiedeAttrezzi){
                     birraViewModel.createBirra(new Birra(litriBirraScelti, ricetta.getId()), listaDifferenzaIngredienti, listaAttrezziSelezionati);
-
                 }
                 else {
                     Snackbar.make(view, "Gli attrezzi sono troppo piccoli", BaseTransientBottomBar.LENGTH_SHORT).show();
