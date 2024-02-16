@@ -5,8 +5,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.List;
-
 import it.unimib.brewday.repository.IngredientiRepository;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.Ingrediente;

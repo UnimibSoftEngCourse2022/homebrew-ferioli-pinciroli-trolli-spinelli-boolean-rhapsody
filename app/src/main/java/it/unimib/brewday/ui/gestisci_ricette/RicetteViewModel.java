@@ -4,15 +4,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
-import it.unimib.brewday.model.TipoIngrediente;
-import it.unimib.brewday.repository.IngredientiRepository;
 import it.unimib.brewday.repository.RicetteRepository;
 
 public class RicetteViewModel extends ViewModel {
