@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import java.util.List;
 
 import it.unimib.brewday.R;
 import it.unimib.brewday.databinding.FragmentBirraDettagliataBinding;
+import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Risultato;
@@ -60,6 +63,9 @@ public class BirraDettagliataFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(),
+                LinearLayoutManager.HORIZONTAL, false);
+
         Birra birraSelezionata = BirraDettagliataFragmentArgs.fromBundle(getArguments()).getBirra();
 
 
@@ -77,11 +83,25 @@ public class BirraDettagliataFragment extends Fragment {
 
                     fragmentBirraDettagliataBinding.listViewIgredientiBirraDettagliata.setAdapter(adapterListViewIngredientiBirra);
                     fragmentBirraDettagliataBinding.listViewIgredientiBirraDettagliata.setDivider(null);
+                    //fragmentBirraDettagliataBinding.listViewIgredientiBirraDettagliata.setVisibility(View.GONE);
                 }
             });
+            if(birraSelezionata.isTerminata()) {
+                fragmentBirraDettagliataBinding.textView6.setVisibility(View.GONE);
+            }else{
+                visualizzaBirreViewModel.getAttrezziBirra(birraSelezionata);
+            }
 
+            visualizzaBirreViewModel.getAttrezziBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
+                    if(risultato.isSuccessful()) {
+                        List<Attrezzo> listaAttrezziBirra = ((Risultato.ListaAttrezziSuccesso)risultato).getAttrezzi();
+                        adapterRecyclerViewAttrezzi = new AdapterRecyclerViewAttrezzi(listaAttrezziBirra, null, true);
+                        fragmentBirraDettagliataBinding.recyclerViewAttrezziBirraDettagliata.setLayoutManager(layoutManager);
+                        fragmentBirraDettagliataBinding.recyclerViewAttrezziBirraDettagliata.setAdapter(adapterRecyclerViewAttrezzi);
 
-          //  adapterRecyclerViewAttrezzi = new AdapterRecyclerViewAttrezzi()
+                    }
+            });
+
 
     }
 }

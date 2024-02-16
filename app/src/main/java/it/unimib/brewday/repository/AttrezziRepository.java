@@ -81,4 +81,23 @@ public class AttrezziRepository {
             }
         });
     }
+
+    public void readAttrezziBirra (long idBirra, Callback callback){
+            LocalDatabase.databaseWriteExecutor.execute(() -> {
+            List<Attrezzo> attrezziBirra = attrezziDao.getAllAttrezziInUtilizzo(idBirra);
+            if(attrezziBirra != null){
+                callback.onComplete(new Risultato.ListaAttrezziSuccesso(attrezziBirra));
+            }else{
+
+                callback.onComplete(new Risultato.Errore(RegistroErrori.ATTREZZI_FETCH_ERROR));
+            }
+
+
+
+            } );
+
+
+
+
+    }
 }

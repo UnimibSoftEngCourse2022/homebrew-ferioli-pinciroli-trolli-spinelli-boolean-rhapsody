@@ -10,6 +10,7 @@ import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.TipoIngrediente;
+import it.unimib.brewday.repository.AttrezziRepository;
 import it.unimib.brewday.repository.BirreRepository;
 import it.unimib.brewday.repository.RicetteRepository;
 
@@ -20,20 +21,25 @@ public class VisualizzaBirreViewModel extends ViewModel {
     private final MutableLiveData<Risultato> terminaBirraRisultato;
     private final MutableLiveData<Risultato> getIngredientiBirraRisultato;
 
+    private final MutableLiveData<Risultato> getAttrezziBirraRisultato;
+
     //Repository di accesso ai dati
     private final BirreRepository birreRepository;
     private final RicetteRepository ricetteRepository;
 
+    private final AttrezziRepository attrezziRepository;
+
     public VisualizzaBirreViewModel(BirreRepository birreRepository,
-                          RicetteRepository ricetteRepository) {
+                          RicetteRepository ricetteRepository, AttrezziRepository attrezziRepository) {
 
         this.birreRepository = birreRepository;
         this.ricetteRepository = ricetteRepository;
+        this.attrezziRepository = attrezziRepository;
 
         getAllBirreRisultato = new MutableLiveData<>();
         terminaBirraRisultato = new MutableLiveData<>();
         getIngredientiBirraRisultato = new MutableLiveData<>();
-
+        getAttrezziBirraRisultato = new MutableLiveData<>();
     }
 
     public void getAllBirre() {
@@ -53,6 +59,10 @@ public class VisualizzaBirreViewModel extends ViewModel {
             }
         });
     }
+
+    public void getAttrezziBirra (Birra birra){
+        attrezziRepository.readAttrezziBirra(birra.getId(), getAttrezziBirraRisultato::postValue);
+    }
     /*
      * Metodi per ottenere riferimento a Mutable live data
      */
@@ -66,6 +76,8 @@ public class VisualizzaBirreViewModel extends ViewModel {
     }
 
     public LiveData<Risultato> getIngredientiBirraRisultato(){return getIngredientiBirraRisultato;}
+
+    public LiveData<Risultato> getAttrezziBirraRisultato(){return getAttrezziBirraRisultato;}
 
     private void setDosaggioDaIngredienteRicetta(int litriBirraScelti,
                                                  List<IngredienteRicetta> listaIngredientiRicetta ){

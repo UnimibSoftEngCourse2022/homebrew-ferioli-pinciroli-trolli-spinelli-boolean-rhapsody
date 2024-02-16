@@ -95,7 +95,7 @@ public class AttrezziFragment extends Fragment {
         if (risultato.isSuccessful() && risultato instanceof Risultato.ListaAttrezziSuccesso) {
             List<Attrezzo> nuoviAttrezzi = ((Risultato.ListaAttrezziSuccesso) risultato).getAttrezzi();
             if (adapterRecyclerViewAttrezzi == null) {
-                adapterRecyclerViewAttrezzi = new AdapterRecyclerViewAttrezzi(nuoviAttrezzi, mViewModel);
+                adapterRecyclerViewAttrezzi = new AdapterRecyclerViewAttrezzi(nuoviAttrezzi, mViewModel, false);
                 recyclerView.setAdapter(adapterRecyclerViewAttrezzi);
             } else {
                 adapterRecyclerViewAttrezzi.setDataList(nuoviAttrezzi);
