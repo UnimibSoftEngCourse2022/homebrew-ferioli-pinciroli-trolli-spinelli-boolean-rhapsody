@@ -57,8 +57,8 @@ public class AttrezziFragment extends Fragment {
         FloatingActionButton addAttrezzo = view.findViewById(R.id.gestisciAttrezziFragment_imageButton_add);
 
         addAttrezzo.setOnClickListener(v -> {
-            InserisciAttrezzoDialog prova = new InserisciAttrezzoDialog(mViewModel);
-            prova.show(getParentFragmentManager(), "Inserisci nuovo attrezzo");
+            InserisciAttrezzoDialog dialog = new InserisciAttrezzoDialog(mViewModel);
+            dialog.show(getParentFragmentManager(), "Inserisci nuovo attrezzo");
         });
 
         //Gestione stampa a schermo degli attrezzi registrati
