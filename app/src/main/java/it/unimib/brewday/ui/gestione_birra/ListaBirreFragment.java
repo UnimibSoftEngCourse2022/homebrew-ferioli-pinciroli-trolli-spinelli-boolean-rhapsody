@@ -63,7 +63,7 @@ public class ListaBirreFragment extends Fragment {
         AdapterRecyclerViewBirre adapterRecyclerViewBirre = new AdapterRecyclerViewBirre(listaBirre, new AdapterRecyclerViewBirre.ItemClickCallback() {
             @Override
             public void onElementoBirraClick(BirraConRicetta birra) {
-                // TODO implementare
+                // TODO implementare birra dettagliata
             }
 
             @Override

@@ -105,7 +105,7 @@ public class PreparaBirraFragment extends Fragment {
                 listaDifferenzaIngredienti = ((Risultato.ListaDifferenzaIngredientiSuccesso) risultato).getListaDifferenzaIngredienti();
 
                 adapterListViewIngredientiBirra = new AdapterListViewIngredientiBirra(
-                        getContext(),
+                        requireContext(),
                         R.layout.lista_ingredienti_birra,
                         listaIngredientiBirra,
                         listaDifferenzaIngredienti);
@@ -133,11 +133,10 @@ public class PreparaBirraFragment extends Fragment {
             else{
                 fragmentPreparaBirraBinding.imageViewControloAttrezziPreparaBirra.setImageResource(R.drawable.fail);
                 if(risultato instanceof Risultato.ErroreConSuggerimentoLitri){
-                    //gestire il suggerimento
-                    Snackbar.make(view, ((Risultato.Errore) risultato).getMessaggio(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    //gestire l'errore con il suggerimento dei litri
                 }
                 else{
-                    //TODO: gestione errore
+                    //gestire l'errore "generale"
                 }
             }
         });
@@ -152,10 +151,12 @@ public class PreparaBirraFragment extends Fragment {
                 if (possiedeAttrezzi){
                     birraViewModel.createBirra(new Birra(litriBirraScelti, ricetta.getId()), listaDifferenzaIngredienti, listaAttrezziSelezionati);
 
-                } else {
+                }
+                else {
                     Snackbar.make(view, "Gli attrezzi sono troppo piccoli", BaseTransientBottomBar.LENGTH_SHORT).show();
                 }
-            } else {
+            }
+            else {
                 Snackbar.make(view, "Attenzione ti mancano degli ingredienti", BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
