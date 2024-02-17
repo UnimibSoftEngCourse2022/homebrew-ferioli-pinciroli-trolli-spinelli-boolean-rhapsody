@@ -18,7 +18,8 @@ public class Risultato {
                 || this instanceof ListaRicetteSuccesso
                 || this instanceof SingolaRicettaSuccesso
                 || this instanceof AllBirreSuccesso
-                || this instanceof ListaDifferenzaIngredientiSuccesso;
+                || this instanceof ListaDifferenzaIngredientiSuccesso
+                || this instanceof MassimizzazioneConsumoIngredientiSuccesso;
 
     }
 
@@ -120,6 +121,24 @@ public class Risultato {
 
         public List<Integer> getListaDifferenzaIngredienti() {
             return listaDifferenzaIngredienti;
+        }
+    }
+
+    public static final class MassimizzazioneConsumoIngredientiSuccesso extends Risultato {
+        private final Ricetta ricetta;
+        private final int litri;
+
+        public MassimizzazioneConsumoIngredientiSuccesso(Ricetta ricetta, int litri){
+            this.ricetta = ricetta;
+            this.litri = litri;
+        }
+
+        public Ricetta getRicetta() {
+            return ricetta;
+        }
+
+        public int getLitri() {
+            return litri;
         }
     }
 

@@ -10,16 +10,16 @@ import android.view.ViewGroup;
 
 import it.unimib.brewday.R;
 
-public class CosaPrerparareOggiFragment extends Fragment {
+public class CosaPreparareOggiFragment extends Fragment {
 
 
-    public CosaPrerparareOggiFragment() {
+    public CosaPreparareOggiFragment() {
         // Required empty public constructor
     }
 
 
-    public static CosaPrerparareOggiFragment newInstance() {
-        return new CosaPrerparareOggiFragment();
+    public static CosaPreparareOggiFragment newInstance() {
+        return new CosaPreparareOggiFragment();
     }
 
 

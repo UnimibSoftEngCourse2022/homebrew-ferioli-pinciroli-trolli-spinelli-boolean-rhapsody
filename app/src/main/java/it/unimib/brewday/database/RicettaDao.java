@@ -32,6 +32,9 @@ public interface RicettaDao {
     )
     List<IngredienteRicetta> getIngredientiRicetta(long idRicetta);
 
+    @Query("SELECT * FROM IngredienteRicetta")
+    List<IngredienteRicetta> getAllIngredientiRicetta();
+
     @Insert
     long[] insertIngredientiRicetta(List<IngredienteRicetta> listaIngredientiRicetta);
 

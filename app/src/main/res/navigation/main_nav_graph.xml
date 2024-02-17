@@ -58,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/cosaDevoPreparareOggiFragment"
-        android:name="it.unimib.brewday.ui.cosa_preparare_oggi.CosaPrerparareOggiFragment"
+        android:name="it.unimib.brewday.ui.cosa_preparare_oggi.CosaPreparareOggiFragment"
         android:label="Cosa devo preparare oggi?"
         tools:layout="@layout/fragment_cosa_preparare_oggi" />
     <fragment

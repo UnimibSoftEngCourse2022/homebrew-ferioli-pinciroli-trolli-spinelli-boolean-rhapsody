@@ -123,20 +123,73 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
 
     @Override
     public void massimizzaConsumoIngredienti(Callback callback) {
-        attrezziRepository.readAllAttrezziLiberi(attrezziLiberi -> {
+        attrezziRepository.readAllAttrezziLiberi(attrezziLiberiRisultato -> {
+            if(attrezziLiberiRisultato.isSuccessful()){
 
-            int litriSuggeriti = Ottimizzazione.suggerisciLitri(((Risultato.ListaAttrezziSuccesso) attrezziLiberi).getAttrezzi());
+                int litriMassimiAttrezzi = Ottimizzazione.suggerisciLitri(((Risultato.ListaAttrezziSuccesso) attrezziLiberiRisultato).getAttrezzi());
 
-            ricetteRepository.readAllRicette(listaRicetteRisultato -> {
+                ricetteRepository.readAllRicette(listaRicetteRisultato -> {
+                    if(listaRicetteRisultato.isSuccessful()){
 
-                List<Ricetta> listaRicette = ((Risultato.ListaRicetteSuccesso) listaRicetteRisultato).getRicette();
+                        List<Ricetta> listaRicette = ((Risultato.ListaRicetteSuccesso) listaRicetteRisultato).getRicette();
 
-                /*
-                 * TODO: implementare un metodo per leggere tutti gli ingredienti delle ricette
-                 *  in modo tale da non dover iterare la lettura su ogni ricetta. L'idea sarebbe poi
-                 *  di mappare gli ingredienti sulla base delle ricette che abbiamo a disposizione.
-                 */
-            });
+                        ricetteRepository.readAllIngredientiRicetta(listaIngredientiRicettaRisultato -> {
+                            if(listaIngredientiRicettaRisultato.isSuccessful()){
+
+                                List<IngredienteRicetta> listaIngredientiRicette = ((Risultato.ListaIngredientiDellaRicettaSuccesso) listaIngredientiRicettaRisultato)
+                                        .getListaIngrediente();
+
+                                ingredientiRepository.readAllIngredienti(listaIngredientiDisponibiliRisultato -> {
+                                    if(listaIngredientiDisponibiliRisultato.isSuccessful()){
+
+                                        List<Ingrediente> listaIngredientiDisponibili = ((Risultato.ListaIngredientiSuccesso) listaIngredientiDisponibiliRisultato)
+                                                .getData();
+
+                                        double consumoMassimo = -1.0;
+                                        int litriPerRicettaSelezionata = 0;
+                                        Ricetta ricettaSelezionata = null;
+
+                                        for (Ricetta ricetta : listaRicette) {
+                                            List<IngredienteRicetta> listaIngredientiDiQuestaRicetta =
+                                                    getIngredientiRicettaByIdRicetta(listaIngredientiRicette, ricetta.getId());
+
+                                            int litriMassimiPerRicetta = Ottimizzazione.litriPerRicetta(listaIngredientiDiQuestaRicetta, listaIngredientiDisponibili);
+
+                                            setDosaggioDaIngredienteRicetta(Integer.max(litriMassimiAttrezzi, litriMassimiPerRicetta), listaIngredientiDiQuestaRicetta);
+                                            double consumoTotale = calcolaConsumoTotale(listaIngredientiDiQuestaRicetta);
+
+                                            if(consumoTotale > consumoMassimo){
+                                                consumoMassimo = consumoTotale;
+                                                litriPerRicettaSelezionata = litriMassimiPerRicetta;
+                                                ricettaSelezionata = ricetta;
+                                            }
+
+                                        }
+
+                                        callback.onComplete(new Risultato.MassimizzazioneConsumoIngredientiSuccesso(ricettaSelezionata, litriPerRicettaSelezionata));
+
+                                    }
+                                    else{
+                                        callback.onComplete(listaIngredientiDisponibiliRisultato);
+                                    }
+                                });
+
+                            }
+                            else{
+                                callback.onComplete(listaIngredientiRicettaRisultato);
+                            }
+                        });
+                    }
+                    else{
+                        callback.onComplete(listaRicetteRisultato);
+                    }
+
+                });
+
+            }
+            else{
+                callback.onComplete(attrezziLiberiRisultato);
+            }
         });
     }
 
@@ -172,5 +225,23 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
 
     private static double round(double n, int decimals) {
         return Math.floor(n * Math.pow(10, decimals)) / Math.pow(10, decimals);
+    }
+
+    private List<IngredienteRicetta> getIngredientiRicettaByIdRicetta(List<IngredienteRicetta> ingredientiRicette, long idRicetta){
+        List<IngredienteRicetta> ingredientiRicetta = new ArrayList<>();
+        for (IngredienteRicetta ingrediente: ingredientiRicette) {
+            if(ingrediente.getIdRicetta() == idRicetta){
+                ingredientiRicetta.add(ingrediente);
+            }
+        }
+        return ingredientiRicetta;
+    }
+
+    private double calcolaConsumoTotale(List<IngredienteRicetta> listaIngredienti){
+        double consumoTotale = 0.0;
+        for (IngredienteRicetta ingrediente: listaIngredienti) {
+            consumoTotale += ingrediente.getDosaggioIngrediente();
+        }
+        return consumoTotale;
     }
 }

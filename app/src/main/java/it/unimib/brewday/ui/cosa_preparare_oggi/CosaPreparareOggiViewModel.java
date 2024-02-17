@@ -10,16 +10,19 @@ import it.unimib.brewday.model.Risultato;
 
 public class CosaPreparareOggiViewModel extends ViewModel {
 
-    private final MutableLiveData<Risultato> ingredientiDisponibili;
+    private MutableLiveData<Risultato> ricettaConsumoMassimoRisultato;
     private final IGestioneBirraDomain gestioneBirreDomain;
+
 
     public CosaPreparareOggiViewModel(GestioneBirreDomain gestioneBirreDomain) {
         this.gestioneBirreDomain = gestioneBirreDomain;
-
-        ingredientiDisponibili = new MutableLiveData<>();
     }
 
-    public LiveData<Risultato> getIngredientiDisponibili() {
-        return ingredientiDisponibili;
+    public void suggerisciRicettaConConsumoMassimo(){
+        gestioneBirreDomain.massimizzaConsumoIngredienti(ricettaConsumoMassimoRisultato::postValue);
+    }
+
+    public LiveData<Risultato> getRicettaConsumoMassimoRisultato() {
+        return ricettaConsumoMassimoRisultato;
     }
 }
