@@ -60,8 +60,13 @@ public class AdapterRecyclerViewNoteDegustazione extends RecyclerView.Adapter<Ad
         public void bind(NotaDegustazione notaDegustazione) {
 
             nomeRecensore.setText(notaDegustazione.getRecensore());
-            commento.setText(notaDegustazione.getCommento());
             recensione.setRating(notaDegustazione.getRecensione());
+            if (notaDegustazione.getCommento().equals("")){
+                commento.setVisibility(View.GONE);
+            } else {
+                commento.setText(notaDegustazione.getCommento());
+                commento.setVisibility(View.VISIBLE);
+            }
 
         }
     }

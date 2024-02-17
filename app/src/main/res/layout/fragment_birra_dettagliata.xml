@@ -66,9 +66,10 @@
         <ListView
             android:id="@+id/listView_igredientiBirraDettagliata"
             android:layout_width="match_parent"
-            android:layout_height="405dp"
+            android:layout_height="380dp"
             android:layout_marginTop="16dp"
             android:listSelector="@android:color/transparent"
+            android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_IngredientiPer_Birra" />
