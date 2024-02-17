@@ -91,6 +91,7 @@ public class PreparaBirraFragment extends Fragment {
         birraViewModel.getIngredientiRicettaPerLitriRisultato().observe(getViewLifecycleOwner(), risultato ->  {
             if (risultato.isSuccessful()){
                 listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
+                birraViewModel.getDifferenzaIngredienti(listaIngredientiBirra);
             } else {
                 Snackbar.make(view, "Errore nel recupero e calcolo degli ingredienti", BaseTransientBottomBar.LENGTH_SHORT).show();
             }
@@ -148,7 +149,7 @@ public class PreparaBirraFragment extends Fragment {
         });
 
 
-        birraViewModel.getDifferenzaIngredienti(ricetta.getId(), litriBirraScelti);
+        birraViewModel.getIngredientiPerLitriScelti(ricetta.getId(), litriBirraScelti);
         birraViewModel.getAndOptimizeAttrezziLiberi(litriBirraScelti);
 
         fragmentPreparaBirraBinding.buttonRicettaPreparaBirra.setOnClickListener(v -> {
