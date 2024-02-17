@@ -24,7 +24,7 @@ public interface IGestioneBirraDomain {
 
     void getAndOptimizeAttrezziLiberi(int litriScelti, Callback callback);
 
-    void massimizzaConsumoIngredienti();
+    void massimizzaConsumoIngredienti(Callback callback);
 
-    void massimizzaProduzioneLitri();
+    void massimizzaProduzioneLitri(Callback callback);
 }

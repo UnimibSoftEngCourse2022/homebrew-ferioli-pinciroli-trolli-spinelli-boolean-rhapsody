@@ -8,6 +8,7 @@ import it.unimib.brewday.model.AttrezzoBirra;
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
+import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.TipoIngrediente;
 import it.unimib.brewday.repository.AttrezziRepository;
@@ -106,7 +107,7 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
 
     @Override
     public void getAndOptimizeAttrezziLiberi(int litriScelti, Callback callback) {
-        attrezziRepository.readAllAttrezziNonInUso(risultato -> {
+        attrezziRepository.readAllAttrezziLiberi(risultato -> {
             if (risultato.isSuccessful()){
                 List<Attrezzo> listaAttrezziDisponibili = ((Risultato.ListaAttrezziSuccesso) risultato).getAttrezzi();
 
@@ -118,6 +119,30 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
                 callback.onComplete(risultato);
             }
         });
+    }
+
+    @Override
+    public void massimizzaConsumoIngredienti(Callback callback) {
+        attrezziRepository.readAllAttrezziLiberi(attrezziLiberi -> {
+
+            int litriSuggeriti = Ottimizzazione.suggerisciLitri(((Risultato.ListaAttrezziSuccesso) attrezziLiberi).getAttrezzi());
+
+            ricetteRepository.readAllRicette(listaRicetteRisultato -> {
+
+                List<Ricetta> listaRicette = ((Risultato.ListaRicetteSuccesso) listaRicetteRisultato).getRicette();
+
+                /*
+                 * TODO: implementare un metodo per leggere tutti gli ingredienti delle ricette
+                 *  in modo tale da non dover iterare la lettura su ogni ricetta. L'idea sarebbe poi
+                 *  di mappare gli ingredienti sulla base delle ricette che abbiamo a disposizione.
+                 */
+            });
+        });
+    }
+
+    @Override
+    public void massimizzaProduzioneLitri(Callback callback) {
+
     }
 
 
