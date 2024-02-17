@@ -21,7 +21,8 @@ public class VisualizzaBirreViewModelFactory implements ViewModelProvider.Factor
         return (T) new VisualizzaBirreViewModel(
                 ServiceLocator.getInstance().getBirraRepository(context),
                 ServiceLocator.getInstance().getRicetteRepository(context),
-                ServiceLocator.getInstance().getAttrezziRepository(context)
+                ServiceLocator.getInstance().getAttrezziRepository(context),
+                ServiceLocator.getInstance().getNotaRepository(context)
         );
     }
 }

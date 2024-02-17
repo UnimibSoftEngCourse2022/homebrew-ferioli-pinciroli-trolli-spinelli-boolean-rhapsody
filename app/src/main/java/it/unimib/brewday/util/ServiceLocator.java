@@ -6,6 +6,7 @@ import it.unimib.brewday.repository.BirreRepository;
 import it.unimib.brewday.repository.IngredientiRepository;
 import it.unimib.brewday.repository.AttrezziRepository;
 import it.unimib.brewday.database.LocalDatabase;
+import it.unimib.brewday.repository.NoteDegustazioneRepository;
 import it.unimib.brewday.repository.RicetteRepository;
 
 public class ServiceLocator {
@@ -39,6 +40,10 @@ public class ServiceLocator {
 
     public BirreRepository getBirraRepository(Context context) {
         return new BirreRepository(getRoomDatabase(context));
+    }
+
+    public NoteDegustazioneRepository getNotaRepository(Context context) {
+        return new NoteDegustazioneRepository(getRoomDatabase(context));
     }
 
     public LocalDatabase getRoomDatabase(Context context) {

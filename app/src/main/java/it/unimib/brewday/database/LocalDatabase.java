@@ -18,6 +18,7 @@ import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.AttrezzoBirra;
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.Ingrediente;
+import it.unimib.brewday.model.NotaDegustazione;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.util.Converters;
@@ -30,7 +31,8 @@ import it.unimib.brewday.util.ListaIngredienti;
         Ricetta.class,
         IngredienteRicetta.class,
         Birra.class,
-        AttrezzoBirra.class}, version = 1)
+        AttrezzoBirra.class,
+        NotaDegustazione.class}, version = 1)
 @TypeConverters({Converters.class})
 public abstract class LocalDatabase extends RoomDatabase {
 
@@ -41,6 +43,8 @@ public abstract class LocalDatabase extends RoomDatabase {
     public abstract AttrezzoDao attrezzoDao();
     public abstract RicettaDao ricettaDao();
     public abstract BirraDao birraDao();
+
+    public abstract NotaDegustazioneDao notaDegustazioneDao();
 
     //Istanza del DB
     private static volatile LocalDatabase INSTANCE;

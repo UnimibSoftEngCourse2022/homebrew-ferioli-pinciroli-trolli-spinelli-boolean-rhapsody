@@ -1,5 +1,8 @@
 package it.unimib.brewday.model;
 
+import androidx.room.Entity;
+
+@Entity
 public class NotaDegustazione extends Nota{
     public NotaDegustazione(double recensione, String recensore) {
         super("");
@@ -14,4 +17,5 @@ public class NotaDegustazione extends Nota{
 
     double recensione;
     String recensore;
+    long idBirra;
 }

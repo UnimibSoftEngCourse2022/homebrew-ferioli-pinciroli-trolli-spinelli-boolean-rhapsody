@@ -145,4 +145,19 @@ public class Risultato {
             return litriSuggeriti;
         }
     }
+
+    public static final class AllNoteDegustazioneSuccesso extends Risultato{
+
+        private final List<NotaDegustazione> listaNoteDegustazione;
+
+
+        public AllNoteDegustazioneSuccesso(List<NotaDegustazione> listaNoteDegustazione) {
+            this.listaNoteDegustazione = listaNoteDegustazione;
+        }
+
+
+        public List<NotaDegustazione> getListaNoteDegustazione(){
+            return  listaNoteDegustazione;
+        }
+    }
 }

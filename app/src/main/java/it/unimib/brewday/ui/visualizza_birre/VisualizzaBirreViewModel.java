@@ -12,6 +12,7 @@ import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.TipoIngrediente;
 import it.unimib.brewday.repository.AttrezziRepository;
 import it.unimib.brewday.repository.BirreRepository;
+import it.unimib.brewday.repository.NoteDegustazioneRepository;
 import it.unimib.brewday.repository.RicetteRepository;
 
 public class VisualizzaBirreViewModel extends ViewModel {
@@ -29,12 +30,15 @@ public class VisualizzaBirreViewModel extends ViewModel {
 
     private final AttrezziRepository attrezziRepository;
 
+    private final NoteDegustazioneRepository noteDegustazioneRepository;
+
     public VisualizzaBirreViewModel(BirreRepository birreRepository,
-                          RicetteRepository ricetteRepository, AttrezziRepository attrezziRepository) {
+                          RicetteRepository ricetteRepository, AttrezziRepository attrezziRepository, NoteDegustazioneRepository noteDegustazioneRepository) {
 
         this.birreRepository = birreRepository;
         this.ricetteRepository = ricetteRepository;
         this.attrezziRepository = attrezziRepository;
+        this.noteDegustazioneRepository = noteDegustazioneRepository;
 
         getAllBirreRisultato = new MutableLiveData<>();
         terminaBirraRisultato = new MutableLiveData<>();

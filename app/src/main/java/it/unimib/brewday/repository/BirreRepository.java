@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Locale;
 
 import it.unimib.brewday.database.BirraDao;
+
 import it.unimib.brewday.database.LocalDatabase;
 import it.unimib.brewday.model.AttrezzoBirra;
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.BirraConRicetta;
+
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.Callback;
 import it.unimib.brewday.util.RegistroErrori;
@@ -18,9 +20,13 @@ public class BirreRepository {
 
     private final BirraDao birraDao;
 
+
+
     public BirreRepository(LocalDatabase localDatabase) {
         birraDao = localDatabase.birraDao();
     }
+
+
 
     public void readAllBirre(Callback callback) {
 
@@ -110,4 +116,7 @@ public class BirreRepository {
             }
         });
     }
+
+
+
 }
