@@ -76,9 +76,9 @@ public class BirraDettagliataFragment extends Fragment {
         BirraConRicetta birraSelezionata = BirraDettagliataFragmentArgs.fromBundle(getArguments()).getBirra();
         fragmentBirraDettagliataBinding.textViewNumeroLitriBirraDettagliata.setText(Integer.toString(birraSelezionata.getLitriProdotti()));
         fragmentBirraDettagliataBinding.textViewNomeBirraDettagliata.setText(birraSelezionata.getNomeRicetta());
-        if(birraSelezionata.getNotaGenerale() != null) {
-            fragmentBirraDettagliataBinding.editTextNoteBirraDettagliata.setText(birraSelezionata.getNotaGenerale());
-        }
+        //if(birraSelezionata.getNotaGenerale() != null) {
+            fragmentBirraDettagliataBinding.inputTextLayoutNoteBirraDettagliata.getEditText().setText(birraSelezionata.getNotaGenerale());
+        //}
 
         visualizzaBirreViewModel.getIngredientiBirra(birraSelezionata);
 
@@ -120,6 +120,12 @@ public class BirraDettagliataFragment extends Fragment {
 
         });
 
+        visualizzaBirreViewModel.getUpdateBirreRisultato().observe(getViewLifecycleOwner(), risultato -> {
+            if (!risultato.isSuccessful()){
+                Snackbar.make(view, "AAAAAAAAAA", BaseTransientBottomBar.LENGTH_SHORT);
+            }
+        });
+
         fragmentBirraDettagliataBinding.editTextNoteBirraDettagliata.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -127,6 +133,7 @@ public class BirraDettagliataFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 birraSelezionata.setNotaGenerale(fragmentBirraDettagliataBinding.editTextNoteBirraDettagliata.getText().toString());
+                visualizzaBirreViewModel.updateBirra(birraSelezionata);
             }
             @Override
             public void afterTextChanged(Editable s) {

@@ -79,7 +79,7 @@ public class ListaBirreFragment extends Fragment {
             }
         }, visualizzaBirraViewModel);
 
-        visualizzaBirraViewModel.getAllBirreResult().observe(getViewLifecycleOwner(), risultato -> {
+        visualizzaBirraViewModel.getAllBirreRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
                 listaBirre.clear();
                 listaBirre.addAll(((Risultato.AllBirreSuccesso) risultato).getAllBirre());

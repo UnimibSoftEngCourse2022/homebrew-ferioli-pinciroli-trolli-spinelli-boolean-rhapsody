@@ -85,6 +85,7 @@ public class Birra implements Parcelable {
         this.notaGenerale = notaGenerale;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -97,6 +98,7 @@ public class Birra implements Parcelable {
         dest.writeString(this.dataTerminazione);
         dest.writeInt(this.litriProdotti);
         dest.writeLong(this.idRicetta);
+        dest.writeString(this.notaGenerale);
     }
 
     public void readFromParcel(Parcel source) {
@@ -105,6 +107,7 @@ public class Birra implements Parcelable {
         this.dataTerminazione = source.readString();
         this.litriProdotti = source.readInt();
         this.idRicetta = source.readLong();
+        this.notaGenerale = source.readString();
     }
 
     protected Birra(Parcel in) {
@@ -113,17 +116,7 @@ public class Birra implements Parcelable {
         this.dataTerminazione = in.readString();
         this.litriProdotti = in.readInt();
         this.idRicetta = in.readLong();
+        this.notaGenerale = in.readString();
     }
 
-    public static final Creator<Birra> CREATOR = new Creator<Birra>() {
-        @Override
-        public Birra createFromParcel(Parcel source) {
-            return new Birra(source);
-        }
-
-        @Override
-        public Birra[] newArray(int size) {
-            return new Birra[size];
-        }
-    };
 }

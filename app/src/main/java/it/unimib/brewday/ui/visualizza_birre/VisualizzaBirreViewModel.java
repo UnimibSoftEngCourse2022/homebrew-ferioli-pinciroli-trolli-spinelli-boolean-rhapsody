@@ -20,22 +20,18 @@ public class VisualizzaBirreViewModel extends ViewModel {
 
     //Livedata per pagina birra
     private final MutableLiveData<Risultato> getAllBirreRisultato;
+    private final MutableLiveData<Risultato> updateBirreRisultato;
     private final MutableLiveData<Risultato> terminaBirraRisultato;
     private final MutableLiveData<Risultato> getIngredientiBirraRisultato;
-
     private final MutableLiveData<Risultato> getAttrezziBirraRisultato;
-
     private final MutableLiveData<Risultato> getNoteDegustazioneRisultato;
-
     private final MutableLiveData<Risultato> getInserimentoNotaDegustazioneRisultato;
     private final MutableLiveData<Risultato> getMediaNotaDegustazioneRisultato;
 
     //Repository di accesso ai dati
     private final BirreRepository birreRepository;
     private final RicetteRepository ricetteRepository;
-
     private final AttrezziRepository attrezziRepository;
-
     private final NoteDegustazioneRepository noteDegustazioneRepository;
 
     public VisualizzaBirreViewModel(BirreRepository birreRepository,
@@ -47,6 +43,7 @@ public class VisualizzaBirreViewModel extends ViewModel {
         this.noteDegustazioneRepository = noteDegustazioneRepository;
 
         getAllBirreRisultato = new MutableLiveData<>();
+        updateBirreRisultato = new MutableLiveData<>();
         terminaBirraRisultato = new MutableLiveData<>();
         getIngredientiBirraRisultato = new MutableLiveData<>();
         getAttrezziBirraRisultato = new MutableLiveData<>();
@@ -57,6 +54,10 @@ public class VisualizzaBirreViewModel extends ViewModel {
 
     public void getAllBirre() {
         birreRepository.readAllBirre(getAllBirreRisultato::postValue);
+    }
+
+    public void updateBirra(Birra birra){
+        birreRepository.updateBirra(birra, updateBirreRisultato::postValue);
     }
 
     public void terminaBirra(Birra birra){
@@ -92,10 +93,12 @@ public class VisualizzaBirreViewModel extends ViewModel {
      * Metodi per ottenere riferimento a Mutable live data
      */
 
-    public LiveData<Risultato> getAllBirreResult() {
+    public LiveData<Risultato> getAllBirreRisultato() {
         return getAllBirreRisultato;
     }
-
+    public LiveData<Risultato> getUpdateBirreRisultato() {
+        return updateBirreRisultato;
+    }
     public LiveData<Risultato> getTerminaBirraRisultato() {
         return terminaBirraRisultato;
     }
