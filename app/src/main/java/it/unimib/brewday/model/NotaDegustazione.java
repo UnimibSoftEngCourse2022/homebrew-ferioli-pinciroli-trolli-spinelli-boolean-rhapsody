@@ -6,27 +6,27 @@ import androidx.room.Ignore;
 @Entity
 public class NotaDegustazione extends Nota{
     @Ignore
-    public NotaDegustazione(double recensione, String recensore) {
+    public NotaDegustazione(float recensione, String recensore) {
         super("");
         this.recensione = recensione;
         this.recensore = recensore;
     }
-    public NotaDegustazione(double recensione, String recensore, String commento, long idBirra) {
+    public NotaDegustazione(float recensione, String recensore, String commento, long idBirra) {
         super(commento);
         this.recensione = recensione;
         this.recensore = recensore;
         this.idBirra = idBirra;
     }
 
-    private double recensione;
+    private float recensione;
     private String recensore;
     private long idBirra;
 
-    public double getRecensione() {
+    public float getRecensione() {
         return recensione;
     }
 
-    public void setRecensione(double recensione) {
+    public void setRecensione(float recensione) {
         this.recensione = recensione;
     }
 

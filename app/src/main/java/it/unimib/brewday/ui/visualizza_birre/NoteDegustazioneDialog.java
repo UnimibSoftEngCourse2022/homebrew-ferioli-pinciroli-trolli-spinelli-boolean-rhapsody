@@ -53,11 +53,13 @@ public class NoteDegustazioneDialog extends DialogFragment {
 
                 visualizzaBirreViewModel.getInserimentoNotaDegustazioneRisultato().observe(this, risultato -> {
                     if (risultato.isSuccessful()) {
+                        visualizzaBirreViewModel.getNoteDegustazione(birra.getId());
                         this.dismiss();
                     } else {
                         Snackbar.make(view, ((Risultato.Errore) risultato).getMessaggio(), BaseTransientBottomBar.LENGTH_SHORT);
                     }
                 });
+
 
             }
         });

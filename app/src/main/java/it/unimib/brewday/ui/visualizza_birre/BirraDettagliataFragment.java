@@ -13,6 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +24,7 @@ import it.unimib.brewday.databinding.FragmentBirraDettagliataBinding;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.BirraConRicetta;
 import it.unimib.brewday.model.IngredienteRicetta;
+import it.unimib.brewday.model.NotaDegustazione;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.gestione_birra.AdapterListViewIngredientiBirra;
 import it.unimib.brewday.ui.gestisci_attrezzi.AdapterRecyclerViewAttrezzi;
@@ -31,6 +35,8 @@ public class BirraDettagliataFragment extends Fragment {
     private VisualizzaBirreViewModel visualizzaBirreViewModel;
 
     private AdapterRecyclerViewAttrezzi adapterRecyclerViewAttrezzi;
+
+    private AdapterRecyclerViewNoteDegustazione adapterRecyclerViewNoteDegustazione;
 
     public BirraDettagliataFragment() {
         // Required empty public constructor
@@ -61,7 +67,7 @@ public class BirraDettagliataFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(),
+        RecyclerView.LayoutManager layoutManagerAttrezzi = new LinearLayoutManager(requireContext(),
                 LinearLayoutManager.HORIZONTAL, false);
 
         BirraConRicetta birraSelezionata = BirraDettagliataFragmentArgs.fromBundle(getArguments()).getBirra();
@@ -82,33 +88,46 @@ public class BirraDettagliataFragment extends Fragment {
 
                 fragmentBirraDettagliataBinding.listViewIgredientiBirraDettagliata.setAdapter(adapterListViewIngredientiBirra);
                 fragmentBirraDettagliataBinding.listViewIgredientiBirraDettagliata.setDivider(null);
-
             }
         });
         if(birraSelezionata.isTerminata()) {
             fragmentBirraDettagliataBinding.textViewAttrezziBirraDettagliata.setVisibility(View.GONE);
+            visualizzaBirreViewModel.getNoteDegustazione(birraSelezionata.getId());
         }else{
             visualizzaBirreViewModel.getAttrezziBirra(birraSelezionata);
+            fragmentBirraDettagliataBinding.imageButtonNuovaNotaDegustazione.setVisibility(View.GONE);
+            fragmentBirraDettagliataBinding.textViewNoteDiDegustazione.setVisibility(View.GONE);
         }
 
         visualizzaBirreViewModel.getAttrezziBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()) {
                 List<Attrezzo> listaAttrezziBirra = ((Risultato.ListaAttrezziSuccesso)risultato).getAttrezzi();
                 adapterRecyclerViewAttrezzi = new AdapterRecyclerViewAttrezzi(listaAttrezziBirra, null, true);
-                fragmentBirraDettagliataBinding.recyclerViewAttrezziBirraDettagliata.setLayoutManager(layoutManager);
+                fragmentBirraDettagliataBinding.recyclerViewAttrezziBirraDettagliata.setLayoutManager(layoutManagerAttrezzi);
                 fragmentBirraDettagliataBinding.recyclerViewAttrezziBirraDettagliata.setAdapter(adapterRecyclerViewAttrezzi);
-
             }
         });
 
         fragmentBirraDettagliataBinding.imageButtonNuovaNotaDegustazione.setOnClickListener(v -> {
             NoteDegustazioneDialog dialog = new NoteDegustazioneDialog(visualizzaBirreViewModel, birraSelezionata);
             dialog.show(getParentFragmentManager(), "Inserisci nuova Nota Degustazione");
+
         });
 
-        visualizzaBirreViewModel.getNoteDegustazione(birraSelezionata.getId());
 
 
+        visualizzaBirreViewModel.getNoteDegustazioneRisultato().observe(getViewLifecycleOwner(), risultato -> {
+                if(risultato.isSuccessful()){
+                    RecyclerView.LayoutManager layoutManagerNote = new LinearLayoutManager(requireContext(),
+                            LinearLayoutManager.VERTICAL, false);
+                    List<NotaDegustazione> listaNoteDegustazione = ((Risultato.AllNoteDegustazioneSuccesso) risultato).getListaNoteDegustazione();
+                    adapterRecyclerViewNoteDegustazione = new AdapterRecyclerViewNoteDegustazione(listaNoteDegustazione);
+                    fragmentBirraDettagliataBinding.recyclerViewNoteDettagliate.setLayoutManager(layoutManagerNote);
+                    fragmentBirraDettagliataBinding.recyclerViewNoteDettagliate.setAdapter(adapterRecyclerViewNoteDegustazione);
+                }else{
+                    Snackbar.make(view, ((Risultato.Errore)risultato).getMessaggio(), BaseTransientBottomBar.LENGTH_SHORT);
+                }
+        });
 
 
 
