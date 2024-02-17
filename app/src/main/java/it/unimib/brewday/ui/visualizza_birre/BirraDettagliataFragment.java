@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import it.unimib.brewday.databinding.FragmentBirraDettagliataBinding;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.BirraConRicetta;
 import it.unimib.brewday.model.IngredienteRicetta;
+import it.unimib.brewday.model.Nota;
 import it.unimib.brewday.model.NotaDegustazione;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.gestione_birra.AdapterListViewIngredientiBirra;
@@ -73,6 +76,9 @@ public class BirraDettagliataFragment extends Fragment {
         BirraConRicetta birraSelezionata = BirraDettagliataFragmentArgs.fromBundle(getArguments()).getBirra();
         fragmentBirraDettagliataBinding.textViewNumeroLitriBirraDettagliata.setText(Integer.toString(birraSelezionata.getLitriProdotti()));
         fragmentBirraDettagliataBinding.textViewNomeBirraDettagliata.setText(birraSelezionata.getNomeRicetta());
+        if(birraSelezionata.getNotaGenerale() != null) {
+            fragmentBirraDettagliataBinding.editTextNoteBirraDettagliata.setText(birraSelezionata.getNotaGenerale());
+        }
 
         visualizzaBirreViewModel.getIngredientiBirra(birraSelezionata);
 
@@ -112,6 +118,20 @@ public class BirraDettagliataFragment extends Fragment {
             NoteDegustazioneDialog dialog = new NoteDegustazioneDialog(visualizzaBirreViewModel, birraSelezionata);
             dialog.show(getParentFragmentManager(), "Inserisci nuova Nota Degustazione");
 
+        });
+
+        fragmentBirraDettagliataBinding.editTextNoteBirraDettagliata.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                birraSelezionata.setNotaGenerale(fragmentBirraDettagliataBinding.editTextNoteBirraDettagliata.getText().toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
         });
 
 

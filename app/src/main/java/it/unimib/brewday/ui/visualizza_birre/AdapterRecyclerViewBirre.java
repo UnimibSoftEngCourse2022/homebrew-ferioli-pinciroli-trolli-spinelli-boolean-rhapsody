@@ -5,26 +5,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.BirraConRicetta;
+import it.unimib.brewday.model.Risultato;
 
 public class AdapterRecyclerViewBirre extends RecyclerView.Adapter<AdapterRecyclerViewBirre.ViewHolder>{
 
     private final List<BirraConRicetta> listaBirre;
     private final ItemClickCallback callback;
+    private final VisualizzaBirreViewModel visualizzaBirreViewModel;
 
-    public AdapterRecyclerViewBirre(List<BirraConRicetta> listaBirre, ItemClickCallback callback) {
+
+    public AdapterRecyclerViewBirre(List<BirraConRicetta> listaBirre, ItemClickCallback callback, VisualizzaBirreViewModel visualizzaBirreViewModel) {
         this.listaBirre = listaBirre;
         this.callback = callback;
+        this.visualizzaBirreViewModel = visualizzaBirreViewModel;
     }
 
     @NonNull
@@ -36,7 +42,7 @@ public class AdapterRecyclerViewBirre extends RecyclerView.Adapter<AdapterRecycl
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(listaBirre.get(position));
+        holder.bind(listaBirre.get(position),(LifecycleOwner) holder.itemView.getContext());
     }
 
     @Override
@@ -61,6 +67,8 @@ public class AdapterRecyclerViewBirre extends RecyclerView.Adapter<AdapterRecycl
         private final ImageView iconaTerminazione;
         private final CardView cardBirra;
 
+        private final RatingBar ratingBar;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,14 +78,15 @@ public class AdapterRecyclerViewBirre extends RecyclerView.Adapter<AdapterRecycl
             dataTerminazione = itemView.findViewById(R.id.textView_dataTerminazione);
             iconaTerminazione = itemView.findViewById(R.id.imageView_dataTerminazione);
             cardBirra = itemView.findViewById(R.id.cardView_birra);
+            ratingBar = itemView.findViewById(R.id.ratingBar_mediaNoteDegustazione);
 
-            itemView.setOnClickListener(view -> {
-                callback.onElementoBirraClick(listaBirre.get(getBindingAdapterPosition()));
-            });
+            itemView.setOnClickListener(view ->
+                callback.onElementoBirraClick(listaBirre.get(getBindingAdapterPosition()))
+            );
             terminaProduzione.setOnClickListener(view -> callback.onTerminaBirraClick(listaBirre.get(getBindingAdapterPosition())));
         }
 
-        public void bind(BirraConRicetta birra){
+        public void bind(BirraConRicetta birra, LifecycleOwner lifecycleOwner){
             nomeBirra.setText(birra.getNomeRicetta());
             numeroLitri.setText(birra.getLitriProdotti() + "L");
             if(birra.isTerminata()){
@@ -87,14 +96,29 @@ public class AdapterRecyclerViewBirre extends RecyclerView.Adapter<AdapterRecycl
                 dataTerminazione.setVisibility(View.VISIBLE);
                 iconaTerminazione.setVisibility(View.VISIBLE);
                 cardBirra.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_secondaryContainer));
+
+                visualizzaBirreViewModel.calcolaMediaNotaDegustazione(birra.getId());
+
             }
             else{
+                ratingBar.setVisibility(View.GONE);
                 terminaProduzione.setVisibility(View.VISIBLE);
                 dataTerminazione.setVisibility(View.GONE);
                 iconaTerminazione.setVisibility(View.GONE);
                 cardBirra.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_primaryContainer));
             }
+
+
+
+            visualizzaBirreViewModel.getMediaNotaDegustazioneRisultato().observe(lifecycleOwner, risultato -> {
+                if(risultato.isSuccessful()){
+                    Float media =  ((Risultato.MediaNotaDegustazioneSuccesso)risultato).getMediaNotaDegustazioneSuccesso();
+                    ratingBar.setRating(media);
+                    ratingBar.setVisibility(View.VISIBLE);
+                }
+            });
         }
+
 
     }
 

@@ -77,7 +77,7 @@ public class ListaBirreFragment extends Fragment {
                         .format(Calendar.getInstance().getTime()));
                 visualizzaBirraViewModel.terminaBirra(birra);
             }
-        });
+        }, visualizzaBirraViewModel);
 
         visualizzaBirraViewModel.getAllBirreResult().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){

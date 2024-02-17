@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -26,14 +27,14 @@ public class Birra implements Parcelable {
     private String dataTerminazione;
     private int litriProdotti;
     @NonNull private long idRicetta;
+    private String notaGenerale;
 
-    //Nota notaGenerale;
-    //List<NotaDegustazione> listaDiNote;
 
     public Birra(int litriProdotti, long idRicetta) {
         this.idRicetta = idRicetta;
         this.litriProdotti = litriProdotti;
         terminata = false;
+        notaGenerale = "";
     }
 
     public long getId() {
@@ -75,25 +76,14 @@ public class Birra implements Parcelable {
     public void setDataTerminazione(String dataTerminazione) {
         this.dataTerminazione = dataTerminazione;
     }
-/*
-    public Nota getNotaGenerale() {
+
+    public String getNotaGenerale() {
         return notaGenerale;
     }
 
-    public void setNotaGenerale(Nota notaGenerale) {
+    public void setNotaGenerale(String notaGenerale) {
         this.notaGenerale = notaGenerale;
     }
-
-    public List<NotaDegustazione> getListaDiNote() {
-        return listaDiNote;
-    }
-
-    public void setListaDiNote(List<NotaDegustazione> listaDiNote) {
-        this.listaDiNote = listaDiNote;
-    }
-
- */
-
 
     @Override
     public int describeContents() {

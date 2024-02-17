@@ -2,6 +2,7 @@ package it.unimib.brewday.model;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 @Entity
 public class NotaDegustazione extends Nota{
@@ -20,7 +21,10 @@ public class NotaDegustazione extends Nota{
 
     private float recensione;
     private String recensore;
+
     private long idBirra;
+    @PrimaryKey(autoGenerate = true)
+    private long id;
 
     public float getRecensione() {
         return recensione;
@@ -44,5 +48,13 @@ public class NotaDegustazione extends Nota{
 
     public void setIdBirra(long idBirra) {
         this.idBirra = idBirra;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

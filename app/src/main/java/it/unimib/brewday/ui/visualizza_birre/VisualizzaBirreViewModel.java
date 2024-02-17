@@ -28,6 +28,7 @@ public class VisualizzaBirreViewModel extends ViewModel {
     private final MutableLiveData<Risultato> getNoteDegustazioneRisultato;
 
     private final MutableLiveData<Risultato> getInserimentoNotaDegustazioneRisultato;
+    private final MutableLiveData<Risultato> getMediaNotaDegustazioneRisultato;
 
     //Repository di accesso ai dati
     private final BirreRepository birreRepository;
@@ -51,6 +52,7 @@ public class VisualizzaBirreViewModel extends ViewModel {
         getAttrezziBirraRisultato = new MutableLiveData<>();
         getNoteDegustazioneRisultato = new MutableLiveData<>();
         getInserimentoNotaDegustazioneRisultato = new MutableLiveData<>();
+        getMediaNotaDegustazioneRisultato = new MutableLiveData<>();
     }
 
     public void getAllBirre() {
@@ -82,6 +84,10 @@ public class VisualizzaBirreViewModel extends ViewModel {
     public void creaNotaDegustazione(NotaDegustazione notaDegustazione){
         noteDegustazioneRepository.inserisciNotaDegustazione(notaDegustazione, getInserimentoNotaDegustazioneRisultato::postValue);
     }
+
+    public void calcolaMediaNotaDegustazione(long idBirra){
+        noteDegustazioneRepository.readMediaNotaDegustazione(idBirra, getMediaNotaDegustazioneRisultato::postValue);
+    }
     /*
      * Metodi per ottenere riferimento a Mutable live data
      */
@@ -101,6 +107,9 @@ public class VisualizzaBirreViewModel extends ViewModel {
     public LiveData<Risultato> getNoteDegustazioneRisultato(){ return getNoteDegustazioneRisultato;}
 
     public LiveData<Risultato> getInserimentoNotaDegustazioneRisultato(){ return getInserimentoNotaDegustazioneRisultato;}
+
+    public LiveData<Risultato> getMediaNotaDegustazioneRisultato(){ return getMediaNotaDegustazioneRisultato;}
+
 
     private void setDosaggioDaIngredienteRicetta(int litriBirraScelti,
                                                  List<IngredienteRicetta> listaIngredientiRicetta ){

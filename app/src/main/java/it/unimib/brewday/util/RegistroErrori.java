@@ -21,4 +21,7 @@ public class RegistroErrori {
 
     public static final String NOTA_CREATION_ERROR = "Errore inserimento nota";
     public static final String NOTA_FETCH_ERROR = "Errore nella lettura delle note";
+
+    public static final String NOTA_MEDIA_ERROR = "Errore nel calcolo della media";
+
 }
