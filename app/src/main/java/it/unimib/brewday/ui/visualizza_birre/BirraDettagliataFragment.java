@@ -19,15 +19,11 @@ import java.util.List;
 import it.unimib.brewday.R;
 import it.unimib.brewday.databinding.FragmentBirraDettagliataBinding;
 import it.unimib.brewday.model.Attrezzo;
-import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.BirraConRicetta;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.gestione_birra.AdapterListViewIngredientiBirra;
-import it.unimib.brewday.ui.gestione_birra.BirraViewModel;
-import it.unimib.brewday.ui.gestione_birra.BirraViewModelFactory;
 import it.unimib.brewday.ui.gestisci_attrezzi.AdapterRecyclerViewAttrezzi;
-import it.unimib.brewday.ui.gestisci_attrezzi.InserisciAttrezzoDialog;
 
 public class BirraDettagliataFragment extends Fragment {
     private FragmentBirraDettagliataBinding fragmentBirraDettagliataBinding;
@@ -72,43 +68,43 @@ public class BirraDettagliataFragment extends Fragment {
         fragmentBirraDettagliataBinding.textViewNumeroLitriBirraDettagliata.setText(Integer.toString(birraSelezionata.getLitriProdotti()));
         fragmentBirraDettagliataBinding.textViewNomeBirraDettagliata.setText(birraSelezionata.getNomeRicetta());
 
-            visualizzaBirreViewModel.getIngredientiBirra(birraSelezionata);
+        visualizzaBirreViewModel.getIngredientiBirra(birraSelezionata);
 
-            visualizzaBirreViewModel.getIngredientiBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
-                if (risultato.isSuccessful()) {
-                    List <IngredienteRicetta> listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
+        visualizzaBirreViewModel.getIngredientiBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
+            if (risultato.isSuccessful()) {
+                List <IngredienteRicetta> listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
 
-                    adapterListViewIngredientiBirra = new AdapterListViewIngredientiBirra(
-                            requireContext(),
-                            R.layout.lista_ingredienti_birra,
-                            listaIngredientiBirra,
-                            new ArrayList<>());
+                adapterListViewIngredientiBirra = new AdapterListViewIngredientiBirra(
+                        requireContext(),
+                        R.layout.lista_ingredienti_birra,
+                        listaIngredientiBirra,
+                        new ArrayList<>());
 
-                    fragmentBirraDettagliataBinding.listViewIgredientiBirraDettagliata.setAdapter(adapterListViewIngredientiBirra);
-                    fragmentBirraDettagliataBinding.listViewIgredientiBirraDettagliata.setDivider(null);
+                fragmentBirraDettagliataBinding.listViewIgredientiBirraDettagliata.setAdapter(adapterListViewIngredientiBirra);
+                fragmentBirraDettagliataBinding.listViewIgredientiBirraDettagliata.setDivider(null);
 
-                }
-            });
-            if(birraSelezionata.isTerminata()) {
-                fragmentBirraDettagliataBinding.textViewAttrezziBirraDettagliata.setVisibility(View.GONE);
-            }else{
-                visualizzaBirreViewModel.getAttrezziBirra(birraSelezionata);
             }
+        });
+        if(birraSelezionata.isTerminata()) {
+            fragmentBirraDettagliataBinding.textViewAttrezziBirraDettagliata.setVisibility(View.GONE);
+        }else{
+            visualizzaBirreViewModel.getAttrezziBirra(birraSelezionata);
+        }
 
-            visualizzaBirreViewModel.getAttrezziBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
-                    if(risultato.isSuccessful()) {
-                        List<Attrezzo> listaAttrezziBirra = ((Risultato.ListaAttrezziSuccesso)risultato).getAttrezzi();
-                        adapterRecyclerViewAttrezzi = new AdapterRecyclerViewAttrezzi(listaAttrezziBirra, null, true);
-                        fragmentBirraDettagliataBinding.recyclerViewAttrezziBirraDettagliata.setLayoutManager(layoutManager);
-                        fragmentBirraDettagliataBinding.recyclerViewAttrezziBirraDettagliata.setAdapter(adapterRecyclerViewAttrezzi);
+        visualizzaBirreViewModel.getAttrezziBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
+            if(risultato.isSuccessful()) {
+                List<Attrezzo> listaAttrezziBirra = ((Risultato.ListaAttrezziSuccesso)risultato).getAttrezzi();
+                adapterRecyclerViewAttrezzi = new AdapterRecyclerViewAttrezzi(listaAttrezziBirra, null, true);
+                fragmentBirraDettagliataBinding.recyclerViewAttrezziBirraDettagliata.setLayoutManager(layoutManager);
+                fragmentBirraDettagliataBinding.recyclerViewAttrezziBirraDettagliata.setAdapter(adapterRecyclerViewAttrezzi);
 
-                    }
-            });
+            }
+        });
 
-            fragmentBirraDettagliataBinding.imageButtonNuovaNotaDegustazione.setOnClickListener(v -> {
-                NoteDegustazioneDialog dialog = new NoteDegustazioneDialog();
-                dialog.show(getParentFragmentManager(), "Inserisci nuova Nota Degustazione");
-            });
+        fragmentBirraDettagliataBinding.imageButtonNuovaNotaDegustazione.setOnClickListener(v -> {
+            NoteDegustazioneDialog dialog = new NoteDegustazioneDialog();
+            dialog.show(getParentFragmentManager(), "Inserisci nuova Nota Degustazione");
+        });
 
 
     }

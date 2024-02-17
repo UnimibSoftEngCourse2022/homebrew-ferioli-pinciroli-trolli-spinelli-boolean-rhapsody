@@ -72,7 +72,7 @@ public class AdapterRecyclerViewBirre extends RecyclerView.Adapter<AdapterRecycl
             cardBirra = itemView.findViewById(R.id.cardView_birra);
 
             itemView.setOnClickListener(view -> {
-               callback.onElementoBirraClick(listaBirre.get(getBindingAdapterPosition()));
+                callback.onElementoBirraClick(listaBirre.get(getBindingAdapterPosition()));
             });
             terminaProduzione.setOnClickListener(view -> callback.onTerminaBirraClick(listaBirre.get(getBindingAdapterPosition())));
         }

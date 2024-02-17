@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView_nomeNotaDettagliata_elementoLista"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:maxLines="1"
+        android:text="Nome "
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/ratingBar_notaDettagliata_elementoLista"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RatingBar
+        android:id="@+id/ratingBar_notaDettagliata_elementoLista"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:isIndicator="true"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_nomeNotaDettagliata_elementoLista"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView_nomeNotaDettagliata_elementoLista" />
+
+    <TextView
+        android:id="@+id/textView_commentoNotaDettagliata_elementoLista"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Commento"
+        app:layout_constraintEnd_toEndOf="@+id/ratingBar_notaDettagliata_elementoLista"
+        app:layout_constraintStart_toStartOf="@+id/textView_nomeNotaDettagliata_elementoLista"
+        app:layout_constraintTop_toBottomOf="@+id/textView_nomeNotaDettagliata_elementoLista" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_commentoNotaDettagliata_elementoLista" />
+</androidx.constraintlayout.widget.ConstraintLayout>
