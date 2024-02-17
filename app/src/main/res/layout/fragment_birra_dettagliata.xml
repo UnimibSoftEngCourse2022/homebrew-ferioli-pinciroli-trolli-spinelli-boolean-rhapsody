@@ -113,9 +113,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7">
@@ -126,6 +125,33 @@
                 android:layout_height="wrap_content"
                 android:hint="Note" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView_noteDiDegustazione"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="200dp"
+            android:text="Note di Degustazione"
+            android:textColor="?android:colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputTextLayout_noteBirraDettagliata" />
+
+        <ImageButton
+            android:id="@+id/imageButton_nuovaNotaDegustazione"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/roundcorner"
+            android:contentDescription="@string/bottone_piu"
+            android:src="@drawable/baseline_add_24"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_noteDiDegustazione"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView_noteDiDegustazione" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

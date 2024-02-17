@@ -27,6 +27,7 @@ import it.unimib.brewday.ui.gestione_birra.AdapterListViewIngredientiBirra;
 import it.unimib.brewday.ui.gestione_birra.BirraViewModel;
 import it.unimib.brewday.ui.gestione_birra.BirraViewModelFactory;
 import it.unimib.brewday.ui.gestisci_attrezzi.AdapterRecyclerViewAttrezzi;
+import it.unimib.brewday.ui.gestisci_attrezzi.InserisciAttrezzoDialog;
 
 public class BirraDettagliataFragment extends Fragment {
     private FragmentBirraDettagliataBinding fragmentBirraDettagliataBinding;
@@ -102,6 +103,11 @@ public class BirraDettagliataFragment extends Fragment {
                         fragmentBirraDettagliataBinding.recyclerViewAttrezziBirraDettagliata.setAdapter(adapterRecyclerViewAttrezzi);
 
                     }
+            });
+
+            fragmentBirraDettagliataBinding.imageButtonNuovaNotaDegustazione.setOnClickListener(v -> {
+                NoteDegustazioneDialog dialog = new NoteDegustazioneDialog();
+                dialog.show(getParentFragmentManager(), "Inserisci nuova Nota Degustazione");
             });
 
 

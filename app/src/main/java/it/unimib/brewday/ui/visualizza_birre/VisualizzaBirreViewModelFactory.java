@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import it.unimib.brewday.ui.gestione_birra.BirraViewModel;
 import it.unimib.brewday.util.ServiceLocator;
 
 public class VisualizzaBirreViewModelFactory implements ViewModelProvider.Factory{
