@@ -37,4 +37,6 @@
     <string name="prepara">Prepara</string>
     <string name="l_di_questa_birra">L di questa birra</string>
     <string name="quantita_base_produzione">1</string>
+    <string name="massimizza_per_litri">Massimizza produzione litri</string>
+    <string name="massimizza_conusmo_ingredienti">Massimizza conusmo ingredienti</string>
 </resources>

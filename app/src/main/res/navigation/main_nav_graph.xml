@@ -47,7 +47,7 @@
     <fragment
         android:id="@+id/ricettaDettagliataFragment"
         android:name="it.unimib.brewday.ui.gestisci_ricette.RicettaDettagliataFragment"
-        android:label="fragment_ricetta_dettagliata"
+        android:label=""
         tools:layout="@layout/fragment_ricetta_dettagliata" >
         <argument
             android:name="ricetta"
@@ -58,18 +58,18 @@
     </fragment>
     <fragment
         android:id="@+id/cosaDevoPreparareOggiFragment"
-        android:name="it.unimib.brewday.ui.CosaPrerparareOggiFragment"
-        android:label="fragment_cosa_devo_preparare_oggi"
+        android:name="it.unimib.brewday.ui.cosa_preparare_oggi.CosaPrerparareOggiFragment"
+        android:label="Cosa devo preparare oggi?"
         tools:layout="@layout/fragment_cosa_preparare_oggi" />
     <fragment
         android:id="@+id/birraDettagliataFragment"
         android:name="it.unimib.brewday.ui.gestione_birra.BirraDettagliataFragment"
-        android:label="fragment_birra_dettagliata"
+        android:label=""
         tools:layout="@layout/fragment_birra_dettagliata" />
     <fragment
         android:id="@+id/preparaBirraFragment"
         android:name="it.unimib.brewday.ui.gestione_birra.PreparaBirraFragment"
-        android:label="fragment_prepara_birra"
+        android:label=""
         tools:layout="@layout/fragment_prepara_birra" >
         <argument
             android:name="Ricetta"

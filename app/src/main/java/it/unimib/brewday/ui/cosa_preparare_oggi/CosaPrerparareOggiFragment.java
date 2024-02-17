@@ -1,4 +1,4 @@
-package it.unimib.brewday.ui;
+package it.unimib.brewday.ui.cosa_preparare_oggi;
 
 import android.os.Bundle;
 
@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import it.unimib.brewday.R;
-
 
 public class CosaPrerparareOggiFragment extends Fragment {
 
