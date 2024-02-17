@@ -155,13 +155,25 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
 
                                             int litriMassimiPerRicetta = Ottimizzazione.litriPerRicetta(listaIngredientiDiQuestaRicetta, listaIngredientiDisponibili);
 
-                                            setDosaggioDaIngredienteRicetta(Integer.max(litriMassimiAttrezzi, litriMassimiPerRicetta), listaIngredientiDiQuestaRicetta);
-                                            double consumoTotale = calcolaConsumoTotale(listaIngredientiDiQuestaRicetta);
+                                            if(litriMassimiPerRicetta < litriMassimiAttrezzi){
+                                                setDosaggioDaIngredienteRicetta(litriMassimiPerRicetta, listaIngredientiDiQuestaRicetta);
+                                                double consumoTotale = calcolaConsumoTotale(listaIngredientiDiQuestaRicetta);
 
-                                            if(consumoTotale > consumoMassimo){
-                                                consumoMassimo = consumoTotale;
-                                                litriPerRicettaSelezionata = litriMassimiPerRicetta;
-                                                ricettaSelezionata = ricetta;
+                                                if(consumoTotale > consumoMassimo){
+                                                    consumoMassimo = consumoTotale;
+                                                    litriPerRicettaSelezionata = litriMassimiPerRicetta;
+                                                    ricettaSelezionata = ricetta;
+                                                }
+                                            }
+                                            else{
+                                                setDosaggioDaIngredienteRicetta(litriMassimiAttrezzi, listaIngredientiDiQuestaRicetta);
+                                                double consumoTotale = calcolaConsumoTotale(listaIngredientiDiQuestaRicetta);
+
+                                                if(consumoTotale > consumoMassimo){
+                                                    consumoMassimo = consumoTotale;
+                                                    litriPerRicettaSelezionata = litriMassimiAttrezzi;
+                                                    ricettaSelezionata = ricetta;
+                                                }
                                             }
 
                                         }

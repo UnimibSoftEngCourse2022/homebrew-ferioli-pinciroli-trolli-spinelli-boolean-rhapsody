@@ -24,11 +24,11 @@ public class BirraViewModel extends ViewModel {
     private final MutableLiveData<Risultato> consumoIngredientiRisultato;
     private final MutableLiveData<Risultato> attrezziSelezionatiRisultato;
 
-    private final IGestioneBirraDomain domainGestioneBirra;
+    private final IGestioneBirraDomain gestioneBirraDomain;
 
-    public BirraViewModel(IGestioneBirraDomain domainGestioneBirra) {
+    public BirraViewModel(IGestioneBirraDomain gestioneBirraDomain) {
 
-        this.domainGestioneBirra = domainGestioneBirra;
+        this.gestioneBirraDomain = gestioneBirraDomain;
 
         getAllBirreRisultato = new MutableLiveData<>();
         createBirraRisultato = new MutableLiveData<>();
@@ -40,28 +40,28 @@ public class BirraViewModel extends ViewModel {
     }
 
     public void getAllBirre() {
-        domainGestioneBirra.getAllBirre(getAllBirreRisultato::postValue);
+        gestioneBirraDomain.getAllBirre(getAllBirreRisultato::postValue);
     }
 
     public void createBirra(Birra birra, List<Integer> listaDifferenzaIngredienti, List<Attrezzo> listaAttrezzi) {
-        domainGestioneBirra.createBirra(birra, listaDifferenzaIngredienti, listaAttrezzi, createBirraRisultato::postValue);
+        gestioneBirraDomain.createBirra(birra, listaDifferenzaIngredienti, listaAttrezzi, createBirraRisultato::postValue);
     }
 
     public void terminaBirra(Birra birra){
-        domainGestioneBirra.terminaBirra(birra, terminaBirraRisultato::postValue);
+        gestioneBirraDomain.terminaBirra(birra, terminaBirraRisultato::postValue);
     }
 
     public void calcolaDosaggi(long idRicetta, int litriBirraScelti){
-        domainGestioneBirra.getDosaggiIngredienti(idRicetta, litriBirraScelti, dosaggiRisultato::postValue);
+        gestioneBirraDomain.getDosaggiIngredienti(idRicetta, litriBirraScelti, dosaggiRisultato::postValue);
     }
 
     public void calcolaConsumoIngredienti(List<IngredienteRicetta> ingredientiRicetta) {
-        domainGestioneBirra.getConsumoIngredienti(ingredientiRicetta, consumoIngredientiRisultato::postValue);
+        gestioneBirraDomain.getConsumoIngredienti(ingredientiRicetta, consumoIngredientiRisultato::postValue);
     }
 
 
     public void getAndOptimizeAttrezziLiberi(int litriScelti) {
-        domainGestioneBirra.getAndOptimizeAttrezziLiberi(litriScelti, attrezziSelezionatiRisultato::postValue);
+        gestioneBirraDomain.getAndOptimizeAttrezziLiberi(litriScelti, attrezziSelezionatiRisultato::postValue);
     }
 
     /*
