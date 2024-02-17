@@ -8,8 +8,22 @@ public class Nota {
         this.commento = commento;
     }
     @PrimaryKey(autoGenerate = true)
-    long id;
+    private long id;
+    private String commento;
 
-    String commento;
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getCommento() {
+        return commento;
+    }
+
+    public void setCommento(String commento) {
+        this.commento = commento;
+    }
 }

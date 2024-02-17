@@ -48,10 +48,10 @@ public class NoteDegustazioneDialog extends DialogFragment {
 
                 Snackbar.make(view, "Devi inserire la valutazione", BaseTransientBottomBar.LENGTH_SHORT);
             }else {
-                NotaDegustazione notaDegustazione = new NotaDegustazione(ratingBar.getRating(), nomeNota.toString(), commentoEditText.toString());
+                NotaDegustazione notaDegustazione = new NotaDegustazione(ratingBar.getRating(), nomeNota.getText().toString(), commentoEditText.getText().toString(), birra.getId());
                 visualizzaBirreViewModel.creaNotaDegustazione(notaDegustazione);
 
-                visualizzaBirreViewModel.getInserimentoNotaDegustazioneRisultato().observe(getViewLifecycleOwner(), risultato -> {
+                visualizzaBirreViewModel.getInserimentoNotaDegustazioneRisultato().observe(this, risultato -> {
                     if (risultato.isSuccessful()) {
                         this.dismiss();
                     } else {
