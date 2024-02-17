@@ -11,13 +11,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+
 import it.unimib.brewday.R;
+import it.unimib.brewday.model.Birra;
+import it.unimib.brewday.model.NotaDegustazione;
+import it.unimib.brewday.model.Risultato;
 
 
 public class NoteDegustazioneDialog extends DialogFragment {
+    Birra birra;
+    VisualizzaBirreViewModel visualizzaBirreViewModel;
 
-    public NoteDegustazioneDialog() {
-        // Required empty public constructor
+    public NoteDegustazioneDialog( VisualizzaBirreViewModel visualizzaBirreViewModel, Birra birra) {
+        this.birra = birra;
+        this.visualizzaBirreViewModel = visualizzaBirreViewModel;
     }
 
 
@@ -34,8 +43,23 @@ public class NoteDegustazioneDialog extends DialogFragment {
         Button bottoneSalva = view.findViewById(R.id.button_salvaNotaDegustazione);
 
         bottoneSalva.setOnClickListener(v -> {
-            //Chiude la finestra del dialog
-            this.dismiss();
+
+            if(ratingBar.getRating() == 0){
+
+                Snackbar.make(view, "Devi inserire la valutazione", BaseTransientBottomBar.LENGTH_SHORT);
+            }else {
+                NotaDegustazione notaDegustazione = new NotaDegustazione(ratingBar.getRating(), nomeNota.toString(), commentoEditText.toString());
+                visualizzaBirreViewModel.creaNotaDegustazione(notaDegustazione);
+
+                visualizzaBirreViewModel.getInserimentoNotaDegustazioneRisultato().observe(getViewLifecycleOwner(), risultato -> {
+                    if (risultato.isSuccessful()) {
+                        this.dismiss();
+                    } else {
+                        Snackbar.make(view, ((Risultato.Errore) risultato).getMessaggio(), BaseTransientBottomBar.LENGTH_SHORT);
+                    }
+                });
+
+            }
         });
 
 

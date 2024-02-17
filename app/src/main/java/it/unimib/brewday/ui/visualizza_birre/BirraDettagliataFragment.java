@@ -102,9 +102,14 @@ public class BirraDettagliataFragment extends Fragment {
         });
 
         fragmentBirraDettagliataBinding.imageButtonNuovaNotaDegustazione.setOnClickListener(v -> {
-            NoteDegustazioneDialog dialog = new NoteDegustazioneDialog();
+            NoteDegustazioneDialog dialog = new NoteDegustazioneDialog(visualizzaBirreViewModel, birraSelezionata);
             dialog.show(getParentFragmentManager(), "Inserisci nuova Nota Degustazione");
         });
+
+        visualizzaBirreViewModel.getNoteDegustazione(birraSelezionata.getId());
+
+
+
 
 
     }

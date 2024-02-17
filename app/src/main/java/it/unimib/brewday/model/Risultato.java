@@ -18,7 +18,8 @@ public class Risultato {
                 || this instanceof ListaRicetteSuccesso
                 || this instanceof SingolaRicettaSuccesso
                 || this instanceof AllBirreSuccesso
-                || this instanceof ListaDifferenzaIngredientiSuccesso;
+                || this instanceof ListaDifferenzaIngredientiSuccesso
+                || this instanceof AllNoteDegustazioneSuccesso;
 
     }
 

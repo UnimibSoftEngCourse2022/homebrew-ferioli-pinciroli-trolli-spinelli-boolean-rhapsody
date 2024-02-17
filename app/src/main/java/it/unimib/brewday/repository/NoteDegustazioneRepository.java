@@ -21,7 +21,7 @@ public class NoteDegustazioneRepository {
 
 
 
-    private void inserisciNotaDegustazione(NotaDegustazione notaDegustazione, Callback callback){
+    public void inserisciNotaDegustazione(NotaDegustazione notaDegustazione, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             long numeroNoteInseriti = notaDegustazioneDao.inserisciNota(notaDegustazione);
             if (numeroNoteInseriti > 0) {
@@ -34,8 +34,7 @@ public class NoteDegustazioneRepository {
 
         });
         }
-
-        private void readAllNoteDegustazione( long idBirra , Callback callback){
+        public void readAllNoteDegustazione( long idBirra , Callback callback){
             LocalDatabase.databaseWriteExecutor.execute(() -> {
             List<NotaDegustazione> listaNoteDegustazione = notaDegustazioneDao.getListaNoteDegustazione(idBirra);
                 if (listaNoteDegustazione != null) {
