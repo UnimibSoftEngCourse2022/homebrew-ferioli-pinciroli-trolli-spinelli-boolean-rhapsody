@@ -20,8 +20,8 @@ public class BirraViewModel extends ViewModel {
     private final MutableLiveData<Risultato> terminaBirraRisultato;
 
     //Livedata per pagina creazione birra
-    private final MutableLiveData<Risultato> ingredientiRicettaPerLitriRisultato;
-    private final MutableLiveData<Risultato> differenzaIngredientiRisultato;
+    private final MutableLiveData<Risultato> dosaggiRisultato;
+    private final MutableLiveData<Risultato> consumoIngredientiRisultato;
     private final MutableLiveData<Risultato> attrezziSelezionatiRisultato;
 
     private final IGestioneBirraDomain domainGestioneBirra;
@@ -34,8 +34,8 @@ public class BirraViewModel extends ViewModel {
         createBirraRisultato = new MutableLiveData<>();
         terminaBirraRisultato = new MutableLiveData<>();
 
-        differenzaIngredientiRisultato = new MutableLiveData<>();
-        ingredientiRicettaPerLitriRisultato = new MutableLiveData<>();
+        consumoIngredientiRisultato = new MutableLiveData<>();
+        dosaggiRisultato = new MutableLiveData<>();
         attrezziSelezionatiRisultato = new MutableLiveData<>();
     }
 
@@ -51,12 +51,12 @@ public class BirraViewModel extends ViewModel {
         domainGestioneBirra.terminaBirra(birra, terminaBirraRisultato::postValue);
     }
 
-    public void getIngredientiPerLitriScelti(long idRicetta, int litriBirraScelti){
-        domainGestioneBirra.getIngredientiRicettaBirra(idRicetta, litriBirraScelti, ingredientiRicettaPerLitriRisultato::postValue);
+    public void calcolaDosaggi(long idRicetta, int litriBirraScelti){
+        domainGestioneBirra.getDosaggiIngredienti(idRicetta, litriBirraScelti, dosaggiRisultato::postValue);
     }
 
-    public void getDifferenzaIngredienti(List<IngredienteRicetta> ingredientiRicetta) {
-        domainGestioneBirra.getDifferenzaIngredientiRicettaBirra(ingredientiRicetta, differenzaIngredientiRisultato::postValue);
+    public void calcolaConsumoIngredienti(List<IngredienteRicetta> ingredientiRicetta) {
+        domainGestioneBirra.getConsumoIngredienti(ingredientiRicetta, consumoIngredientiRisultato::postValue);
     }
 
 
@@ -83,7 +83,7 @@ public class BirraViewModel extends ViewModel {
         return attrezziSelezionatiRisultato;
     }
 
-    public LiveData<Risultato> getDifferenzaIngredientiRisultato(){ return  differenzaIngredientiRisultato; }
+    public LiveData<Risultato> getConsumoIngredientiRisultato(){ return consumoIngredientiRisultato; }
 
-    public LiveData<Risultato> getIngredientiRicettaPerLitriRisultato(){return ingredientiRicettaPerLitriRisultato;}
+    public LiveData<Risultato> getDosaggiRisultato(){return dosaggiRisultato;}
 }

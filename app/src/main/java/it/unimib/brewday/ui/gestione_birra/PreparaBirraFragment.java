@@ -88,10 +88,10 @@ public class PreparaBirraFragment extends Fragment {
         /*
          * Osservo il risultato del recupero degli ingredienti della ricetta moltiplicati per il numero di litri
          */
-        birraViewModel.getIngredientiRicettaPerLitriRisultato().observe(getViewLifecycleOwner(), risultato ->  {
+        birraViewModel.getDosaggiRisultato().observe(getViewLifecycleOwner(), risultato ->  {
             if (risultato.isSuccessful()){
                 listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
-                birraViewModel.getDifferenzaIngredienti(listaIngredientiBirra);
+                birraViewModel.calcolaConsumoIngredienti(listaIngredientiBirra);
             } else {
                 Snackbar.make(view, "Errore nel recupero e calcolo degli ingredienti", BaseTransientBottomBar.LENGTH_SHORT).show();
             }
@@ -102,7 +102,7 @@ public class PreparaBirraFragment extends Fragment {
          * quelli richiesti per preparare i litri di birra specificati. (Serve per far comparire
          * a schermo gli errori)
          */
-        birraViewModel.getDifferenzaIngredientiRisultato().observe(getViewLifecycleOwner(), risultato -> {
+        birraViewModel.getConsumoIngredientiRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()) {
                 listaDifferenzaIngredienti = ((Risultato.ListaDifferenzaIngredientiSuccesso) risultato).getListaDifferenzaIngredienti();
 
@@ -149,7 +149,7 @@ public class PreparaBirraFragment extends Fragment {
         });
 
 
-        birraViewModel.getIngredientiPerLitriScelti(ricetta.getId(), litriBirraScelti);
+        birraViewModel.calcolaDosaggi(ricetta.getId(), litriBirraScelti);
         birraViewModel.getAndOptimizeAttrezziLiberi(litriBirraScelti);
 
         fragmentPreparaBirraBinding.buttonRicettaPreparaBirra.setOnClickListener(v -> {

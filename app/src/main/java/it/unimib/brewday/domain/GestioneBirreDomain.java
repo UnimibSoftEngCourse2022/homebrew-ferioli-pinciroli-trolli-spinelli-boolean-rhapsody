@@ -74,7 +74,7 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
     }
 
     @Override
-    public void getIngredientiRicettaBirra(long idRicetta, int litriBirraScelti, Callback callback) {
+    public void getDosaggiIngredienti(long idRicetta, int litriBirraScelti, Callback callback) {
         ricetteRepository.readIngredientiRicetta(idRicetta, risultatoIngredientiRicetta -> {
 
             if(risultatoIngredientiRicetta.isSuccessful()){
@@ -89,7 +89,7 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
     }
 
     @Override
-    public void getDifferenzaIngredientiRicettaBirra(List<IngredienteRicetta> ingredientiRicetta, Callback callback) {
+    public void getConsumoIngredienti(List<IngredienteRicetta> ingredientiRicetta, Callback callback) {
         ingredientiRepository.readAllIngredienti(risultatoIngredienti -> {
 
             if(risultatoIngredienti.isSuccessful()){

@@ -18,9 +18,9 @@ public interface IGestioneBirraDomain {
 
     void terminaBirra(Birra birra, Callback callback);
 
-    void getIngredientiRicettaBirra(long idRicetta, int litriBirraScelti, Callback callback);
+    void getDosaggiIngredienti(long idRicetta, int litriBirraScelti, Callback callback);
 
-    void getDifferenzaIngredientiRicettaBirra(List<IngredienteRicetta> ingredientiRicetta, Callback callback);
+    void getConsumoIngredienti(List<IngredienteRicetta> ingredientiRicetta, Callback callback);
 
     void getAndOptimizeAttrezziLiberi(int litriScelti, Callback callback);
 }
