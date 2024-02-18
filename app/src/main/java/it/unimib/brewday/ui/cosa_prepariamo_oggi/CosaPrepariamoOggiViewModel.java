@@ -11,7 +11,7 @@ import it.unimib.brewday.model.Risultato;
 
 public class CosaPrepariamoOggiViewModel extends ViewModel {
 
-    private final MutableLiveData<Risultato> cosaPrepariamoOggiRisultato;
+    private MutableLiveData<Risultato> cosaPrepariamoOggiRisultato;
     private final IGestioneBirra gestioneBirra;
 
 
@@ -26,6 +26,10 @@ public class CosaPrepariamoOggiViewModel extends ViewModel {
 
     public LiveData<Risultato> getCosaPrepariamoOggiRisultato() {
         return cosaPrepariamoOggiRisultato;
+    }
+
+    public void clear(){
+        cosaPrepariamoOggiRisultato = new MutableLiveData<>();
     }
 
 }

@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,11 +64,13 @@ public class CosaPrepariamoOggiFragment extends Fragment {
 
                 ricettaSelezionata = ((Risultato.OttimizzazioneSuccesso) risultato).getRicetta();
                 litriRicettaSelezionata = ((Risultato.OttimizzazioneSuccesso) risultato).getLitri();
+                Log.d("PROVAFRA", ricettaSelezionata.getNome());
 
                 if(ricettaSelezionata != null){
                     CosaPrepariamoOggiFragmentDirections.ActionCosaDevoPreparareOggiFragmentToPreparaBirraFragment action =
                             CosaPrepariamoOggiFragmentDirections.actionCosaDevoPreparareOggiFragmentToPreparaBirraFragment(ricettaSelezionata, litriRicettaSelezionata);
                     Navigation.findNavController(view).navigate(action);
+                    cosaPrepariamoOggiViewModel.clear();
                 }
                 else{
                     //gestione errore
