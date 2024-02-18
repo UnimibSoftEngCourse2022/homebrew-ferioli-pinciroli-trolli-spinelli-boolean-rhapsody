@@ -20,7 +20,7 @@ public class Ottimizzazione {
             return new Risultato.ListaAttrezziSuccesso(attrezziSelezionati);
         }
         else{
-            int litriSuggeriti = suggerisciLitri(listaAttrezzi);
+            int litriSuggeriti = litriPerAttrezzi(listaAttrezzi);
             if(litriSuggeriti != -1){
                 return new Risultato.ErroreConSuggerimentoLitri(litriSuggeriti);
             }
@@ -58,7 +58,7 @@ public class Ottimizzazione {
     }
 
     //calcola il numero massimo di litri che è possibile produrre con gli attrezzi passati
-    public static int suggerisciLitri(List<Attrezzo> listaAttrezzi){
+    public static int litriPerAttrezzi(List<Attrezzo> listaAttrezzi){
 
         boolean esisteAttrezzoPerTipologia = false;
         double litriSuggeriti = Double.MAX_VALUE;

@@ -19,7 +19,7 @@ public class Risultato {
                 || this instanceof SingolaRicettaSuccesso
                 || this instanceof AllBirreSuccesso
                 || this instanceof ListaDifferenzaIngredientiSuccesso
-                || this instanceof MassimizzazioneConsumoIngredientiSuccesso;
+                || this instanceof OttimizzazioneSuccesso;
 
     }
 
@@ -124,11 +124,11 @@ public class Risultato {
         }
     }
 
-    public static final class MassimizzazioneConsumoIngredientiSuccesso extends Risultato {
+    public static final class OttimizzazioneSuccesso extends Risultato {
         private final Ricetta ricetta;
         private final int litri;
 
-        public MassimizzazioneConsumoIngredientiSuccesso(Ricetta ricetta, int litri){
+        public OttimizzazioneSuccesso(Ricetta ricetta, int litri){
             this.ricetta = ricetta;
             this.litri = litri;
         }

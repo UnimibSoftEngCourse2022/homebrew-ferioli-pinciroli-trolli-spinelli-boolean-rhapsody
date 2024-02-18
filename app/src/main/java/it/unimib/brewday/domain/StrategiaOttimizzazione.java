@@ -1,8 +1,15 @@
 package it.unimib.brewday.domain;
 
-import it.unimib.brewday.ui.Callback;
+import java.util.List;
+
+import it.unimib.brewday.model.Attrezzo;
+import it.unimib.brewday.model.Ingrediente;
+import it.unimib.brewday.model.IngredienteRicetta;
+import it.unimib.brewday.model.Ricetta;
+import it.unimib.brewday.model.Risultato;
 
 public interface StrategiaOttimizzazione {
-    void ottimizza(Callback callback);
+    Risultato ottimizza(List<Attrezzo> listaAttrezziLiberi, List<Ricetta> listaRicette, List<IngredienteRicetta> listaIngredientiRicette,
+                        List<Ingrediente> listaIngredientiDisponibili);
 
 }

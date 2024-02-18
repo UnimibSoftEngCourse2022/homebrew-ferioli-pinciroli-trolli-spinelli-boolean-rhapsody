@@ -52,8 +52,8 @@ public class CosaPreparareOggiFragment extends Fragment {
         cosaPreparareOggiViewModel.getRicettaConsumoMassimoRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
                 //recuperare dosaggi e recuperare differenza
-                ricettaSelezionata = ((Risultato.MassimizzazioneConsumoIngredientiSuccesso) risultato).getRicetta();
-                litriRicettaSelezionata = ((Risultato.MassimizzazioneConsumoIngredientiSuccesso) risultato).getLitri();
+                ricettaSelezionata = ((Risultato.OttimizzazioneSuccesso) risultato).getRicetta();
+                litriRicettaSelezionata = ((Risultato.OttimizzazioneSuccesso) risultato).getLitri();
 
                 if(ricettaSelezionata != null){
                     CosaPreparareOggiFragmentDirections.ActionCosaDevoPreparareOggiFragmentToPreparaBirraFragment action =
@@ -69,6 +69,6 @@ public class CosaPreparareOggiFragment extends Fragment {
             }
         });
 
-        cosaPreparareOggiViewModel.suggerisciRicettaConConsumoMassimo();
+        cosaPreparareOggiViewModel.cosaPrepariamoOggi(null);
     }
 }

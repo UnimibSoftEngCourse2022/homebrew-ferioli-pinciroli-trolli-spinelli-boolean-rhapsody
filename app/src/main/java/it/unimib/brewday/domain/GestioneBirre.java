@@ -63,7 +63,7 @@ public class GestioneBirre implements IGestioneBirraDomain{
                 });
             }
             else {
-                callback.onComplete(new Risultato.Errore("Errore nella creazione della birra"));
+                callback.onComplete(risultatoBirra);
             }
         });
     }
@@ -85,6 +85,9 @@ public class GestioneBirre implements IGestioneBirraDomain{
                 GestioneBirreUtil.calcolaDosaggiPerLitriScelti(litriBirraScelti , ingredientiRicetta);
                 callback.onComplete(new Risultato.ListaIngredientiDellaRicettaSuccesso(ingredientiRicetta));
             }
+            else{
+                callback.onComplete(risultatoIngredientiRicetta);
+            }
         });
     }
 
@@ -100,6 +103,9 @@ public class GestioneBirre implements IGestioneBirraDomain{
                 List<Integer> listaDifferenzaIngredienti = new ArrayList<>();
                 GestioneBirreUtil.calcolaDifferenzaIngredienti(listaIngredientiDisponibili, ingredientiRicetta ,listaDifferenzaIngredienti);
                 callback.onComplete(new Risultato.ListaDifferenzaIngredientiSuccesso(listaDifferenzaIngredienti));
+            }
+            else{
+                callback.onComplete(risultatoIngredienti);
             }
         });
     }
@@ -121,11 +127,11 @@ public class GestioneBirre implements IGestioneBirraDomain{
     }
 
     @Override
-    public void massimizzaConsumoIngredienti(Callback callback) {
+    public void cosaPrepariamoOggi(Callback callback, StrategiaOttimizzazione strategiaOttimizzazione) {
         attrezziRepository.readAllAttrezziLiberi(attrezziLiberiRisultato -> {
             if(attrezziLiberiRisultato.isSuccessful()){
 
-                int litriMassimiAttrezzi = Ottimizzazione.suggerisciLitri(((Risultato.ListaAttrezziSuccesso) attrezziLiberiRisultato).getAttrezzi());
+                List<Attrezzo> listaAttrezziLiberi = ((Risultato.ListaAttrezziSuccesso) attrezziLiberiRisultato).getAttrezzi();
 
                 ricetteRepository.readAllRicette(listaRicetteRisultato -> {
                     if(listaRicetteRisultato.isSuccessful()){
@@ -144,47 +150,17 @@ public class GestioneBirre implements IGestioneBirraDomain{
                                         List<Ingrediente> listaIngredientiDisponibili = ((Risultato.ListaIngredientiSuccesso) listaIngredientiDisponibiliRisultato)
                                                 .getData();
 
-                                        double consumoMassimo = -1.0;
-                                        int litriPerRicettaSelezionata = 0;
-                                        Ricetta ricettaSelezionata = null;
-
-                                        for (Ricetta ricetta : listaRicette) {
-                                            List<IngredienteRicetta> listaIngredientiDiQuestaRicetta =
-                                                    GestioneBirreUtil.getIngredientiRicettaByIdRicetta(listaIngredientiRicette, ricetta.getId());
-
-                                            int litriMassimiPerRicetta = Ottimizzazione.litriPerRicetta(listaIngredientiDiQuestaRicetta, listaIngredientiDisponibili);
-
-                                            if(litriMassimiPerRicetta < litriMassimiAttrezzi){
-                                                GestioneBirreUtil.calcolaDosaggiPerLitriScelti(litriMassimiPerRicetta, listaIngredientiDiQuestaRicetta);
-                                                double consumoTotale = GestioneBirreUtil.calcolaConsumoTotale(listaIngredientiDiQuestaRicetta);
-
-                                                if(consumoTotale > consumoMassimo){
-                                                    consumoMassimo = consumoTotale;
-                                                    litriPerRicettaSelezionata = litriMassimiPerRicetta;
-                                                    ricettaSelezionata = ricetta;
-                                                }
-                                            }
-                                            else{
-                                                GestioneBirreUtil.calcolaDosaggiPerLitriScelti(litriMassimiAttrezzi, listaIngredientiDiQuestaRicetta);
-                                                double consumoTotale = GestioneBirreUtil.calcolaConsumoTotale(listaIngredientiDiQuestaRicetta);
-
-                                                if(consumoTotale > consumoMassimo){
-                                                    consumoMassimo = consumoTotale;
-                                                    litriPerRicettaSelezionata = litriMassimiAttrezzi;
-                                                    ricettaSelezionata = ricetta;
-                                                }
-                                            }
-
-                                        }
-
-                                        callback.onComplete(new Risultato.MassimizzazioneConsumoIngredientiSuccesso(ricettaSelezionata, litriPerRicettaSelezionata));
-
+                                        callback.onComplete(strategiaOttimizzazione.ottimizza(
+                                                listaAttrezziLiberi,
+                                                listaRicette,
+                                                listaIngredientiRicette,
+                                                listaIngredientiDisponibili
+                                        ));
                                     }
                                     else{
                                         callback.onComplete(listaIngredientiDisponibiliRisultato);
                                     }
                                 });
-
                             }
                             else{
                                 callback.onComplete(listaIngredientiRicettaRisultato);
@@ -194,79 +170,7 @@ public class GestioneBirre implements IGestioneBirraDomain{
                     else{
                         callback.onComplete(listaRicetteRisultato);
                     }
-
                 });
-
-            }
-            else{
-                callback.onComplete(attrezziLiberiRisultato);
-            }
-        });
-    }
-
-    @Override
-    public void massimizzaProduzioneLitri(Callback callback) {
-        attrezziRepository.readAllAttrezziLiberi(attrezziLiberiRisultato -> {
-            if(attrezziLiberiRisultato.isSuccessful()){
-
-                int litriMassimiAttrezzi = Ottimizzazione.suggerisciLitri(((Risultato.ListaAttrezziSuccesso) attrezziLiberiRisultato).getAttrezzi());
-
-                ricetteRepository.readAllRicette(listaRicetteRisultato -> {
-                    if(listaRicetteRisultato.isSuccessful()){
-
-                        List<Ricetta> listaRicette = ((Risultato.ListaRicetteSuccesso) listaRicetteRisultato).getRicette();
-
-                        ricetteRepository.readAllIngredientiRicetta(listaIngredientiRicettaRisultato -> {
-                            if(listaIngredientiRicettaRisultato.isSuccessful()){
-
-                                List<IngredienteRicetta> listaIngredientiRicette = ((Risultato.ListaIngredientiDellaRicettaSuccesso) listaIngredientiRicettaRisultato)
-                                        .getListaIngrediente();
-
-                                ingredientiRepository.readAllIngredienti(listaIngredientiDisponibiliRisultato -> {
-                                    if(listaIngredientiDisponibiliRisultato.isSuccessful()){
-
-                                        List<Ingrediente> listaIngredientiDisponibili = ((Risultato.ListaIngredientiSuccesso) listaIngredientiDisponibiliRisultato)
-                                                .getData();
-
-                                        int litriPerRicettaSelezionata = -1;
-                                        Ricetta ricettaSelezionata = null;
-
-                                        for (Ricetta ricetta : listaRicette) {
-                                            List<IngredienteRicetta> listaIngredientiDiQuestaRicetta =
-                                                    GestioneBirreUtil.getIngredientiRicettaByIdRicetta(listaIngredientiRicette, ricetta.getId());
-
-                                            int litriMassimiRicetta = Ottimizzazione.litriPerRicetta(listaIngredientiDiQuestaRicetta, listaIngredientiDisponibili);
-
-                                            if(litriMassimiRicetta > litriPerRicettaSelezionata){
-                                                litriPerRicettaSelezionata = litriMassimiRicetta;
-                                                ricettaSelezionata = ricetta;
-                                            }
-                                        }
-
-                                        if(litriPerRicettaSelezionata > litriMassimiAttrezzi){
-                                            litriPerRicettaSelezionata = litriMassimiAttrezzi;
-                                        }
-
-                                        callback.onComplete(new Risultato.MassimizzazioneConsumoIngredientiSuccesso(ricettaSelezionata, litriPerRicettaSelezionata));
-
-                                    }
-                                    else{
-                                        callback.onComplete(listaIngredientiDisponibiliRisultato);
-                                    }
-                                });
-
-                            }
-                            else{
-                                callback.onComplete(listaIngredientiRicettaRisultato);
-                            }
-                        });
-                    }
-                    else{
-                        callback.onComplete(listaRicetteRisultato);
-                    }
-
-                });
-
             }
             else{
                 callback.onComplete(attrezziLiberiRisultato);

@@ -8,6 +8,7 @@ import java.util.List;
 
 import it.unimib.brewday.domain.GestioneBirre;
 import it.unimib.brewday.domain.IGestioneBirraDomain;
+import it.unimib.brewday.domain.StrategiaOttimizzazione;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Risultato;
 
@@ -26,8 +27,8 @@ public class CosaPreparareOggiViewModel extends ViewModel {
         consumoIngredientiRisultato = new MutableLiveData<>();
     }
 
-    public void suggerisciRicettaConConsumoMassimo(){
-        gestioneBirraDomain.massimizzaConsumoIngredienti(ricettaConsumoMassimoRisultato::postValue);
+    public void cosaPrepariamoOggi(StrategiaOttimizzazione strategiaOttimizzazione){
+        gestioneBirraDomain.cosaPrepariamoOggi(ricettaConsumoMassimoRisultato::postValue, strategiaOttimizzazione);
     }
 
     public void calcolaDosaggi(long idRicetta, int litriBirraScelti){
