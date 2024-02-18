@@ -10,7 +10,6 @@ import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
-import it.unimib.brewday.model.TipoIngrediente;
 import it.unimib.brewday.repository.AttrezziRepository;
 import it.unimib.brewday.repository.BirreRepository;
 import it.unimib.brewday.repository.IngredientiRepository;
@@ -83,7 +82,7 @@ public class GestioneBirre implements IGestioneBirraDomain{
                 List<IngredienteRicetta> ingredientiRicetta =
                         ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultatoIngredientiRicetta).getListaIngrediente();
 
-                setDosaggioDaIngredienteRicetta(litriBirraScelti , ingredientiRicetta);
+                GestioneBirreUtil.setDosaggioDaIngredienteRicetta(litriBirraScelti , ingredientiRicetta);
                 callback.onComplete(new Risultato.ListaIngredientiDellaRicettaSuccesso(ingredientiRicetta));
             }
         });
@@ -99,7 +98,7 @@ public class GestioneBirre implements IGestioneBirraDomain{
                         ((Risultato.ListaIngredientiSuccesso) risultatoIngredienti).getData();
 
                 List<Integer> listaDifferenzaIngredienti = new ArrayList<>();
-                calcolaDifferenzaIngredienti(listaIngredientiDisponibili, ingredientiRicetta ,listaDifferenzaIngredienti);
+                GestioneBirreUtil.calcolaDifferenzaIngredienti(listaIngredientiDisponibili, ingredientiRicetta ,listaDifferenzaIngredienti);
                 callback.onComplete(new Risultato.ListaDifferenzaIngredientiSuccesso(listaDifferenzaIngredienti));
             }
         });
@@ -151,13 +150,13 @@ public class GestioneBirre implements IGestioneBirraDomain{
 
                                         for (Ricetta ricetta : listaRicette) {
                                             List<IngredienteRicetta> listaIngredientiDiQuestaRicetta =
-                                                    getIngredientiRicettaByIdRicetta(listaIngredientiRicette, ricetta.getId());
+                                                    GestioneBirreUtil.getIngredientiRicettaByIdRicetta(listaIngredientiRicette, ricetta.getId());
 
                                             int litriMassimiPerRicetta = Ottimizzazione.litriPerRicetta(listaIngredientiDiQuestaRicetta, listaIngredientiDisponibili);
 
                                             if(litriMassimiPerRicetta < litriMassimiAttrezzi){
-                                                setDosaggioDaIngredienteRicetta(litriMassimiPerRicetta, listaIngredientiDiQuestaRicetta);
-                                                double consumoTotale = calcolaConsumoTotale(listaIngredientiDiQuestaRicetta);
+                                                GestioneBirreUtil.setDosaggioDaIngredienteRicetta(litriMassimiPerRicetta, listaIngredientiDiQuestaRicetta);
+                                                double consumoTotale = GestioneBirreUtil.calcolaConsumoTotale(listaIngredientiDiQuestaRicetta);
 
                                                 if(consumoTotale > consumoMassimo){
                                                     consumoMassimo = consumoTotale;
@@ -166,8 +165,8 @@ public class GestioneBirre implements IGestioneBirraDomain{
                                                 }
                                             }
                                             else{
-                                                setDosaggioDaIngredienteRicetta(litriMassimiAttrezzi, listaIngredientiDiQuestaRicetta);
-                                                double consumoTotale = calcolaConsumoTotale(listaIngredientiDiQuestaRicetta);
+                                                GestioneBirreUtil.setDosaggioDaIngredienteRicetta(litriMassimiAttrezzi, listaIngredientiDiQuestaRicetta);
+                                                double consumoTotale = GestioneBirreUtil.calcolaConsumoTotale(listaIngredientiDiQuestaRicetta);
 
                                                 if(consumoTotale > consumoMassimo){
                                                     consumoMassimo = consumoTotale;
@@ -207,53 +206,71 @@ public class GestioneBirre implements IGestioneBirraDomain{
 
     @Override
     public void massimizzaProduzioneLitri(Callback callback) {
+        attrezziRepository.readAllAttrezziLiberi(attrezziLiberiRisultato -> {
+            if(attrezziLiberiRisultato.isSuccessful()){
 
-    }
+                int litriMassimiAttrezzi = Ottimizzazione.suggerisciLitri(((Risultato.ListaAttrezziSuccesso) attrezziLiberiRisultato).getAttrezzi());
 
+                ricetteRepository.readAllRicette(listaRicetteRisultato -> {
+                    if(listaRicetteRisultato.isSuccessful()){
 
-    /*
-     * Metodi di supporto per la gestione del calclo della differenza tra gli ingredienti
-     */
-    private void setDosaggioDaIngredienteRicetta(int litriBirraScelti,
-                                                 List<IngredienteRicetta> listaIngredientiRicetta ){
-        for (IngredienteRicetta ingredienteRicetta : listaIngredientiRicetta) {
-            if (ingredienteRicetta.getTipoIngrediente().equals(TipoIngrediente.ACQUA)) {
-                ingredienteRicetta.setDosaggioIngrediente(round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti, 1));
-            } else {
-                ingredienteRicetta.setDosaggioIngrediente(Math.round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti));
+                        List<Ricetta> listaRicette = ((Risultato.ListaRicetteSuccesso) listaRicetteRisultato).getRicette();
+
+                        ricetteRepository.readAllIngredientiRicetta(listaIngredientiRicettaRisultato -> {
+                            if(listaIngredientiRicettaRisultato.isSuccessful()){
+
+                                List<IngredienteRicetta> listaIngredientiRicette = ((Risultato.ListaIngredientiDellaRicettaSuccesso) listaIngredientiRicettaRisultato)
+                                        .getListaIngrediente();
+
+                                ingredientiRepository.readAllIngredienti(listaIngredientiDisponibiliRisultato -> {
+                                    if(listaIngredientiDisponibiliRisultato.isSuccessful()){
+
+                                        List<Ingrediente> listaIngredientiDisponibili = ((Risultato.ListaIngredientiSuccesso) listaIngredientiDisponibiliRisultato)
+                                                .getData();
+
+                                        int litriPerRicettaSelezionata = -1;
+                                        Ricetta ricettaSelezionata = null;
+
+                                        for (Ricetta ricetta : listaRicette) {
+                                            List<IngredienteRicetta> listaIngredientiDiQuestaRicetta =
+                                                    GestioneBirreUtil.getIngredientiRicettaByIdRicetta(listaIngredientiRicette, ricetta.getId());
+
+                                            int litriMassimiRicetta = Ottimizzazione.litriPerRicetta(listaIngredientiDiQuestaRicetta, listaIngredientiDisponibili);
+
+                                            if(litriMassimiRicetta > litriPerRicettaSelezionata){
+                                                litriPerRicettaSelezionata = litriMassimiRicetta;
+                                                ricettaSelezionata = ricetta;
+                                            }
+                                        }
+
+                                        if(litriPerRicettaSelezionata > litriMassimiAttrezzi){
+                                            litriPerRicettaSelezionata = litriMassimiAttrezzi;
+                                        }
+
+                                        callback.onComplete(new Risultato.MassimizzazioneConsumoIngredientiSuccesso(ricettaSelezionata, litriPerRicettaSelezionata));
+
+                                    }
+                                    else{
+                                        callback.onComplete(listaIngredientiDisponibiliRisultato);
+                                    }
+                                });
+
+                            }
+                            else{
+                                callback.onComplete(listaIngredientiRicettaRisultato);
+                            }
+                        });
+                    }
+                    else{
+                        callback.onComplete(listaRicetteRisultato);
+                    }
+
+                });
+
             }
-        }
-    }
-
-    private void calcolaDifferenzaIngredienti(List<Ingrediente> listaIngredientiDisponibili,
-                                              List<IngredienteRicetta> listaIngredientiBirra,
-                                              List<Integer> listaDifferenzaIngredienti){
-        for(int i=0; i < listaIngredientiBirra.size(); i++){
-            int differenza =  listaIngredientiDisponibili.get(i).getQuantitaPosseduta()
-                    - ((int) Math.round(listaIngredientiBirra.get(i).getDosaggioIngrediente()));
-            listaDifferenzaIngredienti.add(differenza);
-        }
-    }
-
-    private static double round(double n, int decimals) {
-        return Math.floor(n * Math.pow(10, decimals)) / Math.pow(10, decimals);
-    }
-
-    private List<IngredienteRicetta> getIngredientiRicettaByIdRicetta(List<IngredienteRicetta> ingredientiRicette, long idRicetta){
-        List<IngredienteRicetta> ingredientiRicetta = new ArrayList<>();
-        for (IngredienteRicetta ingrediente: ingredientiRicette) {
-            if(ingrediente.getIdRicetta() == idRicetta){
-                ingredientiRicetta.add(ingrediente);
+            else{
+                callback.onComplete(attrezziLiberiRisultato);
             }
-        }
-        return ingredientiRicetta;
-    }
-
-    private double calcolaConsumoTotale(List<IngredienteRicetta> listaIngredienti){
-        double consumoTotale = 0.0;
-        for (IngredienteRicetta ingrediente: listaIngredienti) {
-            consumoTotale += ingrediente.getDosaggioIngrediente();
-        }
-        return consumoTotale;
+        });
     }
 }
