@@ -8,6 +8,7 @@ import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.util.Ottimizzazione;
+import it.unimib.brewday.util.RegistroErrori;
 
 public class StrategiaOttimizzazioneIngredienti implements StrategiaOttimizzazione{
 
@@ -18,6 +19,12 @@ public class StrategiaOttimizzazioneIngredienti implements StrategiaOttimizzazio
                                List<Ingrediente> listaIngredientiDisponibili) {
 
         int litriMassimiAttrezzi = Ottimizzazione.litriPerAttrezzi(listaAttrezziLiberi);
+
+        if(litriMassimiAttrezzi < 0){
+            return new Risultato.Errore(RegistroErrori.ATTREZZO_TIPOLOGIA_MANCANTE);
+        }
+
+
         double consumoMassimo = -1.0;
         int litriPerRicettaSelezionata = 0;
         Ricetta ricettaSelezionata = null;
