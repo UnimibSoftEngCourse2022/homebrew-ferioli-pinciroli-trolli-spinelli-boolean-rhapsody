@@ -30,6 +30,7 @@ public class Birra implements Parcelable {
     private String notaGenerale;
 
 
+
     public Birra(int litriProdotti, long idRicetta) {
         this.idRicetta = idRicetta;
         this.litriProdotti = litriProdotti;
@@ -96,6 +97,7 @@ public class Birra implements Parcelable {
     public void setNotaGenerale(String notaGenerale) {
         this.notaGenerale = notaGenerale;
     }
+
 
 
     @Override

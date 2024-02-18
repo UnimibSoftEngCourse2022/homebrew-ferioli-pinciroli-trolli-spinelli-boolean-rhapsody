@@ -31,6 +31,7 @@ import it.unimib.brewday.model.Risultato;
 public class ListaBirreFragment extends Fragment {
 
     private List<BirraConRicetta> listaBirre;
+    private List<Float> listaMediaRecensioni;
     private VisualizzaBirreViewModel visualizzaBirraViewModel;
     FragmentListaBirreBinding fragmentListaBirreBinding;
 
@@ -45,6 +46,7 @@ public class ListaBirreFragment extends Fragment {
                 new VisualizzaBirreViewModelFactory(getContext()))
                 .get(VisualizzaBirreViewModel.class);
         listaBirre = new ArrayList<>();
+        listaMediaRecensioni = new ArrayList<>();
     }
 
     @Override
@@ -77,11 +79,12 @@ public class ListaBirreFragment extends Fragment {
                         .format(Calendar.getInstance().getTime()));
                 visualizzaBirraViewModel.terminaBirra(birra);
             }
-        }, visualizzaBirraViewModel);
+        });
 
         visualizzaBirraViewModel.getAllBirreRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
                 listaBirre.clear();
+                listaMediaRecensioni.clear();
                 listaBirre.addAll(((Risultato.AllBirreSuccesso) risultato).getAllBirre());
                 adapterRecyclerViewBirre.notifyDataSetChanged();
             }
@@ -89,6 +92,7 @@ public class ListaBirreFragment extends Fragment {
                 Snackbar.make(view, "Perdindirindina", BaseTransientBottomBar.LENGTH_LONG).show();
             }
         });
+
 
         visualizzaBirraViewModel.getTerminaBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){

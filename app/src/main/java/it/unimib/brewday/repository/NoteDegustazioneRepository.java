@@ -47,18 +47,6 @@ public class NoteDegustazioneRepository {
             });
         }
 
-        public void readMediaNotaDegustazione(long idBirra, Callback callback){
-            LocalDatabase.databaseWriteExecutor.execute(() -> {
-                Float media = notaDegustazioneDao.mediaNoteDegustazione(idBirra);
-                if (media != null) {
-                    callback.onComplete(new Risultato.MediaNotaDegustazioneSuccesso(media));
-                } else {
-                    callback.onComplete(new Risultato.Errore(RegistroErrori.NOTA_MEDIA_ERROR));
 
-                }
-
-
-            });
-        }
 
 }

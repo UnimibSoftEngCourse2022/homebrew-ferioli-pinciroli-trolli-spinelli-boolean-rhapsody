@@ -11,39 +11,39 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.BirraConRicetta;
-import it.unimib.brewday.model.Risultato;
 
-public class AdapterRecyclerViewBirre extends RecyclerView.Adapter<AdapterRecyclerViewBirre.ViewHolder>{
+public class AdapterRecyclerViewBirre extends RecyclerView.Adapter<AdapterRecyclerViewBirre.ViewHolder> {
 
     private final List<BirraConRicetta> listaBirre;
     private final ItemClickCallback callback;
-    private final VisualizzaBirreViewModel visualizzaBirreViewModel;
 
 
-    public AdapterRecyclerViewBirre(List<BirraConRicetta> listaBirre, ItemClickCallback callback, VisualizzaBirreViewModel visualizzaBirreViewModel) {
+    public AdapterRecyclerViewBirre(List<BirraConRicetta> listaBirre, ItemClickCallback callback) {
         this.listaBirre = listaBirre;
         this.callback = callback;
-        this.visualizzaBirreViewModel = visualizzaBirreViewModel;
+
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.elemento_lista_birre, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.elemento_lista_birre, parent, false);
         return new AdapterRecyclerViewBirre.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(listaBirre.get(position),(LifecycleOwner) holder.itemView.getContext());
+
+            holder.bind(listaBirre.get(position));
+
     }
+
 
     @Override
     public int getItemCount() {
@@ -86,19 +86,17 @@ public class AdapterRecyclerViewBirre extends RecyclerView.Adapter<AdapterRecycl
             terminaProduzione.setOnClickListener(view -> callback.onTerminaBirraClick(listaBirre.get(getBindingAdapterPosition())));
         }
 
-        public void bind(BirraConRicetta birra, LifecycleOwner lifecycleOwner){
+        public void bind(BirraConRicetta birra){
             nomeBirra.setText(birra.getNomeRicetta());
             numeroLitri.setText(birra.getLitriProdotti() + "L");
             if(birra.isTerminata()){
                 terminaProduzione.setVisibility(View.GONE);
-
                 dataTerminazione.setText(birra.getDataTerminazione());
                 dataTerminazione.setVisibility(View.VISIBLE);
                 iconaTerminazione.setVisibility(View.VISIBLE);
                 cardBirra.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_theme_light_secondaryContainer));
-
-                visualizzaBirreViewModel.calcolaMediaNotaDegustazione(birra.getId());
-
+                ratingBar.setRating(birra.getMediaRecensione());
+                ratingBar.setVisibility(View.VISIBLE);
             }
             else{
                 ratingBar.setVisibility(View.GONE);
@@ -110,13 +108,7 @@ public class AdapterRecyclerViewBirre extends RecyclerView.Adapter<AdapterRecycl
 
 
 
-            visualizzaBirreViewModel.getMediaNotaDegustazioneRisultato().observe(lifecycleOwner, risultato -> {
-                if(risultato.isSuccessful()){
-                    Float media =  ((Risultato.MediaNotaDegustazioneSuccesso)risultato).getMediaNotaDegustazioneSuccesso();
-                    ratingBar.setRating(media);
-                    ratingBar.setVisibility(View.VISIBLE);
-                }
-            });
+
         }
 
 

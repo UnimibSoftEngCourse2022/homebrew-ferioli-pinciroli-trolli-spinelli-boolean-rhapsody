@@ -7,6 +7,8 @@ public class BirraConRicetta extends Birra implements Parcelable {
 
     private String nomeRicetta;
 
+    private float mediaRecensione;
+
     public BirraConRicetta(int litriProdotti, long idRicetta, String nomeRicetta) {
         super(litriProdotti, idRicetta);
         this.nomeRicetta = nomeRicetta;
@@ -20,6 +22,13 @@ public class BirraConRicetta extends Birra implements Parcelable {
         this.nomeRicetta = nomeRicetta;
     }
 
+    public float getMediaRecensione() {
+        return mediaRecensione;
+    }
+
+    public void setMediaRecensione(float mediaRecensione) {
+        this.mediaRecensione = mediaRecensione;
+    }
 
     @Override
     public int describeContents() {
