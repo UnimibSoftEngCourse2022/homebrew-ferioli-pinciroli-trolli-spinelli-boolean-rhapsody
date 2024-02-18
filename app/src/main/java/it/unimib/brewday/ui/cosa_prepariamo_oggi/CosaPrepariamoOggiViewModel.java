@@ -28,7 +28,7 @@ public class CosaPrepariamoOggiViewModel extends ViewModel {
         return cosaPrepariamoOggiRisultato;
     }
 
-    public void clear(){
+    public void pulisciDati(){
         cosaPrepariamoOggiRisultato = new MutableLiveData<>();
     }
 

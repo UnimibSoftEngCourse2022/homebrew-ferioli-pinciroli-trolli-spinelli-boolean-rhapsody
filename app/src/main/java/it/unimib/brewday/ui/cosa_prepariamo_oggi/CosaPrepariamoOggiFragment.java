@@ -7,17 +7,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.google.android.material.snackbar.Snackbar;
-
-import it.unimib.brewday.R;
 import it.unimib.brewday.databinding.FragmentCosaPrepariamoOggiBinding;
-import it.unimib.brewday.databinding.FragmentRicettaDettagliataBinding;
 import it.unimib.brewday.domain.StrategiaOttimizzazioneIngredienti;
 import it.unimib.brewday.domain.StrategiaOttimizzazioneLitri;
 import it.unimib.brewday.model.Ricetta;
@@ -64,13 +59,12 @@ public class CosaPrepariamoOggiFragment extends Fragment {
 
                 ricettaSelezionata = ((Risultato.OttimizzazioneSuccesso) risultato).getRicetta();
                 litriRicettaSelezionata = ((Risultato.OttimizzazioneSuccesso) risultato).getLitri();
-                Log.d("PROVAFRA", ricettaSelezionata.getNome());
 
                 if(ricettaSelezionata != null){
                     CosaPrepariamoOggiFragmentDirections.ActionCosaDevoPreparareOggiFragmentToPreparaBirraFragment action =
                             CosaPrepariamoOggiFragmentDirections.actionCosaDevoPreparareOggiFragmentToPreparaBirraFragment(ricettaSelezionata, litriRicettaSelezionata);
                     Navigation.findNavController(view).navigate(action);
-                    cosaPrepariamoOggiViewModel.clear();
+                    cosaPrepariamoOggiViewModel.pulisciDati();
                 }
                 else{
                     //gestione errore

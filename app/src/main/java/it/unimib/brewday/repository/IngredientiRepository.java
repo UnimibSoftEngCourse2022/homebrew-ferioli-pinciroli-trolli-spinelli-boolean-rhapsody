@@ -7,6 +7,7 @@ import it.unimib.brewday.database.IngredienteDao;
 import it.unimib.brewday.database.LocalDatabase;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.ui.Callback;
+import it.unimib.brewday.util.RegistroErrori;
 
 public class IngredientiRepository {
 
@@ -23,7 +24,7 @@ public class IngredientiRepository {
                 callback.onComplete(new Risultato.ListaIngredientiSuccesso(listaIngredienti));
             }
             else{
-                callback.onComplete(new Risultato.Errore("Fallimento lettura ingredienti disponibili"));
+                callback.onComplete(new Risultato.Errore(RegistroErrori.INGREDIENTI_FETCH_ERROR));
             }
         });
 
@@ -37,7 +38,7 @@ public class IngredientiRepository {
                 callback.onComplete(new Risultato.ListaIngredientiSuccesso(listaIngredienti));
             }
             else{
-                callback.onComplete(new Risultato.Errore("ingredienti non aggiornati "));
+                callback.onComplete(new Risultato.Errore(RegistroErrori.INGREDIENTI_UPDATE_ERROR));
             }
         });
 
@@ -50,7 +51,7 @@ public class IngredientiRepository {
                  callback.onComplete(new Risultato.IngredienteSuccesso(ingrediente));
             }
             else{
-                 callback.onComplete(new Risultato.Errore("ingrediente non aggiornato"));
+                 callback.onComplete(new Risultato.Errore(RegistroErrori.INGREDIENTI_UPDATE_ERROR));
             }
 
         });
