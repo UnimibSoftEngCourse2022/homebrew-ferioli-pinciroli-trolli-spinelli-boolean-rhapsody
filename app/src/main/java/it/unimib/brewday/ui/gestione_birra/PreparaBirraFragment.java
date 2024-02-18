@@ -130,46 +130,17 @@ public class PreparaBirraFragment extends Fragment {
             }
         });
 
-        birraViewModel.getAttrezziSelezionatiRisultato().observe(getViewLifecycleOwner(), risultato -> {
-            if(risultato.isSuccessful()){
-                possiedeAttrezzi = true;
-                fragmentPreparaBirraBinding.imageViewControloAttrezziPreparaBirra.setImageResource(R.drawable.check);
-                fragmentPreparaBirraBinding.textViewLitriSuggeriti.setVisibility(View.GONE);
-                fragmentPreparaBirraBinding.imageViewLitriMassimi.setVisibility(View.GONE);
-                listaAttrezziSelezionati = ((Risultato.ListaAttrezziSuccesso) risultato).getAttrezzi();
-            }
-            else{
-                fragmentPreparaBirraBinding.imageViewControloAttrezziPreparaBirra.setImageResource(R.drawable.fail);
-                if(risultato instanceof Risultato.ErroreConSuggerimentoLitri){
-                    int litriSuggeriti = ((Risultato.ErroreConSuggerimentoLitri) risultato).getLitriSuggeriti();
-                    fragmentPreparaBirraBinding.textViewLitriSuggeriti.setText(litriSuggeriti + "L");
-                    fragmentPreparaBirraBinding.textViewLitriSuggeriti.setVisibility(View.VISIBLE);
-                    fragmentPreparaBirraBinding.imageViewLitriMassimi.setVisibility(View.VISIBLE);
-                }
-                else{
-                    //gestire l'errore "generale"
-                }
-            }
-        });
+        birraViewModel.getAttrezziSelezionatiRisultato().observe(getViewLifecycleOwner(), risultato ->
+            checkAttrezziDisponibili(risultato, view)
+        );
 
 
         birraViewModel.calcolaDosaggi(ricetta.getId(), litriBirraScelti);
         birraViewModel.getAndOptimizeAttrezziLiberi(litriBirraScelti);
 
-        fragmentPreparaBirraBinding.buttonRicettaPreparaBirra.setOnClickListener(v -> {
-
-            if (verificaIngredienti()){
-                if (possiedeAttrezzi){
-                    birraViewModel.createBirra(new Birra(litriBirraScelti, ricetta.getId()), listaDifferenzaIngredienti, listaAttrezziSelezionati);
-                }
-                else {
-                    Snackbar.make(view, "Gli attrezzi sono troppo piccoli", BaseTransientBottomBar.LENGTH_SHORT).show();
-                }
-            }
-            else {
-                Snackbar.make(view, "Attenzione ti mancano degli ingredienti", BaseTransientBottomBar.LENGTH_SHORT).show();
-            }
-        });
+        fragmentPreparaBirraBinding.buttonRicettaPreparaBirra.setOnClickListener(v ->
+            checkPreparaBirra(new Birra(litriBirraScelti, ricetta.getId()), view)
+        );
 
         /*
          * Gestione della lista della spesa
@@ -197,13 +168,49 @@ public class PreparaBirraFragment extends Fragment {
     }
 
 
-    public boolean verificaIngredienti(){
+    private boolean verificaIngredienti(){
         for (int i = 0; i < listaDifferenzaIngredienti.size(); i++) {
             if (listaDifferenzaIngredienti.get(i) < 0){
                 return false;
             }
         }
         return  true;
+    }
+
+    private void checkPreparaBirra(Birra birra, View view){
+        if (verificaIngredienti()){
+            if (possiedeAttrezzi){
+                birraViewModel.createBirra(birra, listaDifferenzaIngredienti, listaAttrezziSelezionati);
+            }
+            else {
+                Snackbar.make(view, "Gli attrezzi sono troppo piccoli", BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        }
+        else {
+            Snackbar.make(view, "Attenzione ti mancano degli ingredienti", BaseTransientBottomBar.LENGTH_SHORT).show();
+        }
+    }
+
+    private void checkAttrezziDisponibili(Risultato risultato, View view){
+        if(risultato.isSuccessful()){
+            possiedeAttrezzi = true;
+            fragmentPreparaBirraBinding.imageViewControloAttrezziPreparaBirra.setImageResource(R.drawable.check);
+            fragmentPreparaBirraBinding.textViewLitriSuggeriti.setVisibility(View.GONE);
+            fragmentPreparaBirraBinding.imageViewLitriMassimi.setVisibility(View.GONE);
+            listaAttrezziSelezionati = ((Risultato.ListaAttrezziSuccesso) risultato).getAttrezzi();
+        }
+        else{
+            fragmentPreparaBirraBinding.imageViewControloAttrezziPreparaBirra.setImageResource(R.drawable.fail);
+            if(risultato instanceof Risultato.ErroreConSuggerimentoLitri){
+                int litriSuggeriti = ((Risultato.ErroreConSuggerimentoLitri) risultato).getLitriSuggeriti();
+                fragmentPreparaBirraBinding.textViewLitriSuggeriti.setText(litriSuggeriti + "L");
+                fragmentPreparaBirraBinding.textViewLitriSuggeriti.setVisibility(View.VISIBLE);
+                fragmentPreparaBirraBinding.imageViewLitriMassimi.setVisibility(View.VISIBLE);
+            }
+            else{
+                Snackbar.make(view, "Attrezzi mancanti", BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }
