@@ -7,7 +7,7 @@ import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.ui.Callback;
 
-public interface IGestioneBirraDomain {
+public interface IGestioneBirra {
 
     void getAllBirre(Callback callback);
 

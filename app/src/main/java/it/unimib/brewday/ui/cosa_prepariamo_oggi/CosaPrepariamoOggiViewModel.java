@@ -4,50 +4,28 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.List;
-
 import it.unimib.brewday.domain.GestioneBirre;
-import it.unimib.brewday.domain.IGestioneBirraDomain;
+import it.unimib.brewday.domain.IGestioneBirra;
 import it.unimib.brewday.domain.StrategiaOttimizzazione;
-import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Risultato;
 
 public class CosaPrepariamoOggiViewModel extends ViewModel {
 
-    private final MutableLiveData<Risultato> ricettaConsumoMassimoRisultato;
-    private final MutableLiveData<Risultato> dosaggiRisultato;
-    private final MutableLiveData<Risultato> consumoIngredientiRisultato;
-    private final IGestioneBirraDomain gestioneBirraDomain;
+    private final MutableLiveData<Risultato> cosaPrepariamoOggiRisultato;
+    private final IGestioneBirra gestioneBirra;
 
 
     public CosaPrepariamoOggiViewModel(GestioneBirre gestioneBirre) {
-        this.gestioneBirraDomain = gestioneBirre;
-        ricettaConsumoMassimoRisultato = new MutableLiveData<>();
-        dosaggiRisultato = new MutableLiveData<>();
-        consumoIngredientiRisultato = new MutableLiveData<>();
+        this.gestioneBirra = gestioneBirre;
+        cosaPrepariamoOggiRisultato = new MutableLiveData<>();
     }
 
     public void cosaPrepariamoOggi(StrategiaOttimizzazione strategiaOttimizzazione){
-        gestioneBirraDomain.cosaPrepariamoOggi(ricettaConsumoMassimoRisultato::postValue, strategiaOttimizzazione);
+        gestioneBirra.cosaPrepariamoOggi(cosaPrepariamoOggiRisultato::postValue, strategiaOttimizzazione);
     }
 
-    public void calcolaDosaggi(long idRicetta, int litriBirraScelti){
-        gestioneBirraDomain.getDosaggiIngredienti(idRicetta, litriBirraScelti, dosaggiRisultato::postValue);
+    public LiveData<Risultato> getCosaPrepariamoOggiRisultato() {
+        return cosaPrepariamoOggiRisultato;
     }
 
-    public void calcolaConsumoIngredienti(List<IngredienteRicetta> ingredientiRicetta) {
-        gestioneBirraDomain.getConsumoIngredienti(ingredientiRicetta, consumoIngredientiRisultato::postValue);
-    }
-
-    public LiveData<Risultato> getRicettaConsumoMassimoRisultato() {
-        return ricettaConsumoMassimoRisultato;
-    }
-
-    public LiveData<Risultato> getDosaggiRisultato() {
-        return dosaggiRisultato;
-    }
-
-    public LiveData<Risultato> getConsumoIngredientiRisultato() {
-        return consumoIngredientiRisultato;
-    }
 }

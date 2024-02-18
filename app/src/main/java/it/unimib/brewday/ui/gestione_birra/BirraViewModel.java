@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import it.unimib.brewday.domain.IGestioneBirraDomain;
+import it.unimib.brewday.domain.IGestioneBirra;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.IngredienteRicetta;
@@ -24,9 +24,9 @@ public class BirraViewModel extends ViewModel {
     private final MutableLiveData<Risultato> consumoIngredientiRisultato;
     private final MutableLiveData<Risultato> attrezziSelezionatiRisultato;
 
-    private final IGestioneBirraDomain gestioneBirraDomain;
+    private final IGestioneBirra gestioneBirraDomain;
 
-    public BirraViewModel(IGestioneBirraDomain gestioneBirraDomain) {
+    public BirraViewModel(IGestioneBirra gestioneBirraDomain) {
 
         this.gestioneBirraDomain = gestioneBirraDomain;
 
