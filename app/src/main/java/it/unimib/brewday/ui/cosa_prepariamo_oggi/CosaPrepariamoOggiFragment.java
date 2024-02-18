@@ -12,6 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+
+import it.unimib.brewday.R;
 import it.unimib.brewday.databinding.FragmentCosaPrepariamoOggiBinding;
 import it.unimib.brewday.domain.StrategiaOttimizzazioneIngredienti;
 import it.unimib.brewday.domain.StrategiaOttimizzazioneLitri;
@@ -67,11 +71,12 @@ public class CosaPrepariamoOggiFragment extends Fragment {
                     cosaPrepariamoOggiViewModel.pulisciDati();
                 }
                 else{
-                    //gestione errore
+                    Snackbar.make(view, R.string.nessuna_ricetta_disponibile, BaseTransientBottomBar.LENGTH_SHORT).show();
                 }
             }
             else{
-                //Snackbar.make(view, "SI SMERDA: " + ((Risultato.Errore) risultato).getMessaggio(), Snackbar.LENGTH_LONG).show();
+                //TODO: implementare la corretta gestione dell'errore
+                Snackbar.make(view, "ERRORE: " + ((Risultato.Errore) risultato).getMessaggio(), BaseTransientBottomBar.LENGTH_LONG).show();
             }
         });
 

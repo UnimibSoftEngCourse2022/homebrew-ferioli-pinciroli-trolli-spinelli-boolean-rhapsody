@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center_horizontal|center_vertical"
-        android:text="@string/CosaPrepariamoOggi"
+        android:text="@string/cosa_prepariamo_oggi"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/OttimizzaPerLitri" />
+            android:text="@string/ottimizza_per_litri" />
 
         <TextView
             android:id="@+id/textView_ottimizzaIngredienti"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/OttimizzaPerIngredienti" />
+            android:text="@string/ottimizza_per_ingredienti" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
