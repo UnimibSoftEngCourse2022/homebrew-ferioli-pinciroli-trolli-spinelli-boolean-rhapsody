@@ -82,7 +82,7 @@ public class GestioneBirre implements IGestioneBirraDomain{
                 List<IngredienteRicetta> ingredientiRicetta =
                         ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultatoIngredientiRicetta).getListaIngrediente();
 
-                GestioneBirreUtil.setDosaggioDaIngredienteRicetta(litriBirraScelti , ingredientiRicetta);
+                GestioneBirreUtil.calcolaDosaggiPerLitriScelti(litriBirraScelti , ingredientiRicetta);
                 callback.onComplete(new Risultato.ListaIngredientiDellaRicettaSuccesso(ingredientiRicetta));
             }
         });
@@ -155,7 +155,7 @@ public class GestioneBirre implements IGestioneBirraDomain{
                                             int litriMassimiPerRicetta = Ottimizzazione.litriPerRicetta(listaIngredientiDiQuestaRicetta, listaIngredientiDisponibili);
 
                                             if(litriMassimiPerRicetta < litriMassimiAttrezzi){
-                                                GestioneBirreUtil.setDosaggioDaIngredienteRicetta(litriMassimiPerRicetta, listaIngredientiDiQuestaRicetta);
+                                                GestioneBirreUtil.calcolaDosaggiPerLitriScelti(litriMassimiPerRicetta, listaIngredientiDiQuestaRicetta);
                                                 double consumoTotale = GestioneBirreUtil.calcolaConsumoTotale(listaIngredientiDiQuestaRicetta);
 
                                                 if(consumoTotale > consumoMassimo){
@@ -165,7 +165,7 @@ public class GestioneBirre implements IGestioneBirraDomain{
                                                 }
                                             }
                                             else{
-                                                GestioneBirreUtil.setDosaggioDaIngredienteRicetta(litriMassimiAttrezzi, listaIngredientiDiQuestaRicetta);
+                                                GestioneBirreUtil.calcolaDosaggiPerLitriScelti(litriMassimiAttrezzi, listaIngredientiDiQuestaRicetta);
                                                 double consumoTotale = GestioneBirreUtil.calcolaConsumoTotale(listaIngredientiDiQuestaRicetta);
 
                                                 if(consumoTotale > consumoMassimo){

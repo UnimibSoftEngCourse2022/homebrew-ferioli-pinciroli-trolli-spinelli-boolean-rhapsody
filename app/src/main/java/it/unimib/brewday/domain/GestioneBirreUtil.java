@@ -11,11 +11,11 @@ public class GestioneBirreUtil {
 
     private GestioneBirreUtil(){}
 
-    public static void setDosaggioDaIngredienteRicetta(int litriBirraScelti,
-                                                 List<IngredienteRicetta> listaIngredientiRicetta ){
+    public static void calcolaDosaggiPerLitriScelti(int litriBirraScelti,
+                                                    List<IngredienteRicetta> listaIngredientiRicetta ){
         for (IngredienteRicetta ingredienteRicetta : listaIngredientiRicetta) {
             if (ingredienteRicetta.getTipoIngrediente().equals(TipoIngrediente.ACQUA)) {
-                ingredienteRicetta.setDosaggioIngrediente(round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti, 1));
+                ingredienteRicetta.setDosaggioIngrediente(arrotonda(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti, 1));
             } else {
                 ingredienteRicetta.setDosaggioIngrediente(Math.round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti));
             }
@@ -32,7 +32,7 @@ public class GestioneBirreUtil {
         }
     }
 
-    public static double round(double n, int decimals) {
+    public static double arrotonda(double n, int decimals) {
         return Math.floor(n * Math.pow(10, decimals)) / Math.pow(10, decimals);
     }
 
