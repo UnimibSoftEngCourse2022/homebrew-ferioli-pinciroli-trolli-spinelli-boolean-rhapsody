@@ -8,53 +8,62 @@
 
 
     <ImageButton
-        android:id="@+id/cosaPreparareOggi_ottimizzaLitri"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/roundcorner"
-        android:contentDescription="@string/massimizza_per_litri"
-        android:src="@drawable/water_full_24px"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
         android:id="@+id/cosaPreparareOggi_ottimizzaIngredienti"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="100dp"
         android:background="@drawable/roundcorner"
         android:contentDescription="@string/massimizza_conusmo_ingredienti"
         android:src="@drawable/scale_24px"
+        tools:layout_editor_absoluteX="263dp"
+        tools:layout_editor_absoluteY="514dp" />
+
+    <ImageButton
+        android:id="@+id/cosaPreparareOggi_ottimizzaLitri"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/roundcorner"
+        android:contentDescription="@string/massimizza_per_litri"
+        android:src="@drawable/water_full_24px"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="514dp" />
+
+    <ImageView
+        android:id="@+id/imageView_logoApp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="100dp"
+        android:src="@mipmap/ic_launcher_round"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/cosaPreparareOggi_listview"
+    <TextView
+        android:id="@+id/textView_cosaPrepariamoOggi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/CosaPrepariamoOggi"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_logoApp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+    <TextView
+        android:id="@+id/textView_ottimizzaLitri"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="135dp" />
+        android:text="TextView"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="388dp" />
 
-    <Button
-        android:id="@+id/cosaPreparareOggi_preparaBirra"
+    <TextView
+        android:id="@+id/textView_ottimizzaIngredienti"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/prepara"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cosaPreparareOggi_listview" />
+        android:text="TextView"
+        tools:layout_editor_absoluteX="253dp"
+        tools:layout_editor_absoluteY="388dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
