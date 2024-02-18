@@ -2,6 +2,7 @@ package it.unimib.brewday.ui.gestione_birra;
 
 import static it.unimib.brewday.ui.Topbar.gestisciTopbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,10 +16,12 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +32,7 @@ import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
+import it.unimib.brewday.model.TipoIngrediente;
 
 public class PreparaBirraFragment extends Fragment {
 
@@ -167,6 +171,29 @@ public class PreparaBirraFragment extends Fragment {
             }
         });
 
+        /*
+         * Gestione della lista della spesa
+         */
+        ImageButton listaSpesaButton = fragmentPreparaBirraBinding.imagebuttonGeneraListaSpesa;
+        listaSpesaButton.setOnClickListener(v -> {
+            StringBuilder testoDaSalvare = new StringBuilder("Lista della spesa:\n\n");
+            for (IngredienteRicetta ingredienteBirra : listaIngredientiBirra) {
+                String unitaMisura = " g";
+                if(ingredienteBirra.getTipoIngrediente() == TipoIngrediente.ACQUA) {
+                    unitaMisura = " L";
+                }
+                testoDaSalvare.append("- ")
+                        .append(ingredienteBirra.getTipoIngrediente())
+                        .append(" in quantità ")
+                        .append(ingredienteBirra.getDosaggioIngrediente())
+                        .append(unitaMisura).append("\n\n");
+            }
+
+            Intent intent = new Intent(Intent.ACTION_SEND)
+                    .setType("text/plain")
+                    .putExtra(Intent.EXTRA_TEXT, (Serializable) testoDaSalvare);
+            startActivity(intent);
+        });
     }
 
 
