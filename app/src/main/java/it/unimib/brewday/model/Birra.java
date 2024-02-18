@@ -37,6 +37,18 @@ public class Birra implements Parcelable {
         notaGenerale = "";
     }
 
+    public static final Creator<Birra> CREATOR = new Creator<Birra>() {
+        @Override
+        public Birra createFromParcel(Parcel in) {
+            return new Birra(in);
+        }
+
+        @Override
+        public Birra[] newArray(int size) {
+            return new Birra[size];
+        }
+    };
+
     public long getId() {
         return id;
     }

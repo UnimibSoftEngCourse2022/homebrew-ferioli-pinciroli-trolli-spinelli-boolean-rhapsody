@@ -10,8 +10,6 @@ public class Nota {
 
     private String commento;
 
-
-
     public String getCommento() {
         return commento;
     }

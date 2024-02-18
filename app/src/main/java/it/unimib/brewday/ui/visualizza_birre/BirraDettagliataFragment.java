@@ -26,7 +26,6 @@ import it.unimib.brewday.databinding.FragmentBirraDettagliataBinding;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.BirraConRicetta;
 import it.unimib.brewday.model.IngredienteRicetta;
-import it.unimib.brewday.model.Nota;
 import it.unimib.brewday.model.NotaDegustazione;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.gestione_birra.AdapterListViewIngredientiBirra;
@@ -74,13 +73,12 @@ public class BirraDettagliataFragment extends Fragment {
                 LinearLayoutManager.HORIZONTAL, false);
 
         BirraConRicetta birraSelezionata = BirraDettagliataFragmentArgs.fromBundle(getArguments()).getBirra();
+
         fragmentBirraDettagliataBinding.textViewNumeroLitriBirraDettagliata.setText(Integer.toString(birraSelezionata.getLitriProdotti()));
         fragmentBirraDettagliataBinding.textViewNomeBirraDettagliata.setText(birraSelezionata.getNomeRicetta());
-        //if(birraSelezionata.getNotaGenerale() != null) {
+        if(!birraSelezionata.getNotaGenerale().equals("")) {
             fragmentBirraDettagliataBinding.inputTextLayoutNoteBirraDettagliata.getEditText().setText(birraSelezionata.getNotaGenerale());
-        //}
-
-        visualizzaBirreViewModel.getIngredientiBirra(birraSelezionata);
+        }
 
         visualizzaBirreViewModel.getIngredientiBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()) {
@@ -96,14 +94,6 @@ public class BirraDettagliataFragment extends Fragment {
                 fragmentBirraDettagliataBinding.listViewIgredientiBirraDettagliata.setDivider(null);
             }
         });
-        if(birraSelezionata.isTerminata()) {
-            fragmentBirraDettagliataBinding.textViewAttrezziBirraDettagliata.setVisibility(View.GONE);
-            visualizzaBirreViewModel.getNoteDegustazione(birraSelezionata.getId());
-        }else{
-            visualizzaBirreViewModel.getAttrezziBirra(birraSelezionata);
-            fragmentBirraDettagliataBinding.imageButtonNuovaNotaDegustazione.setVisibility(View.GONE);
-            fragmentBirraDettagliataBinding.textViewNoteDiDegustazione.setVisibility(View.GONE);
-        }
 
         visualizzaBirreViewModel.getAttrezziBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()) {
@@ -114,21 +104,46 @@ public class BirraDettagliataFragment extends Fragment {
             }
         });
 
-        fragmentBirraDettagliataBinding.imageButtonNuovaNotaDegustazione.setOnClickListener(v -> {
-            NoteDegustazioneDialog dialog = new NoteDegustazioneDialog(visualizzaBirreViewModel, birraSelezionata);
-            dialog.show(getParentFragmentManager(), "Inserisci nuova Nota Degustazione");
-
-        });
-
         visualizzaBirreViewModel.getUpdateBirreRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if (!risultato.isSuccessful()){
                 Snackbar.make(view, "AAAAAAAAAA", BaseTransientBottomBar.LENGTH_SHORT);
             }
         });
 
+        visualizzaBirreViewModel.getNoteDegustazioneRisultato().observe(getViewLifecycleOwner(), risultato -> {
+            if(risultato.isSuccessful()){
+                RecyclerView.LayoutManager layoutManagerNote = new LinearLayoutManager(requireContext(),
+                        LinearLayoutManager.VERTICAL, false);
+                List<NotaDegustazione> listaNoteDegustazione = ((Risultato.AllNoteDegustazioneSuccesso) risultato).getListaNoteDegustazione();
+                adapterRecyclerViewNoteDegustazione = new AdapterRecyclerViewNoteDegustazione(listaNoteDegustazione);
+                fragmentBirraDettagliataBinding.recyclerViewNoteDettagliate.setLayoutManager(layoutManagerNote);
+                fragmentBirraDettagliataBinding.recyclerViewNoteDettagliate.setAdapter(adapterRecyclerViewNoteDegustazione);
+            }else{
+                Snackbar.make(view, ((Risultato.Errore)risultato).getMessaggio(), BaseTransientBottomBar.LENGTH_SHORT);
+            }
+        });
+
+        visualizzaBirreViewModel.getIngredientiBirra(birraSelezionata);
+
+        if(birraSelezionata.isTerminata()) {
+            fragmentBirraDettagliataBinding.textViewAttrezziBirraDettagliata.setVisibility(View.GONE);
+            visualizzaBirreViewModel.getNoteDegustazione(birraSelezionata.getId());
+        }else{
+            visualizzaBirreViewModel.getAttrezziBirra(birraSelezionata);
+            fragmentBirraDettagliataBinding.imageButtonNuovaNotaDegustazione.setVisibility(View.GONE);
+            fragmentBirraDettagliataBinding.textViewNoteDiDegustazione.setVisibility(View.GONE);
+        }
+
+        fragmentBirraDettagliataBinding.imageButtonNuovaNotaDegustazione.setOnClickListener(v -> {
+            NoteDegustazioneDialog dialog = new NoteDegustazioneDialog(visualizzaBirreViewModel, birraSelezionata);
+            dialog.show(getParentFragmentManager(), "Inserisci nuova Nota Degustazione");
+
+        });
+
         fragmentBirraDettagliataBinding.editTextNoteBirraDettagliata.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // method is empty
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -137,26 +152,8 @@ public class BirraDettagliataFragment extends Fragment {
             }
             @Override
             public void afterTextChanged(Editable s) {
-
+                // method is empty
             }
         });
-
-
-
-        visualizzaBirreViewModel.getNoteDegustazioneRisultato().observe(getViewLifecycleOwner(), risultato -> {
-                if(risultato.isSuccessful()){
-                    RecyclerView.LayoutManager layoutManagerNote = new LinearLayoutManager(requireContext(),
-                            LinearLayoutManager.VERTICAL, false);
-                    List<NotaDegustazione> listaNoteDegustazione = ((Risultato.AllNoteDegustazioneSuccesso) risultato).getListaNoteDegustazione();
-                    adapterRecyclerViewNoteDegustazione = new AdapterRecyclerViewNoteDegustazione(listaNoteDegustazione);
-                    fragmentBirraDettagliataBinding.recyclerViewNoteDettagliate.setLayoutManager(layoutManagerNote);
-                    fragmentBirraDettagliataBinding.recyclerViewNoteDettagliate.setAdapter(adapterRecyclerViewNoteDegustazione);
-                }else{
-                    Snackbar.make(view, ((Risultato.Errore)risultato).getMessaggio(), BaseTransientBottomBar.LENGTH_SHORT);
-                }
-        });
-
-
-
     }
 }
