@@ -1,4 +1,4 @@
-package it.unimib.brewday.ui.cosa_preparare_oggi;
+package it.unimib.brewday.ui.cosa_prepariamo_oggi;
 
 import android.content.Context;
 
@@ -8,17 +8,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import it.unimib.brewday.util.ServiceLocator;
 
-public class CosaPreparareOggiViewModelFactory implements ViewModelProvider.Factory {
+public class CosaPrepariamoOggiViewModelFactory implements ViewModelProvider.Factory {
 
     private final Context context;
 
-    public CosaPreparareOggiViewModelFactory(Context context) {
+    public CosaPrepariamoOggiViewModelFactory(Context context) {
         this.context = context;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new CosaPreparareOggiViewModel(ServiceLocator.getInstance().getGestioneBirraDomain(context));
+        return (T) new CosaPrepariamoOggiViewModel(ServiceLocator.getInstance().getGestioneBirraDomain(context));
     }
 }

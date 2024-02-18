@@ -1,4 +1,4 @@
-package it.unimib.brewday.ui.cosa_preparare_oggi;
+package it.unimib.brewday.ui.cosa_prepariamo_oggi;
 
 import android.os.Bundle;
 
@@ -14,50 +14,51 @@ import android.view.ViewGroup;
 import com.google.android.material.snackbar.Snackbar;
 
 import it.unimib.brewday.R;
+import it.unimib.brewday.domain.StrategiaOttimizzazioneLitri;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
 
-public class CosaPreparareOggiFragment extends Fragment {
+public class CosaPrepariamoOggiFragment extends Fragment {
 
-    private CosaPreparareOggiViewModel cosaPreparareOggiViewModel;
+    private CosaPrepariamoOggiViewModel cosaPrepariamoOggiViewModel;
     private Ricetta ricettaSelezionata;
     private int litriRicettaSelezionata;
 
-    public CosaPreparareOggiFragment() {
+    public CosaPrepariamoOggiFragment() {
         // Required empty public constructor
     }
 
 
-    public static CosaPreparareOggiFragment newInstance() {
-        return new CosaPreparareOggiFragment();
+    public static CosaPrepariamoOggiFragment newInstance() {
+        return new CosaPrepariamoOggiFragment();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cosaPreparareOggiViewModel = new CosaPreparareOggiViewModelFactory(requireContext()).create(CosaPreparareOggiViewModel.class);
+        cosaPrepariamoOggiViewModel = new CosaPrepariamoOggiViewModelFactory(requireContext()).create(CosaPrepariamoOggiViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cosa_preparare_oggi, container, false);
+        return inflater.inflate(R.layout.fragment_cosa_prepariamo_oggi, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        cosaPreparareOggiViewModel.getRicettaConsumoMassimoRisultato().observe(getViewLifecycleOwner(), risultato -> {
+        cosaPrepariamoOggiViewModel.getRicettaConsumoMassimoRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
                 //recuperare dosaggi e recuperare differenza
                 ricettaSelezionata = ((Risultato.OttimizzazioneSuccesso) risultato).getRicetta();
                 litriRicettaSelezionata = ((Risultato.OttimizzazioneSuccesso) risultato).getLitri();
 
                 if(ricettaSelezionata != null){
-                    CosaPreparareOggiFragmentDirections.ActionCosaDevoPreparareOggiFragmentToPreparaBirraFragment action =
-                            CosaPreparareOggiFragmentDirections.actionCosaDevoPreparareOggiFragmentToPreparaBirraFragment(ricettaSelezionata, litriRicettaSelezionata);
+                    CosaPrepariamoOggiFragmentDirections.ActionCosaDevoPreparareOggiFragmentToPreparaBirraFragment action =
+                            CosaPrepariamoOggiFragmentDirections.actionCosaDevoPreparareOggiFragmentToPreparaBirraFragment(ricettaSelezionata, litriRicettaSelezionata);
                     Navigation.findNavController(view).navigate(action);
                 }
                 else{
@@ -69,6 +70,6 @@ public class CosaPreparareOggiFragment extends Fragment {
             }
         });
 
-        cosaPreparareOggiViewModel.cosaPrepariamoOggi(null);
+        cosaPrepariamoOggiViewModel.cosaPrepariamoOggi(new StrategiaOttimizzazioneLitri());
     }
 }

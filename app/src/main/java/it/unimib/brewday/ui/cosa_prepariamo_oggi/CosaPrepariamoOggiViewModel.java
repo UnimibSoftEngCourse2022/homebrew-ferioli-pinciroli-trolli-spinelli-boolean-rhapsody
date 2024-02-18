@@ -1,4 +1,4 @@
-package it.unimib.brewday.ui.cosa_preparare_oggi;
+package it.unimib.brewday.ui.cosa_prepariamo_oggi;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -12,7 +12,7 @@ import it.unimib.brewday.domain.StrategiaOttimizzazione;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Risultato;
 
-public class CosaPreparareOggiViewModel extends ViewModel {
+public class CosaPrepariamoOggiViewModel extends ViewModel {
 
     private final MutableLiveData<Risultato> ricettaConsumoMassimoRisultato;
     private final MutableLiveData<Risultato> dosaggiRisultato;
@@ -20,7 +20,7 @@ public class CosaPreparareOggiViewModel extends ViewModel {
     private final IGestioneBirraDomain gestioneBirraDomain;
 
 
-    public CosaPreparareOggiViewModel(GestioneBirre gestioneBirre) {
+    public CosaPrepariamoOggiViewModel(GestioneBirre gestioneBirre) {
         this.gestioneBirraDomain = gestioneBirre;
         ricettaConsumoMassimoRisultato = new MutableLiveData<>();
         dosaggiRisultato = new MutableLiveData<>();
