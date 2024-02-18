@@ -40,4 +40,6 @@
     <string name="massimizza_per_litri">Massimizza produzione litri</string>
     <string name="massimizza_conusmo_ingredienti">Massimizza conusmo ingredienti</string>
     <string name="CosaPrepariamoOggi">Che cosa prepariamo oggi?</string>
+    <string name="OttimizzaPerLitri">Voglio produrre più birra possibile!</string>
+    <string name="OttimizzaPerIngredienti">Voglio far fuori tutte le scorte che mi sono rimaste!</string>
 </resources>

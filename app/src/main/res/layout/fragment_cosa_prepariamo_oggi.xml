@@ -9,23 +9,30 @@
 
     <ImageButton
         android:id="@+id/cosaPreparareOggi_ottimizzaIngredienti"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
         android:background="@drawable/roundcorner"
         android:contentDescription="@string/massimizza_conusmo_ingredienti"
         android:src="@drawable/scale_24px"
-        tools:layout_editor_absoluteX="263dp"
-        tools:layout_editor_absoluteY="514dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/cosaPreparareOggi_ottimizzaLitri"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cosaPreparareOggi_ottimizzaLitri"
+        app:layout_constraintTop_toTopOf="@+id/cosaPreparareOggi_ottimizzaLitri" />
 
     <ImageButton
         android:id="@+id/cosaPreparareOggi_ottimizzaLitri"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/roundcorner"
         android:contentDescription="@string/massimizza_per_litri"
         android:src="@drawable/water_full_24px"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="514dp" />
+        app:layout_constraintEnd_toStartOf="@+id/cosaPreparareOggi_ottimizzaIngredienti"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <ImageView
         android:id="@+id/imageView_logoApp"
@@ -50,20 +57,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_logoApp" />
 
-    <TextView
-        android:id="@+id/textView_ottimizzaLitri"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="388dp" />
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_cosaPrepariamoOggi">
 
-    <TextView
-        android:id="@+id/textView_ottimizzaIngredienti"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="253dp"
-        tools:layout_editor_absoluteY="388dp" />
+        <TextView
+            android:id="@+id/textView_ottimizzaIngredienti"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/OttimizzaPerIngredienti" />
+
+        <TextView
+            android:id="@+id/textView_ottimizzaLitri"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/OttimizzaPerLitri" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
