@@ -19,10 +19,7 @@ public class BirraViewModel extends ViewModel {
     private final MutableLiveData<Risultato> dosaggiRisultato;
     private final MutableLiveData<Risultato> consumoIngredientiRisultato;
     private final MutableLiveData<Risultato> createBirraRisultato;
-    private final MutableLiveData<Risultato> ingredientiRicettaPerLitriRisultato;
-    private final MutableLiveData<Risultato> differenzaIngredientiRisultato;
     private final MutableLiveData<Risultato> attrezziSelezionatiRisultato;
-    private final MutableLiveData<Risultato>  updateIngredientiMutableLiveData ;
 
     private final IGestioneBirraDomain domainGestioneBirra;
 
@@ -31,25 +28,14 @@ public class BirraViewModel extends ViewModel {
         this.domainGestioneBirra = domainGestioneBirra;
 
         createBirraRisultato = new MutableLiveData<>();
-        terminaBirraRisultato = new MutableLiveData<>();
-
         consumoIngredientiRisultato = new MutableLiveData<>();
         dosaggiRisultato = new MutableLiveData<>();
-        differenzaIngredientiRisultato = new MutableLiveData<>();
-        ingredientiRicettaPerLitriRisultato = new MutableLiveData<>();
         attrezziSelezionatiRisultato = new MutableLiveData<>();
     }
 
-    public void getAllBirre() {
-        domainGestioneBirra.getAllBirre(getAllBirreRisultato::postValue);
-    }
 
     public void createBirra(Birra birra, List<Integer> listaDifferenzaIngredienti, List<Attrezzo> listaAttrezzi) {
         domainGestioneBirra.createBirra(birra, listaDifferenzaIngredienti, listaAttrezzi, createBirraRisultato::postValue);
-    }
-
-    public void terminaBirra(Birra birra){
-        domainGestioneBirra.terminaBirra(birra, terminaBirraRisultato::postValue);
     }
 
     public void calcolaDosaggi(long idRicetta, int litriBirraScelti){

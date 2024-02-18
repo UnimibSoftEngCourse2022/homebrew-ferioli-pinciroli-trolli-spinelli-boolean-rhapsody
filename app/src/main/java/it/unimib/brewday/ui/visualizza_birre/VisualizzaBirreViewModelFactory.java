@@ -19,10 +19,8 @@ public class VisualizzaBirreViewModelFactory implements ViewModelProvider.Factor
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         return (T) new VisualizzaBirreViewModel(
-                ServiceLocator.getInstance().getBirraRepository(context),
-                ServiceLocator.getInstance().getRicetteRepository(context),
-                ServiceLocator.getInstance().getAttrezziRepository(context),
-                ServiceLocator.getInstance().getNotaRepository(context)
+                ServiceLocator.getInstance().getNotaRepository(context),
+                ServiceLocator.getInstance().getGestioneBirraDomain(context)
         );
     }
 }

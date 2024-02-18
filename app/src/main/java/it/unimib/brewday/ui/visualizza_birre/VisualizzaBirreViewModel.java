@@ -4,17 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.List;
 
+import it.unimib.brewday.domain.IGestioneBirraDomain;
 import it.unimib.brewday.model.Birra;
-import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.NotaDegustazione;
 import it.unimib.brewday.model.Risultato;
-import it.unimib.brewday.model.TipoIngrediente;
-import it.unimib.brewday.repository.AttrezziRepository;
-import it.unimib.brewday.repository.BirreRepository;
 import it.unimib.brewday.repository.NoteDegustazioneRepository;
-import it.unimib.brewday.repository.RicetteRepository;
 
 public class VisualizzaBirreViewModel extends ViewModel {
 
@@ -28,18 +23,14 @@ public class VisualizzaBirreViewModel extends ViewModel {
     private final MutableLiveData<Risultato> getInserimentoNotaDegustazioneRisultato;
 
     //Repository di accesso ai dati
-    private final BirreRepository birreRepository;
-    private final RicetteRepository ricetteRepository;
-    private final AttrezziRepository attrezziRepository;
     private final NoteDegustazioneRepository noteDegustazioneRepository;
 
-    public VisualizzaBirreViewModel(BirreRepository birreRepository,
-                          RicetteRepository ricetteRepository, AttrezziRepository attrezziRepository, NoteDegustazioneRepository noteDegustazioneRepository) {
+    private final IGestioneBirraDomain domainGestioneBirra;
 
-        this.birreRepository = birreRepository;
-        this.ricetteRepository = ricetteRepository;
-        this.attrezziRepository = attrezziRepository;
+    public VisualizzaBirreViewModel(NoteDegustazioneRepository noteDegustazioneRepository, IGestioneBirraDomain domainGestioneBirra) {
+
         this.noteDegustazioneRepository = noteDegustazioneRepository;
+        this.domainGestioneBirra = domainGestioneBirra;
 
         getAllBirreRisultato = new MutableLiveData<>();
         updateBirreRisultato = new MutableLiveData<>();
@@ -52,29 +43,23 @@ public class VisualizzaBirreViewModel extends ViewModel {
     }
 
     public void getAllBirre() {
-        birreRepository.readAllBirre(getAllBirreRisultato::postValue);
+        domainGestioneBirra.getAllBirre(getAllBirreRisultato::postValue);
     }
 
     public void updateBirra(Birra birra){
-        birreRepository.updateBirra(birra, updateBirreRisultato::postValue);
+        domainGestioneBirra.updateBirra(birra, updateBirreRisultato::postValue);
     }
 
     public void terminaBirra(Birra birra){
-        birreRepository.terminaBirra(birra, terminaBirraRisultato::postValue);
+        domainGestioneBirra.terminaBirra(birra, terminaBirraRisultato::postValue);
     }
 
     public void getIngredientiBirra (Birra birra){
-        ricetteRepository.readIngredientiRicetta(birra.getIdRicetta(), risultato -> {
-            if (risultato.isSuccessful()) {
-                List<IngredienteRicetta> listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
-                setDosaggioDaIngredienteRicetta(birra.getLitriProdotti(), listaIngredientiBirra );
-                getIngredientiBirraRisultato.postValue(new Risultato.ListaIngredientiDellaRicettaSuccesso(listaIngredientiBirra));
-            }
-        });
+        domainGestioneBirra.getIngredientiBirra(birra, getIngredientiBirraRisultato::postValue);
     }
 
     public void getAttrezziBirra (Birra birra){
-        attrezziRepository.readAttrezziBirra(birra.getId(), getAttrezziBirraRisultato::postValue);
+        domainGestioneBirra.getAttrezziBirra(birra, getAttrezziBirraRisultato::postValue);
     }
 
     public void getNoteDegustazione(long idBirra){
@@ -108,20 +93,4 @@ public class VisualizzaBirreViewModel extends ViewModel {
 
     public LiveData<Risultato> getInserimentoNotaDegustazioneRisultato(){ return getInserimentoNotaDegustazioneRisultato;}
 
-
-
-    private void setDosaggioDaIngredienteRicetta(int litriBirraScelti,
-                                                 List<IngredienteRicetta> listaIngredientiRicetta ){
-        for (IngredienteRicetta ingredienteRicetta : listaIngredientiRicetta) {
-            if (ingredienteRicetta.getTipoIngrediente().equals(TipoIngrediente.ACQUA)) {
-                ingredienteRicetta.setDosaggioIngrediente(round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti, 1));
-            } else {
-                ingredienteRicetta.setDosaggioIngrediente(Math.round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti));
-            }
-        }
-    }
-
-    private static double round(double n, int decimals) {
-        return Math.floor(n * Math.pow(10, decimals)) / Math.pow(10, decimals);
-    }
 }
