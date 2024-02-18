@@ -6,6 +6,8 @@
         tools:overrideLibrary="androidx.test, android.app, androidx.test.rule,
         androidx.test.espresso, androidx.test.espresso.idling"/>
 
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
