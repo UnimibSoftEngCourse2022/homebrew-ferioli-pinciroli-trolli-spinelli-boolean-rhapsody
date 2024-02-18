@@ -18,7 +18,7 @@ import it.unimib.brewday.repository.RicetteRepository;
 import it.unimib.brewday.ui.Callback;
 import it.unimib.brewday.util.Ottimizzazione;
 
-public class GestioneBirreDomain implements IGestioneBirraDomain{
+public class GestioneBirre implements IGestioneBirraDomain{
 
     //Repository di accesso ai dati
     private final BirreRepository birreRepository;
@@ -26,10 +26,10 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
     private final RicetteRepository ricetteRepository;
     private final AttrezziRepository attrezziRepository;
 
-    public GestioneBirreDomain(BirreRepository birreRepository,
-                               IngredientiRepository ingredientiRepository,
-                               RicetteRepository ricetteRepository,
-                               AttrezziRepository attrezziRepository) {
+    public GestioneBirre(BirreRepository birreRepository,
+                         IngredientiRepository ingredientiRepository,
+                         RicetteRepository ricetteRepository,
+                         AttrezziRepository attrezziRepository) {
 
         this.birreRepository = birreRepository;
         this.ingredientiRepository = ingredientiRepository;

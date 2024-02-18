@@ -1,4 +1,4 @@
-package it.unimib.brewday.util;
+package it.unimib.brewday.domain;
 
 import static android.widget.Toast.LENGTH_SHORT;
 

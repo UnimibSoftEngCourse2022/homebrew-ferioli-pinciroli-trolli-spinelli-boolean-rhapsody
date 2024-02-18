@@ -32,7 +32,7 @@ import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.gestione_birra.InserisciLitriDialog;
 import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewIngredienti;
-import it.unimib.brewday.util.GestioneRicette;
+import it.unimib.brewday.domain.GestioneRicette;
 
 
 public class RicettaDettagliataFragment extends Fragment {

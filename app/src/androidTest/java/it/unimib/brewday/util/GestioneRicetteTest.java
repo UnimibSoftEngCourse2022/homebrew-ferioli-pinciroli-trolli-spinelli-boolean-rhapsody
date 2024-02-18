@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.TipoIngrediente;
-import it.unimib.brewday.util.GestioneRicette;
+import it.unimib.brewday.domain.GestioneRicette;
 
 public class GestioneRicetteTest {
 
