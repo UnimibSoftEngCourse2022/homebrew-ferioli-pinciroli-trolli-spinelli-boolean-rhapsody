@@ -58,18 +58,18 @@ public class GestioneRicette {
     }
 
     public int creaListaIngredientiRicetta(List<Ingrediente> listaIngredientiRicetta, List<IngredienteRicetta> listaIngredientiRicettaPerLitro, EditText numeroLitriBirra, long idRicetta){
-        int zeroIngredinti = 0;
+        int zeroIngredienti = 0;
         double litriScelti = Double.parseDouble(numeroLitriBirra.getText().toString());
         listaIngredientiRicettaPerLitro.clear();
 
         for (Ingrediente ingrediente: listaIngredientiRicetta) {
             if(ingrediente.getQuantitaPosseduta() == 0) {
-                zeroIngredinti ++;
+                zeroIngredienti ++;
             }
             listaIngredientiRicettaPerLitro.add(new IngredienteRicetta( idRicetta, ingrediente.getTipo(),ingrediente.getQuantitaPosseduta() / litriScelti));
         }
 
-        return zeroIngredinti;
+        return zeroIngredienti;
     }
 
 

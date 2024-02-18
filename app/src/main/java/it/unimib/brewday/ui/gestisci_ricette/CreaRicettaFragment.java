@@ -108,12 +108,12 @@ public class CreaRicettaFragment extends Fragment {
         );
 
         creaRicettaButton.setOnClickListener(v -> {
-                    if( gestioneRicette.controlloCreazione(view, nomeRicetta, numeroLitriBirra)){
+                    if(gestioneRicette.controlloCreazione(view, nomeRicetta, numeroLitriBirra)){
                         List<IngredienteRicetta> listaIngredientiPerLitro = new ArrayList<>();
-                        int zeroIngredinti = gestioneRicette.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
+                        int zeroIngredienti = gestioneRicette.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
 
 
-                    salvaRicetta(view, zeroIngredinti, listaIngredientiPerLitro, new Ricetta(nomeRicetta.getText().toString(),Integer.parseInt(numeroLitriBirra.getText().toString())));
+                    salvaRicetta(view, zeroIngredienti, listaIngredientiPerLitro, new Ricetta(nomeRicetta.getText().toString(),Integer.parseInt(numeroLitriBirra.getText().toString())));
                     }
         });
     }

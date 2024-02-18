@@ -12,6 +12,7 @@ import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.TipoAttrezzo;
+import it.unimib.brewday.model.TipoIngrediente;
 
 public class OttimizzazioneTest {
 
@@ -102,17 +103,50 @@ public class OttimizzazioneTest {
     }
 
     @Test
-    public void testLitriPerRicetta() {
+    public void testLitriPerRicettaConIngredientiPosseduti() {
         List<IngredienteRicetta> ingredientiRicetta = new ArrayList<>();
-        // Aggiungi ingredienti alla ricetta
-        // ...
+        ingredientiRicetta.add(new IngredienteRicetta(1, TipoIngrediente.ACQUA, 50));
+        ingredientiRicetta.add(new IngredienteRicetta(1, TipoIngrediente.ADDITIVI, 70));
+        ingredientiRicetta.add(new IngredienteRicetta(1, TipoIngrediente.LIEVITI, 20));
+        ingredientiRicetta.add(new IngredienteRicetta(1, TipoIngrediente.LUPPOLO, 100));
+        ingredientiRicetta.add(new IngredienteRicetta(1, TipoIngrediente.MALTO, 30));
+        ingredientiRicetta.add(new IngredienteRicetta(1, TipoIngrediente.ZUCCHERO, 45));
+
 
         List<Ingrediente> ingredientiPosseduti = new ArrayList<>();
-        // Aggiungi ingredienti posseduti
-        // ...
+        ingredientiPosseduti.add(new Ingrediente(TipoIngrediente.ACQUA, 1000));
+        ingredientiPosseduti.add(new Ingrediente(TipoIngrediente.ADDITIVI, 1000));
+        ingredientiPosseduti.add(new Ingrediente(TipoIngrediente.LIEVITI, 1000));
+        ingredientiPosseduti.add(new Ingrediente(TipoIngrediente.LUPPOLO, 1000));
+        ingredientiPosseduti.add(new Ingrediente(TipoIngrediente.MALTO, 1000));
+        ingredientiPosseduti.add(new Ingrediente(TipoIngrediente.ZUCCHERO, 1000));
 
         int litriPerRicetta = Ottimizzazione.litriPerRicetta(ingredientiRicetta, ingredientiPosseduti);
-        assertNotEquals(-1, litriPerRicetta);
-        // Aggiungi ulteriori asserzioni se necessario
+        assertEquals(10, litriPerRicetta);
+
+    }
+
+    @Test
+    public void testLitriPerRicettaSenzaIngredientiPosseduti() {
+        List<IngredienteRicetta> ingredientiRicetta = new ArrayList<>();
+        ingredientiRicetta.add(new IngredienteRicetta(1, TipoIngrediente.ACQUA, 50));
+        ingredientiRicetta.add(new IngredienteRicetta(1, TipoIngrediente.ADDITIVI, 70));
+        ingredientiRicetta.add(new IngredienteRicetta(1, TipoIngrediente.LIEVITI, 20));
+        ingredientiRicetta.add(new IngredienteRicetta(1, TipoIngrediente.LUPPOLO, 100));
+        ingredientiRicetta.add(new IngredienteRicetta(1, TipoIngrediente.MALTO, 30));
+        ingredientiRicetta.add(new IngredienteRicetta(1, TipoIngrediente.ZUCCHERO, 45));
+
+
+        List<Ingrediente> ingredientiPosseduti = new ArrayList<>();
+        ingredientiPosseduti.add(new Ingrediente(TipoIngrediente.ACQUA, 0));
+        ingredientiPosseduti.add(new Ingrediente(TipoIngrediente.ADDITIVI, 0));
+        ingredientiPosseduti.add(new Ingrediente(TipoIngrediente.LIEVITI, 0));
+        ingredientiPosseduti.add(new Ingrediente(TipoIngrediente.LUPPOLO, 0));
+        ingredientiPosseduti.add(new Ingrediente(TipoIngrediente.MALTO, 0));
+        ingredientiPosseduti.add(new Ingrediente(TipoIngrediente.ZUCCHERO, 0));
+
+        int litriPerRicetta = Ottimizzazione.litriPerRicetta(ingredientiRicetta, ingredientiPosseduti);
+        assertEquals(0, litriPerRicetta);
+
     }
 }
