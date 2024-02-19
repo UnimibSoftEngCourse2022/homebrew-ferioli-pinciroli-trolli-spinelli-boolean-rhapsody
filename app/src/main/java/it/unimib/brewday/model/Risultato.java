@@ -18,7 +18,9 @@ public class Risultato {
                 || this instanceof ListaRicetteSuccesso
                 || this instanceof SingolaRicettaSuccesso
                 || this instanceof AllBirreSuccesso
-                || this instanceof ListaDifferenzaIngredientiSuccesso;
+                || this instanceof ListaDifferenzaIngredientiSuccesso
+                || this instanceof AllNoteDegustazioneSuccesso
+                || this instanceof MediaNotaDegustazioneSuccesso;
 
     }
 
@@ -143,6 +145,35 @@ public class Risultato {
 
         public int getLitriSuggeriti(){
             return litriSuggeriti;
+        }
+    }
+
+    public static final class AllNoteDegustazioneSuccesso extends Risultato{
+
+        private final List<NotaDegustazione> listaNoteDegustazione;
+
+
+        public AllNoteDegustazioneSuccesso(List<NotaDegustazione> listaNoteDegustazione) {
+            this.listaNoteDegustazione = listaNoteDegustazione;
+        }
+
+
+        public List<NotaDegustazione> getListaNoteDegustazione(){
+            return  listaNoteDegustazione;
+        }
+    }
+
+    public static final class MediaNotaDegustazioneSuccesso extends Risultato{
+
+        private final Float media;
+
+
+        public MediaNotaDegustazioneSuccesso(Float media) {
+            this.media = media;
+        }
+
+        public Float getMediaNotaDegustazioneSuccesso(){
+            return  media;
         }
     }
 }

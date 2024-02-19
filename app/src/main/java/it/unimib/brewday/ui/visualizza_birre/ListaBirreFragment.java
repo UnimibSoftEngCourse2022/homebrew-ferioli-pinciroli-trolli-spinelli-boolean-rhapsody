@@ -1,4 +1,4 @@
-package it.unimib.brewday.ui.gestione_birra;
+package it.unimib.brewday.ui.visualizza_birre;
 
 import android.os.Bundle;
 
@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,7 +31,7 @@ import it.unimib.brewday.model.Risultato;
 public class ListaBirreFragment extends Fragment {
 
     private List<BirraConRicetta> listaBirre;
-    private BirraViewModel birraViewModel;
+    private VisualizzaBirreViewModel visualizzaBirraViewModel;
     FragmentListaBirreBinding fragmentListaBirreBinding;
 
     public ListaBirreFragment() {
@@ -40,9 +41,9 @@ public class ListaBirreFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        birraViewModel = new ViewModelProvider(this,
-                new BirraViewModelFactory(getContext()))
-                .get(BirraViewModel.class);
+        visualizzaBirraViewModel = new ViewModelProvider(this,
+                new VisualizzaBirreViewModelFactory(getContext()))
+                .get(VisualizzaBirreViewModel.class);
         listaBirre = new ArrayList<>();
     }
 
@@ -63,7 +64,10 @@ public class ListaBirreFragment extends Fragment {
         AdapterRecyclerViewBirre adapterRecyclerViewBirre = new AdapterRecyclerViewBirre(listaBirre, new AdapterRecyclerViewBirre.ItemClickCallback() {
             @Override
             public void onElementoBirraClick(BirraConRicetta birra) {
-                // TODO implementare birra dettagliata
+                ListaBirreFragmentDirections.ActionBirreFragmentToBirraDettagliataFragment action =
+                        ListaBirreFragmentDirections.actionBirreFragmentToBirraDettagliataFragment(birra);
+
+                Navigation.findNavController(view).navigate(action);
             }
 
             @Override
@@ -71,11 +75,11 @@ public class ListaBirreFragment extends Fragment {
                 birra.setTerminata(true);
                 birra.setDataTerminazione(new SimpleDateFormat("dd/MM/yyyy", Locale.ITALY)
                         .format(Calendar.getInstance().getTime()));
-                birraViewModel.terminaBirra(birra);
+                visualizzaBirraViewModel.terminaBirra(birra);
             }
         });
 
-        birraViewModel.getAllBirreResult().observe(getViewLifecycleOwner(), risultato -> {
+        visualizzaBirraViewModel.getAllBirreRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
                 listaBirre.clear();
                 listaBirre.addAll(((Risultato.AllBirreSuccesso) risultato).getAllBirre());
@@ -86,7 +90,8 @@ public class ListaBirreFragment extends Fragment {
             }
         });
 
-        birraViewModel.getTerminaBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
+
+        visualizzaBirraViewModel.getTerminaBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
                 adapterRecyclerViewBirre.notifyDataSetChanged();
             }
@@ -95,7 +100,7 @@ public class ListaBirreFragment extends Fragment {
             }
         });
 
-        birraViewModel.getAllBirre();
+        visualizzaBirraViewModel.getAllBirre();
 
 
         recyclerViewBirre.setLayoutManager(layoutManager);

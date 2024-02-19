@@ -1,5 +1,8 @@
 package it.unimib.brewday.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -14,19 +17,35 @@ import androidx.room.PrimaryKey;
                 onUpdate = ForeignKey.CASCADE
         )
 })
-public class Birra {
+public class Birra implements Parcelable {
 
     @PrimaryKey(autoGenerate = true) private long id;
     private boolean terminata;
     private String dataTerminazione;
     private int litriProdotti;
     @NonNull private long idRicetta;
+    private String notaGenerale;
+
+
 
     public Birra(int litriProdotti, long idRicetta) {
         this.idRicetta = idRicetta;
         this.litriProdotti = litriProdotti;
         terminata = false;
+        notaGenerale = "";
     }
+
+    public static final Creator<Birra> CREATOR = new Creator<Birra>() {
+        @Override
+        public Birra createFromParcel(Parcel in) {
+            return new Birra(in);
+        }
+
+        @Override
+        public Birra[] newArray(int size) {
+            return new Birra[size];
+        }
+    };
 
     public long getId() {
         return id;
@@ -67,4 +86,48 @@ public class Birra {
     public void setDataTerminazione(String dataTerminazione) {
         this.dataTerminazione = dataTerminazione;
     }
+
+    public String getNotaGenerale() {
+        return notaGenerale;
+    }
+
+    public void setNotaGenerale(String notaGenerale) {
+        this.notaGenerale = notaGenerale;
+    }
+
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.id);
+        dest.writeByte(this.terminata ? (byte) 1 : (byte) 0);
+        dest.writeString(this.dataTerminazione);
+        dest.writeInt(this.litriProdotti);
+        dest.writeLong(this.idRicetta);
+        dest.writeString(this.notaGenerale);
+    }
+
+    public void readFromParcel(Parcel source) {
+        this.id = source.readLong();
+        this.terminata = source.readByte() != 0;
+        this.dataTerminazione = source.readString();
+        this.litriProdotti = source.readInt();
+        this.idRicetta = source.readLong();
+        this.notaGenerale = source.readString();
+    }
+
+    protected Birra(Parcel in) {
+        this.id = in.readLong();
+        this.terminata = in.readByte() != 0;
+        this.dataTerminazione = in.readString();
+        this.litriProdotti = in.readInt();
+        this.idRicetta = in.readLong();
+        this.notaGenerale = in.readString();
+    }
+
 }

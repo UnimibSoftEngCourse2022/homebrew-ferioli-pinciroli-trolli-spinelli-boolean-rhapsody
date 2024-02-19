@@ -14,14 +14,11 @@ import it.unimib.brewday.model.Risultato;
 
 public class BirraViewModel extends ViewModel {
 
-    //Livedata per pagina birra
-    private final MutableLiveData<Risultato> getAllBirreRisultato;
-    private final MutableLiveData<Risultato> createBirraRisultato;
-    private final MutableLiveData<Risultato> terminaBirraRisultato;
 
     //Livedata per pagina creazione birra
     private final MutableLiveData<Risultato> dosaggiRisultato;
     private final MutableLiveData<Risultato> consumoIngredientiRisultato;
+    private final MutableLiveData<Risultato> createBirraRisultato;
     private final MutableLiveData<Risultato> attrezziSelezionatiRisultato;
 
     private final IGestioneBirraDomain domainGestioneBirra;
@@ -30,25 +27,15 @@ public class BirraViewModel extends ViewModel {
 
         this.domainGestioneBirra = domainGestioneBirra;
 
-        getAllBirreRisultato = new MutableLiveData<>();
         createBirraRisultato = new MutableLiveData<>();
-        terminaBirraRisultato = new MutableLiveData<>();
-
         consumoIngredientiRisultato = new MutableLiveData<>();
         dosaggiRisultato = new MutableLiveData<>();
         attrezziSelezionatiRisultato = new MutableLiveData<>();
     }
 
-    public void getAllBirre() {
-        domainGestioneBirra.getAllBirre(getAllBirreRisultato::postValue);
-    }
 
     public void createBirra(Birra birra, List<Integer> listaDifferenzaIngredienti, List<Attrezzo> listaAttrezzi) {
         domainGestioneBirra.createBirra(birra, listaDifferenzaIngredienti, listaAttrezzi, createBirraRisultato::postValue);
-    }
-
-    public void terminaBirra(Birra birra){
-        domainGestioneBirra.terminaBirra(birra, terminaBirraRisultato::postValue);
     }
 
     public void calcolaDosaggi(long idRicetta, int litriBirraScelti){
@@ -67,16 +54,8 @@ public class BirraViewModel extends ViewModel {
     /*
      * Metodi per ottenere riferimento a Mutable live data
      */
-    public LiveData<Risultato> getAllBirreResult() {
-        return getAllBirreRisultato;
-    }
-
     public LiveData<Risultato> getCreateBirraResult() {
         return createBirraRisultato;
-    }
-
-    public LiveData<Risultato> getTerminaBirraRisultato() {
-        return terminaBirraRisultato;
     }
 
     public LiveData<Risultato> getAttrezziSelezionatiRisultato() {

@@ -18,4 +18,10 @@ public class RegistroErrori {
     public static final String ATTREZZI_UPDATE_ERROR = "Errore nell'aggiornamento dei dati";
     public static final String ATTREZZI_DELETE_ERROR = "Errore nella cancellazione dei dati";
     public static final String ATTREZZO_TIPOLOGIA_MANCANTE = "attrezzo_tipologia_mancante";
+
+    public static final String NOTA_CREATION_ERROR = "Errore inserimento nota";
+    public static final String NOTA_FETCH_ERROR = "Errore nella lettura delle note";
+
+    public static final String NOTA_MEDIA_ERROR = "Errore nel calcolo della media";
+
 }

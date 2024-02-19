@@ -69,8 +69,30 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
     }
 
     @Override
+    public void updateBirra(Birra birra, Callback callback){
+        birreRepository.updateBirra(birra, callback);
+    }
+
+    @Override
     public void terminaBirra(Birra birra, Callback callback) {
         birreRepository.terminaBirra(birra, callback);
+    }
+
+    @Override
+    public void getIngredientiBirra (Birra birra, Callback callback){
+        ricetteRepository.readIngredientiRicetta(birra.getIdRicetta(), risultato -> {
+            if (risultato.isSuccessful()) {
+                List<IngredienteRicetta> listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
+
+                setDosaggioDaIngredienteRicetta(birra.getLitriProdotti(), listaIngredientiBirra );
+                callback.onComplete(new Risultato.ListaIngredientiDellaRicettaSuccesso(listaIngredientiBirra));
+            }
+        });
+    }
+
+    @Override
+    public void getAttrezziBirra(Birra birra, Callback callback) {
+        attrezziRepository.readAttrezziBirra(birra.getId(), callback);
     }
 
     @Override
@@ -128,7 +150,7 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
                                                  List<IngredienteRicetta> listaIngredientiRicetta ){
         for (IngredienteRicetta ingredienteRicetta : listaIngredientiRicetta) {
             if (ingredienteRicetta.getTipoIngrediente().equals(TipoIngrediente.ACQUA)) {
-                ingredienteRicetta.setDosaggioIngrediente(round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti, 1));
+                ingredienteRicetta.setDosaggioIngrediente(round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti));
             } else {
                 ingredienteRicetta.setDosaggioIngrediente(Math.round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti));
             }
@@ -145,7 +167,7 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
         }
     }
 
-    private static double round(double n, int decimals) {
-        return Math.floor(n * Math.pow(10, decimals)) / Math.pow(10, decimals);
+    private static double round(double n) {
+        return Math.floor(n * Math.pow(10, 1)) / Math.pow(10, 1);
     }
 }

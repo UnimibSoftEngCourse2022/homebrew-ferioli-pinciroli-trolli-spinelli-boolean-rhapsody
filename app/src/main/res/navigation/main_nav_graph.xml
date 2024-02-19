@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/birreFragment"
-        android:name="it.unimib.brewday.ui.gestione_birra.ListaBirreFragment"
+        android:name="it.unimib.brewday.ui.visualizza_birre.ListaBirreFragment"
         android:label="Gestisci le tue birre"
         tools:layout="@layout/fragment_lista_birre" >
         <action
@@ -63,9 +63,13 @@
         tools:layout="@layout/fragment_cosa_devo_preparare_oggi" />
     <fragment
         android:id="@+id/birraDettagliataFragment"
-        android:name="it.unimib.brewday.ui.gestione_birra.BirraDettagliataFragment"
+        android:name="it.unimib.brewday.ui.visualizza_birre.BirraDettagliataFragment"
         android:label="fragment_birra_dettagliata"
-        tools:layout="@layout/fragment_birra_dettagliata" />
+        tools:layout="@layout/fragment_birra_dettagliata" >
+        <argument
+            android:name="Birra"
+            app:argType="it.unimib.brewday.model.BirraConRicetta" />
+    </fragment>
     <fragment
         android:id="@+id/preparaBirraFragment"
         android:name="it.unimib.brewday.ui.gestione_birra.PreparaBirraFragment"
