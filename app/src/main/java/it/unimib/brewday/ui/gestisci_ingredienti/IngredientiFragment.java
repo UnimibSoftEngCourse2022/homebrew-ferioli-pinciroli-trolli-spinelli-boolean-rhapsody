@@ -1,8 +1,5 @@
 package it.unimib.brewday.ui.gestisci_ingredienti;
 
-import static android.widget.Toast.LENGTH_SHORT;
-
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
