@@ -45,8 +45,8 @@ public class AttrezziRepository {
 
     public void updateAttrezzo(Attrezzo attrezzo, Callback callback) {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-
             int rowsUpdated = attrezziDao.updateAttrezzo(attrezzo);
+
             if (rowsUpdated == 0) {
                 callback.onComplete(new Risultato.Errore(RegistroErrori.ATTREZZI_UPDATE_ERROR));
             }
@@ -58,8 +58,8 @@ public class AttrezziRepository {
 
     public void deleteAttrezzo(Attrezzo attrezzo, Callback callback) {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-
             int rowsDeleted = attrezziDao.deleteAttrezzo(attrezzo);
+
             if (rowsDeleted == 0) {
                 callback.onComplete(new Risultato.Errore(RegistroErrori.ATTREZZI_DELETE_ERROR));
             }
@@ -71,8 +71,8 @@ public class AttrezziRepository {
 
     public void readAllAttrezziLiberi(Callback callback) {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-
             List<Attrezzo> attrezziNonInUso = attrezziDao.getAllAttrezziNonInUtilizzo();
+
             if(attrezziNonInUso != null) {
                 callback.onComplete(new Risultato.ListaAttrezziSuccesso(attrezziNonInUso));
             }
@@ -83,21 +83,16 @@ public class AttrezziRepository {
     }
 
     public void readAttrezziBirra (long idBirra, Callback callback){
-            LocalDatabase.databaseWriteExecutor.execute(() -> {
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
             List<Attrezzo> attrezziBirra = attrezziDao.getAllAttrezziInUtilizzo(idBirra);
+
             if(attrezziBirra != null){
                 callback.onComplete(new Risultato.ListaAttrezziSuccesso(attrezziBirra));
-            }else{
-
+            }
+            else{
                 callback.onComplete(new Risultato.Errore(RegistroErrori.ATTREZZI_FETCH_ERROR));
             }
-
-
-
-            } );
-
-
-
-
+        });
     }
+
 }

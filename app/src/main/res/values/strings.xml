@@ -26,7 +26,7 @@
     <string name="no_iingredienti_negativi">Non si possono avere ingredienti negativi</string>
     <string name="nome_ricetta_mancante">Nome ricetta mancante</string>
     <string name="litri_birra_ricetta_mancante">Litri di birra mancanti</string>
-    <string name="ingredienti_ricetta_mancanti">scegli più ingredienti</string>
+    <string name="ingredienti_ricetta_mancanti">Scegli più ingredienti</string>
     <string name="attrezzi_dati_inaccettabili">Dati inseriti inaccettabili</string>
     <string name="annulla">Annulla</string>
     <string name="brewToday">BrewToday</string>
@@ -42,8 +42,12 @@
     <string name="cosa_prepariamo_oggi">Che cosa prepariamo oggi?</string>
     <string name="ottimizza_per_litri">Voglio produrre più birra possibile!</string>
     <string name="ottimizza_per_ingredienti">Voglio far fuori tutte le scorte che mi sono rimaste!</string>
-    <string name="nessuna_ricetta_disponibile">Nessuna ricetta è attualmente disponibile per la preparazione</string>
     <string name="genera_lista_della_spesa">Genera lista della spesa</string>
     <string name="ricette">Ricette</string>
     <string name="brew_day">Brew Day!</string>
+    <string name="nuova_birra">Stai preparando una nuova birra!</string>
+
+    <string name="nessuna_ricetta_disponibile">Nessuna ricetta è attualmente disponibile per la preparazione</string>
+    <string name="nessun_attrezzo_disponibile">Gli attrezzi adeguati non sono attualmente disponibili</string>
+    <string name="scorte_ingredienti_insufficienti">Non disponi degli ingredienti necessari per iniziare la preparazione</string>
 </resources>

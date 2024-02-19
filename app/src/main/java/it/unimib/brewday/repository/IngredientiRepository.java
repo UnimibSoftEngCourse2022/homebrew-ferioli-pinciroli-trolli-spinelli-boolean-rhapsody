@@ -33,7 +33,8 @@ public class IngredientiRepository {
 
     public void updateAllIngredienti(List<Ingrediente> listaIngredienti, Callback  callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-           int aggiornato = ingredienteDao.updateAllIngredienti(listaIngredienti);
+            int aggiornato = ingredienteDao.updateAllIngredienti(listaIngredienti);
+
             if(aggiornato != 0){
                 callback.onComplete(new Risultato.ListaIngredientiSuccesso(listaIngredienti));
             }
@@ -47,13 +48,13 @@ public class IngredientiRepository {
     public void updateIngrediente(Ingrediente ingrediente, Callback  callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             int aggiornato = ingredienteDao.updateIngrediente(ingrediente);
+
             if(aggiornato != 0){
-                 callback.onComplete(new Risultato.IngredienteSuccesso(ingrediente));
+                callback.onComplete(new Risultato.IngredienteSuccesso(ingrediente));
             }
             else{
-                 callback.onComplete(new Risultato.Errore(RegistroErrori.INGREDIENTI_UPDATE_ERROR));
+                callback.onComplete(new Risultato.Errore(RegistroErrori.INGREDIENTI_UPDATE_ERROR));
             }
-
         });
     }
 

@@ -28,6 +28,7 @@ import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.gestione_birra.InserisciLitriDialog;
+import it.unimib.brewday.util.RegistroErrori;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class ListaRicetteFragment extends Fragment {
@@ -81,6 +82,10 @@ public class ListaRicetteFragment extends Fragment {
 
                 adapterRecyclerViewRicette.notifyDataSetChanged();
             }
+            else{
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
         });
 
         ricettaViewModel.getAllRicette();
@@ -88,6 +93,10 @@ public class ListaRicetteFragment extends Fragment {
         ricettaViewModel.getDeleteRicettaRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()){
                 adapterRecyclerViewRicette.notifyDataSetChanged();
+            }
+            else{
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 

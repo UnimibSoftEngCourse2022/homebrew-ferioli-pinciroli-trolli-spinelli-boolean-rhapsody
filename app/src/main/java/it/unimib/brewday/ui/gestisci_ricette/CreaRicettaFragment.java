@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import it.unimib.brewday.databinding.FragmentCreaRicettaBinding;
@@ -29,8 +30,10 @@ import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
+import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewIngredienti;
 import it.unimib.brewday.util.ListaIngredienti;
+import it.unimib.brewday.util.RegistroErrori;
 
 public class CreaRicettaFragment extends Fragment {
 
@@ -48,7 +51,6 @@ public class CreaRicettaFragment extends Fragment {
     }
 
     public static CreaRicettaFragment newInstance() {
-
         return new CreaRicettaFragment();
     }
 
@@ -93,8 +95,10 @@ public class CreaRicettaFragment extends Fragment {
         ricettaViewModel.getInsertRicettaRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()){
                 getParentFragmentManager().popBackStackImmediate();
-            } else {
-                Snackbar.make(view, "Errore nella creazione della ricetta", LENGTH_SHORT).show();
+            }
+            else{
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 
@@ -106,13 +110,11 @@ public class CreaRicettaFragment extends Fragment {
         );
 
         creaRicettaButton.setOnClickListener(v -> {
-                    if(RicetteUtil.controlloCreazione(view, nomeRicetta, numeroLitriBirra)){
-                        List<IngredienteRicetta> listaIngredientiPerLitro = new ArrayList<>();
-                        int zeroIngredienti = RicetteUtil.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
-
-
-                    salvaRicetta(view, zeroIngredienti, listaIngredientiPerLitro, new Ricetta(nomeRicetta.getText().toString(),Integer.parseInt(numeroLitriBirra.getText().toString())));
-                    }
+            if(RicetteUtil.controlloCreazione(view, nomeRicetta, numeroLitriBirra)){
+                List<IngredienteRicetta> listaIngredientiPerLitro = new ArrayList<>();
+                int zeroIngredienti = RicetteUtil.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
+                salvaRicetta(view, zeroIngredienti, listaIngredientiPerLitro, new Ricetta(nomeRicetta.getText().toString(),Integer.parseInt(numeroLitriBirra.getText().toString())));
+            }
         });
     }
 
@@ -120,7 +122,8 @@ public class CreaRicettaFragment extends Fragment {
     private void salvaRicetta(View view, int zeroIngredienti, List<IngredienteRicetta> ingredientiRicetta, Ricetta ricetta) {
         if (zeroIngredienti < 3) {
             ricettaViewModel.insertRicetta(ricetta, ingredientiRicetta);
-        } else {
+        }
+        else{
             Snackbar.make(view, R.string.ingredienti_ricetta_mancanti, LENGTH_SHORT).show();
         }
     }

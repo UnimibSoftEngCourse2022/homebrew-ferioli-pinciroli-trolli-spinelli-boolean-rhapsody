@@ -17,36 +17,32 @@ public class NoteDegustazioneRepository {
         this.notaDegustazioneDao = localDatabase.notaDegustazioneDao();
     }
 
-
-
-
-
     public void inserisciNotaDegustazione(NotaDegustazione notaDegustazione, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             long numeroNoteInseriti = notaDegustazioneDao.inserisciNota(notaDegustazione);
+
             if (numeroNoteInseriti > 0) {
                 callback.onComplete(new Risultato.Successo());
-            } else {
+            }
+            else{
                 callback.onComplete(new Risultato.Errore(RegistroErrori.NOTA_CREATION_ERROR));
 
             }
-
-
         });
-        }
-        public void readAllNoteDegustazione( long idBirra , Callback callback){
-            LocalDatabase.databaseWriteExecutor.execute(() -> {
+    }
+
+    public void readAllNoteDegustazione( long idBirra , Callback callback){
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
             List<NotaDegustazione> listaNoteDegustazione = notaDegustazioneDao.getListaNoteDegustazione(idBirra);
-                if (listaNoteDegustazione != null) {
-                    callback.onComplete(new Risultato.AllNoteDegustazioneSuccesso(listaNoteDegustazione));
-                } else {
-                    callback.onComplete(new Risultato.Errore(RegistroErrori.NOTA_FETCH_ERROR));
 
-                }
+            if (listaNoteDegustazione != null) {
+                callback.onComplete(new Risultato.AllNoteDegustazioneSuccesso(listaNoteDegustazione));
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.NOTA_FETCH_ERROR));
 
-            });
-        }
-
-
+            }
+        });
+    }
 
 }
