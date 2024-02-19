@@ -9,7 +9,7 @@ import it.unimib.brewday.util.RegistroErrori;
 
 import java.util.List;
 
-public class AttrezziRepository {
+public class AttrezziRepository implements  IAttrezziRepository{
 
     private final AttrezzoDao attrezziDao;
 
@@ -17,6 +17,7 @@ public class AttrezziRepository {
         attrezziDao = localDatabase.attrezzoDao();
     }
 
+    @Override
     public void readAllAttrezzi(Callback callback) {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             List<Attrezzo> allAttrezzi = attrezziDao.getAllAttrezzi();
@@ -30,6 +31,7 @@ public class AttrezziRepository {
         });
     }
 
+    @Override
     public void createAttrezzo(Attrezzo attrezzo, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             long id = attrezziDao.insertAttrezzo(attrezzo);
@@ -43,6 +45,7 @@ public class AttrezziRepository {
         });
     }
 
+    @Override
     public void updateAttrezzo(Attrezzo attrezzo, Callback callback) {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
 
@@ -56,6 +59,7 @@ public class AttrezziRepository {
         });
     }
 
+    @Override
     public void deleteAttrezzo(Attrezzo attrezzo, Callback callback) {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
 
@@ -69,6 +73,7 @@ public class AttrezziRepository {
         });
     }
 
+    @Override
     public void readAllAttrezziLiberi(Callback callback) {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
 
@@ -82,8 +87,9 @@ public class AttrezziRepository {
         });
     }
 
+    @Override
     public void readAttrezziBirra (long idBirra, Callback callback){
-            LocalDatabase.databaseWriteExecutor.execute(() -> {
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
             List<Attrezzo> attrezziBirra = attrezziDao.getAllAttrezziInUtilizzo(idBirra);
             if(attrezziBirra != null){
                 callback.onComplete(new Risultato.ListaAttrezziSuccesso(attrezziBirra));
@@ -91,13 +97,6 @@ public class AttrezziRepository {
 
                 callback.onComplete(new Risultato.Errore(RegistroErrori.ATTREZZI_FETCH_ERROR));
             }
-
-
-
-            } );
-
-
-
-
+        } );
     }
 }
