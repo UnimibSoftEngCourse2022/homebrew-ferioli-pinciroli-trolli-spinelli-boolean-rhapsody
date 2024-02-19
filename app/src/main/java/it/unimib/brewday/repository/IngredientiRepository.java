@@ -9,7 +9,7 @@ import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.ui.Callback;
 import it.unimib.brewday.util.RegistroErrori;
 
-public class IngredientiRepository {
+public class IngredientiRepository implements IIngredientiRepository{
 
     final IngredienteDao ingredienteDao;
 
@@ -29,7 +29,6 @@ public class IngredientiRepository {
         });
 
     }
-
 
     public void updateAllIngredienti(List<Ingrediente> listaIngredienti, Callback  callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
