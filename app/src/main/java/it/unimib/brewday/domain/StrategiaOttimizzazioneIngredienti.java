@@ -25,7 +25,7 @@ public class StrategiaOttimizzazioneIngredienti implements StrategiaOttimizzazio
         }
 
 
-        double consumoMassimo = -1.0;
+        double consumoMassimo = 0;
         int litriPerRicettaSelezionata = 0;
         Ricetta ricettaSelezionata = null;
 

@@ -22,7 +22,7 @@ public class StrategiaOttimizzazioneLitri implements StrategiaOttimizzazione{
             return new Risultato.Errore(RegistroErrori.ATTREZZO_TIPOLOGIA_MANCANTE);
         }
 
-        int litriPerRicettaSelezionata = -1;
+        int litriPerRicettaSelezionata = 0;
         Ricetta ricettaSelezionata = null;
 
         for (Ricetta ricetta : listaRicette) {
