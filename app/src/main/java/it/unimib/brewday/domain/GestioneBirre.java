@@ -69,8 +69,30 @@ public class GestioneBirre implements IGestioneBirra {
     }
 
     @Override
+    public void updateBirra(Birra birra, Callback callback){
+        birreRepository.updateBirra(birra, callback);
+    }
+
+    @Override
     public void terminaBirra(Birra birra, Callback callback) {
         birreRepository.terminaBirra(birra, callback);
+    }
+
+    @Override
+    public void getIngredientiBirra (Birra birra, Callback callback){
+        ricetteRepository.readIngredientiRicetta(birra.getIdRicetta(), risultato -> {
+            if (risultato.isSuccessful()) {
+                List<IngredienteRicetta> listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
+
+                GestioneBirreUtil.calcolaDosaggiPerLitriScelti(birra.getLitriProdotti(), listaIngredientiBirra );
+                callback.onComplete(new Risultato.ListaIngredientiDellaRicettaSuccesso(listaIngredientiBirra));
+            }
+        });
+    }
+
+    @Override
+    public void getAttrezziBirra(Birra birra, Callback callback) {
+        attrezziRepository.readAttrezziBirra(birra.getId(), callback);
     }
 
     @Override

@@ -25,9 +25,12 @@ public class AdapterRecyclerViewAttrezzi extends RecyclerView.Adapter<AdapterRec
     private List<Attrezzo> listaAttrezzi;
     private final AttrezziViewModel attrezziViewModel;
 
-    public AdapterRecyclerViewAttrezzi(List<Attrezzo> dataList, AttrezziViewModel viewModel) {
+    private final boolean invisibile;
+
+    public AdapterRecyclerViewAttrezzi(List<Attrezzo> dataList, AttrezziViewModel viewModel, boolean invisibile) {
         this.listaAttrezzi = dataList;
         attrezziViewModel = viewModel;
+        this.invisibile= invisibile;
     }
 
     @NonNull
@@ -54,6 +57,11 @@ public class AdapterRecyclerViewAttrezzi extends RecyclerView.Adapter<AdapterRec
         String tipoAttrezzoStringFormat = listaAttrezzi.get(position).getTipoAttrezzo().getNome();
         holder.tipoAttrezzo.setSelection(holder.adapter.getPosition(tipoAttrezzoStringFormat));
 
+        if(invisibile){
+            holder.modifica.setVisibility(View.GONE);
+            holder.conferma.setVisibility(View.GONE);
+            holder.cancella.setVisibility(View.GONE);
+        }
         //Gestione bottone modifica
         holder.modifica.setOnClickListener(v -> {
 

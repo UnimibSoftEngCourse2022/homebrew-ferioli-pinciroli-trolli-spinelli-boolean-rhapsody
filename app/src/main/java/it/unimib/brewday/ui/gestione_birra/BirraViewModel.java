@@ -14,13 +14,10 @@ import it.unimib.brewday.model.Risultato;
 
 public class BirraViewModel extends ViewModel {
 
-    //Livedata per pagina birra
-    private final MutableLiveData<Risultato> getAllBirreRisultato;
-    private final MutableLiveData<Risultato> createBirraRisultato;
-    private final MutableLiveData<Risultato> terminaBirraRisultato;
 
     //Livedata per pagina creazione birra
     private final MutableLiveData<Risultato> dosaggiRisultato;
+    private final MutableLiveData<Risultato> createBirraRisultato;
     private final MutableLiveData<Risultato> consumoIngredientiRisultato;
     private final MutableLiveData<Risultato> attrezziSelezionatiRisultato;
 
@@ -30,10 +27,7 @@ public class BirraViewModel extends ViewModel {
 
         this.gestioneBirraDomain = gestioneBirraDomain;
 
-        getAllBirreRisultato = new MutableLiveData<>();
         createBirraRisultato = new MutableLiveData<>();
-        terminaBirraRisultato = new MutableLiveData<>();
-
         consumoIngredientiRisultato = new MutableLiveData<>();
         dosaggiRisultato = new MutableLiveData<>();
         attrezziSelezionatiRisultato = new MutableLiveData<>();
@@ -67,16 +61,8 @@ public class BirraViewModel extends ViewModel {
     /*
      * Metodi per ottenere riferimento a Mutable live data
      */
-    public LiveData<Risultato> getAllBirreResult() {
-        return getAllBirreRisultato;
-    }
-
     public LiveData<Risultato> getCreateBirraResult() {
         return createBirraRisultato;
-    }
-
-    public LiveData<Risultato> getTerminaBirraRisultato() {
-        return terminaBirraRisultato;
     }
 
     public LiveData<Risultato> getAttrezziSelezionatiRisultato() {

@@ -1,14 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.gestione_birra.BirraDettagliataFragment">
+    tools:context=".ui.visualizza_birre.BirraDettagliataFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textView_NomeBirraDettagliata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome Birra"
+            android:layout_marginTop="16dp"
+            android:textColor="?android:colorPrimary"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/textView_IngredientiPer_Birra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="ingredienti per"
+            android:textColor="?android:colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_NomeBirraDettagliata" />
+
+        <TextView
+            android:id="@+id/textView_numeroLitri_BirraDettagliata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textSize="18sp"
+            android:textColor="?android:colorPrimary"
+            android:textStyle="bold"
+            android:text="3"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_IngredientiPer_Birra"
+            app:layout_constraintStart_toEndOf="@+id/textView_IngredientiPer_Birra"
+            app:layout_constraintTop_toTopOf="@+id/textView_IngredientiPer_Birra" />
+
+        <TextView
+            android:id="@+id/textView_Litri_BirraDettagliata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textColor="?android:colorPrimary"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="L"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_numeroLitri_BirraDettagliata"
+            app:layout_constraintStart_toEndOf="@+id/textView_numeroLitri_BirraDettagliata"
+            app:layout_constraintTop_toTopOf="@+id/textView_numeroLitri_BirraDettagliata"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ListView
+            android:id="@+id/listView_igredientiBirraDettagliata"
+            android:layout_width="match_parent"
+            android:layout_height="380dp"
+            android:layout_marginTop="16dp"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_IngredientiPer_Birra" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_attrezziBirraDettagliata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:listSelector="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_attrezziBirraDettagliata" />
+
+        <TextView
+            android:id="@+id/textView_attrezziBirraDettagliata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="Attrezzi"
+            android:textColor="?android:colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listView_igredientiBirraDettagliata" />
+
+        <TextView
+            android:id="@+id/textView_NotaGenerale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="Note"
+            android:textColor="?android:colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView_attrezziBirraDettagliata" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputTextLayout_noteBirraDettagliata"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_NotaGenerale">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText_noteBirraDettagliata"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Note" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView_noteDiDegustazione"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="Note di Degustazione"
+            android:textColor="?android:colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputTextLayout_noteBirraDettagliata" />
+
+        <ImageButton
+            android:id="@+id/imageButton_nuovaNotaDegustazione"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/roundcorner"
+            android:contentDescription="@string/bottone_piu"
+            android:src="@drawable/baseline_add_24"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_noteDiDegustazione"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView_noteDiDegustazione" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_noteDettagliate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:listSelector="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_noteDiDegustazione" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

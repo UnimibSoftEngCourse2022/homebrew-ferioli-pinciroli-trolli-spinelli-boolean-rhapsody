@@ -16,7 +16,13 @@ public interface IGestioneBirra {
                      List<Attrezzo> listaAttrezzi,
                      Callback callback);
 
+    void updateBirra(Birra birra, Callback callback);
+
     void terminaBirra(Birra birra, Callback callback);
+
+    void getIngredientiBirra (Birra birra, Callback callback);
+
+    void getAttrezziBirra (Birra birra, Callback callback);
 
     void getDosaggiIngredienti(long idRicetta, int litriBirraScelti, Callback callback);
 

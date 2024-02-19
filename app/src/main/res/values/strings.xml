@@ -43,4 +43,5 @@
     <string name="ottimizza_per_litri">Voglio produrre più birra possibile!</string>
     <string name="ottimizza_per_ingredienti">Voglio far fuori tutte le scorte che mi sono rimaste!</string>
     <string name="nessuna_ricetta_disponibile">Nessuna ricetta è attualmente disponibile per la preparazione</string>
+    <string name="genera_lista_della_spesa">Genera lista della spesa</string>
 </resources>
