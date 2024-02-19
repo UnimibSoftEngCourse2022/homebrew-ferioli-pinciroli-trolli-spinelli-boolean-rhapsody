@@ -9,7 +9,7 @@ import java.util.List;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
-import it.unimib.brewday.repository.RicetteRepository;
+import it.unimib.brewday.repository.IRicetteRepository;
 
 public class RicetteViewModel extends ViewModel {
 
@@ -20,9 +20,9 @@ public class RicetteViewModel extends ViewModel {
     private final MutableLiveData<Risultato> deleteRicettaRisultato;
     private final MutableLiveData<Risultato> updateIngredientiRicettaRisultato;
 
-    private final RicetteRepository ricetteRepository;
+    private final IRicetteRepository ricetteRepository;
 
-    public RicetteViewModel(RicetteRepository ricetteRepository){
+    public RicetteViewModel(IRicetteRepository ricetteRepository){
         this.ricetteRepository = ricetteRepository;
 
         ricetteRisultato = new MutableLiveData<>();

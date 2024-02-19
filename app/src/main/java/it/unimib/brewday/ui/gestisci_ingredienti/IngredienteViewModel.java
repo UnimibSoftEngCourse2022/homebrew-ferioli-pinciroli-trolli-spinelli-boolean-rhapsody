@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import it.unimib.brewday.repository.IngredientiRepository;
+import it.unimib.brewday.repository.IIngredientiRepository;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.Ingrediente;
 
@@ -14,9 +14,9 @@ public class IngredienteViewModel extends ViewModel {
 
     private final MutableLiveData<Risultato>  updateIngredienteMutableLiveData ;
 
-    IngredientiRepository ingredientiRepository;
+    private final IIngredientiRepository ingredientiRepository;
 
-    public IngredienteViewModel(IngredientiRepository ingredientiRepository) {
+    public IngredienteViewModel(IIngredientiRepository ingredientiRepository) {
         readAllIngredientiMutableLiveData = new MutableLiveData<>();
         updateIngredienteMutableLiveData = new MutableLiveData<>();
         this.ingredientiRepository = ingredientiRepository;
