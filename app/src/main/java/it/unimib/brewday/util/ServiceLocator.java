@@ -2,7 +2,7 @@ package it.unimib.brewday.util;
 
 import android.content.Context;
 
-import it.unimib.brewday.domain.GestioneBirreDomain;
+import it.unimib.brewday.domain.GestioneBirre;
 import it.unimib.brewday.repository.BirreRepository;
 import it.unimib.brewday.repository.IngredientiRepository;
 import it.unimib.brewday.repository.AttrezziRepository;
@@ -51,8 +51,8 @@ public class ServiceLocator {
         return LocalDatabase.getDatabase(context);
     }
 
-    public GestioneBirreDomain getGestioneBirraDomain(Context context) {
-        return new GestioneBirreDomain(
+    public GestioneBirre getGestioneBirraDomain(Context context) {
+        return new GestioneBirre(
                 getBirraRepository(context),
                 getIngredienteRepository(context),
                 getRicetteRepository(context),

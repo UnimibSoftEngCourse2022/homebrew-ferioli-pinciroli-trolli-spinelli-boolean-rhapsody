@@ -11,7 +11,6 @@ public class Topbar {
         ActionBar actionBar = activity.getSupportActionBar();
 
         if (actionBar != null) {
-            actionBar.setTitle("");
             actionBar.setHomeAsUpIndicator(R.drawable.arrow_back_24px);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }

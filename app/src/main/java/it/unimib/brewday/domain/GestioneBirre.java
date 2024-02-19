@@ -8,8 +8,8 @@ import it.unimib.brewday.model.AttrezzoBirra;
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
+import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
-import it.unimib.brewday.model.TipoIngrediente;
 import it.unimib.brewday.repository.AttrezziRepository;
 import it.unimib.brewday.repository.BirreRepository;
 import it.unimib.brewday.repository.IngredientiRepository;
@@ -17,7 +17,7 @@ import it.unimib.brewday.repository.RicetteRepository;
 import it.unimib.brewday.ui.Callback;
 import it.unimib.brewday.util.Ottimizzazione;
 
-public class GestioneBirreDomain implements IGestioneBirraDomain{
+public class GestioneBirre implements IGestioneBirra {
 
     //Repository di accesso ai dati
     private final BirreRepository birreRepository;
@@ -25,10 +25,10 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
     private final RicetteRepository ricetteRepository;
     private final AttrezziRepository attrezziRepository;
 
-    public GestioneBirreDomain(BirreRepository birreRepository,
-                               IngredientiRepository ingredientiRepository,
-                               RicetteRepository ricetteRepository,
-                               AttrezziRepository attrezziRepository) {
+    public GestioneBirre(BirreRepository birreRepository,
+                         IngredientiRepository ingredientiRepository,
+                         RicetteRepository ricetteRepository,
+                         AttrezziRepository attrezziRepository) {
 
         this.birreRepository = birreRepository;
         this.ingredientiRepository = ingredientiRepository;
@@ -63,7 +63,7 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
                 });
             }
             else {
-                callback.onComplete(new Risultato.Errore("Errore nella creazione della birra"));
+                callback.onComplete(risultatoBirra);
             }
         });
     }
@@ -84,7 +84,7 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
             if (risultato.isSuccessful()) {
                 List<IngredienteRicetta> listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
 
-                setDosaggioDaIngredienteRicetta(birra.getLitriProdotti(), listaIngredientiBirra );
+                GestioneBirreUtil.calcolaDosaggiPerLitriScelti(birra.getLitriProdotti(), listaIngredientiBirra );
                 callback.onComplete(new Risultato.ListaIngredientiDellaRicettaSuccesso(listaIngredientiBirra));
             }
         });
@@ -104,8 +104,11 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
                 List<IngredienteRicetta> ingredientiRicetta =
                         ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultatoIngredientiRicetta).getListaIngrediente();
 
-                setDosaggioDaIngredienteRicetta(litriBirraScelti , ingredientiRicetta);
+                GestioneBirreUtil.calcolaDosaggiPerLitriScelti(litriBirraScelti , ingredientiRicetta);
                 callback.onComplete(new Risultato.ListaIngredientiDellaRicettaSuccesso(ingredientiRicetta));
+            }
+            else{
+                callback.onComplete(risultatoIngredientiRicetta);
             }
         });
     }
@@ -120,15 +123,18 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
                         ((Risultato.ListaIngredientiSuccesso) risultatoIngredienti).getData();
 
                 List<Integer> listaDifferenzaIngredienti = new ArrayList<>();
-                calcolaDifferenzaIngredienti(listaIngredientiDisponibili, ingredientiRicetta ,listaDifferenzaIngredienti);
+                GestioneBirreUtil.calcolaDifferenzaIngredienti(listaIngredientiDisponibili, ingredientiRicetta ,listaDifferenzaIngredienti);
                 callback.onComplete(new Risultato.ListaDifferenzaIngredientiSuccesso(listaDifferenzaIngredienti));
+            }
+            else{
+                callback.onComplete(risultatoIngredienti);
             }
         });
     }
 
     @Override
     public void getAndOptimizeAttrezziLiberi(int litriScelti, Callback callback) {
-        attrezziRepository.readAllAttrezziNonInUso(risultato -> {
+        attrezziRepository.readAllAttrezziLiberi(risultato -> {
             if (risultato.isSuccessful()){
                 List<Attrezzo> listaAttrezziDisponibili = ((Risultato.ListaAttrezziSuccesso) risultato).getAttrezzi();
 
@@ -142,32 +148,55 @@ public class GestioneBirreDomain implements IGestioneBirraDomain{
         });
     }
 
+    @Override
+    public void cosaPrepariamoOggi(Callback callback, StrategiaOttimizzazione strategiaOttimizzazione) {
+        attrezziRepository.readAllAttrezziLiberi(attrezziLiberiRisultato -> {
+            if(attrezziLiberiRisultato.isSuccessful()){
 
-    /*
-     * Metodi di supporto per la gestione del calclo della differenza tra gli ingredienti
-     */
-    private void setDosaggioDaIngredienteRicetta(int litriBirraScelti,
-                                                 List<IngredienteRicetta> listaIngredientiRicetta ){
-        for (IngredienteRicetta ingredienteRicetta : listaIngredientiRicetta) {
-            if (ingredienteRicetta.getTipoIngrediente().equals(TipoIngrediente.ACQUA)) {
-                ingredienteRicetta.setDosaggioIngrediente(round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti));
-            } else {
-                ingredienteRicetta.setDosaggioIngrediente(Math.round(ingredienteRicetta.getDosaggioIngrediente() * litriBirraScelti));
+                List<Attrezzo> listaAttrezziLiberi = ((Risultato.ListaAttrezziSuccesso) attrezziLiberiRisultato).getAttrezzi();
+
+                ricetteRepository.readAllRicette(listaRicetteRisultato -> {
+                    if(listaRicetteRisultato.isSuccessful()){
+
+                        List<Ricetta> listaRicette = ((Risultato.ListaRicetteSuccesso) listaRicetteRisultato).getRicette();
+
+                        ricetteRepository.readAllIngredientiRicetta(listaIngredientiRicettaRisultato -> {
+                            if(listaIngredientiRicettaRisultato.isSuccessful()){
+
+                                List<IngredienteRicetta> listaIngredientiRicette = ((Risultato.ListaIngredientiDellaRicettaSuccesso) listaIngredientiRicettaRisultato)
+                                        .getListaIngrediente();
+
+                                ingredientiRepository.readAllIngredienti(listaIngredientiDisponibiliRisultato -> {
+                                    if(listaIngredientiDisponibiliRisultato.isSuccessful()){
+
+                                        List<Ingrediente> listaIngredientiDisponibili = ((Risultato.ListaIngredientiSuccesso) listaIngredientiDisponibiliRisultato)
+                                                .getData();
+
+                                        callback.onComplete(strategiaOttimizzazione.ottimizza(
+                                                listaAttrezziLiberi,
+                                                listaRicette,
+                                                listaIngredientiRicette,
+                                                listaIngredientiDisponibili
+                                        ));
+                                    }
+                                    else{
+                                        callback.onComplete(listaIngredientiDisponibiliRisultato);
+                                    }
+                                });
+                            }
+                            else{
+                                callback.onComplete(listaIngredientiRicettaRisultato);
+                            }
+                        });
+                    }
+                    else{
+                        callback.onComplete(listaRicetteRisultato);
+                    }
+                });
             }
-        }
-    }
-
-    private void calcolaDifferenzaIngredienti(List<Ingrediente> listaIngredientiDisponibili,
-                                              List<IngredienteRicetta> listaIngredientiBirra,
-                                              List<Integer> listaDifferenzaIngredienti){
-        for(int i=0; i < listaIngredientiBirra.size(); i++){
-            int differenza =  listaIngredientiDisponibili.get(i).getQuantitaPosseduta()
-                    - ((int) Math.round(listaIngredientiBirra.get(i).getDosaggioIngrediente()));
-            listaDifferenzaIngredienti.add(differenza);
-        }
-    }
-
-    private static double round(double n) {
-        return Math.floor(n * Math.pow(10, 1)) / Math.pow(10, 1);
+            else{
+                callback.onComplete(attrezziLiberiRisultato);
+            }
+        });
     }
 }

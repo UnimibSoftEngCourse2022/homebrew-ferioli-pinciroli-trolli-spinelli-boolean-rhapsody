@@ -7,7 +7,7 @@ import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.ui.Callback;
 
-public interface IGestioneBirraDomain {
+public interface IGestioneBirra {
 
     void getAllBirre(Callback callback);
 
@@ -29,4 +29,6 @@ public interface IGestioneBirraDomain {
     void getConsumoIngredienti(List<IngredienteRicetta> ingredientiRicetta, Callback callback);
 
     void getAndOptimizeAttrezziLiberi(int litriScelti, Callback callback);
+
+    void cosaPrepariamoOggi(Callback callback, StrategiaOttimizzazione strategiaOttimizzazione);
 }

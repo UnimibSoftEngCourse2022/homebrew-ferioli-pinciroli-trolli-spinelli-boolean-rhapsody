@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import it.unimib.brewday.domain.IGestioneBirraDomain;
+import it.unimib.brewday.domain.IGestioneBirra;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.IngredienteRicetta;
@@ -17,15 +17,15 @@ public class BirraViewModel extends ViewModel {
 
     //Livedata per pagina creazione birra
     private final MutableLiveData<Risultato> dosaggiRisultato;
-    private final MutableLiveData<Risultato> consumoIngredientiRisultato;
     private final MutableLiveData<Risultato> createBirraRisultato;
+    private final MutableLiveData<Risultato> consumoIngredientiRisultato;
     private final MutableLiveData<Risultato> attrezziSelezionatiRisultato;
 
-    private final IGestioneBirraDomain domainGestioneBirra;
+    private final IGestioneBirra gestioneBirraDomain;
 
-    public BirraViewModel(IGestioneBirraDomain domainGestioneBirra) {
+    public BirraViewModel(IGestioneBirra gestioneBirraDomain) {
 
-        this.domainGestioneBirra = domainGestioneBirra;
+        this.gestioneBirraDomain = gestioneBirraDomain;
 
         createBirraRisultato = new MutableLiveData<>();
         consumoIngredientiRisultato = new MutableLiveData<>();
@@ -33,22 +33,21 @@ public class BirraViewModel extends ViewModel {
         attrezziSelezionatiRisultato = new MutableLiveData<>();
     }
 
-
     public void createBirra(Birra birra, List<Integer> listaDifferenzaIngredienti, List<Attrezzo> listaAttrezzi) {
-        domainGestioneBirra.createBirra(birra, listaDifferenzaIngredienti, listaAttrezzi, createBirraRisultato::postValue);
+        gestioneBirraDomain.createBirra(birra, listaDifferenzaIngredienti, listaAttrezzi, createBirraRisultato::postValue);
     }
 
     public void calcolaDosaggi(long idRicetta, int litriBirraScelti){
-        domainGestioneBirra.getDosaggiIngredienti(idRicetta, litriBirraScelti, dosaggiRisultato::postValue);
+        gestioneBirraDomain.getDosaggiIngredienti(idRicetta, litriBirraScelti, dosaggiRisultato::postValue);
     }
 
     public void calcolaConsumoIngredienti(List<IngredienteRicetta> ingredientiRicetta) {
-        domainGestioneBirra.getConsumoIngredienti(ingredientiRicetta, consumoIngredientiRisultato::postValue);
+        gestioneBirraDomain.getConsumoIngredienti(ingredientiRicetta, consumoIngredientiRisultato::postValue);
     }
 
 
     public void getAndOptimizeAttrezziLiberi(int litriScelti) {
-        domainGestioneBirra.getAndOptimizeAttrezziLiberi(litriScelti, attrezziSelezionatiRisultato::postValue);
+        gestioneBirraDomain.getAndOptimizeAttrezziLiberi(litriScelti, attrezziSelezionatiRisultato::postValue);
     }
 
     /*

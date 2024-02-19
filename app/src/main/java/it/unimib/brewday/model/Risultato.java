@@ -19,6 +19,7 @@ public class Risultato {
                 || this instanceof SingolaRicettaSuccesso
                 || this instanceof AllBirreSuccesso
                 || this instanceof ListaDifferenzaIngredientiSuccesso
+                || this instanceof OttimizzazioneSuccesso
                 || this instanceof AllNoteDegustazioneSuccesso
                 || this instanceof MediaNotaDegustazioneSuccesso;
 
@@ -125,26 +126,21 @@ public class Risultato {
         }
     }
 
-    public static final class Errore extends Risultato {
-        private final String messaggio;
+    public static final class OttimizzazioneSuccesso extends Risultato {
+        private final Ricetta ricetta;
+        private final int litri;
 
-        public Errore(String messaggio) {
-            this.messaggio = messaggio;
+        public OttimizzazioneSuccesso(Ricetta ricetta, int litri){
+            this.ricetta = ricetta;
+            this.litri = litri;
         }
 
-        public String getMessaggio(){
-            return messaggio;
-        }
-    }
-
-    public static final class ErroreConSuggerimentoLitri extends Risultato {
-        private final int litriSuggeriti;
-        public ErroreConSuggerimentoLitri(int litriSuggeriti){
-            this.litriSuggeriti = litriSuggeriti;
+        public Ricetta getRicetta() {
+            return ricetta;
         }
 
-        public int getLitriSuggeriti(){
-            return litriSuggeriti;
+        public int getLitri() {
+            return litri;
         }
     }
 
@@ -174,6 +170,29 @@ public class Risultato {
 
         public Float getMediaNotaDegustazioneSuccesso(){
             return  media;
+        }
+    }
+
+    public static final class Errore extends Risultato {
+        private final String messaggio;
+
+        public Errore(String messaggio) {
+            this.messaggio = messaggio;
+        }
+
+        public String getMessaggio(){
+            return messaggio;
+        }
+    }
+
+    public static final class ErroreConSuggerimentoLitri extends Risultato {
+        private final int litriSuggeriti;
+        public ErroreConSuggerimentoLitri(int litriSuggeriti){
+            this.litriSuggeriti = litriSuggeriti;
+        }
+
+        public int getLitriSuggeriti(){
+            return litriSuggeriti;
         }
     }
 }

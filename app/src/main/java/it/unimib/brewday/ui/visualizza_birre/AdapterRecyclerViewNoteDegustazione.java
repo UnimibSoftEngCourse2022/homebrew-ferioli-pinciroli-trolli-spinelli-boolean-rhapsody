@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import it.unimib.brewday.R;
-import it.unimib.brewday.model.BirraConRicetta;
 import it.unimib.brewday.model.NotaDegustazione;
 
 public class AdapterRecyclerViewNoteDegustazione extends RecyclerView.Adapter<AdapterRecyclerViewNoteDegustazione.ViewHolder> {

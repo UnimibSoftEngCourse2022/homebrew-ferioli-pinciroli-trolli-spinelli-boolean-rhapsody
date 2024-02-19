@@ -47,6 +47,7 @@ public class BirraConRicetta extends Birra implements Parcelable {
         dest.writeString(this.getNotaGenerale());
     }
 
+    @Override
     public void readFromParcel(Parcel source) {
         super.readFromParcel(source);
         this.nomeRicetta = source.readString();

@@ -4,7 +4,7 @@
         android:id="@+id/listaRicetteFragment"
         android:enabled="true"
         android:icon="@drawable/receipt_long_24px"
-        android:title="@string/lista_ricette" />
+        android:title="@string/ricette" />
     <item
         android:id="@+id/birreFragment"
         android:enabled="true"
@@ -14,7 +14,7 @@
         android:id="@+id/cosaDevoPreparareOggiFragment"
         android:enabled="true"
         android:icon="@drawable/lightbulb_24px"
-        android:title="@string/brewToday" />
+        android:title="@string/brew_day" />
     <item
         android:id="@+id/gestisciAttrezziFragment"
         android:enabled="true"

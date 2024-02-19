@@ -67,6 +67,19 @@ public class RicetteRepository {
         });
     }
 
+    public void readAllIngredientiRicetta(Callback callback){
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
+            List<IngredienteRicetta> listaIngredientiRicette = ricettaDao.getAllIngredientiRicetta();
+
+            if(listaIngredientiRicette != null){
+                callback.onComplete(new Risultato.ListaIngredientiDellaRicettaSuccesso(listaIngredientiRicette));
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.INGREDIENTI_FETCH_ERROR));
+            }
+        });
+    }
+
     public void readAllRicette(Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             List<Ricetta> ricette = ricettaDao.getAllRicette();

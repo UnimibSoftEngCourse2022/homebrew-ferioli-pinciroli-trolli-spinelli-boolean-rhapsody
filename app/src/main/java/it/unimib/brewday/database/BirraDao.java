@@ -23,7 +23,7 @@ public interface BirraDao {
             "JOIN Ricetta AS R ON B.idRicetta = R.id " +
             "LEFT JOIN notadegustazione AS ND ON B.id = ND.idBirra " +
             "GROUP BY B.id " +
-            "ORDER BY B.terminata ASC")
+            "ORDER BY B.terminata ASC, B.dataTerminazione DESC ")
     List<BirraConRicetta> getAllBirre();
 
 

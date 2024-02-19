@@ -30,7 +30,6 @@ import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewIngredienti;
-import it.unimib.brewday.util.GestioneRicette;
 import it.unimib.brewday.util.ListaIngredienti;
 
 public class CreaRicettaFragment extends Fragment {
@@ -71,7 +70,6 @@ public class CreaRicettaFragment extends Fragment {
         Button creaRicettaButton = fragmentCreaRicettaBinding.buttonCreaRicetta;
         EditText numeroLitriBirra = fragmentCreaRicettaBinding.editNumberNumeroLitriBirra;
         EditText nomeRicetta = fragmentCreaRicettaBinding.editTextNomeRicetta;
-        GestioneRicette gestioneRicette = new GestioneRicette();
 
         ListaIngredienti listaIngredienti = new ListaIngredienti();
         listaIngredientiRicetta = listaIngredienti.getListaIngredienti();
@@ -104,16 +102,16 @@ public class CreaRicettaFragment extends Fragment {
         listViewIngredientiRicetta.setDivider(null);
 
         numeroLitriBirra.setOnFocusChangeListener((v, hasFocus) ->
-                gestioneRicette.verificaNumeroLitriBirra(numeroLitriBirra, hasFocus)
+                RicetteUtil.verificaNumeroLitriBirra(numeroLitriBirra, hasFocus)
         );
 
         creaRicettaButton.setOnClickListener(v -> {
-                    if( gestioneRicette.controlloCreazione(view, nomeRicetta, numeroLitriBirra)){
+                    if(RicetteUtil.controlloCreazione(view, nomeRicetta, numeroLitriBirra)){
                         List<IngredienteRicetta> listaIngredientiPerLitro = new ArrayList<>();
-                        int zeroIngredinti = gestioneRicette.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
+                        int zeroIngredienti = RicetteUtil.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
 
 
-                    salvaRicetta(view, zeroIngredinti, listaIngredientiPerLitro, new Ricetta(nomeRicetta.getText().toString(),Integer.parseInt(numeroLitriBirra.getText().toString())));
+                    salvaRicetta(view, zeroIngredienti, listaIngredientiPerLitro, new Ricetta(nomeRicetta.getText().toString(),Integer.parseInt(numeroLitriBirra.getText().toString())));
                     }
         });
     }
