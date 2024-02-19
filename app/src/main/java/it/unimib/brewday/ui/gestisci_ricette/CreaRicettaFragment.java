@@ -70,7 +70,6 @@ public class CreaRicettaFragment extends Fragment {
         Button creaRicettaButton = fragmentCreaRicettaBinding.buttonCreaRicetta;
         EditText numeroLitriBirra = fragmentCreaRicettaBinding.editNumberNumeroLitriBirra;
         EditText nomeRicetta = fragmentCreaRicettaBinding.editTextNomeRicetta;
-        RicetteUtil ricetteUtil = new RicetteUtil();
 
         ListaIngredienti listaIngredienti = new ListaIngredienti();
         listaIngredientiRicetta = listaIngredienti.getListaIngredienti();
@@ -103,13 +102,13 @@ public class CreaRicettaFragment extends Fragment {
         listViewIngredientiRicetta.setDivider(null);
 
         numeroLitriBirra.setOnFocusChangeListener((v, hasFocus) ->
-                ricetteUtil.verificaNumeroLitriBirra(numeroLitriBirra, hasFocus)
+                RicetteUtil.verificaNumeroLitriBirra(numeroLitriBirra, hasFocus)
         );
 
         creaRicettaButton.setOnClickListener(v -> {
-                    if(ricetteUtil.controlloCreazione(view, nomeRicetta, numeroLitriBirra)){
+                    if(RicetteUtil.controlloCreazione(view, nomeRicetta, numeroLitriBirra)){
                         List<IngredienteRicetta> listaIngredientiPerLitro = new ArrayList<>();
-                        int zeroIngredienti = ricetteUtil.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
+                        int zeroIngredienti = RicetteUtil.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
 
 
                     salvaRicetta(view, zeroIngredienti, listaIngredientiPerLitro, new Ricetta(nomeRicetta.getText().toString(),Integer.parseInt(numeroLitriBirra.getText().toString())));

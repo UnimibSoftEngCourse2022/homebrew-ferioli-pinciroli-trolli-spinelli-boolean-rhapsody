@@ -17,7 +17,7 @@ import it.unimib.brewday.model.IngredienteRicetta;
 
 public class RicetteUtil {
 
-    public RicetteUtil() {
+    private RicetteUtil() {
         // creazione classe
     }
 

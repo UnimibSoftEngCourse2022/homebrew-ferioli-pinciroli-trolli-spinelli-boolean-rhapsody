@@ -18,7 +18,6 @@ import it.unimib.brewday.ui.gestisci_ricette.RicetteUtil;
 
 public class RicetteUtilTest {
 
-    private RicetteUtil ricetteUtil;
     private List<Ingrediente> listaIngredientiRicetta;
     private List<IngredienteRicetta> listaIngredientiPerLitro;
     private Context context;
@@ -26,7 +25,6 @@ public class RicetteUtilTest {
     @Before
     public void setUp() {
         context = ApplicationProvider.getApplicationContext();
-        ricetteUtil = new RicetteUtil();
         listaIngredientiRicetta = new ArrayList<>();
         listaIngredientiPerLitro = new ArrayList<>();
     }
@@ -36,12 +34,12 @@ public class RicetteUtilTest {
         // Test quando hasFocus è falso
         EditText editText = new EditText(context);
         editText.setText("");
-        ricetteUtil.verificaNumeroLitriBirra(editText, false);
+        RicetteUtil.verificaNumeroLitriBirra(editText, false);
         assertEquals("0", editText.getText().toString());
 
         // Test quando hasFocus è vero
         editText.setText("10");
-        ricetteUtil.verificaNumeroLitriBirra(editText, true);
+        RicetteUtil.verificaNumeroLitriBirra(editText, true);
         assertEquals("10", editText.getText().toString());
     }
 
@@ -55,7 +53,7 @@ public class RicetteUtilTest {
         // Test quando numeroLitriBirra è zero
         nomeRicetta.setText("Ricetta1");
         numeroLitriBirra.setText("10");
-        assertTrue(ricetteUtil.controlloCreazione(null, nomeRicetta, numeroLitriBirra));
+        assertTrue(RicetteUtil.controlloCreazione(null, nomeRicetta, numeroLitriBirra));
     }
 
 
@@ -71,7 +69,7 @@ public class RicetteUtilTest {
         numeroLitriBirra.setText("5");
 
         // Metodo di test
-        int zeroIngredienti = ricetteUtil.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
+        int zeroIngredienti = RicetteUtil.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
 
         // Verifica se il calcolo degli ingredienti per litro è corretto
         assertEquals(2, listaIngredientiPerLitro.size());
