@@ -32,7 +32,6 @@ import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.gestione_birra.InserisciLitriDialog;
 import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewIngredienti;
-import it.unimib.brewday.domain.GestioneRicette;
 
 
 public class RicettaDettagliataFragment extends Fragment {
@@ -45,8 +44,6 @@ public class RicettaDettagliataFragment extends Fragment {
 
     private List<Ingrediente> listaIngredientiRicetta = new ArrayList<>();
 
-
-    GestioneRicette gestioneRicette;
     private RicetteViewModel ricetteViewModel;
 
     public RicettaDettagliataFragment() {
@@ -86,7 +83,6 @@ public class RicettaDettagliataFragment extends Fragment {
         EditText numeroLitriRicettaBirra = fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra;
         EditText nomeRicetta = fragmentRicettaDettagliataBinding.textViewNomeRicettaDettagliata;
         ImageButton preparaBirra = fragmentRicettaDettagliataBinding.imageButtonRicettaDettagliataPrepara;
-        gestioneRicette = new GestioneRicette();
         Ricetta ricetta = RicettaDettagliataFragmentArgs.fromBundle(getArguments()).getRicetta();
 
         ricetteViewModel.getIngredientiRicetta(ricetta.getId());
@@ -136,7 +132,7 @@ public class RicettaDettagliataFragment extends Fragment {
         });
 
         numeroLitriRicettaBirra.setOnFocusChangeListener((v, hasFocus) ->
-                gestioneRicette.verificaNumeroLitriBirra(numeroLitriRicettaBirra, hasFocus)
+                RicetteUtil.verificaNumeroLitriBirra(numeroLitriRicettaBirra, hasFocus)
         );
     }
 
@@ -147,10 +143,10 @@ public class RicettaDettagliataFragment extends Fragment {
             fragmentRicettaDettagliataBinding.imageButtonRicettaDettagliataPrepara.setVisibility(View.GONE);
             visibile = !invertiVisibile;
         } else {
-            if( gestioneRicette.controlloCreazione(view, fragmentRicettaDettagliataBinding.textViewNomeRicettaDettagliata,
+            if(RicetteUtil.controlloCreazione(view, fragmentRicettaDettagliataBinding.textViewNomeRicettaDettagliata,
                     fragmentRicettaDettagliataBinding.editTextNumberLitriRicettaBirra)) {
 
-                int zeroIngredinti = gestioneRicette.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiRicettaGL, numeroLitriBirra, ricetta.getId());
+                int zeroIngredinti = RicetteUtil.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiRicettaGL, numeroLitriBirra, ricetta.getId());
 
                 salvaRicetta(view, zeroIngredinti, listaIngredientiRicettaGL);
                 ricetta.setLitriDiRiferimento(Integer.parseInt(numeroLitriBirra.getText().toString()));

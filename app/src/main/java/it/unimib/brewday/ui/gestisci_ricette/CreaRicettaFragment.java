@@ -30,7 +30,6 @@ import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewIngredienti;
-import it.unimib.brewday.domain.GestioneRicette;
 import it.unimib.brewday.util.ListaIngredienti;
 
 public class CreaRicettaFragment extends Fragment {
@@ -71,7 +70,7 @@ public class CreaRicettaFragment extends Fragment {
         Button creaRicettaButton = fragmentCreaRicettaBinding.buttonCreaRicetta;
         EditText numeroLitriBirra = fragmentCreaRicettaBinding.editNumberNumeroLitriBirra;
         EditText nomeRicetta = fragmentCreaRicettaBinding.editTextNomeRicetta;
-        GestioneRicette gestioneRicette = new GestioneRicette();
+        RicetteUtil ricetteUtil = new RicetteUtil();
 
         ListaIngredienti listaIngredienti = new ListaIngredienti();
         listaIngredientiRicetta = listaIngredienti.getListaIngredienti();
@@ -104,13 +103,13 @@ public class CreaRicettaFragment extends Fragment {
         listViewIngredientiRicetta.setDivider(null);
 
         numeroLitriBirra.setOnFocusChangeListener((v, hasFocus) ->
-                gestioneRicette.verificaNumeroLitriBirra(numeroLitriBirra, hasFocus)
+                ricetteUtil.verificaNumeroLitriBirra(numeroLitriBirra, hasFocus)
         );
 
         creaRicettaButton.setOnClickListener(v -> {
-                    if(gestioneRicette.controlloCreazione(view, nomeRicetta, numeroLitriBirra)){
+                    if(ricetteUtil.controlloCreazione(view, nomeRicetta, numeroLitriBirra)){
                         List<IngredienteRicetta> listaIngredientiPerLitro = new ArrayList<>();
-                        int zeroIngredienti = gestioneRicette.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
+                        int zeroIngredienti = ricetteUtil.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
 
 
                     salvaRicetta(view, zeroIngredienti, listaIngredientiPerLitro, new Ricetta(nomeRicetta.getText().toString(),Integer.parseInt(numeroLitriBirra.getText().toString())));
