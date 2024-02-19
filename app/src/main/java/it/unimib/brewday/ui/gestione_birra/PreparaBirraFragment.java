@@ -33,6 +33,7 @@ import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.TipoIngrediente;
+import it.unimib.brewday.util.RegistroErrori;
 
 public class PreparaBirraFragment extends Fragment {
 
@@ -97,7 +98,8 @@ public class PreparaBirraFragment extends Fragment {
                 listaIngredientiBirra = ((Risultato.ListaIngredientiDellaRicettaSuccesso) risultato).getListaIngrediente();
                 birraViewModel.calcolaConsumoIngredienti(listaIngredientiBirra);
             } else {
-                Snackbar.make(view, "Errore nel recupero e calcolo degli ingredienti", BaseTransientBottomBar.LENGTH_SHORT).show();
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 
@@ -119,14 +121,19 @@ public class PreparaBirraFragment extends Fragment {
                 fragmentPreparaBirraBinding.listViewIngredrientiPreparaBirra.setAdapter(adapterListViewIngredientiBirra);
                 fragmentPreparaBirraBinding.listViewIngredrientiPreparaBirra.setDivider(null);
             }
+            else{
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
         });
 
         birraViewModel.getCreateBirraResult().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()){
-                Snackbar.make(view, "Hai creato una nuova Birra!!", BaseTransientBottomBar.LENGTH_SHORT).show();
+                Snackbar.make(view, R.string.nuova_birra, BaseTransientBottomBar.LENGTH_SHORT).show();
                 getParentFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             } else{
-                Snackbar.make(view, ((Risultato.Errore) risultato).getMessaggio(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 
@@ -136,7 +143,7 @@ public class PreparaBirraFragment extends Fragment {
 
 
         birraViewModel.calcolaDosaggi(ricetta.getId(), litriBirraScelti);
-        birraViewModel.getAndOptimizeAttrezziLiberi(litriBirraScelti);
+        birraViewModel.selezionaOttimizzaAttrezziLiberi(litriBirraScelti);
 
         fragmentPreparaBirraBinding.buttonRicettaPreparaBirra.setOnClickListener(v ->
             checkPreparaBirra(new Birra(litriBirraScelti, ricetta.getId()), view)
@@ -183,11 +190,11 @@ public class PreparaBirraFragment extends Fragment {
                 birraViewModel.createBirra(birra, listaDifferenzaIngredienti, listaAttrezziSelezionati);
             }
             else {
-                Snackbar.make(view, "Gli attrezzi sono troppo piccoli", BaseTransientBottomBar.LENGTH_SHORT).show();
+                Snackbar.make(view, R.string.nessun_attrezzo_disponibile, BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         }
         else {
-            Snackbar.make(view, "Attenzione ti mancano degli ingredienti", BaseTransientBottomBar.LENGTH_SHORT).show();
+            Snackbar.make(view, R.string.scorte_ingredienti_insufficienti, BaseTransientBottomBar.LENGTH_SHORT).show();
         }
     }
 
@@ -208,7 +215,8 @@ public class PreparaBirraFragment extends Fragment {
                 fragmentPreparaBirraBinding.imageViewLitriMassimi.setVisibility(View.VISIBLE);
             }
             else{
-                Snackbar.make(view, "Attrezzi mancanti", BaseTransientBottomBar.LENGTH_SHORT).show();
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         }
     }

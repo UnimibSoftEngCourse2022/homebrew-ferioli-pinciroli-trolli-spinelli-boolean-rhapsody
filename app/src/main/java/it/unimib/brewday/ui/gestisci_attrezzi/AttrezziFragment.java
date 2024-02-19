@@ -15,12 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Risultato;
+import it.unimib.brewday.util.RegistroErrori;
 
 public class AttrezziFragment extends Fragment {
 
@@ -74,6 +77,10 @@ public class AttrezziFragment extends Fragment {
             if (risultato.isSuccessful()) {
                 mViewModel.readAllAttrezzi();
             }
+            else{
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
         });
 
         //Gestione risultato operazione cancellazione
@@ -81,12 +88,20 @@ public class AttrezziFragment extends Fragment {
             if (risultato.isSuccessful()) {
                 mViewModel.readAllAttrezzi();
             }
+            else{
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
         });
 
         //Gestione risultato operazione aggiornamento
         mViewModel.getUpdateAttrezzoResult().observe(this.getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()) {
                 mViewModel.readAllAttrezzi();
+            }
+            else{
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
     }
@@ -100,6 +115,10 @@ public class AttrezziFragment extends Fragment {
             } else {
                 adapterRecyclerViewAttrezzi.setDataList(nuoviAttrezzi);
             }
+        }
+        else{
+            String errore = ((Risultato.Errore) risultato).getMessaggio();
+            Snackbar.make(requireView(), getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
         }
     }
 
