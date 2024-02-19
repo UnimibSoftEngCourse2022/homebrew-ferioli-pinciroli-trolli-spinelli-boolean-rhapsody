@@ -21,11 +21,11 @@ public class BirraViewModel extends ViewModel {
     private final MutableLiveData<Risultato> consumoIngredientiRisultato;
     private final MutableLiveData<Risultato> attrezziSelezionatiRisultato;
 
-    private final IGestioneBirra gestioneBirraDomain;
+    private final IGestioneBirra gestioneBirra;
 
-    public BirraViewModel(IGestioneBirra gestioneBirraDomain) {
+    public BirraViewModel(IGestioneBirra gestioneBirra) {
 
-        this.gestioneBirraDomain = gestioneBirraDomain;
+        this.gestioneBirra = gestioneBirra;
 
         createBirraRisultato = new MutableLiveData<>();
         consumoIngredientiRisultato = new MutableLiveData<>();
@@ -34,20 +34,20 @@ public class BirraViewModel extends ViewModel {
     }
 
     public void createBirra(Birra birra, List<Integer> listaDifferenzaIngredienti, List<Attrezzo> listaAttrezzi) {
-        gestioneBirraDomain.createBirra(birra, listaDifferenzaIngredienti, listaAttrezzi, createBirraRisultato::postValue);
+        gestioneBirra.createBirra(birra, listaDifferenzaIngredienti, listaAttrezzi, createBirraRisultato::postValue);
     }
 
     public void calcolaDosaggi(long idRicetta, int litriBirraScelti){
-        gestioneBirraDomain.getDosaggiIngredienti(idRicetta, litriBirraScelti, dosaggiRisultato::postValue);
+        gestioneBirra.getDosaggiIngredienti(idRicetta, litriBirraScelti, dosaggiRisultato::postValue);
     }
 
     public void calcolaConsumoIngredienti(List<IngredienteRicetta> ingredientiRicetta) {
-        gestioneBirraDomain.getConsumoIngredienti(ingredientiRicetta, consumoIngredientiRisultato::postValue);
+        gestioneBirra.getConsumoIngredienti(ingredientiRicetta, consumoIngredientiRisultato::postValue);
     }
 
 
-    public void getAndOptimizeAttrezziLiberi(int litriScelti) {
-        gestioneBirraDomain.getAndOptimizeAttrezziLiberi(litriScelti, attrezziSelezionatiRisultato::postValue);
+    public void selezionaOttimizzaAttrezziLiberi(int litriScelti) {
+        gestioneBirra.selezionaOttimizzaAttrezziLiberi(litriScelti, attrezziSelezionatiRisultato::postValue);
     }
 
     /*

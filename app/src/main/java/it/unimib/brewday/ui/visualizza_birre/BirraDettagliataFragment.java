@@ -30,6 +30,7 @@ import it.unimib.brewday.model.NotaDegustazione;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.gestione_birra.AdapterListViewIngredientiBirra;
 import it.unimib.brewday.ui.gestisci_attrezzi.AdapterRecyclerViewAttrezzi;
+import it.unimib.brewday.util.RegistroErrori;
 
 public class BirraDettagliataFragment extends Fragment {
     private FragmentBirraDettagliataBinding fragmentBirraDettagliataBinding;
@@ -93,6 +94,10 @@ public class BirraDettagliataFragment extends Fragment {
                 fragmentBirraDettagliataBinding.listViewIgredientiBirraDettagliata.setAdapter(adapterListViewIngredientiBirra);
                 fragmentBirraDettagliataBinding.listViewIgredientiBirraDettagliata.setDivider(null);
             }
+            else{
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
         });
 
         visualizzaBirreViewModel.getAttrezziBirraRisultato().observe(getViewLifecycleOwner(), risultato -> {
@@ -102,11 +107,16 @@ public class BirraDettagliataFragment extends Fragment {
                 fragmentBirraDettagliataBinding.recyclerViewAttrezziBirraDettagliata.setLayoutManager(layoutManagerAttrezzi);
                 fragmentBirraDettagliataBinding.recyclerViewAttrezziBirraDettagliata.setAdapter(adapterRecyclerViewAttrezzi);
             }
+            else{
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
         });
 
         visualizzaBirreViewModel.getUpdateBirreRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if (!risultato.isSuccessful()){
-                Snackbar.make(view, "AAAAAAAAAA", BaseTransientBottomBar.LENGTH_SHORT);
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 
@@ -119,7 +129,8 @@ public class BirraDettagliataFragment extends Fragment {
                 fragmentBirraDettagliataBinding.recyclerViewNoteDettagliate.setLayoutManager(layoutManagerNote);
                 fragmentBirraDettagliataBinding.recyclerViewNoteDettagliate.setAdapter(adapterRecyclerViewNoteDegustazione);
             }else{
-                Snackbar.make(view, ((Risultato.Errore)risultato).getMessaggio(), BaseTransientBottomBar.LENGTH_SHORT);
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 
@@ -136,7 +147,7 @@ public class BirraDettagliataFragment extends Fragment {
 
         fragmentBirraDettagliataBinding.imageButtonNuovaNotaDegustazione.setOnClickListener(v -> {
             NoteDegustazioneDialog dialog = new NoteDegustazioneDialog(visualizzaBirreViewModel, birraSelezionata);
-            dialog.show(getParentFragmentManager(), "Inserisci nuova Nota Degustazione");
+            dialog.show(getParentFragmentManager(), "Inserisci nuova nota di degustazione");
 
         });
 

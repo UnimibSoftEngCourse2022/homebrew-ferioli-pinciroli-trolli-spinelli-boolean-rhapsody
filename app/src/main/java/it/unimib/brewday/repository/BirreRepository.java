@@ -26,9 +26,7 @@ public class BirreRepository implements IBirreRepository{
 
     @Override
     public void readAllBirre(Callback callback) {
-
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-
             List<BirraConRicetta> allBirre = birraDao.getAllBirre();
 
             if(allBirre != null) {
@@ -42,9 +40,7 @@ public class BirreRepository implements IBirreRepository{
 
     @Override
     public void createBirra(Birra birra, List<AttrezzoBirra> attrezziBirra, Callback callback) {
-
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-
             long idBirraRegistrata = birraDao.insertBirra(birra);
 
             if(idBirraRegistrata >= 0) {
@@ -79,9 +75,7 @@ public class BirreRepository implements IBirreRepository{
     }
 
     private void createBirraAttrezzi(List<AttrezzoBirra> attrezziBirra, Callback callback) {
-
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-
             long[] numeroAttrezziRegistrati = birraDao.insertBirraAttrezzi(attrezziBirra);
             boolean isOk = true;
 
@@ -101,9 +95,7 @@ public class BirreRepository implements IBirreRepository{
     }
 
     private void deleteBirraAttrezzi(long idBirra, Callback callback) {
-
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-
             int numeroBirreAttrezziCancellati = birraDao.deleteBirraAttrezzi(idBirra);
 
             if(numeroBirreAttrezziCancellati > 0) {

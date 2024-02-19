@@ -133,7 +133,7 @@ public class GestioneBirre implements IGestioneBirra {
     }
 
     @Override
-    public void getAndOptimizeAttrezziLiberi(int litriScelti, Callback callback) {
+    public void selezionaOttimizzaAttrezziLiberi(int litriScelti, Callback callback) {
         attrezziRepository.readAllAttrezziLiberi(risultato -> {
             if (risultato.isSuccessful()){
                 List<Attrezzo> listaAttrezziDisponibili = ((Risultato.ListaAttrezziSuccesso) risultato).getAttrezzi();

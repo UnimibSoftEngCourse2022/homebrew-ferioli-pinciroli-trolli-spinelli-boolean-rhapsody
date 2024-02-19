@@ -21,6 +21,7 @@ import it.unimib.brewday.domain.StrategiaOttimizzazioneIngredienti;
 import it.unimib.brewday.domain.StrategiaOttimizzazioneLitri;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
+import it.unimib.brewday.util.RegistroErrori;
 
 public class CosaPrepariamoOggiFragment extends Fragment {
 
@@ -75,7 +76,8 @@ public class CosaPrepariamoOggiFragment extends Fragment {
                 }
             }
             else{
-                Snackbar.make(view, "ERRORE: " + ((Risultato.Errore) risultato).getMessaggio(), BaseTransientBottomBar.LENGTH_LONG).show();
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 

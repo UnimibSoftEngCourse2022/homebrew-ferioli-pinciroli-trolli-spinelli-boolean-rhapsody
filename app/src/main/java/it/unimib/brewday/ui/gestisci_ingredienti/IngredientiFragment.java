@@ -1,8 +1,5 @@
 package it.unimib.brewday.ui.gestisci_ingredienti;
 
-import static android.widget.Toast.LENGTH_SHORT;
-
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +14,7 @@ import android.view.ViewGroup;
 
 import android.widget.ListView;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -24,6 +22,7 @@ import java.util.List;
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.Ingrediente;
+import it.unimib.brewday.util.RegistroErrori;
 
 
 public class IngredientiFragment extends Fragment {
@@ -91,14 +90,17 @@ public class IngredientiFragment extends Fragment {
                 listViewIngredientiDispobili.setAdapter(adapterListViewIngredienti);
                 listViewIngredientiDispobili.setDivider(null);
 
-            } else {
-                Snackbar.make(view, ((Risultato.Errore) risultato).getMessaggio(), LENGTH_SHORT).show();
+            }
+            else{
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 
         ingredienteViewModel.getUpdateIngredienteResult().observe(getViewLifecycleOwner(), risultato -> {
             if (!risultato.isSuccessful()){
-                Snackbar.make(view, "Errore nell'aggiornamento degli ingredienti", LENGTH_SHORT).show();
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
     }

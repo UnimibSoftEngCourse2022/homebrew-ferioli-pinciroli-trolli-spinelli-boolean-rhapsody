@@ -28,7 +28,7 @@ public interface IGestioneBirra {
 
     void getConsumoIngredienti(List<IngredienteRicetta> ingredientiRicetta, Callback callback);
 
-    void getAndOptimizeAttrezziLiberi(int litriScelti, Callback callback);
+    void selezionaOttimizzaAttrezziLiberi(int litriScelti, Callback callback);
 
     void cosaPrepariamoOggi(Callback callback, StrategiaOttimizzazione strategiaOttimizzazione);
 }
