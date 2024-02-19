@@ -59,7 +59,7 @@
     <fragment
         android:id="@+id/cosaDevoPreparareOggiFragment"
         android:name="it.unimib.brewday.ui.cosa_prepariamo_oggi.CosaPrepariamoOggiFragment"
-        android:label="Cosa devo preparare oggi?"
+        android:label="Cosa prepariamo oggi?"
         tools:layout="@layout/fragment_cosa_prepariamo_oggi" >
         <action
             android:id="@+id/action_cosaDevoPreparareOggiFragment_to_preparaBirraFragment"
@@ -68,7 +68,7 @@
     <fragment
         android:id="@+id/birraDettagliataFragment"
         android:name="it.unimib.brewday.ui.visualizza_birre.BirraDettagliataFragment"
-        android:label="fragment_birra_dettagliata"
+        android:label=""
         tools:layout="@layout/fragment_birra_dettagliata" >
         <argument
             android:name="Birra"

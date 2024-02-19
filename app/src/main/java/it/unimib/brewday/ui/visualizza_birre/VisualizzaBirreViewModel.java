@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 
-import it.unimib.brewday.domain.IGestioneBirraDomain;
+import it.unimib.brewday.domain.IGestioneBirra;
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.NotaDegustazione;
 import it.unimib.brewday.model.Risultato;
@@ -25,12 +25,12 @@ public class VisualizzaBirreViewModel extends ViewModel {
     //Repository di accesso ai dati
     private final NoteDegustazioneRepository noteDegustazioneRepository;
 
-    private final IGestioneBirraDomain domainGestioneBirra;
+    private final IGestioneBirra gestioneBirra;
 
-    public VisualizzaBirreViewModel(NoteDegustazioneRepository noteDegustazioneRepository, IGestioneBirraDomain domainGestioneBirra) {
+    public VisualizzaBirreViewModel(NoteDegustazioneRepository noteDegustazioneRepository, IGestioneBirra gestioneBirra) {
 
         this.noteDegustazioneRepository = noteDegustazioneRepository;
-        this.domainGestioneBirra = domainGestioneBirra;
+        this.gestioneBirra = gestioneBirra;
 
         getAllBirreRisultato = new MutableLiveData<>();
         updateBirreRisultato = new MutableLiveData<>();
@@ -43,23 +43,23 @@ public class VisualizzaBirreViewModel extends ViewModel {
     }
 
     public void getAllBirre() {
-        domainGestioneBirra.getAllBirre(getAllBirreRisultato::postValue);
+        gestioneBirra.getAllBirre(getAllBirreRisultato::postValue);
     }
 
     public void updateBirra(Birra birra){
-        domainGestioneBirra.updateBirra(birra, updateBirreRisultato::postValue);
+        gestioneBirra.updateBirra(birra, updateBirreRisultato::postValue);
     }
 
     public void terminaBirra(Birra birra){
-        domainGestioneBirra.terminaBirra(birra, terminaBirraRisultato::postValue);
+        gestioneBirra.terminaBirra(birra, terminaBirraRisultato::postValue);
     }
 
     public void getIngredientiBirra (Birra birra){
-        domainGestioneBirra.getIngredientiBirra(birra, getIngredientiBirraRisultato::postValue);
+        gestioneBirra.getIngredientiBirra(birra, getIngredientiBirraRisultato::postValue);
     }
 
     public void getAttrezziBirra (Birra birra){
-        domainGestioneBirra.getAttrezziBirra(birra, getAttrezziBirraRisultato::postValue);
+        gestioneBirra.getAttrezziBirra(birra, getAttrezziBirraRisultato::postValue);
     }
 
     public void getNoteDegustazione(long idBirra){

@@ -44,4 +44,6 @@
     <string name="ottimizza_per_ingredienti">Voglio far fuori tutte le scorte che mi sono rimaste!</string>
     <string name="nessuna_ricetta_disponibile">Nessuna ricetta è attualmente disponibile per la preparazione</string>
     <string name="genera_lista_della_spesa">Genera lista della spesa</string>
+    <string name="ricette">Ricette</string>
+    <string name="brew_day">Brew Day!</string>
 </resources>

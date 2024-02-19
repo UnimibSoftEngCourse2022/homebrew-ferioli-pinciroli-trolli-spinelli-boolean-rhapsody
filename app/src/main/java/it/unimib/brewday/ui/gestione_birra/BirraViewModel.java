@@ -33,16 +33,8 @@ public class BirraViewModel extends ViewModel {
         attrezziSelezionatiRisultato = new MutableLiveData<>();
     }
 
-    public void getAllBirre() {
-        gestioneBirraDomain.getAllBirre(getAllBirreRisultato::postValue);
-    }
-
     public void createBirra(Birra birra, List<Integer> listaDifferenzaIngredienti, List<Attrezzo> listaAttrezzi) {
         gestioneBirraDomain.createBirra(birra, listaDifferenzaIngredienti, listaAttrezzi, createBirraRisultato::postValue);
-    }
-
-    public void terminaBirra(Birra birra){
-        gestioneBirraDomain.terminaBirra(birra, terminaBirraRisultato::postValue);
     }
 
     public void calcolaDosaggi(long idRicetta, int litriBirraScelti){
