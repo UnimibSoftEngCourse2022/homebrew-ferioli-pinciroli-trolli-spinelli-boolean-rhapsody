@@ -45,10 +45,6 @@ public class BirraDettagliataFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static BirraDettagliataFragment newInstance() {
-        return new BirraDettagliataFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

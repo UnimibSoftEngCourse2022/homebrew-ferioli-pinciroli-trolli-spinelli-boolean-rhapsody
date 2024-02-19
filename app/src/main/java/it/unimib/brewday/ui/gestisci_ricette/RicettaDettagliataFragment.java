@@ -50,11 +50,6 @@ public class RicettaDettagliataFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-    public static RicettaDettagliataFragment newInstance() {
-        return new RicettaDettagliataFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

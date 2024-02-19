@@ -41,11 +41,6 @@ public class IngredientiFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static IngredientiFragment newInstance() {
-
-        return new IngredientiFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

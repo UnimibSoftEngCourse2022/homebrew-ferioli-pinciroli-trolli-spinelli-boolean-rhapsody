@@ -34,11 +34,6 @@ public class CosaPrepariamoOggiFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-    public static CosaPrepariamoOggiFragment newInstance() {
-        return new CosaPrepariamoOggiFragment();
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

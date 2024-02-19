@@ -35,10 +35,6 @@ public class AttrezziFragment extends Fragment {
         super(R.layout.fragment_gestisci_attrezzi);
     }
 
-    public static AttrezziFragment newInstance() {
-        return new AttrezziFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

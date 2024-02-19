@@ -44,11 +44,6 @@ public class ListaRicetteFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static ListaRicetteFragment newInstance() {
-
-        return new ListaRicetteFragment();
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

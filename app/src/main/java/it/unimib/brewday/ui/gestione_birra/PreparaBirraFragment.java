@@ -49,11 +49,6 @@ public class PreparaBirraFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-    public static PreparaBirraFragment newInstance() {
-        return new PreparaBirraFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -50,10 +50,6 @@ public class CreaRicettaFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static CreaRicettaFragment newInstance() {
-        return new CreaRicettaFragment();
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
