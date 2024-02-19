@@ -16,11 +16,10 @@ import it.unimib.brewday.model.TipoAttrezzo;
 import it.unimib.brewday.model.TipoIngrediente;
 import it.unimib.brewday.util.RegistroErrori;
 
-public class StrategiaOttimizzazioneIngredientiTest {
-
+public class StrategiaOttimizzazioneLitriTest {
     @Test
     public void testOttimizzaSenzaAttrezziDisponibili() {
-        StrategiaOttimizzazioneIngredienti strategia = new StrategiaOttimizzazioneIngredienti();
+        StrategiaOttimizzazioneLitri strategia = new StrategiaOttimizzazioneLitri();
         List<Attrezzo> listaAttrezziLiberi = new ArrayList<>();
         List<Ricetta> listaRicette = new ArrayList<>();
         List<IngredienteRicetta> listaIngredientiRicette = new ArrayList<>();
@@ -34,7 +33,7 @@ public class StrategiaOttimizzazioneIngredientiTest {
 
     @Test
     public void testOttimizzaConAttrezziDisponibili() {
-        StrategiaOttimizzazioneIngredienti strategia = new StrategiaOttimizzazioneIngredienti();
+        StrategiaOttimizzazioneLitri strategia = new StrategiaOttimizzazioneLitri();
         List<Attrezzo> listaAttrezziLiberi = new ArrayList<>();
         List<Ricetta> listaRicette = new ArrayList<>();
         List<IngredienteRicetta> listaIngredientiRicette = new ArrayList<>();
@@ -57,15 +56,13 @@ public class StrategiaOttimizzazioneIngredientiTest {
         listaIngredientiRicette.add(new IngredienteRicetta(1, TipoIngrediente.MALTO, 50)); // Dosaggio in g/l
         listaIngredientiRicette.add(new IngredienteRicetta(2, TipoIngrediente.MALTO, 100));
 
-        listaIngredientiDisponibili.add(new Ingrediente(TipoIngrediente.MALTO, 300)); // Quantità in grammi
+        listaIngredientiDisponibili.add(new Ingrediente(TipoIngrediente.MALTO, 200)); // Quantità in grammi
 
         Risultato risultato = strategia.ottimizza(listaAttrezziLiberi, listaRicette, listaIngredientiRicette, listaIngredientiDisponibili);
 
         assertTrue(risultato instanceof Risultato.OttimizzazioneSuccesso);
         assertNotNull(((Risultato.OttimizzazioneSuccesso) risultato).getRicetta());
         assertTrue(((Risultato.OttimizzazioneSuccesso) risultato).getLitri() > 0);
-        assertEquals(2, ((Risultato.OttimizzazioneSuccesso) risultato).getRicetta().getId());
+        assertEquals(1, ((Risultato.OttimizzazioneSuccesso) risultato).getRicetta().getId());
     }
-
-
 }
