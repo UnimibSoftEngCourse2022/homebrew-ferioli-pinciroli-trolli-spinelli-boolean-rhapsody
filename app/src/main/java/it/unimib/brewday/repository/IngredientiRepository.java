@@ -17,6 +17,7 @@ public class IngredientiRepository implements IIngredientiRepository{
         this.ingredienteDao = localDatabase.ingredienteDao();
     }
 
+    @Override
     public void readAllIngredienti(Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             List<Ingrediente> listaIngredienti = ingredienteDao.getAllIngredienti();
@@ -30,6 +31,7 @@ public class IngredientiRepository implements IIngredientiRepository{
 
     }
 
+    @Override
     public void updateAllIngredienti(List<Ingrediente> listaIngredienti, Callback  callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
            int aggiornato = ingredienteDao.updateAllIngredienti(listaIngredienti);
@@ -43,6 +45,7 @@ public class IngredientiRepository implements IIngredientiRepository{
 
     }
 
+    @Override
     public void updateIngrediente(Ingrediente ingrediente, Callback  callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             int aggiornato = ingredienteDao.updateIngrediente(ingrediente);
@@ -55,5 +58,4 @@ public class IngredientiRepository implements IIngredientiRepository{
 
         });
     }
-
 }

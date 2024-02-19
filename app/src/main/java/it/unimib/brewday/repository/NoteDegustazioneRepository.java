@@ -9,7 +9,7 @@ import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.Callback;
 import it.unimib.brewday.util.RegistroErrori;
 
-public class NoteDegustazioneRepository {
+public class NoteDegustazioneRepository implements INoteDegustazioneRepository{
     private final NotaDegustazioneDao notaDegustazioneDao;
 
 
@@ -17,10 +17,7 @@ public class NoteDegustazioneRepository {
         this.notaDegustazioneDao = localDatabase.notaDegustazioneDao();
     }
 
-
-
-
-
+    @Override
     public void inserisciNotaDegustazione(NotaDegustazione notaDegustazione, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             long numeroNoteInseriti = notaDegustazioneDao.inserisciNota(notaDegustazione);
@@ -33,19 +30,21 @@ public class NoteDegustazioneRepository {
 
 
         });
-        }
-        public void readAllNoteDegustazione( long idBirra , Callback callback){
-            LocalDatabase.databaseWriteExecutor.execute(() -> {
+    }
+
+    @Override
+    public void readAllNoteDegustazione( long idBirra , Callback callback){
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
             List<NotaDegustazione> listaNoteDegustazione = notaDegustazioneDao.getListaNoteDegustazione(idBirra);
-                if (listaNoteDegustazione != null) {
-                    callback.onComplete(new Risultato.AllNoteDegustazioneSuccesso(listaNoteDegustazione));
-                } else {
-                    callback.onComplete(new Risultato.Errore(RegistroErrori.NOTA_FETCH_ERROR));
+            if (listaNoteDegustazione != null) {
+                callback.onComplete(new Risultato.AllNoteDegustazioneSuccesso(listaNoteDegustazione));
+            } else {
+                callback.onComplete(new Risultato.Errore(RegistroErrori.NOTA_FETCH_ERROR));
 
-                }
+            }
 
-            });
-        }
+        });
+    }
 
 
 
