@@ -75,7 +75,6 @@ public class CosaPrepariamoOggiFragment extends Fragment {
                 }
             }
             else{
-                //TODO: implementare la corretta gestione dell'errore
                 Snackbar.make(view, "ERRORE: " + ((Risultato.Errore) risultato).getMessaggio(), BaseTransientBottomBar.LENGTH_LONG).show();
             }
         });
