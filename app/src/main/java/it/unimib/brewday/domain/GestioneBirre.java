@@ -10,25 +10,25 @@ import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
-import it.unimib.brewday.repository.AttrezziRepository;
-import it.unimib.brewday.repository.BirreRepository;
-import it.unimib.brewday.repository.IngredientiRepository;
-import it.unimib.brewday.repository.RicetteRepository;
+import it.unimib.brewday.repository.IAttrezziRepository;
+import it.unimib.brewday.repository.IBirreRepository;
+import it.unimib.brewday.repository.IIngredientiRepository;
+import it.unimib.brewday.repository.IRicetteRepository;
 import it.unimib.brewday.ui.Callback;
 import it.unimib.brewday.util.Ottimizzazione;
 
 public class GestioneBirre implements IGestioneBirra {
 
     //Repository di accesso ai dati
-    private final BirreRepository birreRepository;
-    private final IngredientiRepository ingredientiRepository;
-    private final RicetteRepository ricetteRepository;
-    private final AttrezziRepository attrezziRepository;
+    private final IBirreRepository birreRepository;
+    private final IIngredientiRepository ingredientiRepository;
+    private final IRicetteRepository ricetteRepository;
+    private final IAttrezziRepository attrezziRepository;
 
-    public GestioneBirre(BirreRepository birreRepository,
-                         IngredientiRepository ingredientiRepository,
-                         RicetteRepository ricetteRepository,
-                         AttrezziRepository attrezziRepository) {
+    public GestioneBirre(IBirreRepository birreRepository,
+                         IIngredientiRepository ingredientiRepository,
+                         IRicetteRepository ricetteRepository,
+                         IAttrezziRepository attrezziRepository) {
 
         this.birreRepository = birreRepository;
         this.ingredientiRepository = ingredientiRepository;

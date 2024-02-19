@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Risultato;
-import it.unimib.brewday.repository.AttrezziRepository;
+import it.unimib.brewday.repository.IAttrezziRepository;
 
 public class AttrezziViewModel extends ViewModel {
 
@@ -15,9 +15,9 @@ public class AttrezziViewModel extends ViewModel {
     private final MutableLiveData<Risultato> updateAttrezzoResult;
     private final MutableLiveData<Risultato> deleteAttrezzoResult;
 
-    private final AttrezziRepository attrezziRepository;
+    private final IAttrezziRepository attrezziRepository;
 
-    public AttrezziViewModel(AttrezziRepository attrezziRepository) {
+    public AttrezziViewModel(IAttrezziRepository attrezziRepository) {
 
         allAttrezzi = new MutableLiveData<>();
         createAttrezzoResult = new MutableLiveData<>();
