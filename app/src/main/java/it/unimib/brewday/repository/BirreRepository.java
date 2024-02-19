@@ -16,18 +16,15 @@ import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.Callback;
 import it.unimib.brewday.util.RegistroErrori;
 
-public class BirreRepository {
+public class BirreRepository implements IBirreRepository{
 
     private final BirraDao birraDao;
-
-
 
     public BirreRepository(LocalDatabase localDatabase) {
         birraDao = localDatabase.birraDao();
     }
 
-
-
+    @Override
     public void readAllBirre(Callback callback) {
 
         LocalDatabase.databaseWriteExecutor.execute(() -> {
@@ -43,6 +40,7 @@ public class BirreRepository {
         });
     }
 
+    @Override
     public void createBirra(Birra birra, List<AttrezzoBirra> attrezziBirra, Callback callback) {
 
         LocalDatabase.databaseWriteExecutor.execute(() -> {
@@ -61,6 +59,7 @@ public class BirreRepository {
         });
     }
 
+    @Override
     public void terminaBirra(Birra birra, Callback callback){
         birra.setTerminata(true);
         birra.setDataTerminazione(new SimpleDateFormat("dd/MM/yyyy", Locale.ITALY)
@@ -117,6 +116,7 @@ public class BirreRepository {
         });
     }
 
+    @Override
     public void updateBirra(Birra birra, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             int numeroBirreModificate = birraDao.updateBirra(birra);
@@ -129,6 +129,5 @@ public class BirreRepository {
             }
         });
     }
-
 
 }
