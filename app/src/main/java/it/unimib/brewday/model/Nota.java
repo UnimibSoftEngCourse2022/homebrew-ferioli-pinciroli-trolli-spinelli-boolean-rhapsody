@@ -1,7 +1,5 @@
 package it.unimib.brewday.model;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
 public class Nota {
     public Nota(String commento) {
