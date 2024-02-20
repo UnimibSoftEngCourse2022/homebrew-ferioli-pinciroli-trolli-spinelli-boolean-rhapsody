@@ -32,7 +32,7 @@ public class ListaBirreFragment extends Fragment {
 
     private List<BirraConRicetta> listaBirre;
     private VisualizzaBirreViewModel visualizzaBirraViewModel;
-    FragmentListaBirreBinding fragmentListaBirreBinding;
+    private FragmentListaBirreBinding fragmentListaBirreBinding;
 
     public ListaBirreFragment() {
         //costruttore vuoto

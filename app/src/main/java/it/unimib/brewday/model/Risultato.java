@@ -161,14 +161,14 @@ public class Risultato {
 
     public static final class MediaNotaDegustazioneSuccesso extends Risultato{
 
-        private final Float media;
+        private final float media;
 
 
-        public MediaNotaDegustazioneSuccesso(Float media) {
+        public MediaNotaDegustazioneSuccesso(float media) {
             this.media = media;
         }
 
-        public Float getMediaNotaDegustazioneSuccesso(){
+        public float getMediaNotaDegustazioneSuccesso(){
             return  media;
         }
     }

@@ -21,10 +21,10 @@ import it.unimib.brewday.model.Risultato;
 
 
 public class NoteDegustazioneDialog extends DialogFragment {
-    Birra birra;
-    VisualizzaBirreViewModel visualizzaBirreViewModel;
+    private Birra birra;
+    private VisualizzaBirreViewModel visualizzaBirreViewModel;
 
-    public NoteDegustazioneDialog( VisualizzaBirreViewModel visualizzaBirreViewModel, Birra birra) {
+    public NoteDegustazioneDialog(VisualizzaBirreViewModel visualizzaBirreViewModel, Birra birra) {
         this.birra = birra;
         this.visualizzaBirreViewModel = visualizzaBirreViewModel;
     }

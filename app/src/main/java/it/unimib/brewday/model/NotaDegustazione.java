@@ -5,15 +5,15 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class NotaDegustazione extends Nota{
+public class NotaDegustazione{
     @Ignore
     public NotaDegustazione(float recensione, String recensore) {
-        super("");
+        this.commento = "";
         this.recensione = recensione;
         this.recensore = recensore;
     }
     public NotaDegustazione(float recensione, String recensore, String commento, long idBirra) {
-        super(commento);
+        this.commento = commento;
         this.recensione = recensione;
         this.recensore = recensore;
         this.idBirra = idBirra;
@@ -21,10 +21,18 @@ public class NotaDegustazione extends Nota{
 
     private float recensione;
     private String recensore;
-
+    private String commento;
     private long idBirra;
     @PrimaryKey(autoGenerate = true)
     private long id;
+
+    public String getCommento() {
+        return commento;
+    }
+
+    public void setCommento(String commento) {
+        this.commento = commento;
+    }
 
     public float getRecensione() {
         return recensione;

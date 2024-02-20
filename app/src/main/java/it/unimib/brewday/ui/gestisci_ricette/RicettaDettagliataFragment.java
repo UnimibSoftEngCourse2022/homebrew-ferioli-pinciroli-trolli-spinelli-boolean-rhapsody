@@ -37,9 +37,9 @@ import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewIngredienti;
 public class RicettaDettagliataFragment extends Fragment {
 
 
-    AdapterListViewIngredienti adapterListViewIngredienti;
+    private AdapterListViewIngredienti adapterListViewIngredienti;
     private FragmentRicettaDettagliataBinding fragmentRicettaDettagliataBinding;
-    boolean visibile;
+    private boolean visibile;
     private List<IngredienteRicetta> listaIngredientiRicettaGL;
 
     private List<Ingrediente> listaIngredientiRicetta = new ArrayList<>();
