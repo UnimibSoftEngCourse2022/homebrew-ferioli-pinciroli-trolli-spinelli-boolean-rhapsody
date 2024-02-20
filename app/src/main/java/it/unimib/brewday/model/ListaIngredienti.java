@@ -1,12 +1,9 @@
-package it.unimib.brewday.util;
+package it.unimib.brewday.model;
 
 
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.unimib.brewday.model.Ingrediente;
-import it.unimib.brewday.model.TipoIngrediente;
 
 public class ListaIngredienti {
 
@@ -21,8 +18,6 @@ public class ListaIngredienti {
         listaIngredientiDisponibili.add(new Ingrediente(TipoIngrediente.ZUCCHERO));
 
         return listaIngredientiDisponibili;
-
-
     }
 
 }

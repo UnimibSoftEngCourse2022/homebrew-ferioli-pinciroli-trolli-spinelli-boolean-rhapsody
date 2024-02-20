@@ -21,9 +21,7 @@ import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.NotaDegustazione;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.IngredienteRicetta;
-import it.unimib.brewday.util.Converters;
-import it.unimib.brewday.util.Costanti;
-import it.unimib.brewday.util.ListaIngredienti;
+import it.unimib.brewday.model.ListaIngredienti;
 
 @Database(entities = {
         Attrezzo.class,
@@ -36,7 +34,7 @@ import it.unimib.brewday.util.ListaIngredienti;
 @TypeConverters({Converters.class})
 public abstract class LocalDatabase extends RoomDatabase {
 
-
+    public static final String NOME_DATABASE = "brew-day-db";
 
     //Lista dei DAO
     public abstract IngredienteDao ingredienteDao();
@@ -70,7 +68,7 @@ public abstract class LocalDatabase extends RoomDatabase {
     private static LocalDatabase buildDatabase(Context context) {
         return Room.databaseBuilder(
                         context.getApplicationContext(),
-                        LocalDatabase.class, Costanti.NOME_DATABASE
+                        LocalDatabase.class, NOME_DATABASE
                 )
 
                 .addCallback(new RoomDatabase.Callback() {

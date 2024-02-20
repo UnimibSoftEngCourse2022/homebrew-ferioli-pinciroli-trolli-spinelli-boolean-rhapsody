@@ -1,4 +1,4 @@
-package it.unimib.brewday.util;
+package it.unimib.brewday.domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.TipoAttrezzo;
+import it.unimib.brewday.util.RegistroErrori;
 
 public class Ottimizzazione {
 

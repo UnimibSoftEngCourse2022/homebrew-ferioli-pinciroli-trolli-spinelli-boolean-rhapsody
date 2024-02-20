@@ -2,8 +2,6 @@ package it.unimib.brewday.ui.gestisci_ingredienti;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-import static it.unimib.brewday.util.Constants.ACQUA;
-
 import android.content.Context;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -23,6 +21,7 @@ import java.util.List;
 
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ingrediente;
+import it.unimib.brewday.model.TipoIngrediente;
 
 public class AdapterListViewIngredienti extends ArrayAdapter<Ingrediente> {
 
@@ -122,7 +121,7 @@ public class AdapterListViewIngredienti extends ArrayAdapter<Ingrediente> {
 
     private void aggiornaVisualizzazioneIngredienti(Ingrediente ingrediente, EditText quantitaIngrediente, TextView unitaMisura) {
         quantitaIngrediente.setText(ingrediente.getQuantitaAssolutaToString());
-        if (ingrediente.getTipo().getNome().equalsIgnoreCase(ACQUA)) {
+        if (ingrediente.getTipo().equals(TipoIngrediente.ACQUA)) {
             unitaMisura.setText(" L");
         } else {
             unitaMisura.setText(" g");

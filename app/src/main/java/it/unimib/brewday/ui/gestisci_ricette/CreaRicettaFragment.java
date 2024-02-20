@@ -32,7 +32,7 @@ import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewIngredienti;
-import it.unimib.brewday.util.ListaIngredienti;
+import it.unimib.brewday.model.ListaIngredienti;
 import it.unimib.brewday.util.RegistroErrori;
 
 public class CreaRicettaFragment extends Fragment {

@@ -1,7 +1,5 @@
 package it.unimib.brewday.ui.gestione_birra;
 
-import static it.unimib.brewday.util.Constants.ACQUA;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +16,7 @@ import java.util.List;
 
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.IngredienteRicetta;
+import it.unimib.brewday.model.TipoIngrediente;
 
 public class AdapterListViewIngredientiBirra extends ArrayAdapter<IngredienteRicetta> {
 
@@ -54,7 +53,7 @@ public class AdapterListViewIngredientiBirra extends ArrayAdapter<IngredienteRic
 
     private void aggiornaVisualizzazioneIngredienti(IngredienteRicetta ingredienteRicetta, TextInputLayout quantitaIngrediente, TextView unitaMisura, int differenza) {
 
-        if (ingredienteRicetta.getTipoIngrediente().getNome().equalsIgnoreCase(ACQUA)) {
+        if (ingredienteRicetta.getTipoIngrediente().equals(TipoIngrediente.ACQUA)) {
             unitaMisura.setText(" L");
             quantitaIngrediente.getEditText().setText(ingredienteRicetta.getDosaggioIngredienteToString());
             if (differenza < 0){

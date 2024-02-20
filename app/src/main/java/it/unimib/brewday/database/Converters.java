@@ -1,4 +1,4 @@
-package it.unimib.brewday.util;
+package it.unimib.brewday.database;
 
 import androidx.room.TypeConverter;
 

@@ -15,7 +15,6 @@ import it.unimib.brewday.repository.IBirreRepository;
 import it.unimib.brewday.repository.IIngredientiRepository;
 import it.unimib.brewday.repository.IRicetteRepository;
 import it.unimib.brewday.ui.Callback;
-import it.unimib.brewday.util.Ottimizzazione;
 
 public class GestioneBirre implements IGestioneBirra {
 
