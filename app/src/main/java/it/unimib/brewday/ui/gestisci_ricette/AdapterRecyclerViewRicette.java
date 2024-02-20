@@ -23,6 +23,9 @@ public class AdapterRecyclerViewRicette extends
     public final Context context;
     private final OnItemClickListener onItemClickListener;
 
+    private TextView nomeRicetta;
+    private ImageButton aggiungiRicetta;
+
     public interface OnItemClickListener {
         void onElementoRicettaClick(Ricetta ricetta);
 
@@ -57,8 +60,7 @@ public class AdapterRecyclerViewRicette extends
         return 0;
     }
 
-    TextView nomeRicetta;
-    ImageButton aggiungiRicetta;
+
 
     public class RicettaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

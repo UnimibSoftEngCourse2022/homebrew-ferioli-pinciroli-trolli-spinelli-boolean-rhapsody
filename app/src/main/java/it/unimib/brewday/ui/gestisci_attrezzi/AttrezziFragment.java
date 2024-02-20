@@ -69,7 +69,7 @@ public class AttrezziFragment extends Fragment {
         attrezziViewModel.getAllAttrezziResult().observe(this.getViewLifecycleOwner(), this::addNuoviAttrezzi);
 
         //Gestione risultato operazione creazione
-        attrezziViewModel.getCreateAttrezzoResult().observe(this.getViewLifecycleOwner(), risultato -> {
+        attrezziViewModel.getCreateAttrezzoRisultato().observe(this.getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()) {
                 attrezziViewModel.readAllAttrezzi();
             }
@@ -80,7 +80,7 @@ public class AttrezziFragment extends Fragment {
         });
 
         //Gestione risultato operazione cancellazione
-        attrezziViewModel.getDeleteAttrezzoResult().observe(this.getViewLifecycleOwner(), risultato -> {
+        attrezziViewModel.getDeleteAttrezzoRisultato().observe(this.getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()) {
                 attrezziViewModel.readAllAttrezzi();
             }
@@ -91,7 +91,7 @@ public class AttrezziFragment extends Fragment {
         });
 
         //Gestione risultato operazione aggiornamento
-        attrezziViewModel.getUpdateAttrezzoResult().observe(this.getViewLifecycleOwner(), risultato -> {
+        attrezziViewModel.getUpdateAttrezzoRisultato().observe(this.getViewLifecycleOwner(), risultato -> {
             attrezziViewModel.readAllAttrezzi();
             if (!risultato.isSuccessful()) {
                 String errore = ((Risultato.Errore) risultato).getMessaggio();
@@ -100,7 +100,7 @@ public class AttrezziFragment extends Fragment {
         });
     }
 
-    public void addNuoviAttrezzi(Risultato risultato) {
+    private void addNuoviAttrezzi(Risultato risultato) {
         if (risultato.isSuccessful() && risultato instanceof Risultato.ListaAttrezziSuccesso) {
             List<Attrezzo> nuoviAttrezzi = ((Risultato.ListaAttrezziSuccesso) risultato).getAttrezzi();
             if (adapterRecyclerViewAttrezzi == null) {

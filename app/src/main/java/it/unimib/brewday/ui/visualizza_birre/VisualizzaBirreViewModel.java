@@ -10,6 +10,7 @@ import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.NotaDegustazione;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.repository.INoteDegustazioneRepository;
+import it.unimib.brewday.repository.NoteDegustazioneRepository;
 
 public class VisualizzaBirreViewModel extends ViewModel {
 

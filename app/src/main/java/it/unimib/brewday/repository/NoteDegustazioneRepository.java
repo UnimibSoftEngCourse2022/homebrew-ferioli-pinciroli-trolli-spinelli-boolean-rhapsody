@@ -33,7 +33,7 @@ public class NoteDegustazioneRepository implements INoteDegustazioneRepository{
     }
 
     @Override
-    public void readAllNoteDegustazione( long idBirra , Callback callback){
+    public void readAllNoteDegustazione(long idBirra , Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             List<NotaDegustazione> listaNoteDegustazione = notaDegustazioneDao.getListaNoteDegustazione(idBirra);
             if (listaNoteDegustazione != null) {

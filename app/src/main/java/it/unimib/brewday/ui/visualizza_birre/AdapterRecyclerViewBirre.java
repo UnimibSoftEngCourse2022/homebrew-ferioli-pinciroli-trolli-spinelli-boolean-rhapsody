@@ -27,7 +27,6 @@ public class AdapterRecyclerViewBirre extends RecyclerView.Adapter<AdapterRecycl
     public AdapterRecyclerViewBirre(List<BirraConRicetta> listaBirre, ItemClickCallback callback) {
         this.listaBirre = listaBirre;
         this.callback = callback;
-
     }
 
     @NonNull
@@ -66,7 +65,6 @@ public class AdapterRecyclerViewBirre extends RecyclerView.Adapter<AdapterRecycl
         private final TextView dataTerminazione;
         private final ImageView iconaTerminazione;
         private final CardView cardBirra;
-
         private final RatingBar ratingBar;
 
 

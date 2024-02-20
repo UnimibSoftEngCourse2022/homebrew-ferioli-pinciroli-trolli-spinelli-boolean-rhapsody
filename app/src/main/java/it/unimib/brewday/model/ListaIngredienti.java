@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ListaIngredienti {
 
-    List<Ingrediente> listaIngredientiDisponibili = new ArrayList<>();
+    private List<Ingrediente> listaIngredientiDisponibili = new ArrayList<>();
     public List<Ingrediente> getListaIngredienti(){
         listaIngredientiDisponibili = new ArrayList<>();
         listaIngredientiDisponibili.add(new Ingrediente(TipoIngrediente.ACQUA));

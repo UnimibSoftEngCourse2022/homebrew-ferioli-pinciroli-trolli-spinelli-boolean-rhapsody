@@ -39,12 +39,9 @@ public class CreaRicettaFragment extends Fragment {
 
     private  FragmentCreaRicettaBinding fragmentCreaRicettaBinding;
 
-    List<Ingrediente> listaIngredientiRicetta;
+    private List<Ingrediente> listaIngredientiRicetta;
 
-    RicetteViewModel ricettaViewModel;
-
-
-
+    private RicetteViewModel ricettaViewModel;
 
     public CreaRicettaFragment() {
         // Required empty public constructor
