@@ -1,9 +1,12 @@
 package it.unimib.brewday.ui.visualizza_birre;
 
+import static it.unimib.brewday.ui.Topbar.gestisciTopbar;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -65,6 +68,9 @@ public class BirraDettagliataFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //Gestione Topbar
+        gestisciTopbar((AppCompatActivity) requireActivity());
 
         RecyclerView.LayoutManager layoutManagerAttrezzi = new LinearLayoutManager(requireContext(),
                 LinearLayoutManager.HORIZONTAL, false);
