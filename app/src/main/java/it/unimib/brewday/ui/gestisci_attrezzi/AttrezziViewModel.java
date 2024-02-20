@@ -11,9 +11,9 @@ import it.unimib.brewday.repository.IAttrezziRepository;
 public class AttrezziViewModel extends ViewModel {
 
     private final MutableLiveData<Risultato> allAttrezziRisultato;
-    private final MutableLiveData<Risultato> createAttrezzoRisultato;
-    private final MutableLiveData<Risultato> updateAttrezzoRisultato;
-    private final MutableLiveData<Risultato> deleteAttrezzoRisultato;
+    private MutableLiveData<Risultato> createAttrezzoRisultato;
+    private MutableLiveData<Risultato> updateAttrezzoRisultato;
+    private MutableLiveData<Risultato> deleteAttrezzoRisultato;
 
     private final IAttrezziRepository attrezziRepository;
 
@@ -57,5 +57,13 @@ public class AttrezziViewModel extends ViewModel {
 
     public LiveData<Risultato> getUpdateAttrezzoRisultato() {
         return updateAttrezzoRisultato;
+    }
+
+    public void pulisciUpdate(){
+        updateAttrezzoRisultato = new MutableLiveData<>();
+    }
+
+    public void pulisciDelete(){
+        deleteAttrezzoRisultato = new MutableLiveData<>();
     }
 }

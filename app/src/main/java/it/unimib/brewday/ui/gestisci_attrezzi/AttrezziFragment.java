@@ -87,6 +87,7 @@ public class AttrezziFragment extends Fragment {
             else{
                 String errore = ((Risultato.Errore) risultato).getMessaggio();
                 Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
+                attrezziViewModel.pulisciDelete();
             }
         });
 
@@ -96,6 +97,7 @@ public class AttrezziFragment extends Fragment {
             if (!risultato.isSuccessful()) {
                 String errore = ((Risultato.Errore) risultato).getMessaggio();
                 Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
+                attrezziViewModel.pulisciUpdate();
             }
         });
     }
