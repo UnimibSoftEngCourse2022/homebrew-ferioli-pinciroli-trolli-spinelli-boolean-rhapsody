@@ -33,3 +33,6 @@ Per installare ed eseguire l'applicazione:
    - Selezionare un dispositivo e premere su "Next" in basso
    - Selezionare un'immagine di sistema (si consiglia di selezionare UpsideDownCake, API level 34) e premere su "Next" in basso
    - Scegliere il nome per l'emulatore appena creato (si consiglia di lasciare le impostazioni default) e premere su "Finish" in basso
+4. Avviare l'applicazione
+   - Nella parte alta della finestra è possibile selezionare le configurazioni di avvio e il dispositivo su cui l'app si avvierà: verificare che sia selezionata la configurazione "app" (dovrebbe già essere selezionata di default) e verificare che sia selezionato il dispositivo/emulatore corretto
+   - Premere sul tasto triangolare verde per avviare l'applicazione
