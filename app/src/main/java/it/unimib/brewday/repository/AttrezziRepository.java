@@ -48,7 +48,19 @@ public class AttrezziRepository implements  IAttrezziRepository{
     @Override
     public void updateAttrezzo(Attrezzo attrezzo, Callback callback) {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
+            long idBirra = attrezziDao.isAttrezzoInUtilizzo(attrezzo.getId());
 
+            if(idBirra == 0){
+                concludiUpdate(attrezzo, callback);
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.ATTREZZO_IN_USO));
+            }
+        });
+    }
+
+    private void concludiUpdate(Attrezzo attrezzo, Callback callback){
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
             int rowsUpdated = attrezziDao.updateAttrezzo(attrezzo);
             if (rowsUpdated == 0) {
                 callback.onComplete(new Risultato.Errore(RegistroErrori.ATTREZZI_UPDATE_ERROR));
@@ -61,6 +73,19 @@ public class AttrezziRepository implements  IAttrezziRepository{
 
     @Override
     public void deleteAttrezzo(Attrezzo attrezzo, Callback callback) {
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
+            long idBirra = attrezziDao.isAttrezzoInUtilizzo(attrezzo.getId());
+
+            if(idBirra == 0){
+                concludiDelete(attrezzo, callback);
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.ATTREZZO_IN_USO));
+            }
+        });
+    }
+
+    private void concludiDelete(Attrezzo attrezzo, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
 
             int rowsDeleted = attrezziDao.deleteAttrezzo(attrezzo);

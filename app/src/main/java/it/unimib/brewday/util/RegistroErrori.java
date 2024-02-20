@@ -26,6 +26,7 @@ public class RegistroErrori {
         mappaErrori.put(ATTREZZI_UPDATE_ERROR, R.string.attrezzi_update_failure);
         mappaErrori.put(ATTREZZI_DELETE_ERROR, R.string.attrezzi_deletion_failure);
         mappaErrori.put(ATTREZZO_TIPOLOGIA_MANCANTE, R.string.attrezzo_tipologia_mancante);
+        mappaErrori.put(ATTREZZO_IN_USO, R.string.attrezzo_in_uso);
         mappaErrori.put(NOTA_CREATION_ERROR, R.string.nota_creation_failure);
         mappaErrori.put(NOTA_FETCH_ERROR, R.string.nota_fetch_failure);
     }
@@ -59,6 +60,7 @@ public class RegistroErrori {
     public static final String ATTREZZI_UPDATE_ERROR = "attrezzi_update_failure";
     public static final String ATTREZZI_DELETE_ERROR = "attrezzi_deletion_failure";
     public static final String ATTREZZO_TIPOLOGIA_MANCANTE = "attrezzo_tipologia_mancante";
+    public static final String ATTREZZO_IN_USO = "attrezzo_in_uso";
     public static final String NOTA_CREATION_ERROR = "nota_creation_failure";
     public static final String NOTA_FETCH_ERROR = "nota_fetch_failure";
 

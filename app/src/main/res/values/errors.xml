@@ -15,6 +15,7 @@
     <string name="attrezzi_update_failure">Si è verificato un errore nell\'aggiornamento dell\'attrezzo</string>
     <string name="attrezzi_deletion_failure">Si è verificato un errore nell\'eliminazione dell\'attrezzo</string>
     <string name="attrezzo_tipologia_mancante">Non è stato possibile individuare gli attrezzi necessari</string>
+    <string name="attrezzo_in_uso">L\'attrezzo è attualmente in uso</string>
     <string name="nota_creation_failure">Si è verificato un errore nella creazione della nota</string>
     <string name="nota_fetch_failure">Si è verificato un errore nel recupero delle note</string>
 

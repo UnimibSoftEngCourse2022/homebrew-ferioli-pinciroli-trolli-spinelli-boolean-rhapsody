@@ -26,6 +26,8 @@ public interface AttrezzoDao {
             "WHERE AB.idBirra = :idBirra")
     List<Attrezzo> getAllAttrezziInUtilizzo(long idBirra);
 
+    @Query("SELECT idBirra FROM attrezzobirra WHERE idAttrezzo = :idAttrezzo")
+    long isAttrezzoInUtilizzo(long idAttrezzo);
 
     @Insert
     long insertAttrezzo(Attrezzo attrezzo);
