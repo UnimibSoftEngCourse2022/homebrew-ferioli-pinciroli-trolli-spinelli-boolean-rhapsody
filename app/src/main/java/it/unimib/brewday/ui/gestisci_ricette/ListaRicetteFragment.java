@@ -33,12 +33,12 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 public class ListaRicetteFragment extends Fragment {
 
-    List<Ricetta> listaRicette;
-    RicetteViewModel ricettaViewModel;
-    AdapterRecyclerViewRicette adapterRecyclerViewRicette;
-    RecyclerView recyclerViewRicette;
-    String ricettaRimossaMessaggio ;
-    Ricetta ricettaRimossa;
+    private List<Ricetta> listaRicette;
+    private RicetteViewModel ricettaViewModel;
+    private AdapterRecyclerViewRicette adapterRecyclerViewRicette;
+    private RecyclerView recyclerViewRicette;
+    private String ricettaRimossaMessaggio ;
+    private Ricetta ricettaRimossa;
 
     public ListaRicetteFragment() {
         // Required empty public constructor

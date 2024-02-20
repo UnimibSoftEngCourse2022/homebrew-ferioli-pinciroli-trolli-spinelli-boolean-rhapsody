@@ -28,7 +28,7 @@ public class ServiceLocator {
     }
 
     public IngredientiRepository getIngredienteRepository(Context context){
-        return  new IngredientiRepository(getRoomDatabase(context));
+        return new IngredientiRepository(getRoomDatabase(context));
     }
 
     public AttrezziRepository getAttrezziRepository(Context context) {

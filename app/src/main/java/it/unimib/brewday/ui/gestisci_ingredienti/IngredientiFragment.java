@@ -27,13 +27,13 @@ import it.unimib.brewday.util.RegistroErrori;
 
 public class IngredientiFragment extends Fragment {
 
-    ListView listViewIngredientiDispobili;
+    private ListView listViewIngredientiDispobili;
 
-    IngredienteViewModel ingredienteViewModel;
+    private IngredienteViewModel ingredienteViewModel;
 
-    AdapterListViewIngredienti adapterListViewIngredienti;
+    private AdapterListViewIngredienti adapterListViewIngredienti;
 
-    List<Ingrediente> listaIngredienti;
+    private List<Ingrediente> listaIngredienti;
 
 
 

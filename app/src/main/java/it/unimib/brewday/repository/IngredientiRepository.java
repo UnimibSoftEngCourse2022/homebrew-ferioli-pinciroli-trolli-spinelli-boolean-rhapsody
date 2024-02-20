@@ -11,7 +11,7 @@ import it.unimib.brewday.util.RegistroErrori;
 
 public class IngredientiRepository implements IIngredientiRepository{
 
-    final IngredienteDao ingredienteDao;
+    private final IngredienteDao ingredienteDao;
 
     public IngredientiRepository(LocalDatabase localDatabase) {
         this.ingredienteDao = localDatabase.ingredienteDao();
