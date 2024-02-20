@@ -27,7 +27,7 @@ import it.unimib.brewday.util.RegistroErrori;
 
 public class AttrezziFragment extends Fragment {
 
-    private AttrezziViewModel mViewModel;
+    private AttrezziViewModel attrezziViewModel;
     private AdapterRecyclerViewAttrezzi adapterRecyclerViewAttrezzi;
     private RecyclerView recyclerView;
 
@@ -38,7 +38,7 @@ public class AttrezziFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new ViewModelProvider(this,
+        attrezziViewModel = new ViewModelProvider(this,
                 new AttrezziViewModelFactory(getContext()))
                 .get(AttrezziViewModel.class);
     }
@@ -56,22 +56,22 @@ public class AttrezziFragment extends Fragment {
         FloatingActionButton addAttrezzo = view.findViewById(R.id.gestisciAttrezziFragment_imageButton_add);
 
         addAttrezzo.setOnClickListener(v -> {
-            InserisciAttrezzoDialog dialog = new InserisciAttrezzoDialog(mViewModel);
+            InserisciAttrezzoDialog dialog = new InserisciAttrezzoDialog(attrezziViewModel);
             dialog.show(getParentFragmentManager(), "Inserisci nuovo attrezzo");
         });
 
         //Gestione stampa a schermo degli attrezzi registrati
         recyclerView = view.findViewById(R.id.fragmentGestisciAttrezzi_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mViewModel.readAllAttrezzi();
+        attrezziViewModel.readAllAttrezzi();
 
         //Gestione risultato operazione di lettura
-        mViewModel.getAllAttrezziResult().observe(this.getViewLifecycleOwner(), this::addNuoviAttrezzi);
+        attrezziViewModel.getAllAttrezziResult().observe(this.getViewLifecycleOwner(), this::addNuoviAttrezzi);
 
         //Gestione risultato operazione creazione
-        mViewModel.getCreateAttrezzoResult().observe(this.getViewLifecycleOwner(), risultato -> {
+        attrezziViewModel.getCreateAttrezzoResult().observe(this.getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()) {
-                mViewModel.readAllAttrezzi();
+                attrezziViewModel.readAllAttrezzi();
             }
             else{
                 String errore = ((Risultato.Errore) risultato).getMessaggio();
@@ -80,9 +80,9 @@ public class AttrezziFragment extends Fragment {
         });
 
         //Gestione risultato operazione cancellazione
-        mViewModel.getDeleteAttrezzoResult().observe(this.getViewLifecycleOwner(), risultato -> {
+        attrezziViewModel.getDeleteAttrezzoResult().observe(this.getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()) {
-                mViewModel.readAllAttrezzi();
+                attrezziViewModel.readAllAttrezzi();
             }
             else{
                 String errore = ((Risultato.Errore) risultato).getMessaggio();
@@ -91,11 +91,9 @@ public class AttrezziFragment extends Fragment {
         });
 
         //Gestione risultato operazione aggiornamento
-        mViewModel.getUpdateAttrezzoResult().observe(this.getViewLifecycleOwner(), risultato -> {
-            if (risultato.isSuccessful()) {
-                mViewModel.readAllAttrezzi();
-            }
-            else{
+        attrezziViewModel.getUpdateAttrezzoResult().observe(this.getViewLifecycleOwner(), risultato -> {
+            attrezziViewModel.readAllAttrezzi();
+            if (!risultato.isSuccessful()) {
                 String errore = ((Risultato.Errore) risultato).getMessaggio();
                 Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
@@ -106,7 +104,7 @@ public class AttrezziFragment extends Fragment {
         if (risultato.isSuccessful() && risultato instanceof Risultato.ListaAttrezziSuccesso) {
             List<Attrezzo> nuoviAttrezzi = ((Risultato.ListaAttrezziSuccesso) risultato).getAttrezzi();
             if (adapterRecyclerViewAttrezzi == null) {
-                adapterRecyclerViewAttrezzi = new AdapterRecyclerViewAttrezzi(nuoviAttrezzi, mViewModel, false);
+                adapterRecyclerViewAttrezzi = new AdapterRecyclerViewAttrezzi(nuoviAttrezzi, attrezziViewModel, false);
                 recyclerView.setAdapter(adapterRecyclerViewAttrezzi);
             } else {
                 adapterRecyclerViewAttrezzi.setDataList(nuoviAttrezzi);
