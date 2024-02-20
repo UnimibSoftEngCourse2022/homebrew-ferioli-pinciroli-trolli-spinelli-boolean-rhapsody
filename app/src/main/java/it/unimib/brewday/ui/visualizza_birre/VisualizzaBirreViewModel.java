@@ -9,7 +9,7 @@ import it.unimib.brewday.domain.IGestioneBirra;
 import it.unimib.brewday.model.Birra;
 import it.unimib.brewday.model.NotaDegustazione;
 import it.unimib.brewday.model.Risultato;
-import it.unimib.brewday.repository.NoteDegustazioneRepository;
+import it.unimib.brewday.repository.INoteDegustazioneRepository;
 
 public class VisualizzaBirreViewModel extends ViewModel {
 
@@ -23,11 +23,11 @@ public class VisualizzaBirreViewModel extends ViewModel {
     private final MutableLiveData<Risultato> getInserimentoNotaDegustazioneRisultato;
 
     //Repository di accesso ai dati
-    private final NoteDegustazioneRepository noteDegustazioneRepository;
+    private final INoteDegustazioneRepository noteDegustazioneRepository;
 
     private final IGestioneBirra gestioneBirra;
 
-    public VisualizzaBirreViewModel(NoteDegustazioneRepository noteDegustazioneRepository, IGestioneBirra gestioneBirra) {
+    public VisualizzaBirreViewModel(INoteDegustazioneRepository noteDegustazioneRepository, IGestioneBirra gestioneBirra) {
 
         this.noteDegustazioneRepository = noteDegustazioneRepository;
         this.gestioneBirra = gestioneBirra;
