@@ -3,6 +3,7 @@ package it.unimib.brewday.ui.gestisci_attrezzi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -143,6 +144,7 @@ public class AdapterRecyclerViewAttrezzi extends RecyclerView.Adapter<AdapterRec
 
             nomeAttrezzo = view.findViewById(R.id.oneRowCard_nomeReale);
             capacitaAttrezzo = view.findViewById(R.id.oneRowCard_capacitaReale);
+            capacitaAttrezzo.setImeOptions(EditorInfo.IME_ACTION_DONE);
             tipoAttrezzo = view.findViewById(R.id.oneRowCard_tipoReale);
             cancella = view.findViewById(R.id.oneRowCard_imageCancella);
             modifica = view.findViewById(R.id.oneRowCard_imageButtonModifica);
