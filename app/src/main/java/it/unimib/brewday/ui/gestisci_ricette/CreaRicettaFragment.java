@@ -2,10 +2,13 @@ package it.unimib.brewday.ui.gestisci_ricette;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
+import static it.unimib.brewday.ui.Topbar.gestisciTopbar;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -18,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import it.unimib.brewday.databinding.FragmentCreaRicettaBinding;
@@ -29,28 +33,19 @@ import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ingrediente;
 import it.unimib.brewday.model.IngredienteRicetta;
 import it.unimib.brewday.model.Ricetta;
-import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewListaIngredientiDisponibili;
-import it.unimib.brewday.util.GestioneRicette;
-import it.unimib.brewday.util.ListaIngredienti;
+import it.unimib.brewday.model.Risultato;
+import it.unimib.brewday.ui.gestisci_ingredienti.AdapterListViewIngredienti;
+import it.unimib.brewday.model.ListaIngredienti;
+import it.unimib.brewday.util.RegistroErrori;
 
 public class CreaRicettaFragment extends Fragment {
 
     private  FragmentCreaRicettaBinding fragmentCreaRicettaBinding;
 
-    List<Ingrediente> listaIngredientiRicetta;
-
-    RicetteViewModel ricettaViewModel;
-
-
-
+    private RicetteViewModel ricettaViewModel;
 
     public CreaRicettaFragment() {
         // Required empty public constructor
-    }
-
-    public static CreaRicettaFragment newInstance() {
-
-        return new CreaRicettaFragment();
     }
 
     @Override
@@ -67,18 +62,21 @@ public class CreaRicettaFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //Gestione Topbar
+        gestisciTopbar((AppCompatActivity) requireActivity());
+
         ListView listViewIngredientiRicetta = fragmentCreaRicettaBinding.listViewIngredrientiRicetta;
         Button creaRicettaButton = fragmentCreaRicettaBinding.buttonCreaRicetta;
         EditText numeroLitriBirra = fragmentCreaRicettaBinding.editNumberNumeroLitriBirra;
         EditText nomeRicetta = fragmentCreaRicettaBinding.editTextNomeRicetta;
-        GestioneRicette gestioneRicette = new GestioneRicette();
 
         ListaIngredienti listaIngredienti = new ListaIngredienti();
-        listaIngredientiRicetta = listaIngredienti.getListaIngredienti();
+        List<Ingrediente> listaIngredientiRicetta = listaIngredienti.getListaIngredienti();
 
-        AdapterListViewListaIngredientiDisponibili adapterListViewListaIngredientiRicetta = new AdapterListViewListaIngredientiDisponibili(
+        AdapterListViewIngredienti adapterListViewListaIngredientiRicetta = new AdapterListViewIngredienti(
                 getContext(), 0, listaIngredientiRicetta, R.layout.lista_ingredienti_singoli,
-                new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
+                new AdapterListViewIngredienti.OnItemClickListener() {
                     @Override
                     public void onAddIngredienteClick(Ingrediente ingrediente) {
                                 //vuoto
@@ -92,33 +90,42 @@ public class CreaRicettaFragment extends Fragment {
                    //vuoto
         }, true);
 
+        ricettaViewModel.getInsertRicettaRisultato().observe(getViewLifecycleOwner(), risultato -> {
+            if (risultato.isSuccessful()){
+                getParentFragmentManager().popBackStackImmediate();
+            }
+            else{
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        });
+
         listViewIngredientiRicetta.setAdapter(adapterListViewListaIngredientiRicetta);
         listViewIngredientiRicetta.setDivider(null);
 
         numeroLitriBirra.setOnFocusChangeListener((v, hasFocus) ->
-                gestioneRicette.verificaNumeroLitriBirra(numeroLitriBirra, hasFocus)
+                RicetteUtil.verificaNumeroLitriBirra(numeroLitriBirra, hasFocus)
         );
 
         creaRicettaButton.setOnClickListener(v -> {
-                    if( gestioneRicette.controlloCreazione(view, nomeRicetta, numeroLitriBirra)){
-                        List<IngredienteRicetta> listaIngredientiPerLitro = new ArrayList<>();
-                        int zeroIngredinti = gestioneRicette.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
-
-
-                    salvaRicetta(view, zeroIngredinti, listaIngredientiPerLitro, new Ricetta(nomeRicetta.getText().toString(),Integer.parseInt(numeroLitriBirra.getText().toString())));
-                    }
+            if(RicetteUtil.controlloCreazione(view, nomeRicetta, numeroLitriBirra)){
+                List<IngredienteRicetta> listaIngredientiPerLitro = new ArrayList<>();
+                int zeroIngredienti = RicetteUtil.creaListaIngredientiRicetta(listaIngredientiRicetta, listaIngredientiPerLitro, numeroLitriBirra);
+                salvaRicetta(view, zeroIngredienti, listaIngredientiPerLitro, new Ricetta(nomeRicetta.getText().toString(),Integer.parseInt(numeroLitriBirra.getText().toString())));
+            }
         });
     }
 
 
-    private void salvaRicetta(View view, int zeroIngredinti, List<IngredienteRicetta> ingredientiRicetta, Ricetta ricetta ) {
-        if (zeroIngredinti < 3) {
+    private void salvaRicetta(View view, int zeroIngredienti, List<IngredienteRicetta> ingredientiRicetta, Ricetta ricetta) {
+        if (zeroIngredienti < 3) {
             ricettaViewModel.insertRicetta(ricetta, ingredientiRicetta);
-            getParentFragmentManager().popBackStackImmediate();
-        } else {
+        }
+        else{
             Snackbar.make(view, R.string.ingredienti_ricetta_mancanti, LENGTH_SHORT).show();
         }
     }
+
 
 
 }

@@ -1,8 +1,5 @@
 package it.unimib.brewday.ui.gestisci_ingredienti;
 
-import static android.widget.Toast.LENGTH_SHORT;
-
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +14,7 @@ import android.view.ViewGroup;
 
 import android.widget.ListView;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -24,27 +22,23 @@ import java.util.List;
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.model.Ingrediente;
+import it.unimib.brewday.util.RegistroErrori;
 
 
 public class IngredientiFragment extends Fragment {
 
-    ListView listViewIngredientiDispobili;
+    private ListView listViewIngredientiDispobili;
 
-    IngredienteViewModel ingredienteViewModel;
+    private IngredienteViewModel ingredienteViewModel;
 
-    AdapterListViewListaIngredientiDisponibili adapterListViewListaIngredientiDisponibili;
+    private AdapterListViewIngredienti adapterListViewIngredienti;
 
-    List<Ingrediente> listaIngredienti;
+    private List<Ingrediente> listaIngredienti;
 
 
 
     public IngredientiFragment() {
         // Required empty public constructor
-    }
-
-    public static IngredientiFragment newInstance() {
-
-        return new IngredientiFragment();
     }
 
     @Override
@@ -72,9 +66,9 @@ public class IngredientiFragment extends Fragment {
         ingredienteViewModel.readAllIngredienti();
         ingredienteViewModel.getReadAllIngredientiResult().observe(getViewLifecycleOwner(), risultato -> {
             if(risultato.isSuccessful()){
-                listaIngredienti = ((Risultato.IngredientiSuccesso) risultato).getData();
+                listaIngredienti = ((Risultato.ListaIngredientiSuccesso) risultato).getData();
 
-                adapterListViewListaIngredientiDisponibili = new AdapterListViewListaIngredientiDisponibili(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewListaIngredientiDisponibili.OnItemClickListener() {
+                adapterListViewIngredienti = new AdapterListViewIngredienti(getContext(), 0, listaIngredienti, R.layout.lista_ingredienti_singoli, new AdapterListViewIngredienti.OnItemClickListener() {
                     @Override
                     public void onAddIngredienteClick(Ingrediente ingrediente) {
                         aggiornaDBIngrediente(ingrediente);
@@ -88,21 +82,27 @@ public class IngredientiFragment extends Fragment {
                     aggiornaDBIngrediente(ingrediente)
                 , true);
 
-                listViewIngredientiDispobili.setAdapter(adapterListViewListaIngredientiDisponibili);
+                listViewIngredientiDispobili.setAdapter(adapterListViewIngredienti);
                 listViewIngredientiDispobili.setDivider(null);
 
-            } else {
-                Snackbar.make(view, ((Risultato.Errore) risultato).getMessaggio(), LENGTH_SHORT).show();
+            }
+            else{
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
+            }
+        });
+
+        ingredienteViewModel.getUpdateIngredienteResult().observe(getViewLifecycleOwner(), risultato -> {
+            if (!risultato.isSuccessful()){
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
     }
 
     private void aggiornaDBIngrediente(Ingrediente ingrediente){
         ingredienteViewModel.updateIngrediente(ingrediente);
-
-
     }
-
 
 
 }

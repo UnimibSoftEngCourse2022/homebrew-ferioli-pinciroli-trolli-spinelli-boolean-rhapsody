@@ -15,31 +15,30 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Risultato;
+import it.unimib.brewday.util.RegistroErrori;
 
 public class AttrezziFragment extends Fragment {
 
-    private AttrezziViewModel mViewModel;
-    private AttrezziAdapter attrezziAdapter;
+    private AttrezziViewModel attrezziViewModel;
+    private AdapterRecyclerViewAttrezzi adapterRecyclerViewAttrezzi;
     private RecyclerView recyclerView;
 
     public AttrezziFragment() {
         super(R.layout.fragment_gestisci_attrezzi);
     }
 
-    public static AttrezziFragment newInstance() {
-        return new AttrezziFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new ViewModelProvider(this,
+        attrezziViewModel = new ViewModelProvider(this,
                 new AttrezziViewModelFactory(getContext()))
                 .get(AttrezziViewModel.class);
     }
@@ -57,49 +56,65 @@ public class AttrezziFragment extends Fragment {
         FloatingActionButton addAttrezzo = view.findViewById(R.id.gestisciAttrezziFragment_imageButton_add);
 
         addAttrezzo.setOnClickListener(v -> {
-            InserisciAttrezzoDialog prova = new InserisciAttrezzoDialog(mViewModel);
-            prova.show(getParentFragmentManager(), "Inserisci nuovo attrezzo");
+            InserisciAttrezzoDialog dialog = new InserisciAttrezzoDialog(attrezziViewModel);
+            dialog.show(getParentFragmentManager(), "Inserisci nuovo attrezzo");
         });
 
         //Gestione stampa a schermo degli attrezzi registrati
         recyclerView = view.findViewById(R.id.fragmentGestisciAttrezzi_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mViewModel.readAllAttrezzi();
+        attrezziViewModel.readAllAttrezzi();
 
         //Gestione risultato operazione di lettura
-        mViewModel.getAllAttrezziResult().observe(this.getViewLifecycleOwner(), this::addNuoviAttrezzi);
+        attrezziViewModel.getAllAttrezziResult().observe(this.getViewLifecycleOwner(), this::addNuoviAttrezzi);
 
         //Gestione risultato operazione creazione
-        mViewModel.getCreateAttrezzoResult().observe(this.getViewLifecycleOwner(), risultato -> {
+        attrezziViewModel.getCreateAttrezzoRisultato().observe(this.getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()) {
-                mViewModel.readAllAttrezzi();
+                attrezziViewModel.readAllAttrezzi();
+            }
+            else{
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 
         //Gestione risultato operazione cancellazione
-        mViewModel.getDeleteAttrezzoResult().observe(this.getViewLifecycleOwner(), risultato -> {
+        attrezziViewModel.getDeleteAttrezzoRisultato().observe(this.getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()) {
-                mViewModel.readAllAttrezzi();
+                attrezziViewModel.readAllAttrezzi();
+            }
+            else{
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
+                attrezziViewModel.pulisciDelete();
             }
         });
 
         //Gestione risultato operazione aggiornamento
-        mViewModel.getUpdateAttrezzoResult().observe(this.getViewLifecycleOwner(), risultato -> {
-            if (risultato.isSuccessful()) {
-                mViewModel.readAllAttrezzi();
+        attrezziViewModel.getUpdateAttrezzoRisultato().observe(this.getViewLifecycleOwner(), risultato -> {
+            attrezziViewModel.readAllAttrezzi();
+            if (!risultato.isSuccessful()) {
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
+                attrezziViewModel.pulisciUpdate();
             }
         });
     }
 
-    public void addNuoviAttrezzi(Risultato risultato) {
-        if (risultato.isSuccessful() && risultato instanceof Risultato.AttrezziSuccesso) {
-            List<Attrezzo> nuoviAttrezzi = ((Risultato.AttrezziSuccesso) risultato).getAttrezzi();
-            if (attrezziAdapter == null) {
-                attrezziAdapter = new AttrezziAdapter(nuoviAttrezzi, mViewModel);
-                recyclerView.setAdapter(attrezziAdapter);
+    private void addNuoviAttrezzi(Risultato risultato) {
+        if (risultato.isSuccessful() && risultato instanceof Risultato.ListaAttrezziSuccesso) {
+            List<Attrezzo> nuoviAttrezzi = ((Risultato.ListaAttrezziSuccesso) risultato).getAttrezzi();
+            if (adapterRecyclerViewAttrezzi == null) {
+                adapterRecyclerViewAttrezzi = new AdapterRecyclerViewAttrezzi(nuoviAttrezzi, attrezziViewModel, false);
+                recyclerView.setAdapter(adapterRecyclerViewAttrezzi);
             } else {
-                attrezziAdapter.setDataList(nuoviAttrezzi);
+                adapterRecyclerViewAttrezzi.setDataList(nuoviAttrezzi);
             }
+        }
+        else{
+            String errore = ((Risultato.Errore) risultato).getMessaggio();
+            Snackbar.make(requireView(), getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
         }
     }
 

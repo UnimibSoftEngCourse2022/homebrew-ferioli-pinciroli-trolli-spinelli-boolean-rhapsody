@@ -10,7 +10,7 @@ import it.unimib.brewday.model.Risultato;
 import it.unimib.brewday.ui.Callback;
 import it.unimib.brewday.util.RegistroErrori;
 
-public class RicetteRepository {
+public class RicetteRepository implements IRicetteRepository{
 
     private final RicettaDao ricettaDao;
 
@@ -18,6 +18,7 @@ public class RicetteRepository {
         ricettaDao = localDatabase.ricettaDao();
     }
 
+    @Override
     public void insertRicetta(Ricetta ricetta, List<IngredienteRicetta> listaDegliIngredienti, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             long id = ricettaDao.insertRicetta(ricetta);
@@ -54,7 +55,8 @@ public class RicetteRepository {
         });
     }
 
-    public void getIngredientiRicetta(long idRicetta, Callback callback){
+    @Override
+    public void readIngredientiRicetta(long idRicetta, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             List<IngredienteRicetta> ingredientiDellaRicetta = ricettaDao.getIngredientiRicetta(idRicetta);
 
@@ -67,9 +69,24 @@ public class RicetteRepository {
         });
     }
 
-    public void getRicette(Callback callback){
+    @Override
+    public void readAllIngredientiRicetta(Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
-            List<Ricetta> ricette = ricettaDao.getRicette();
+            List<IngredienteRicetta> listaIngredientiRicette = ricettaDao.getAllIngredientiRicetta();
+
+            if(listaIngredientiRicette != null){
+                callback.onComplete(new Risultato.ListaIngredientiDellaRicettaSuccesso(listaIngredientiRicette));
+            }
+            else{
+                callback.onComplete(new Risultato.Errore(RegistroErrori.INGREDIENTI_FETCH_ERROR));
+            }
+        });
+    }
+
+    @Override
+    public void readAllRicette(Callback callback){
+        LocalDatabase.databaseWriteExecutor.execute(() -> {
+            List<Ricetta> ricette = ricettaDao.getAllRicette();
 
             if(ricette != null){
                 callback.onComplete(new Risultato.ListaRicetteSuccesso(ricette));
@@ -80,6 +97,7 @@ public class RicetteRepository {
         });
     }
 
+    @Override
     public void updateRicetta(Ricetta ricetta, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             int righeAggiornate = ricettaDao.updateRicetta(ricetta);
@@ -93,6 +111,7 @@ public class RicetteRepository {
         });
     }
 
+    @Override
     public void deleteRicetta(Ricetta ricetta, Callback callback){
         LocalDatabase.databaseWriteExecutor.execute(() -> {
             int righeCancellate = ricettaDao.deleteRicetta(ricetta);
@@ -106,6 +125,7 @@ public class RicetteRepository {
         });
     }
 
+    @Override
     public void updateIngredientiRicetta(List<IngredienteRicetta> ingredienteRicetta, Callback callback) {
         LocalDatabase.databaseWriteExecutor.execute(() -> {
 
@@ -119,4 +139,5 @@ public class RicetteRepository {
             }
         });
     }
+
 }

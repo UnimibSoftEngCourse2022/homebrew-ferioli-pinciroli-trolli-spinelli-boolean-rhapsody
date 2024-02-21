@@ -13,7 +13,7 @@ import it.unimib.brewday.model.Ingrediente;
 public interface IngredienteDao {
 
     @Query("SELECT * FROM ingrediente ")
-    List<Ingrediente> getAll();
+    List<Ingrediente> getAllIngredienti();
 
     @Update int updateAllIngredienti(List<Ingrediente> ingredienti);
 

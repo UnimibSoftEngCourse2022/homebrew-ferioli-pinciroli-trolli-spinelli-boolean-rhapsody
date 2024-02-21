@@ -6,60 +6,64 @@ import androidx.lifecycle.ViewModel;
 
 import it.unimib.brewday.model.Attrezzo;
 import it.unimib.brewday.model.Risultato;
-import it.unimib.brewday.repository.AttrezziRepository;
+import it.unimib.brewday.repository.IAttrezziRepository;
 
 public class AttrezziViewModel extends ViewModel {
 
-    private final MutableLiveData<Risultato> allAttrezzi;
-    private final MutableLiveData<Risultato> createAttrezzoResult;
-    private final MutableLiveData<Risultato> updateAttrezzoResult;
-    private final MutableLiveData<Risultato> deleteAttrezzoResult;
+    private final MutableLiveData<Risultato> allAttrezziRisultato;
+    private MutableLiveData<Risultato> createAttrezzoRisultato;
+    private MutableLiveData<Risultato> updateAttrezzoRisultato;
+    private MutableLiveData<Risultato> deleteAttrezzoRisultato;
 
-    public final MutableLiveData<Boolean> isAddCardVisible;
+    private final IAttrezziRepository attrezziRepository;
 
-    private final AttrezziRepository attrezziRepository;
+    public AttrezziViewModel(IAttrezziRepository attrezziRepository) {
 
-    public AttrezziViewModel(AttrezziRepository attrezziRepository) {
-
-        allAttrezzi = new MutableLiveData<>();
-        createAttrezzoResult = new MutableLiveData<>();
-        updateAttrezzoResult = new MutableLiveData<>();
-        deleteAttrezzoResult = new MutableLiveData<>();
-
-        isAddCardVisible = new MutableLiveData<>(false);
+        allAttrezziRisultato = new MutableLiveData<>();
+        createAttrezzoRisultato = new MutableLiveData<>();
+        updateAttrezzoRisultato = new MutableLiveData<>();
+        deleteAttrezzoRisultato = new MutableLiveData<>();
 
         this.attrezziRepository = attrezziRepository;
     }
 
     public void readAllAttrezzi() {
-        attrezziRepository.readAllAttrezzi(allAttrezzi::postValue);
+        attrezziRepository.readAllAttrezzi(allAttrezziRisultato::postValue);
     }
 
     public void createAttrezzo(Attrezzo attrezzo) {
-        attrezziRepository.createAttrezzo(attrezzo, createAttrezzoResult::postValue);
+        attrezziRepository.createAttrezzo(attrezzo, createAttrezzoRisultato::postValue);
     }
 
     public void updateAttrezzo(Attrezzo nuovoAttrezzo) {
-        attrezziRepository.updateAttrezzo(nuovoAttrezzo, updateAttrezzoResult::postValue);
+        attrezziRepository.updateAttrezzo(nuovoAttrezzo, updateAttrezzoRisultato::postValue);
     }
 
     public void deleteAttrezzo(Attrezzo daCancellare) {
-        attrezziRepository.deleteAttrezzo(daCancellare, deleteAttrezzoResult::postValue);
+        attrezziRepository.deleteAttrezzo(daCancellare, deleteAttrezzoRisultato::postValue);
     }
 
     public LiveData<Risultato> getAllAttrezziResult() {
-        return allAttrezzi;
+        return allAttrezziRisultato;
     }
 
-    public LiveData<Risultato> getCreateAttrezzoResult() {
-        return createAttrezzoResult;
+    public LiveData<Risultato> getCreateAttrezzoRisultato() {
+        return createAttrezzoRisultato;
     }
 
-    public LiveData<Risultato> getDeleteAttrezzoResult() {
-        return deleteAttrezzoResult;
+    public LiveData<Risultato> getDeleteAttrezzoRisultato() {
+        return deleteAttrezzoRisultato;
     }
 
-    public LiveData<Risultato> getUpdateAttrezzoResult() {
-        return updateAttrezzoResult;
+    public LiveData<Risultato> getUpdateAttrezzoRisultato() {
+        return updateAttrezzoRisultato;
+    }
+
+    public void pulisciUpdate(){
+        updateAttrezzoRisultato = new MutableLiveData<>();
+    }
+
+    public void pulisciDelete(){
+        deleteAttrezzoRisultato = new MutableLiveData<>();
     }
 }

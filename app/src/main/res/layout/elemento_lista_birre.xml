@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="32dp"
+    android:padding="2dp"
+    android:descendantFocusability="blocksDescendants">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_birra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="@color/md_theme_light_primaryContainer"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:background="?android:selectableItemBackground">
+
+            <TextView
+                android:id="@+id/textView_nomeBirra"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Birra chiara un poco amara"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/imageButton_terminaProduzione"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView_numeroLitri"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/beer_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView_nomeBirra"
+                app:layout_constraintTop_toBottomOf="@+id/textView_nomeBirra"
+                app:layout_constraintVertical_bias="0.785" />
+
+            <TextView
+                android:id="@+id/textView_numeroLitri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10L"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView_numeroLitri"
+                app:layout_constraintStart_toEndOf="@+id/imageView_numeroLitri"
+                app:layout_constraintTop_toTopOf="@+id/imageView_numeroLitri" />
+
+            <ImageButton
+                android:id="@+id/imageButton_terminaProduzione"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/roundcorner"
+                android:contentDescription="@string/termina_produzione_birra"
+                android:src="@drawable/stop_circle_24px"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView_dataTerminazione"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView_numeroLitri"
+                app:srcCompat="@drawable/calendar_today_24" />
+
+            <TextView
+                android:id="@+id/textView_dataTerminazione"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="21/02/2024"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView_dataTerminazione"
+                app:layout_constraintStart_toEndOf="@+id/imageView_dataTerminazione"
+                app:layout_constraintTop_toTopOf="@+id/imageView_dataTerminazione" />
+
+            <RatingBar
+                android:id="@+id/ratingBar_mediaNoteDegustazione"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:isIndicator="true"
+                android:progressTint="@color/seed"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_dataTerminazione"
+                app:layout_constraintStart_toEndOf="@+id/textView_dataTerminazione"
+                app:layout_constraintTop_toTopOf="@+id/textView_dataTerminazione" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

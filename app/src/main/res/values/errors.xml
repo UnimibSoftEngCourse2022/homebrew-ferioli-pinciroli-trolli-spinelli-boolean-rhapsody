@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ricetta_fetch_failure">Si è verificato un errore nel recupero delle ricette</string>
+    <string name="ricetta_creation_failure">Si è verificato un errore nella creazione della ricetta</string>
+    <string name="ricetta_update_failure">Si è verificato un errore nell\'aggiornamento della ricetta</string>
+    <string name="ricetta_deletion_failure">Si è verificato un errore nell\'eliminazione della ricetta</string>
+    <string name="ingredienti_fetch_failure">Si è verificato un errore nel recupero degli ingredienti</string>
+    <string name="ingredienti_update_failure">Si è verificato un errore nell\'aggiornamento degli ingredienti</string>
+    <string name="birre_fetch_failure">Si è verificato un errore nel recupero delle birre</string>
+    <string name="birre_creation_failure">Si è verificato un errore nella creazione della birra</string>
+    <string name="birre_update_failure">Si è verificato un errore nell\'aggiornamento della birra</string>
+    <string name="birre_deletion_failure">Si è verificato un errore nell\'eliminazione della birra</string>
+    <string name="attrezzi_fetch_failure">Si è verificato un errore nel recupero degli attrezzi</string>
+    <string name="attrezzi_creation_failure">Si è verificato un errore nella creazione dell\'attrezzo</string>
+    <string name="attrezzi_update_failure">Si è verificato un errore nell\'aggiornamento dell\'attrezzo</string>
+    <string name="attrezzi_deletion_failure">Si è verificato un errore nell\'eliminazione dell\'attrezzo</string>
+    <string name="attrezzo_tipologia_mancante">Non è stato possibile individuare gli attrezzi necessari</string>
+    <string name="attrezzo_in_uso">L\'attrezzo è attualmente in uso</string>
+    <string name="nota_creation_failure">Si è verificato un errore nella creazione della nota</string>
+    <string name="nota_fetch_failure">Si è verificato un errore nel recupero delle note</string>
+
+</resources>

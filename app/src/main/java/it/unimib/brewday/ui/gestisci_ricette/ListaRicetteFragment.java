@@ -27,24 +27,21 @@ import java.util.List;
 import it.unimib.brewday.R;
 import it.unimib.brewday.model.Ricetta;
 import it.unimib.brewday.model.Risultato;
+import it.unimib.brewday.ui.gestione_birra.InserisciLitriDialog;
+import it.unimib.brewday.util.RegistroErrori;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class ListaRicetteFragment extends Fragment {
 
-    List<Ricetta> listaRicette;
-    RicetteViewModel ricettaViewModel;
-    RicetteRecyclerViewAdapter ricetteRecyclerViewAdapter;
-    RecyclerView recyclerViewRicette;
-    String ricettaRimossaMessaggio ;
-    Ricetta ricettaRimossa;
+    private List<Ricetta> listaRicette;
+    private RicetteViewModel ricettaViewModel;
+    private AdapterRecyclerViewRicette adapterRecyclerViewRicette;
+    private RecyclerView recyclerViewRicette;
+    private String ricettaRimossaMessaggio ;
+    private Ricetta ricettaRimossa;
 
     public ListaRicetteFragment() {
         // Required empty public constructor
-    }
-
-    public static ListaRicetteFragment newInstance() {
-
-        return new ListaRicetteFragment();
     }
 
     @Override
@@ -78,7 +75,11 @@ public class ListaRicetteFragment extends Fragment {
                 this.listaRicette.clear();
                 this.listaRicette.addAll(((Risultato.ListaRicetteSuccesso) risultato).getRicette());
 
-                ricetteRecyclerViewAdapter.notifyDataSetChanged();
+                adapterRecyclerViewRicette.notifyDataSetChanged();
+            }
+            else{
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 
@@ -86,13 +87,17 @@ public class ListaRicetteFragment extends Fragment {
 
         ricettaViewModel.getDeleteRicettaRisultato().observe(getViewLifecycleOwner(), risultato -> {
             if (risultato.isSuccessful()){
-                ricetteRecyclerViewAdapter.notifyDataSetChanged();
+                adapterRecyclerViewRicette.notifyDataSetChanged();
+            }
+            else{
+                String errore = ((Risultato.Errore) risultato).getMessaggio();
+                Snackbar.make(view, getString(RegistroErrori.getInstance().getErrore(errore)), BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 
 
-        ricetteRecyclerViewAdapter = new RicetteRecyclerViewAdapter(listaRicette, getContext(),
-                new RicetteRecyclerViewAdapter.OnItemClickListener() {
+        adapterRecyclerViewRicette = new AdapterRecyclerViewRicette(listaRicette, getContext(),
+                new AdapterRecyclerViewRicette.OnItemClickListener() {
                     @Override
                     public void onElementoRicettaClick(Ricetta ricetta) {
                         ListaRicetteFragmentDirections.ActionListaRicetteFragmentToRicettaDettagliataFragment action =
@@ -102,7 +107,8 @@ public class ListaRicetteFragment extends Fragment {
 
                     @Override
                     public void onAggiungiRicettaClick(Ricetta ricetta) {
-                        //vuoto
+                        InserisciLitriDialog litriDialog = new InserisciLitriDialog(ricetta, view, true );
+                        litriDialog.show(getParentFragmentManager(), "Scegli litri birra da preparare");
                     }
                 }
         );
@@ -112,7 +118,7 @@ public class ListaRicetteFragment extends Fragment {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerViewRicette);
         recyclerViewRicette.setLayoutManager(layoutManager);
-        recyclerViewRicette.setAdapter(ricetteRecyclerViewAdapter);
+        recyclerViewRicette.setAdapter(adapterRecyclerViewRicette);
 
         creaRicettaButton.setOnClickListener(v ->
                 Navigation.findNavController(requireView()).navigate(R.id.action_listaRicetteFragment_to_creaRicettaFragment));
@@ -135,7 +141,7 @@ public class ListaRicetteFragment extends Fragment {
                     ricettaRimossaMessaggio = "Rimossa la ricetta "+listaRicette.get(posizione).getNome();
                     listaRicette.remove(posizione);
                     ricettaViewModel.deleteRicetta(ricettaRimossa);
-                    ricetteRecyclerViewAdapter.notifyItemRemoved(posizione);
+                    adapterRecyclerViewRicette.notifyItemRemoved(posizione);
                     Snackbar.make(recyclerViewRicette, ricettaRimossaMessaggio, BaseTransientBottomBar.LENGTH_SHORT).show();
 
             }
@@ -146,9 +152,9 @@ public class ListaRicetteFragment extends Fragment {
             new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
 
                     .addSwipeLeftBackgroundColor(R.color.md_theme_light_error)
-                    .addSwipeLeftActionIcon(R.drawable.baseline_delete_outline_24)
+                    .addSwipeLeftActionIcon(R.drawable.delete_24px)
                     .addBackgroundColor(ContextCompat.getColor(getContext(), R.color.md_theme_light_error))
-                    .addActionIcon(R.drawable.baseline_delete_outline_24)
+                    .addActionIcon(R.drawable.delete_24px)
                     .create()
                     .decorate();
 

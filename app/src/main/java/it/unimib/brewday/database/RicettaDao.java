@@ -15,7 +15,7 @@ import it.unimib.brewday.model.IngredienteRicetta;
 public interface RicettaDao {
 
     @Query("SELECT * FROM ricetta")
-    List<Ricetta> getRicette();
+    List<Ricetta> getAllRicette();
 
     @Insert
     long insertRicetta(Ricetta ricetta);
@@ -31,6 +31,9 @@ public interface RicettaDao {
                     "FROM IngredienteRicetta WHERE idRicetta = :idRicetta ORDER BY tipoIngrediente ASC"
     )
     List<IngredienteRicetta> getIngredientiRicetta(long idRicetta);
+
+    @Query("SELECT * FROM IngredienteRicetta")
+    List<IngredienteRicetta> getAllIngredientiRicetta();
 
     @Insert
     long[] insertIngredientiRicetta(List<IngredienteRicetta> listaIngredientiRicetta);
