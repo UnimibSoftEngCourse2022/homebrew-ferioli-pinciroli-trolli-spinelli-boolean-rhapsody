@@ -30,7 +30,7 @@ Per installare ed eseguire l'applicazione:
 3. Aggiungere un emulatore
    - Nella barra in alto Tools &rarr; Device Manager
    - Nella finestra Device Manager premere sull'icona + posta in alto a sinistra
-   - Selezionare un dispositivo e premere su "Next" in basso
+   - Selezionare un dispositivo (si consiglia di selezionare Pixel 7) e premere su "Next" in basso
    - Selezionare un'immagine di sistema (si consiglia di selezionare UpsideDownCake, API level 34) e premere su "Next" in basso
    - Scegliere il nome per l'emulatore appena creato (si consiglia di lasciare le impostazioni default) e premere su "Finish" in basso
 4. Avviare l'applicazione
