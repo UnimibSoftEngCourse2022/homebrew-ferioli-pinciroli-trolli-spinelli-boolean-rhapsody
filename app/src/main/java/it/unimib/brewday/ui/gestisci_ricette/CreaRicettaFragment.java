@@ -2,10 +2,13 @@ package it.unimib.brewday.ui.gestisci_ricette;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
+import static it.unimib.brewday.ui.Topbar.gestisciTopbar;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -39,8 +42,6 @@ public class CreaRicettaFragment extends Fragment {
 
     private  FragmentCreaRicettaBinding fragmentCreaRicettaBinding;
 
-    private List<Ingrediente> listaIngredientiRicetta;
-
     private RicetteViewModel ricettaViewModel;
 
     public CreaRicettaFragment() {
@@ -61,13 +62,17 @@ public class CreaRicettaFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //Gestione Topbar
+        gestisciTopbar((AppCompatActivity) requireActivity());
+
         ListView listViewIngredientiRicetta = fragmentCreaRicettaBinding.listViewIngredrientiRicetta;
         Button creaRicettaButton = fragmentCreaRicettaBinding.buttonCreaRicetta;
         EditText numeroLitriBirra = fragmentCreaRicettaBinding.editNumberNumeroLitriBirra;
         EditText nomeRicetta = fragmentCreaRicettaBinding.editTextNomeRicetta;
 
         ListaIngredienti listaIngredienti = new ListaIngredienti();
-        listaIngredientiRicetta = listaIngredienti.getListaIngredienti();
+        List<Ingrediente> listaIngredientiRicetta = listaIngredienti.getListaIngredienti();
 
         AdapterListViewIngredienti adapterListViewListaIngredientiRicetta = new AdapterListViewIngredienti(
                 getContext(), 0, listaIngredientiRicetta, R.layout.lista_ingredienti_singoli,
